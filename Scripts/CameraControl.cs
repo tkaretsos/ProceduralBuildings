@@ -29,7 +29,6 @@ public class CameraControl : MonoBehaviour
 											 new Vector3(-1,0,-1),
 											 new Vector3(1,0,-1),
 										 	 BuildingType.Neoclassical);
-		mesh.test();
 	}
 	
 	
