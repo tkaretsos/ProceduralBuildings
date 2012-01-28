@@ -1,5 +1,3 @@
-#pragma once
-
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -36,14 +34,14 @@ public class Face
 	
 	
 	// constructors
-	public Face(BuildingMesh parent, Vector3 dl, Vector3 dr)
+	public Face(BuildingMesh parent, Vector3 dr, Vector3 dl)
 	{
 		_parent = parent;
 		
-		_boundaries.Add(dl);
 		_boundaries.Add(dr);
-		_boundaries.Add(new Vector3(dr.x, dr.y + _parent.Height, dr.z));
+		_boundaries.Add(dl);
 		_boundaries.Add(new Vector3(dl.x, dl.y + _parent.Height, dl.z));
+		_boundaries.Add(new Vector3(dr.x, dr.y + _parent.Height, dr.z));
 		
 		this.CalculateNormal();
 		this.CalculateWidth();
@@ -61,7 +59,8 @@ public class Face
 									_boundaries[3].y - _boundaries[0].y,
 									_boundaries[3].z - _boundaries[0].z);
 		
-		_normal = Vector3.Cross(edge2, edge1).normalized;
+		_normal = Vector3.Cross(edge1, edge2);
+		_normal.Normalize();
 	}
 	
 	
@@ -71,5 +70,16 @@ public class Face
 								   0f,
 								   _boundaries[0].z - _boundaries[1].z);
 		_width = edge.magnitude;
+	}
+	
+	
+	public void Draw()
+	{
+		GL.PushMatrix();
+		GL.Begin(GL.QUADS);
+		foreach (Vector3 v in _boundaries)
+			GL.Vertex(v);
+		GL.End();
+		GL.PopMatrix();
 	}
 }
