@@ -18,17 +18,23 @@ public class CameraControl : MonoBehaviour
 	[SerializeField]
 	private float _rotationSpeed = 200.0f;
 	
+	[SerializeField]
+	private Material mat;
+	
 	private float _x_rotation = 0.0f;
 	private float _y_rotation = 0.0f;
 	
 	
-	void Start ()
+	void OnPostRender ()
 	{		
 		BuildingMesh mesh = new BuildingMesh(new Vector3(1,0,1), 
-											 new Vector3(-1,0,1),
-											 new Vector3(-1,0,-1),
 											 new Vector3(1,0,-1),
+											 new Vector3(-1,0,-1),
+											 new Vector3(-1,0,1),
 										 	 BuildingType.Neoclassical);
+		
+		mesh.ConstructFaces();
+		mesh.Draw(mat);
 	}
 	
 	
