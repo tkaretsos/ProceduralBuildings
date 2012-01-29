@@ -34,7 +34,7 @@ public class Face
 	
 	
 	// constructors
-	public Face(BuildingMesh parent, Vector3 dr, Vector3 dl)
+	public Face (BuildingMesh parent, Vector3 dr, Vector3 dl)
 	{
 		_parent = parent;
 		
@@ -49,7 +49,7 @@ public class Face
 	
 	
 	// methods
-	private void CalculateNormal()
+	private void CalculateNormal ()
 	{
 		Vector3 edge1 = new Vector3(_boundaries[1].x - _boundaries[0].x,
 									_boundaries[1].y - _boundaries[0].y,
@@ -64,7 +64,7 @@ public class Face
 	}
 	
 	
-	private void CalculateWidth()
+	private void CalculateWidth ()
 	{
 		Vector3 edge = new Vector3(_boundaries[0].x - _boundaries[1].x,
 								   0f,
@@ -73,7 +73,7 @@ public class Face
 	}
 	
 	
-	public void Draw()
+	public void Draw ()
 	{
 		GL.PushMatrix();
 		GL.Begin(GL.QUADS);
