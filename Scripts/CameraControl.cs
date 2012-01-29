@@ -19,7 +19,7 @@ public class CameraControl : MonoBehaviour
 	private float _rotationSpeed = 200.0f;
 	
 	[SerializeField]
-	private Material mat;
+	private Material _primitiveMaterial;
 	
 	private float _x_rotation = 0.0f;
 	private float _y_rotation = 0.0f;
@@ -34,7 +34,7 @@ public class CameraControl : MonoBehaviour
 										 	 BuildingType.Neoclassical);
 		
 		mesh.ConstructFaces();
-		mesh.Draw(mat);
+		mesh.Draw(_primitiveMaterial);
 	}
 	
 	
