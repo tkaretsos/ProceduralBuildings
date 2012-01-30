@@ -68,7 +68,7 @@ public class BuildingMesh
 	
 	
 	// methods
-	public void ConstructFaces ()
+	public virtual void ConstructFaces ()
 	{
 		_faces.Add(new Face(this, _boundaries[0], _boundaries[1]));
 		_faces.Add(new Face(this, _boundaries[1], _boundaries[2]));
