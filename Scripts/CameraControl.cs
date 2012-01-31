@@ -24,16 +24,19 @@ public class CameraControl : MonoBehaviour
 	private float _x_rotation = 0.0f;
 	private float _y_rotation = 0.0f;
 	
+	private Neoclassical mesh;
+	
+	void Start ()
+	{
+		mesh = new Neoclassical(new Vector3(1,0,1), 
+							 	new Vector3(1,0,-1),
+							 	new Vector3(-1,0,-1),
+							 	new Vector3(-1,0,1));
+		mesh.ConstructFaces();
+	}
 	
 	void OnPostRender ()
 	{		
-		BuildingMesh mesh = new BuildingMesh(new Vector3(1,0,1), 
-											 new Vector3(1,0,-1),
-											 new Vector3(-1,0,-1),
-											 new Vector3(-1,0,1),
-										 	 BuildingType.Neoclassical);
-		
-		mesh.ConstructFaces();
 		mesh.Draw(_primitiveMaterial);
 	}
 	
@@ -73,6 +76,9 @@ public class CameraControl : MonoBehaviour
 				_cameraMode = CameraMode.Horizontal;
 			else
 				_cameraMode = CameraMode.Free;
+		
+		if (Input.GetKeyUp(KeyCode.R))
+			Debug.Log(Util.RollDice(new float[] {0.1f, 0.2f, 0.7f}, new int[] {4, 11, 20}, 4));
 	}
 	
 	private void ClampCamera ()
