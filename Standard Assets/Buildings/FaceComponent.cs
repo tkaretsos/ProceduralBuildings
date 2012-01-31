@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 public class FaceComponent
 {
+#pragma warning disable 0414
 	private readonly Face _parent;
 	private float _width;
 	private float _height;
 	private List<Vector3> _boundaries = new List<Vector3>();
+#pragma warning restore 0414
 	
 	public FaceComponent (Face parent, float width, float height, Vector3 dl, Vector3 dr)
 	{

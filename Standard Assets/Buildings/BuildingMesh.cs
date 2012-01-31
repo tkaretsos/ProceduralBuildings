@@ -24,7 +24,7 @@ public class BuildingMesh
 	public float FloorHeight
 	{
 		get { return _floor_height; }
-		set 
+		protected set 
 		{
 			_floor_height = value;
 			if (_floor_number > 0)
@@ -36,7 +36,7 @@ public class BuildingMesh
 	public int FloorNumber
 	{
 		get { return _floor_number; }
-		set
+		protected set
 		{
 			_floor_number = value;
 			if (_floor_height > 0f)
