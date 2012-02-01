@@ -26,14 +26,16 @@ public class CameraControl : MonoBehaviour
 	
 	private Neoclassical mesh;
 	
+	
 	void Start ()
 	{
-		mesh = new Neoclassical(new Vector3(1,0,1), 
-							 	new Vector3(1,0,-1),
-							 	new Vector3(-1,0,-1),
-							 	new Vector3(-1,0,1));
+		mesh = new Neoclassical(new Vector3( 4f + Random.Range(0.5f, 1.5f), 0,  1.5f + Random.Range(0.5f, 1.5f)),
+								new Vector3( 4f + Random.Range(0.5f, 1.5f), 0, -1.5f - Random.Range(0.5f, 1.5f)),
+								new Vector3(-4f - Random.Range(0.5f, 1.5f), 0, -1.5f - Random.Range(0.5f, 1.5f)), 
+								new Vector3(-4f - Random.Range(0.5f, 1.5f), 0,  1.5f + Random.Range(0.5f, 1.5f)));
 		mesh.ConstructFaces();
 	}
+	
 	
 	void OnPostRender ()
 	{		
@@ -78,7 +80,7 @@ public class CameraControl : MonoBehaviour
 				_cameraMode = CameraMode.Free;
 		
 		if (Input.GetKeyUp(KeyCode.R))
-			Debug.Log(Util.RollDice(new float[] {0.1f, 0.2f, 0.7f}, new int[] {4, 11, 20}, 4));
+			Debug.Log(Util.RollDice(new float[] {0.1f, 0.2f, 0.7f}, new int[] {4, 11, 20}));
 	}
 	
 	private void ClampCamera ()
