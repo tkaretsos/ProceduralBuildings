@@ -3,7 +3,21 @@ using System;
 
 public class Util
 {
-	
+	/// <summary>
+	/// Rolls a weighted dice.
+	/// </summary>
+	/// <returns>
+	/// The result of the dice (random).
+	/// </returns>
+	/// <param name='chances'>
+	/// The chances for each possible result.
+	/// </param>
+	/// <param name='numbers'>
+	/// A set of the possible result values.
+	/// </param>
+	/// <param name='precision'>
+	/// The maximum of decimal digits that a number has.
+	/// </param>
 	static public int RollDice (float[] chances, int[] numbers = null, int precision = 2)
 	{
 		float sum = 0f;
@@ -44,8 +58,8 @@ public class Util
 		return expanded[new System.Random().Next(precision)];
 	}
 	
-//	static public void PrintVector (string s, Vector3 v)
-//	{
-//		Debug.Log(s + " " + v.x + " " + v.y + " " + v.z);
-//	}
+	static public void PrintVector (string s, Vector3 v)
+	{
+		Debug.Log(s + " " + v.x + " " + v.y + " " + v.z);
+	}
 }

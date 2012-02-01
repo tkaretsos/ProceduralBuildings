@@ -4,29 +4,47 @@ using System.Collections.Generic;
 public class Face
 {
 	// fields
-#pragma warning disable 0414
+	
 	private readonly BuildingMesh _parent;
 	private Vector3 _normal;
 	private float _width;
 	private bool _is_free;
 	private List<Vector3> _boundaries = new List<Vector3>();
+#pragma warning disable 0414
 	private List<FaceComponent> _face_components = new List<FaceComponent>();
 #pragma warning restore 0414
 	
 	
 	// properties
+
+	/// <summary>
+	/// Gets the parent mesh.
+	/// </summary>
+	/// <value>
+	/// The parent mesh.
+	/// </value>
 	public BuildingMesh Parent
 	{
 		get { return _parent; }
 	}
 	
-	
+	/// <summary>
+	/// Gets the normal of this face.
+	/// </summary>
+	/// <value>
+	/// The normal.
+	/// </value>
 	public Vector3 Normal
 	{
 		get { return _normal; }
 	}
 	
-	
+	/// <summary>
+	/// Gets the width of this face.
+	/// </summary>
+	/// <value>
+	/// The width.
+	/// </value>
 	public float Width
 	{
 		get { return _width; }
@@ -34,6 +52,20 @@ public class Face
 	
 	
 	// constructors
+	
+	/// <summary>
+	/// Initializes a new instance of the <see cref="Face"/> class,
+	/// from the given points in clockwise order.
+	/// </summary>
+	/// <param name='parent'>
+	/// The parent mesh of this face.
+	/// </param>
+	/// <param name='dr'>
+	/// Down-right point of the face.
+	/// </param>
+	/// <param name='dl'>
+	/// Down-left point of the face.
+	/// </param>
 	public Face (BuildingMesh parent, Vector3 dr, Vector3 dl)
 	{
 		_parent = parent;
@@ -49,6 +81,10 @@ public class Face
 	
 	
 	// methods
+	
+	/// <summary>
+	/// Calculates the normal.
+	/// </summary>
 	private void CalculateNormal ()
 	{
 		Vector3 edge1 = new Vector3(_boundaries[1].x - _boundaries[0].x,
@@ -63,7 +99,9 @@ public class Face
 		_normal.Normalize();
 	}
 	
-	
+	/// <summary>
+	/// Calculates the width.
+	/// </summary>
 	private void CalculateWidth ()
 	{
 		Vector3 edge = new Vector3(_boundaries[0].x - _boundaries[1].x,
@@ -72,7 +110,9 @@ public class Face
 		_width = edge.magnitude;
 	}
 	
-	
+	/// <summary>
+	/// Draw the face.
+	/// </summary>
 	public void Draw ()
 	{
 		GL.PushMatrix();
