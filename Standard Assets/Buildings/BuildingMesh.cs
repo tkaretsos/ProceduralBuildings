@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 public class BuildingMesh
 {
@@ -69,7 +70,12 @@ public class BuildingMesh
 	public BuildingType Type
 	{
 		get { return _type; }
-	}	
+	}
+	
+	public ReadOnlyCollection<Face> Faces
+	{
+		get { return _faces.AsReadOnly(); }
+	}
 	
 	
 	// constructors
@@ -116,10 +122,10 @@ public class BuildingMesh
 	/// </summary>
 	public virtual void ConstructFaces ()
 	{
-		_faces.Add(new Face(this, _boundaries[0], _boundaries[1]));
-		_faces.Add(new Face(this, _boundaries[1], _boundaries[2])); 
-		_faces.Add(new Face(this, _boundaries[2], _boundaries[3]));
-		_faces.Add(new Face(this, _boundaries[3], _boundaries[0]));
+//		_faces.Add(new Face(this, _boundaries[0], _boundaries[1]));
+		_faces.Add(new Face(this, _boundaries[1], _boundaries[2]));
+//		_faces.Add(new Face(this, _boundaries[2], _boundaries[3]));
+//		_faces.Add(new Face(this, _boundaries[3], _boundaries[0]));
 	}
 	
 	/// <summary>
