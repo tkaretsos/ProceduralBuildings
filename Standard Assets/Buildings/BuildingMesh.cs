@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System;
 
 public class BuildingMesh
 {
@@ -40,7 +41,14 @@ public class BuildingMesh
 		{
 			_floor_height = value;
 			if (_floor_number > 0)
+			{
 				_height = _floor_height * _floor_number;
+				if (_boundaries.Count == 4)
+				{
+					for (int i = 0; i < 4; ++i)
+						_boundaries.Add(_boundaries[i] + new Vector3(0f, _height, 0f));
+				}
+			}
 		}
 	}
 	
@@ -57,7 +65,14 @@ public class BuildingMesh
 		{
 			_floor_number = value;
 			if (_floor_height > 0f)
+			{
 				_height = _floor_height * _floor_number;
+				if (_boundaries.Count == 4)
+				{
+					for (int i = 0; i < 4; ++i)
+						_boundaries.Add(_boundaries[i] + new Vector3(0f, _height, 0f));
+				}
+			}
 		}
 	}
 	
@@ -71,10 +86,26 @@ public class BuildingMesh
 	{
 		get { return _type; }
 	}
-	
+
 	public ReadOnlyCollection<Face> Faces
 	{
 		get { return _faces.AsReadOnly(); }
+	}
+
+	public ReadOnlyCollection<Vector3> Boundaries
+	{
+		get { return _boundaries.AsReadOnly(); }
+	}
+	
+	public Vector3[] BoundariesArray
+	{
+		get
+		{
+			Vector3[] v = new Vector3[Boundaries.Count];
+			for (int i = 0; i < Boundaries.Count; ++i)
+				v[i] = Boundaries[i];
+			return v;
+		}
 	}
 	
 	
@@ -108,8 +139,7 @@ public class BuildingMesh
 		_boundaries.Add(p4);
 		_type = type;
 		
-		//TODO set height to 0 when neoclassical is implemented
-		_height = 6f;
+		_height = 0f;
 		_floor_height = 0f;
 		_floor_number = 0;
 	}
