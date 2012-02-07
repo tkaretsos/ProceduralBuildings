@@ -16,13 +16,18 @@ public class CameraControl : MonoBehaviour
 	private float _movementSpeed = 10.0f;
 	
 	[SerializeField]
-	private float _rotationSpeed = 200.0f;
+	private float _rotationSpeed = 3.0f;
 	
 	[SerializeField]
 	private Material _primitiveMaterial;
 	
 	private float _x_rotation = 0.0f;
 	private float _y_rotation = 0.0f;
+	
+	private float _last_mouse_x;
+	private float _last_mouse_y;
+	private float _mouse_x;
+	private float _mouse_y;
 	
 	private Neoclassical mesh;
 	
@@ -34,21 +39,39 @@ public class CameraControl : MonoBehaviour
 								new Vector3(-4f - Random.Range(0.5f, 1.5f), 0, -1.5f - Random.Range(0.5f, 1.5f)), 
 								new Vector3(-4f - Random.Range(0.5f, 1.5f), 0,  1.5f + Random.Range(0.5f, 1.5f)));
 		mesh.ConstructFaces();
+		mesh.ConstructFaceComponents();
+		
+		_last_mouse_x = Input.GetAxis("Mouse X");
+		_last_mouse_y = Input.GetAxis("Mouse Y");
+		_mouse_x = _last_mouse_x;
+		_mouse_y = _last_mouse_y;
 	}
 	
 	
 	void OnPostRender ()
-	{		
+	{
+		GL.Color(Color.gray);
+		
 		mesh.Draw(_primitiveMaterial);
 	}
 	
 	
 	void Update ()
 	{
-		_y_rotation += Input.GetAxis("Mouse X") * _rotationSpeed * Time.deltaTime;
-		_x_rotation += Input.GetAxis("Mouse Y") * _rotationSpeed * Time.deltaTime;
+//		_y_rotation += Input.GetAxis("Mouse X") * _rotationSpeed;
+//		_x_rotation += Input.GetAxis("Mouse Y") * _rotationSpeed;
+		_mouse_x = Input.GetAxis("Mouse X");
+		_mouse_y = Input.GetAxis("Mouse Y");
+		_y_rotation += Mathf.Lerp(_last_mouse_x * _rotationSpeed, _mouse_x * _rotationSpeed, Time.smoothDeltaTime);
+		_x_rotation += Mathf.Lerp(_last_mouse_y * _rotationSpeed, _mouse_y * _rotationSpeed, Time.smoothDeltaTime);
+		_last_mouse_x = _mouse_x;
+		_last_mouse_y = _mouse_y;
+		
 		ClampCamera();
 		camera.transform.eulerAngles = new Vector3(-_x_rotation, _y_rotation, 0.0f);
+//		camera.transform.rotation = Quaternion.Slerp(camera.transform.rotation,
+//													 Quaternion.Euler(new Vector3(-_x_rotation, _y_rotation, 0.0f)),
+//													 Time.time);
 		
 		if (Input.GetAxis("Vertical") != 0.0f)
 		{
@@ -81,6 +104,8 @@ public class CameraControl : MonoBehaviour
 		
 		if (Input.GetKeyUp(KeyCode.R))
 			Debug.Log(Util.RollDice(new float[] {0.1f, 0.2f, 0.7f}, new int[] {4, 11, 20}));
+		
+		
 	}
 	
 	private void ClampCamera ()
