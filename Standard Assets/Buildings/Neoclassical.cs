@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class Neoclassical : BuildingMesh
+public class Neoclassical : Building
 {
 	// fields
 	private const float _window_width_min = 1.5f;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System;
 
-public class BuildingMesh
+public class Building
 {
 	// fields
 	
@@ -112,7 +112,7 @@ public class BuildingMesh
 	// constructors
 	
 	/// <summary>
-	/// Initializes a new instance of the <see cref="BuildingMesh"/> class.
+	/// Initializes a new instance of the <see cref="Building"/> class.
 	/// The given Vector3 points must be given in clockwise order (required
 	/// for the correct calculation of the surface's normal).
 	/// </summary>
@@ -131,7 +131,7 @@ public class BuildingMesh
 	/// <param name='type'>
 	/// The type of the building.
 	/// </param>
-	public BuildingMesh (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, BuildingType type)
+	public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, BuildingType type)
 	{
 		_boundaries.Add(p1);
 		_boundaries.Add(p2);

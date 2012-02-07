@@ -6,7 +6,7 @@ public class Face
 {
 	// fields
 	
-	private readonly BuildingMesh _parent;
+	private readonly Building _parent;
 	private Vector3 _normal;
 	private Vector3 _right;
 	private float _width;
@@ -25,7 +25,7 @@ public class Face
 	/// <value>
 	/// The parent mesh.
 	/// </value>
-	public BuildingMesh Parent
+	public Building Parent
 	{
 		get { return _parent; }
 	}
@@ -78,7 +78,7 @@ public class Face
 	/// <param name='dl'>
 	/// Down-left point of the face.
 	/// </param>
-	public Face (BuildingMesh parent, Vector3 dr, Vector3 dl)
+	public Face (Building parent, Vector3 dr, Vector3 dl)
 	{
 		_parent = parent;
 		
