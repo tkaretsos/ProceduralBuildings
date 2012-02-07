@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 public class Face
 {
@@ -7,6 +8,7 @@ public class Face
 	
 	private readonly BuildingMesh _parent;
 	private Vector3 _normal;
+	private Vector3 _right;
 	private float _width;
 	private bool _is_free;
 	private List<Vector3> _boundaries = new List<Vector3>();
@@ -39,6 +41,11 @@ public class Face
 		get { return _normal; }
 	}
 	
+	public Vector3 Right
+	{
+		get { return _right; }
+	}
+	
 	/// <summary>
 	/// Gets the width of this face.
 	/// </summary>
@@ -48,6 +55,11 @@ public class Face
 	public float Width
 	{
 		get { return _width; }
+	}
+	
+	public ReadOnlyCollection<Vector3> Boundaries
+	{
+		get { return _boundaries.AsReadOnly(); }
 	}
 	
 	
@@ -87,16 +99,17 @@ public class Face
 	/// </summary>
 	private void CalculateNormal ()
 	{
-		Vector3 edge1 = new Vector3(_boundaries[1].x - _boundaries[0].x,
-									_boundaries[1].y - _boundaries[0].y,
-									_boundaries[1].z - _boundaries[0].z);
+		_right = new Vector3(_boundaries[0].x - _boundaries[1].x,
+							 _boundaries[0].y - _boundaries[1].y,
+							 _boundaries[0].z - _boundaries[1].z);
 		
-		Vector3 edge2 = new Vector3(_boundaries[3].x - _boundaries[0].x,
-									_boundaries[3].y - _boundaries[0].y,
-									_boundaries[3].z - _boundaries[0].z);
+//		Vector3 edge2 = new Vector3(_boundaries[0].x - _boundaries[3].x,
+//									_boundaries[0].y - _boundaries[3].y,
+//									_boundaries[0].z - _boundaries[3].z);
 		
-		_normal = Vector3.Cross(edge1, edge2);
+		_normal = Vector3.Cross(Vector3.up, _right);
 		_normal.Normalize();
+		_right.Normalize();
 	}
 	
 	/// <summary>
@@ -111,15 +124,28 @@ public class Face
 	}
 	
 	/// <summary>
+	/// Adds a face component (window, balcony, door).
+	/// </summary>
+	/// <param name='component'>
+	/// Face component.
+	/// </param>
+	public void AddFaceComponent (FaceComponent component)
+	{
+		_face_components.Add(component);
+	}
+	
+	/// <summary>
 	/// Draw the face.
 	/// </summary>
 	public void Draw ()
 	{
-		GL.PushMatrix();
-		GL.Begin(GL.QUADS);
-		foreach (Vector3 v in _boundaries)
-			GL.Vertex(v);
-		GL.End();
-		GL.PopMatrix();
+//		GL.PushMatrix();
+//		GL.Begin(GL.QUADS);
+//		foreach (Vector3 v in _boundaries)
+//			GL.Vertex(v);
+//		GL.End();
+//		GL.PopMatrix();
+		foreach (FaceComponent fc in _face_components)
+			fc.Draw();
 	}
 }
