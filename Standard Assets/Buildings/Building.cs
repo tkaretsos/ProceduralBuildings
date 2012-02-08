@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System;
+
+using Exception = System.Exception;
 
 public class Building
 {
@@ -152,10 +153,16 @@ public class Building
 	/// </summary>
 	public virtual void ConstructFaces ()
 	{
-//		_faces.Add(new Face(this, _boundaries[0], _boundaries[1]));
+		_faces.Add(new Face(this, _boundaries[0], _boundaries[1]));
 		_faces.Add(new Face(this, _boundaries[1], _boundaries[2]));
-//		_faces.Add(new Face(this, _boundaries[2], _boundaries[3]));
-//		_faces.Add(new Face(this, _boundaries[3], _boundaries[0]));
+		_faces.Add(new Face(this, _boundaries[2], _boundaries[3]));
+		_faces.Add(new Face(this, _boundaries[3], _boundaries[0]));
+	}
+	
+
+	public virtual void ConstructFaceComponents ()
+	{
+		throw new Exception("Building.ConstructFaceComponents() should never be called.");		
 	}
 	
 	/// <summary>
@@ -171,8 +178,8 @@ public class Building
 		// draw roof
 		GL.PushMatrix();
 		GL.Begin(GL.QUADS);
-		foreach (Vector3 v in _boundaries)
-			GL.Vertex(v + (new Vector3(0, _height, 0)));
+		for (int i = 4; i < 8; ++i)
+			GL.Vertex(_boundaries[i]);
 		GL.End();
 		GL.PopMatrix();	
 		
