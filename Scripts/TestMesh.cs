@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class TestMesh : MonoBehaviour
 {
@@ -19,7 +18,19 @@ public class TestMesh : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		mesh = new Mesh();
+		CreateNeoclassical();
+	}
+	
+	// Update is called once per frame
+	void Update ()
+	{
+	
+	}
+
+
+	void CreateNeoclassical()
+	{
+				mesh = new Mesh();
 		
 //		meshobj = (GameObject) GameObject.Instantiate(empty, new Vector3(0f, 0f, 0f), Quaternion.identity);
 		meshobj = new GameObject();
@@ -28,9 +39,9 @@ public class TestMesh : MonoBehaviour
 		mr.sharedMaterial = material;
 		
 		Neoclassical neo = new Neoclassical(new Vector3( 4f + Random.Range(0.5f, 1.5f), 0,  1.5f + Random.Range(0.5f, 1.5f)),
-											new Vector3( 4f + Random.Range(0.5f, 1.5f), 0, -1.5f - Random.Range(0.5f, 1.5f)),
-											new Vector3(-4f - Random.Range(0.5f, 1.5f), 0, -1.5f - Random.Range(0.5f, 1.5f)), 
-											new Vector3(-4f - Random.Range(0.5f, 1.5f), 0,  1.5f + Random.Range(0.5f, 1.5f)));
+																				new Vector3( 4f + Random.Range(0.5f, 1.5f), 0, -1.5f - Random.Range(0.5f, 1.5f)),
+																				new Vector3(-4f - Random.Range(0.5f, 1.5f), 0, -1.5f - Random.Range(0.5f, 1.5f)),
+																				new Vector3(-4f - Random.Range(0.5f, 1.5f), 0,  1.5f + Random.Range(0.5f, 1.5f)));
 		neo.ConstructFaces();
 		
 		mesh.Clear();
@@ -55,11 +66,5 @@ public class TestMesh : MonoBehaviour
 		mesh.RecalculateNormals();
 		mesh.Optimize(); 		
 		mf.sharedMesh = mesh;
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
 	}
 }
