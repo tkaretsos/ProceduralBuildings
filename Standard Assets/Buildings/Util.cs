@@ -1,5 +1,6 @@
 using UnityEngine;
-using System;
+
+using Exception = System.Exception;
 
 public class Util
 {
