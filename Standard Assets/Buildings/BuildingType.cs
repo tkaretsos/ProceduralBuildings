@@ -1,5 +1,5 @@
 
 public enum BuildingType {
 	Neoclassical,
-	Normal
+	Default
 }
