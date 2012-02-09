@@ -28,11 +28,11 @@ public class FaceComponent
 	/// <param name='dr'>
 	/// Down-right point of the component.
 	/// </param>
-	public FaceComponent (Face parent, float width, float height, Vector3 dr, Vector3 dl)
+	public FaceComponent (Face parent, float width, Vector3 dr, Vector3 dl, float height_modifier = 1f)
 	{
 		_parent = parent;
 		_width = width;
-		_height = height;
+		_height = _parent.Parent.FloorHeight * height_modifier;
 		
 		_boundaries.Add(dr);
 		_boundaries.Add(dl);
