@@ -12,10 +12,8 @@ public class Face
 	private float _width;
 	private bool _is_free;
 	private List<Vector3> _boundaries = new List<Vector3>();
-#pragma warning disable 0414
 	private List<FaceComponent> _face_components = new List<FaceComponent>();
-#pragma warning restore 0414
-	
+
 	
 	// properties
 
@@ -56,6 +54,7 @@ public class Face
 	{
 		get { return _width; }
 	}
+
 	
 	public ReadOnlyCollection<Vector3> Boundaries
 	{
@@ -100,8 +99,8 @@ public class Face
 	private void CalculateNormal ()
 	{
 		_right = new Vector3(_boundaries[0].x - _boundaries[1].x,
-							 _boundaries[0].y - _boundaries[1].y,
-							 _boundaries[0].z - _boundaries[1].z);
+												 _boundaries[0].y - _boundaries[1].y,
+												 _boundaries[0].z - _boundaries[1].z);
 		
 //		Vector3 edge2 = new Vector3(_boundaries[0].x - _boundaries[3].x,
 //									_boundaries[0].y - _boundaries[3].y,
@@ -118,20 +117,29 @@ public class Face
 	private void CalculateWidth ()
 	{
 		Vector3 edge = new Vector3(_boundaries[0].x - _boundaries[1].x,
-								   0f,
-								   _boundaries[0].z - _boundaries[1].z);
+														   0f,
+														   _boundaries[0].z - _boundaries[1].z);
 		_width = edge.magnitude;
 	}
-	
-	/// <summary>
-	/// Adds a face component (window, balcony, door).
-	/// </summary>
-	/// <param name='component'>
-	/// Face component.
-	/// </param>
-	public void AddFaceComponent (FaceComponent component)
+
+
+	public void ConstructFaceComponents (float component_width, float inbetween_space)
 	{
-		_face_components.Add(component);
+		int components_no = Mathf.CeilToInt(_width / (component_width + inbetween_space));
+		float fixed_space = (_width - components_no * component_width) / (components_no + 1);
+
+		for (int floor = 0; floor < _parent.FloorNumber; ++floor)
+		{
+			float offset = fixed_space;
+			for (int i = 0; i < components_no; ++i)
+			{
+				Vector3 dr = _boundaries[0] - _right * offset + (new Vector3(0f, floor * _parent.FloorHeight, 0f));
+				Vector3 dl = dr - _right * component_width;
+				offset += component_width;
+				_face_components.Add(new FaceComponent(this, component_width, dr, dl, 3f / 5f));
+				offset += fixed_space;
+			}
+		}
 	}
 	
 	/// <summary>

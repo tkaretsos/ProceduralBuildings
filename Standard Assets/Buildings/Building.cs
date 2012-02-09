@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-using Exception = System.Exception;
+using Exception = System.Exception; 
 
 public class Building
 {

@@ -40,15 +40,8 @@ public sealed class Neoclassical : Building
 	
 	
 	// methods
-	
-	/// <summary>
-	/// Constructs the faces.
-	/// </summary>
-	public override void ConstructFaces ()
-	{
-		base.ConstructFaces();
-	}
-	
+
+
 	public override void ConstructFaceComponents ()
 	{
 		if (Faces.Count == 0) throw new Exception("There are no faces to construct the components.");
@@ -57,24 +50,7 @@ public sealed class Neoclassical : Building
 		float inbetween_space = Random.Range(_component_space_min, _component_space_max);
 		
 		foreach (Face face in Faces)
-		{
-			int components_no = GetComponentsNumber(face.Width, component_width, inbetween_space);
-			float effective_width = components_no * component_width;
-			float fixed_space = (face.Width - effective_width) / (components_no + 1);
-
-			for (int floor = 0; floor < this.FloorNumber; ++floor)
-			{
-				float offset = fixed_space;
-				for (int i = 0; i < components_no; ++i)
-				{
-					Vector3 dr = face.Boundaries[0] - face.Right * offset + (new Vector3(0f, floor * this.FloorHeight, 0f));
-          Vector3 dl = dr - face.Right * component_width;
-					offset += component_width;
-					face.AddFaceComponent(new FaceComponent(face, component_width, FloorHeight * 3 / 5, dr, dl));
-					offset += fixed_space;
-				}
-			}
-		}
+			face.ConstructFaceComponents(component_width, inbetween_space);
 	}
 	
 	/// <summary>
