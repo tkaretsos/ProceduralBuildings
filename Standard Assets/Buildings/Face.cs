@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 public class Face
 {
@@ -27,40 +26,7 @@ public class Face
 	{
 		get { return _parent; }
 	}
-	
-	/// <summary>
-	/// Gets the normal of this face.
-	/// </summary>
-	/// <value>
-	/// The normal.
-	/// </value>
-	public Vector3 Normal
-	{
-		get { return _normal; }
-	}
-	
-	public Vector3 Right
-	{
-		get { return _right; }
-	}
-	
-	/// <summary>
-	/// Gets the width of this face.
-	/// </summary>
-	/// <value>
-	/// The width.
-	/// </value>
-	public float Width
-	{
-		get { return _width; }
-	}
 
-	
-	public ReadOnlyCollection<Vector3> Boundaries
-	{
-		get { return _boundaries.AsReadOnly(); }
-	}
-	
 	
 	// constructors
 	
@@ -86,42 +52,18 @@ public class Face
 		_boundaries.Add(new Vector3(dl.x, dl.y + _parent.Height, dl.z));
 		_boundaries.Add(new Vector3(dr.x, dr.y + _parent.Height, dr.z));
 		
-		this.CalculateNormal();
-		this.CalculateWidth();
+		_right = new Vector3(_boundaries[0].x - _boundaries[1].x,
+												 0f,
+												 _boundaries[0].z - _boundaries[1].z);
+		_width = _right.magnitude;
+		_right.Normalize();
+
+		_normal = Vector3.Cross(Vector3.up, _right);
+		_normal.Normalize();
 	}
 	
 	
 	// methods
-	
-	/// <summary>
-	/// Calculates the normal.
-	/// </summary>
-	private void CalculateNormal ()
-	{
-		_right = new Vector3(_boundaries[0].x - _boundaries[1].x,
-												 _boundaries[0].y - _boundaries[1].y,
-												 _boundaries[0].z - _boundaries[1].z);
-		
-//		Vector3 edge2 = new Vector3(_boundaries[0].x - _boundaries[3].x,
-//									_boundaries[0].y - _boundaries[3].y,
-//									_boundaries[0].z - _boundaries[3].z);
-		
-		_normal = Vector3.Cross(Vector3.up, _right);
-		_normal.Normalize();
-		_right.Normalize();
-	}
-	
-	/// <summary>
-	/// Calculates the width.
-	/// </summary>
-	private void CalculateWidth ()
-	{
-		Vector3 edge = new Vector3(_boundaries[0].x - _boundaries[1].x,
-														   0f,
-														   _boundaries[0].z - _boundaries[1].z);
-		_width = edge.magnitude;
-	}
-
 
 	public void ConstructFaceComponents (float component_width, float inbetween_space)
 	{
@@ -136,15 +78,13 @@ public class Face
 				Vector3 dr = _boundaries[0] - _right * offset + (new Vector3(0f, floor * _parent.FloorHeight, 0f));
 				Vector3 dl = dr - _right * component_width;
 				offset += component_width;
-				_face_components.Add(new FaceComponent(this, component_width, dr, dl, 3f / 5f));
+				_face_components.Add(new FaceComponent(this, dr, dl, 3f / 5f));
 				offset += fixed_space;
 			}
 		}
 	}
-	
-	/// <summary>
-	/// Draw the face.
-	/// </summary>
+
+
 	public void Draw ()
 	{
 //		GL.PushMatrix();

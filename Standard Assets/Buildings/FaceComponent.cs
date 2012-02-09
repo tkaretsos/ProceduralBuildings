@@ -3,13 +3,10 @@ using System.Collections.Generic;
 
 public class FaceComponent
 {
-#pragma warning disable 0414
 	private readonly Face _parent;
-	private float _width;
 	private float _height;
 	private List<Vector3> _boundaries = new List<Vector3>();
-#pragma warning restore 0414
-	
+
 	/// <summary>
 	/// Initializes a new instance of the <see cref="FaceComponent"/> class.
 	/// </summary>
@@ -28,10 +25,9 @@ public class FaceComponent
 	/// <param name='dr'>
 	/// Down-right point of the component.
 	/// </param>
-	public FaceComponent (Face parent, float width, Vector3 dr, Vector3 dl, float height_modifier = 1f)
+	public FaceComponent (Face parent, Vector3 dr, Vector3 dl, float height_modifier = 1f)
 	{
 		_parent = parent;
-		_width = width;
 		_height = _parent.Parent.FloorHeight * height_modifier;
 		
 		_boundaries.Add(dr);
