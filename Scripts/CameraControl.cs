@@ -1,4 +1,4 @@
-using UnityEngine;
+  using UnityEngine;
 
 public class CameraControl : MonoBehaviour 
 {	
@@ -15,7 +15,7 @@ public class CameraControl : MonoBehaviour
   private float _movementSpeed = 10f;
   
   [SerializeField]
-  private float _rotationSpeed = 3f;
+  private float _rotationSpeed = 5f;
   
   [SerializeField]
   private Material _primitiveMaterial;

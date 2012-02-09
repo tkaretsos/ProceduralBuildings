@@ -30,7 +30,7 @@ public class TestMesh : MonoBehaviour
 
 	void CreateNeoclassical()
 	{
-				mesh = new Mesh();
+    mesh = new Mesh();
 		
 //		meshobj = (GameObject) GameObject.Instantiate(empty, new Vector3(0f, 0f, 0f), Quaternion.identity);
 		meshobj = new GameObject();
