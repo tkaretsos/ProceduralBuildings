@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class TestMesh : MonoBehaviour
 {
-	public GameObject empty;
-	public Material material;
-	
+  [SerializeField]
+	private Material material;
+  
 	private Mesh mesh;
 	private GameObject meshobj;
 	private MeshFilter mf;
@@ -32,7 +32,6 @@ public class TestMesh : MonoBehaviour
 	{
     mesh = new Mesh();
 		
-//		meshobj = (GameObject) GameObject.Instantiate(empty, new Vector3(0f, 0f, 0f), Quaternion.identity);
 		meshobj = new GameObject();
 		mf = meshobj.AddComponent<MeshFilter>();
 		mr = meshobj.AddComponent<MeshRenderer>();
@@ -43,6 +42,7 @@ public class TestMesh : MonoBehaviour
 																				new Vector3(-4f - Random.Range(0.5f, 1.5f), 0, -1.5f - Random.Range(0.5f, 1.5f)),
 																				new Vector3(-4f - Random.Range(0.5f, 1.5f), 0,  1.5f + Random.Range(0.5f, 1.5f)));
 		neo.ConstructFaces();
+    neo.ConstructFaceComponents();
 		
 		mesh.Clear();
 		mesh.vertices = neo.BoundariesArray;
