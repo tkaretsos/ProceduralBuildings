@@ -106,6 +106,30 @@ public class Face
 
     int double_cpf = 2 * _components_per_floor;
     int index = 0;
+
+    // vertices of components only
+    int comp_verts = 4 * _components_per_floor * _parent.FloorNumber;
+
+    for (int i = 0; i < _components_per_floor; ++i)
+    {
+      _vertices[index] = new Vector3(_face_components[i].Boundaries[0].x,
+                                     _parent.BoundariesArray[0].y,
+                                     _face_components[i].Boundaries[0].z);
+
+      _vertices[index + 1] = new Vector3(_face_components[i].Boundaries[1].x,
+                                         _parent.BoundariesArray[0].y,
+                                         _face_components[i].Boundaries[1].z);
+
+      _vertices[index + comp_verts] = new Vector3(_face_components[i].Boundaries[0].x,
+                                                  _parent.Height,
+                                                  _face_components[i].Boundaries[0].z);
+
+      _vertices[index + comp_verts + 1] = new Vector3(_face_components[i].Boundaries[1].x,
+                                                      _parent.Height,
+                                                      _face_components[i].Boundaries[1].z);
+      index += 2;
+    }
+
     foreach (FaceComponent fc in _face_components)
     {
       _vertices[index]     = fc.Boundaries[0];
