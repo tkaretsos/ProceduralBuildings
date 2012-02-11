@@ -1,12 +1,23 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 public class FaceComponent
 {
   private readonly Face _parent;
   private float _height;
   private List<Vector3> _boundaries = new List<Vector3>();
-  
+
+
+  // properties
+
+  public ReadOnlyCollection<Vector3> Boundaries
+  {
+    get { return _boundaries.AsReadOnly(); }
+  }
+
+  // constructors
+
   /// <summary>
   /// Initializes a new instance of the <see cref="FaceComponent"/> class.
   /// </summary>
@@ -35,7 +46,10 @@ public class FaceComponent
     _boundaries.Add(new Vector3(dl.x, dl.y + _height, dl.z));
     _boundaries.Add(new Vector3(dr.x, dr.y + _height, dr.z));
   }
-  
+
+
+  // methods
+
   public void Draw ()
   {
     GL.PushMatrix();
