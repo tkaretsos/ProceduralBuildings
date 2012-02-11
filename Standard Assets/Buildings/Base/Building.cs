@@ -46,11 +46,7 @@ public class Building
       if (_floor_number > 0)
       {
         _height = _floor_height * _floor_number;
-       if (_boundaries.Count == 4)
-        {
-          for (int i = 0; i < 4; ++i)
-            _boundaries.Add(_boundaries[i] + new Vector3(0f, _height, 0f));
-        }
+        CalculateRoofBoundaries();
       }
     }
   }
@@ -70,11 +66,7 @@ public class Building
       if (_floor_height > 0f)
       {
         _height = _floor_height * _floor_number;
-        if (_boundaries.Count == 4)
-        {
-          for (int i = 0; i < 4; ++i)
-            _boundaries.Add(_boundaries[i] + new Vector3(0f, _height, 0f));
-        }
+        CalculateRoofBoundaries();
       }
     }
   }
@@ -133,6 +125,17 @@ public class Building
     _faces.Add(new Face(this, _boundaries[1], _boundaries[2]));
     _faces.Add(new Face(this, _boundaries[2], _boundaries[3]));
     _faces.Add(new Face(this, _boundaries[3], _boundaries[0]));
+  }
+
+  private void CalculateRoofBoundaries ()
+  {
+    if (_boundaries.Count > 4)
+      _boundaries.RemoveRange(4,4);
+
+    for (int i = 0; i < 4; ++i)
+      _boundaries.Add(new Vector3(_boundaries[i].x,
+                                  _boundaries[i].y + _height,
+                                  _boundaries[i].z));
   }
 
   /// <summary>
