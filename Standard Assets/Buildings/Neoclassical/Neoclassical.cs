@@ -42,7 +42,7 @@ public sealed class Neoclassical : Building
   // methods
   
   
-  public override void ConstructFaceComponents ()
+  public void ConstructFaceComponents ()
   {
     if (Faces.Count == 0) throw new Exception("There are no faces to construct the components.");
   

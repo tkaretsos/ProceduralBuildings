@@ -144,12 +144,7 @@ public class Building
     _faces.Add(new Face(this, _boundaries[2], _boundaries[3]));
     _faces.Add(new Face(this, _boundaries[3], _boundaries[0]));
   }
-  
-  
-  public virtual void ConstructFaceComponents ()
-  {
-    throw new Exception("Building.ConstructFaceComponents() should never be called.");
-  }
+
   
   /// <summary>
   /// Draw the current mesh.

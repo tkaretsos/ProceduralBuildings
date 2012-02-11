@@ -4,7 +4,7 @@ public class TestMesh : MonoBehaviour
 {
   [SerializeField]
 	private Material material;
-  
+
 	private Mesh mesh;
 	private GameObject meshobj;
 	private MeshFilter mf;
