@@ -8,6 +8,7 @@ public class Face
   private readonly Building _parent;
   private Vector3 _normal;
   private Vector3 _right;
+  private Vector3[] _component_vertices;
   private float _width;
   private int _components_per_floor;
   private List<Vector3> _boundaries = new List<Vector3>();
@@ -25,6 +26,11 @@ public class Face
   public Building Parent
   {
     get { return _parent; }
+  }
+
+  public Vector3[] ComponentVertices
+  {
+    get { return _component_vertices; }
   }
   
   
@@ -85,7 +91,33 @@ public class Face
       }
     }
   }
-  
+
+  /// <summary>
+  /// Creates an array of Vector3 objects that contains the vertices of
+  /// the FaceComponents attached to this Face. The vertices are put in an
+  /// order so that it will be easy to form the triangles of the building mesh.
+  /// </summary>
+  /// <returns>
+  /// The vertices array.
+  /// </returns>
+  public void CreateVerticesArray ()
+  {
+    _component_vertices = new Vector3[4 * _components_per_floor * _parent.FloorNumber];
+
+    int double_cpf = 2 * _components_per_floor;
+    int index = 0;
+    foreach (FaceComponent fc in _face_components)
+    {
+      _component_vertices[index]     = fc.Boundaries[0];
+      _component_vertices[index + 1] = fc.Boundaries[1];
+
+      _component_vertices[index + double_cpf]     = fc.Boundaries[3];
+      _component_vertices[index + double_cpf + 1] = fc.Boundaries[2];
+
+      if ((index += 2) % double_cpf == 0)
+        index += double_cpf;
+    }
+  }
   
   public void Draw ()
   {
