@@ -4,14 +4,14 @@ using System.Collections.ObjectModel;
 
 public class FaceComponent
 {
-  private readonly Face _parent;
+  private readonly Face _parent_face;
   private float _height;
   private List<Vector3> _boundaries = new List<Vector3>();
 
 
   // properties
 
-  public ReadOnlyCollection<Vector3> Boundaries
+  public ReadOnlyCollection<Vector3> boundaries
   {
     get { return _boundaries.AsReadOnly(); }
   }
@@ -38,8 +38,8 @@ public class FaceComponent
   /// </param>
   public FaceComponent (Face parent, Vector3 dr, Vector3 dl, float height_modifier = 1f)
   {
-    _parent = parent;
-    _height = _parent.Parent.FloorHeight * height_modifier;
+    _parent_face = parent;
+    _height = _parent_face.parentBuilding.floorHeight * height_modifier;
   
     _boundaries.Add(dr);
     _boundaries.Add(dl);

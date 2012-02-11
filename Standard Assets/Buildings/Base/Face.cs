@@ -5,7 +5,7 @@ public class Face
 {
   // fields
   
-  private readonly Building _parent;
+  private readonly Building _parent_building;
   private Vector3 _normal;
   private Vector3 _right;
   private Vector3[] _vertices;
@@ -23,12 +23,12 @@ public class Face
   /// <value>
   /// The parent mesh.
   /// </value>
-  public Building Parent
+  public Building parentBuilding
   {
-    get { return _parent; }
+    get { return _parent_building; }
   }
 
-  public Vector3[] Vertices
+  public Vector3[] vertices
   {
     get { return _vertices; }
   }
@@ -51,12 +51,12 @@ public class Face
   /// </param>
   public Face (Building parent, Vector3 dr, Vector3 dl)
   {
-    _parent = parent;
+    _parent_building = parent;
   
     _boundaries.Add(dr);
     _boundaries.Add(dl);
-    _boundaries.Add(new Vector3(dl.x, dl.y + _parent.Height, dl.z));
-    _boundaries.Add(new Vector3(dr.x, dr.y + _parent.Height, dr.z));
+    _boundaries.Add(new Vector3(dl.x, dl.y + _parent_building.height, dl.z));
+    _boundaries.Add(new Vector3(dr.x, dr.y + _parent_building.height, dr.z));
   
     _right = new Vector3(_boundaries[0].x - _boundaries[1].x,
                          0f,
@@ -78,12 +78,12 @@ public class Face
     _components_per_floor = Mathf.CeilToInt(_width / (component_width + inbetween_space));
     float fixed_space = (_width - _components_per_floor * component_width) / (_components_per_floor + 1);
 
-    for (int floor = 0; floor < _parent.FloorNumber; ++floor)
+    for (int floor = 0; floor < _parent_building.floorNumber; ++floor)
     {
       float offset = fixed_space;
       for (int i = 0; i < _components_per_floor; ++i)
       {
-        Vector3 dr = _boundaries[0] - _right * offset + (new Vector3(0f, floor * _parent.FloorHeight, 0f));
+        Vector3 dr = _boundaries[0] - _right * offset + (new Vector3(0f, floor * _parent_building.floorHeight, 0f));
         Vector3 dl = dr - _right * component_width;
         offset += component_width;
         _face_components.Add(new FaceComponent(this, dr, dl, 3f / 5f));
@@ -102,41 +102,41 @@ public class Face
   /// </returns>
   public void CreateVerticesArray ()
   {
-    _vertices = new Vector3[4 * _components_per_floor * (_parent.FloorNumber + 1)];
+    _vertices = new Vector3[4 * _components_per_floor * (_parent_building.floorNumber + 1)];
 
     int double_cpf = 2 * _components_per_floor;
     int index = 0;
 
     // vertices of components only
-    int comp_verts = 4 * _components_per_floor * _parent.FloorNumber;
+    int comp_verts = 4 * _components_per_floor * _parent_building.floorNumber;
 
     for (int i = 0; i < _components_per_floor; ++i)
     {
-      _vertices[index] = new Vector3(_face_components[i].Boundaries[0].x,
-                                     _parent.BoundariesArray[0].y,
-                                     _face_components[i].Boundaries[0].z);
+      _vertices[index] = new Vector3(_face_components[i].boundaries[0].x,
+                                     _parent_building.BoundariesArray[0].y,
+                                     _face_components[i].boundaries[0].z);
 
-      _vertices[index + 1] = new Vector3(_face_components[i].Boundaries[1].x,
-                                         _parent.BoundariesArray[0].y,
-                                         _face_components[i].Boundaries[1].z);
+      _vertices[index + 1] = new Vector3(_face_components[i].boundaries[1].x,
+                                         _parent_building.BoundariesArray[0].y,
+                                         _face_components[i].boundaries[1].z);
 
-      _vertices[index + comp_verts] = new Vector3(_face_components[i].Boundaries[0].x,
-                                                  _parent.Height,
-                                                  _face_components[i].Boundaries[0].z);
+      _vertices[index + comp_verts] = new Vector3(_face_components[i].boundaries[0].x,
+                                                  _parent_building.height,
+                                                  _face_components[i].boundaries[0].z);
 
-      _vertices[index + comp_verts + 1] = new Vector3(_face_components[i].Boundaries[1].x,
-                                                      _parent.Height,
-                                                      _face_components[i].Boundaries[1].z);
+      _vertices[index + comp_verts + 1] = new Vector3(_face_components[i].boundaries[1].x,
+                                                      _parent_building.height,
+                                                      _face_components[i].boundaries[1].z);
       index += 2;
     }
 
     foreach (FaceComponent fc in _face_components)
     {
-      _vertices[index]     = fc.Boundaries[0];
-      _vertices[index + 1] = fc.Boundaries[1];
+      _vertices[index]     = fc.boundaries[0];
+      _vertices[index + 1] = fc.boundaries[1];
 
-      _vertices[index + double_cpf]     = fc.Boundaries[3];
-      _vertices[index + double_cpf + 1] = fc.Boundaries[2];
+      _vertices[index + double_cpf]     = fc.boundaries[3];
+      _vertices[index + double_cpf + 1] = fc.boundaries[2];
 
       if ((index += 2) % double_cpf == 0)
         index += double_cpf;

@@ -26,7 +26,7 @@ public class Building
   /// <value>
   /// The height.
   /// </value>
-  public float Height
+  public float height
   {
     get { return _height; }
   }
@@ -37,7 +37,7 @@ public class Building
   /// <value>
   /// The height of the floor.
   /// </value>
-  public float FloorHeight
+  public float floorHeight
   {
     get { return _floor_height; }
     protected set
@@ -61,7 +61,7 @@ public class Building
   /// <value>
   /// The floor number.
   /// </value>
-  public int FloorNumber
+  public int floorNumber
   {
     get { return _floor_number; }
     protected set
