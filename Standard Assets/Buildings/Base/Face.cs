@@ -9,6 +9,7 @@ public class Face
   private Vector3 _normal;
   private Vector3 _right;
   private float _width;
+  private int _components_per_floor;
   private List<Vector3> _boundaries = new List<Vector3>();
   private List<FaceComponent> _face_components = new List<FaceComponent>();
   
@@ -59,6 +60,8 @@ public class Face
   
     _normal = Vector3.Cross(Vector3.up, _right);
     _normal.Normalize();
+
+    _components_per_floor = 0;
   }
   
   
@@ -66,13 +69,13 @@ public class Face
   
   public void ConstructFaceComponents (float component_width, float inbetween_space)
   {
-    int components_no = Mathf.CeilToInt(_width / (component_width + inbetween_space));
-    float fixed_space = (_width - components_no * component_width) / (components_no + 1);
+    _components_per_floor = Mathf.CeilToInt(_width / (component_width + inbetween_space));
+    float fixed_space = (_width - _components_per_floor * component_width) / (_components_per_floor + 1);
 
     for (int floor = 0; floor < _parent.FloorNumber; ++floor)
     {
       float offset = fixed_space;
-      for (int i = 0; i < components_no; ++i)
+      for (int i = 0; i < _components_per_floor; ++i)
       {
         Vector3 dr = _boundaries[0] - _right * offset + (new Vector3(0f, floor * _parent.FloorHeight, 0f));
         Vector3 dl = dr - _right * component_width;
