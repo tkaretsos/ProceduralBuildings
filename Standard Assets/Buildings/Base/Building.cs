@@ -8,9 +8,9 @@ public class Building
 {
   // fields
   
-  private float _height;
-  private float _floor_height;
-  private int _floor_number;
+  private float _height = 0f;
+  private float _floor_height = 0f;
+  private int _floor_number = 0;
 #pragma warning disable 0414
   private readonly BuildingType _type;
 #pragma warning restore 0414
@@ -119,10 +119,6 @@ public class Building
     _boundaries.Add(p3);
     _boundaries.Add(p4);
     _type = type;
-  
-    _height = 0f;
-    _floor_height = 0f;
-    _floor_number = 0;
   }
   
   
