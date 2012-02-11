@@ -86,13 +86,7 @@ public class Building
   
   public Vector3[] BoundariesArray
   {
-    get
-    {
-      Vector3[] v = new Vector3[_boundaries.Count];
-      for (int i = 0; i < _boundaries.Count; ++i)
-        v[i] = _boundaries[i];
-      return v;
-    }
+    get { return _boundaries.ToArray(); }
   }
   
   
@@ -145,7 +139,6 @@ public class Building
     _faces.Add(new Face(this, _boundaries[3], _boundaries[0]));
   }
 
-  
   /// <summary>
   /// Draw the current mesh.
   /// </summary>
