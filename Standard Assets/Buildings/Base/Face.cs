@@ -9,7 +9,6 @@ public class Face
   private Vector3 _normal;
   private Vector3 _right;
   private float _width;
-  private bool _is_free;
   private List<Vector3> _boundaries = new List<Vector3>();
   private List<FaceComponent> _face_components = new List<FaceComponent>();
   
