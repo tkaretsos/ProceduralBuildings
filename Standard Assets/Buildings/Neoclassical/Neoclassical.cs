@@ -44,12 +44,12 @@ public sealed class Neoclassical : Building
   
   public void ConstructFaceComponents ()
   {
-    if (Faces.Count == 0) throw new Exception("There are no faces to construct the components.");
+    if (this.faces.Count == 0) throw new Exception("There are no faces to construct the components.");
   
     float component_width = Random.Range(_component_width_min, _component_width_max);
     float inbetween_space = Random.Range(_component_space_min, _component_space_max);
   
-    foreach (Face face in Faces)
+    foreach (Face face in this.faces)
       face.ConstructFaceComponents(component_width, inbetween_space);
   }
 }

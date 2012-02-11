@@ -45,7 +45,7 @@ public class TestMesh : MonoBehaviour
     neo.ConstructFaceComponents();
 		
 		mesh.Clear();
-		mesh.vertices = neo.BoundariesArray;
+		mesh.vertices = neo.boundariesArray;
 		mesh.triangles = new int[] {
 			0, 1, 5,
 			0, 5, 4,

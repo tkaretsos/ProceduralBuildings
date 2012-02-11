@@ -98,7 +98,7 @@ public class Face
   /// <returns>
   /// The vertices array.
   /// </returns>
-  public void FindVertices ()
+  public int FindVertices ()
   {
     _vertices = new Vector3[4 * _components_per_floor * (_parent_building.floorNumber + 1)];
 
@@ -111,11 +111,11 @@ public class Face
     for (int i = 0; i < _components_per_floor; ++i)
     {
       _vertices[index] = new Vector3(_face_components[i].boundaries[0].x,
-                                     _parent_building.BoundariesArray[0].y,
+                                     _parent_building.boundariesArray[0].y,
                                      _face_components[i].boundaries[0].z);
 
       _vertices[index + 1] = new Vector3(_face_components[i].boundaries[1].x,
-                                         _parent_building.BoundariesArray[0].y,
+                                         _parent_building.boundariesArray[0].y,
                                          _face_components[i].boundaries[1].z);
 
       _vertices[index + comp_verts] = new Vector3(_face_components[i].boundaries[0].x,
@@ -139,6 +139,8 @@ public class Face
       if ((index += 2) % double_cpf == 0)
         index += double_cpf;
     }
+
+    return (index - double_cpf);
   }
   
   public void Draw ()

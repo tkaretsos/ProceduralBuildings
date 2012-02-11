@@ -79,12 +79,12 @@ public class Building
     }
   }
   
-  public ReadOnlyCollection<Face> Faces
+  public ReadOnlyCollection<Face> faces
   {
     get { return _faces.AsReadOnly(); }
   }
   
-  public Vector3[] BoundariesArray
+  public Vector3[] boundariesArray
   {
     get { return _boundaries.ToArray(); }
   }
