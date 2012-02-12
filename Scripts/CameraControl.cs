@@ -18,7 +18,7 @@ public class CameraControl : MonoBehaviour
   private float _rotationSpeed = 5f;
   
   [SerializeField]
-  private Material _primitiveMaterial;
+  private Material _material;
   
   private float _x_rotation;
   private float _y_rotation;
@@ -27,18 +27,23 @@ public class CameraControl : MonoBehaviour
   private float _last_mouse_y;
   private float _mouse_x;
   private float _mouse_y;
-  
-  private Neoclassical mesh;
+
+  private GameObject meshobj;
+  private Mesh mesh;
+  private MeshFilter mf;
+  private MeshRenderer mr;
   
   
   void Start ()
   {
-    mesh = new Neoclassical(new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)),
-                            new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
-                            new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
-                            new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)));
-    mesh.ConstructFaces();
-    mesh.ConstructFaceComponents();
+//    mesh = new Neoclassical(new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)),
+//                            new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
+//                            new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
+//                            new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)));
+//    mesh.ConstructFaces();
+//    mesh.ConstructFaceComponents();
+
+    CreateNeoclassical();
   
     _x_rotation = -40f;
     _y_rotation = 50f;
@@ -50,12 +55,12 @@ public class CameraControl : MonoBehaviour
   }
   
   
-  void OnPostRender ()
-  {
-    GL.Color(Color.gray);
-  
-    mesh.Draw(_primitiveMaterial);
-  }
+//  void OnPostRender ()
+//  {
+//    GL.Color(Color.gray);
+//  
+//    mesh.Draw(_primitiveMaterial);
+//  }
   
   
   void Update ()
@@ -101,12 +106,14 @@ public class CameraControl : MonoBehaviour
 
     if (Input.GetKeyUp(KeyCode.B))
     {
-      mesh = new Neoclassical(new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)),
-      new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
-      new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
-      new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)));
-      mesh.ConstructFaces();
-      mesh.ConstructFaceComponents();
+//      mesh = new Neoclassical(new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)),
+//      new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
+//      new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
+//      new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)));
+//      mesh.ConstructFaces();
+//      mesh.ConstructFaceComponents();
+      Destroy(meshobj);
+      CreateNeoclassical();
     }
   } // end of Update()
 
@@ -117,5 +124,34 @@ public class CameraControl : MonoBehaviour
   
     if (_x_rotation >  vertical) _x_rotation =  vertical;
     if (_x_rotation < -vertical) _x_rotation = -vertical;
+  }
+
+  void CreateNeoclassical()
+  {
+    mesh = new Mesh();
+    
+    meshobj = new GameObject();
+    mf = meshobj.AddComponent<MeshFilter>();
+    mr = meshobj.AddComponent<MeshRenderer>();
+    mr.sharedMaterial = _material;
+
+    Neoclassical neo = new Neoclassical(new Vector3( 1.5f + Random.Range(0.5f, 1.5f), 0,  4f + Random.Range(0.5f, 1.5f)),
+                                        new Vector3( 1.5f + Random.Range(0.5f, 1.5f), 0, -4f - Random.Range(0.5f, 1.5f)),
+                                        new Vector3(-1.5f - Random.Range(0.5f, 1.5f), 0, -4f - Random.Range(0.5f, 1.5f)),
+                                        new Vector3(-1.5f - Random.Range(0.5f, 1.5f), 0,  4f + Random.Range(0.5f, 1.5f)));
+    neo.ConstructFaces();
+    neo.ConstructFaceComponents();
+
+    mesh.Clear();
+    mesh.vertices = neo.FindVertices();
+    mesh.triangles = neo.FindTriangles();
+    // Assign UVs to shut the editor up -_-'
+    mesh.uv = new Vector2[mesh.vertices.Length];
+    for (int i = 0; i < mesh.vertices.Length; ++i)
+      mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
+
+    mesh.RecalculateNormals();
+    mesh.Optimize();
+    mf.sharedMesh = mesh;
   }
 }
