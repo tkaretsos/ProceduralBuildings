@@ -98,7 +98,7 @@ public class Face
   /// <returns>
   /// The vertices array.
   /// </returns>
-  public int FindVertices ()
+  public void FindVertices ()
   {
     _vertices = new Vector3[4 * _components_per_floor * (_parent_building.floorNumber + 1)];
     int double_cpf = 2 * _components_per_floor;
@@ -139,8 +139,6 @@ public class Face
       if ((index += 2) % double_cpf == 0)
         index += double_cpf;
     }
-
-    return index + double_cpf;
   }
   
   public void Draw ()
