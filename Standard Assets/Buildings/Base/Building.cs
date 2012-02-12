@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-using Exception = System.Exception; 
+using Exception = System.Exception;
 
 public class Building
 {
@@ -14,6 +14,7 @@ public class Building
 #pragma warning disable 0414
   private readonly BuildingType _type;
 #pragma warning restore 0414
+  private List<Vector3> _vertices;
   private List<Vector3> _boundaries = new List<Vector3>();
   private List<Face> _faces = new List<Face>();
   
@@ -125,6 +126,20 @@ public class Building
     _faces.Add(new Face(this, _boundaries[1], _boundaries[2]));
     _faces.Add(new Face(this, _boundaries[2], _boundaries[3]));
     _faces.Add(new Face(this, _boundaries[3], _boundaries[0]));
+  }
+
+  public Vector3[] FindVertices ()
+  {
+    if (_boundaries.Count != 8) throw new Exception("Building doesnt have enough boundaries.");
+
+    _vertices = _boundaries;
+    foreach (Face face in faces)
+    {
+      face.FindVertices();
+      _vertices.AddRange(face.vertices);
+    }
+
+    return _vertices.ToArray();
   }
 
   private void CalculateRoofBoundaries ()
