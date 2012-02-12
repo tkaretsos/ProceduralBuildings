@@ -15,6 +15,7 @@ public class Building
   private readonly BuildingType _type;
 #pragma warning restore 0414
   private List<Vector3> _vertices;
+  private List<int> _triangles;
   private List<Vector3> _boundaries = new List<Vector3>();
   private List<Face> _faces = new List<Face>();
   
@@ -140,6 +141,53 @@ public class Building
     }
 
     return _vertices.ToArray();
+  }
+
+  public int[] FindTriangles ()
+  {
+    _triangles = new List<int>();
+
+    // roof
+    _triangles.Add(4); _triangles.Add(5); _triangles.Add(6);
+    _triangles.Add(4); _triangles.Add(6); _triangles.Add(7);
+
+    int offset = 8;
+    for (int face = 0; face < 4; ++face)
+    {
+      _triangles.Add(face);
+      _triangles.Add(offset);
+      _triangles.Add(face + 4);
+
+      _triangles.Add(offset);
+      _triangles.Add(offset + faces[face].indexModifier);
+      _triangles.Add(face + 4);
+
+      _triangles.Add(offset + faces[face].verticesPerRow - 1);
+      _triangles.Add((face + 1) % 4);
+      _triangles.Add((face + 1) % 4 + 4);
+
+      _triangles.Add(offset + faces[face].verticesPerRow - 1);
+      _triangles.Add((face + 1) % 4 + 4);
+      _triangles.Add(offset + faces[face].verticesPerRow - 1 + faces[face].indexModifier);
+
+      int index = 1;
+      for (int i = 1; i < faces[face].componentsPerFloor; ++i)
+      {
+        _triangles.Add(offset + index);
+        _triangles.Add(offset + index + 1);
+        _triangles.Add(offset + index + faces[face].indexModifier);
+
+        _triangles.Add(offset + index + 1);
+        _triangles.Add(offset + index + 1 + faces[face].indexModifier);
+        _triangles.Add(offset + index + faces[face].indexModifier);
+
+        index += 2;
+      }
+
+      offset += faces[face].vertices.Length;
+    }
+
+    return _triangles.ToArray();
   }
 
   private void CalculateRoofBoundaries ()
