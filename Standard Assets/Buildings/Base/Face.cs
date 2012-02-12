@@ -11,6 +11,8 @@ public class Face
   private Vector3[] _vertices;
   private float _width;
   private int _components_per_floor = 0;
+  private int _index_modifier = 0;
+  private int _vertices_per_row = 0;
   private List<Vector3> _boundaries = new List<Vector3>();
   private List<FaceComponent> _face_components = new List<FaceComponent>();
   
@@ -31,6 +33,21 @@ public class Face
   public Vector3[] vertices
   {
     get { return _vertices; }
+  }
+
+  public int indexModifier
+  {
+    get { return _index_modifier; }
+  }
+
+  public int verticesPerRow
+  {
+    get { return _vertices_per_row; }
+  }
+
+  public int componentsPerFloor
+  {
+    get { return _components_per_floor; }
   }
   
   
@@ -101,11 +118,14 @@ public class Face
   public void FindVertices ()
   {
     _vertices = new Vector3[4 * _components_per_floor * (_parent_building.floorNumber + 1)];
-    int double_cpf = 2 * _components_per_floor;
+    _vertices_per_row = 2 * _components_per_floor;
     int index = 0;
 
-    // vertices of components only
-    int comp_verts = 2 * _components_per_floor * (2 * _parent_building.floorNumber + 1);
+    // a modifier to calculate the correct index of the vertices of the roof edge
+    // given the respective index of the vertex of the ground edge of a face.
+    // for example on a face of one floor and 2 face components this number will be 12
+    // 2 floors and 3 components per floor this will give 20.
+    _index_modifier = 2 * _components_per_floor * (2 * _parent_building.floorNumber + 1);
 
     for (int i = 0; i < _components_per_floor; ++i)
     {
@@ -117,13 +137,13 @@ public class Face
                                          _parent_building.boundariesArray[0].y,
                                          _face_components[i].boundaries[1].z);
 
-      _vertices[index + comp_verts] = new Vector3(_face_components[i].boundaries[0].x,
-                                                  _parent_building.height,
-                                                  _face_components[i].boundaries[0].z);
+      _vertices[index + _index_modifier] = new Vector3(_face_components[i].boundaries[0].x,
+                                                       _parent_building.height,
+                                                       _face_components[i].boundaries[0].z);
 
-      _vertices[index + comp_verts + 1] = new Vector3(_face_components[i].boundaries[1].x,
-                                                      _parent_building.height,
-                                                      _face_components[i].boundaries[1].z);
+      _vertices[index + _index_modifier + 1] = new Vector3(_face_components[i].boundaries[1].x,
+                                                           _parent_building.height,
+                                                           _face_components[i].boundaries[1].z);
 
       index += 2;
     }
@@ -133,11 +153,11 @@ public class Face
       _vertices[index]     = fc.boundaries[0];
       _vertices[index + 1] = fc.boundaries[1];
 
-      _vertices[index + double_cpf]     = fc.boundaries[3];
-      _vertices[index + double_cpf + 1] = fc.boundaries[2];
+      _vertices[index + _vertices_per_row]     = fc.boundaries[3];
+      _vertices[index + _vertices_per_row + 1] = fc.boundaries[2];
 
-      if ((index += 2) % double_cpf == 0)
-        index += double_cpf;
+      if ((index += 2) % _vertices_per_row == 0)
+        index += _vertices_per_row;
     }
   }
   
