@@ -5,8 +5,8 @@ using System.Collections.ObjectModel;
 public class FaceComponent
 {
   private readonly Face _parent_face;
-  private float _height;
-  private List<Vector3> _boundaries = new List<Vector3>();
+  protected float _height;
+  protected List<Vector3> _boundaries = new List<Vector3>();
 
 
   // properties
@@ -16,7 +16,17 @@ public class FaceComponent
     get { return _boundaries.AsReadOnly(); }
   }
 
+  public Face parentFace
+  {
+    get { return _parent_face; }
+  }
+
   // constructors
+
+  public FaceComponent (Face parent)
+  {
+    _parent_face = parent;
+  }
 
   /// <summary>
   /// Initializes a new instance of the <see cref="FaceComponent"/> class.
