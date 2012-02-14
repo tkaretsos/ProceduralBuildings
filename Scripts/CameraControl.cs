@@ -126,7 +126,7 @@ public class CameraControl : MonoBehaviour
     if (_x_rotation < -vertical) _x_rotation = -vertical;
   }
 
-  void CreateNeoclassical()
+  private void CreateNeoclassical()
   {
     mesh = new Mesh();
     
