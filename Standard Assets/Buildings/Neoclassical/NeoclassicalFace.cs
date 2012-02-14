@@ -11,6 +11,11 @@ public class NeoclassicalFace : Face {
   {
     _components_per_floor = Mathf.CeilToInt(_width / (component_width + inbetween_space));
     float fixed_space = (_width - componentsPerFloor * component_width) / (componentsPerFloor + 1);
+    while (fixed_space < 1f)
+    {
+      _components_per_floor -= 1;
+      fixed_space = (_width - componentsPerFloor * component_width) / (componentsPerFloor + 1);
+    }
 
     for (int floor = 0; floor < parentBuilding.floorNumber; ++floor)
     {

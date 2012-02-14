@@ -34,7 +34,7 @@ public sealed class Neoclassical : Building
   public Neoclassical (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   : base(p1, p2, p3, p4, BuildingType.Neoclassical)
   {
-    floorHeight = Random.Range(3.5f, 4.5f);
+    floorHeight = Random.Range(4.5f, 5f);
     floorNumber = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
   }
   
