@@ -7,18 +7,19 @@ using Exception = System.Exception;
 public class Building
 {
   // fields
-  
-  private float _height = 0f;
-  private float _floor_height = 0f;
-  private int _floor_number = 0;
-#pragma warning disable 0414
-  private readonly BuildingType _type;
-#pragma warning restore 0414
+
+  protected int           _floor_number = 0;
+  protected float         _floor_height = 0f;
+  protected List<Face>    _faces        = new List<Face>();
+  protected List<Vector3> _boundaries   = new List<Vector3>();
+
+  private float         _height = 0f;
+  private List<int>     _triangles;
   private List<Vector3> _vertices;
-  private List<int> _triangles;
-  private List<Vector3> _boundaries = new List<Vector3>();
-  private List<Face> _faces = new List<Face>();
-  
+#pragma warning disable 0414
+  private readonly      BuildingType _type;
+#pragma warning restore 0414
+
   
   // properties
   
@@ -71,11 +72,6 @@ public class Building
         CalculateRoofBoundaries();
       }
     }
-  }
-  
-  public ReadOnlyCollection<Face> faces
-  {
-    get { return _faces.AsReadOnly(); }
   }
   
   public Vector3[] boundariesArray
@@ -134,11 +130,8 @@ public class Building
     if (_boundaries.Count != 8) throw new Exception("Building doesnt have enough boundaries.");
 
     _vertices = _boundaries;
-    foreach (Face face in faces)
-    {
-      face.FindVertices();
-      _vertices.AddRange(face.vertices);
-    }
+    foreach (Face face in _faces)
+      _vertices.AddRange(face.FindVertices());
 
     return _vertices.ToArray();
   }
@@ -160,48 +153,50 @@ public class Building
       _triangles.Add(face + 4);
 
       _triangles.Add(offset);
-      _triangles.Add(offset + faces[face].indexModifier);
+      _triangles.Add(offset + _faces[face].indexModifier);
       _triangles.Add(face + 4);
 
-      _triangles.Add(offset + faces[face].verticesPerRow - 1);
+      _triangles.Add(offset + _faces[face].verticesPerRow - 1);
       _triangles.Add((face + 1) % 4);
       _triangles.Add((face + 1) % 4 + 4);
 
-      _triangles.Add(offset + faces[face].verticesPerRow - 1);
+      _triangles.Add(offset + _faces[face].verticesPerRow - 1);
       _triangles.Add((face + 1) % 4 + 4);
-      _triangles.Add(offset + faces[face].verticesPerRow - 1 + faces[face].indexModifier);
+      _triangles.Add(offset + _faces[face].verticesPerRow - 1 + _faces[face].indexModifier);
 
       // wall between components (from ground to roof)
       int index = 1;
-      for (int i = 1; i < faces[face].componentsPerFloor; ++i)
+      for (int i = 1; i < _faces[face].componentsPerFloor; ++i)
       {
         _triangles.Add(offset + index);
         _triangles.Add(offset + index + 1);
-        _triangles.Add(offset + index + faces[face].indexModifier);
+        _triangles.Add(offset + index + _faces[face].indexModifier);
 
         _triangles.Add(offset + index + 1);
-        _triangles.Add(offset + index + 1 + faces[face].indexModifier);
-        _triangles.Add(offset + index + faces[face].indexModifier);
+        _triangles.Add(offset + index + 1 + _faces[face].indexModifier);
+        _triangles.Add(offset + index + _faces[face].indexModifier);
 
         index += 2;
       }
 
       // wall inbetween components
-      for (int i = 0; i < faces[face].componentsPerFloor; ++i)
+      for (int i = 0; i < _faces[face].componentsPerFloor; ++i)
       {
         for (int j = 0; j <= floorNumber; ++j)
         {
-          _triangles.Add(offset + j * faces[face].verticesPerRow * 2 + i * 2);
-          _triangles.Add(offset + 1 + j * faces[face].verticesPerRow * 2 + i * 2);
-          _triangles.Add(offset + faces[face].verticesPerRow + j * faces[face].verticesPerRow * 2 + i * 2);
+          int adjustment = 2 * (i + j * _faces[face].verticesPerRow) + offset;
 
-          _triangles.Add(offset + faces[face].verticesPerRow + j * faces[face].verticesPerRow * 2 + i * 2);
-          _triangles.Add(offset + 1 + j * faces[face].verticesPerRow * 2 + i * 2);
-          _triangles.Add(offset + 1 + faces[face].verticesPerRow + j * faces[face].verticesPerRow * 2 + i * 2);
+          _triangles.Add(adjustment);
+          _triangles.Add(adjustment + 1);
+          _triangles.Add(adjustment + _faces[face].verticesPerRow);
+
+          _triangles.Add(adjustment + _faces[face].verticesPerRow);
+          _triangles.Add(adjustment + 1);
+          _triangles.Add(adjustment + 1 + _faces[face].verticesPerRow);
         }
       }
 
-      offset += faces[face].vertices.Length;
+      offset += _faces[face].vertices.Length;
     }
 
     return _triangles.ToArray();

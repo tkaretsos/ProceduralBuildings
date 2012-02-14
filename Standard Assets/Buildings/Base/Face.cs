@@ -4,18 +4,18 @@ using System.Collections.Generic;
 public class Face
 {
   // fields
-  
+  protected Vector3             _right;
+  protected float               _width;
+  protected List<Vector3>       _boundaries           = new List<Vector3>();
+  protected List<FaceComponent> _face_components      = new List<FaceComponent>();
+  protected int                 _components_per_floor = 0;
+
+  private Vector3           _normal;
+  private Vector3[]         _vertices;
+  private int               _index_modifier       = 0;
+  private int               _vertices_per_row     = 0;
   private readonly Building _parent_building;
-  private Vector3 _normal;
-  private Vector3 _right;
-  private Vector3[] _vertices;
-  private float _width;
-  private int _components_per_floor = 0;
-  private int _index_modifier = 0;
-  private int _vertices_per_row = 0;
-  private List<Vector3> _boundaries = new List<Vector3>();
-  private List<FaceComponent> _face_components = new List<FaceComponent>();
-  
+
   
   // properties
   
@@ -88,7 +88,7 @@ public class Face
   
   // methods
   
-  public void ConstructFaceComponents (float component_width, float inbetween_space)
+  public virtual void ConstructFaceComponents (float component_width, float inbetween_space)
   {
     _components_per_floor = Mathf.CeilToInt(_width / (component_width + inbetween_space));
     float fixed_space = (_width - _components_per_floor * component_width) / (_components_per_floor + 1);
@@ -101,7 +101,7 @@ public class Face
         Vector3 dr = _boundaries[0] - _right * offset + (new Vector3(0f, floor * _parent_building.floorHeight, 0f));
         Vector3 dl = dr - _right * component_width;
         offset += component_width;
-        _face_components.Add(new FaceComponent(this, dr, dl, 3f / 5f));
+        _face_components.Add(new FaceComponent(this, dr, dl, 7f / 10f));
         offset += fixed_space;
       }
     }
@@ -115,7 +115,7 @@ public class Face
   /// <returns>
   /// The vertices array.
   /// </returns>
-  public void FindVertices ()
+  public Vector3[] FindVertices ()
   {
     _vertices = new Vector3[4 * _components_per_floor * (_parent_building.floorNumber + 1)];
     _vertices_per_row = 2 * _components_per_floor;
@@ -159,6 +159,8 @@ public class Face
       if ((index += 2) % _vertices_per_row == 0)
         index += _vertices_per_row;
     }
+
+    return _vertices;
   }
   
   public void Draw ()
