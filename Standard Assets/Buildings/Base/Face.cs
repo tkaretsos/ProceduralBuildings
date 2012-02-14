@@ -162,16 +162,4 @@ public class Face
 
     return _vertices;
   }
-  
-  public void Draw ()
-  {
-//    GL.PushMatrix();
-//    GL.Begin(GL.QUADS);
-//    foreach (Vector3 v in _boundaries)
-//      GL.Vertex(v);
-//    GL.End();
-//    GL.PopMatrix();
-    foreach (FaceComponent fc in _face_components)
-      fc.Draw();
-  }
 }

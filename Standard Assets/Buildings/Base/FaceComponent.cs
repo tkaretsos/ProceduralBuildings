@@ -46,17 +46,4 @@ public class FaceComponent
     _boundaries.Add(new Vector3(dl.x, dl.y + _height, dl.z));
     _boundaries.Add(new Vector3(dr.x, dr.y + _height, dr.z));
   }
-
-
-  // methods
-
-  public void Draw ()
-  {
-    GL.PushMatrix();
-    GL.Begin(GL.QUADS);
-    foreach (Vector3 v in _boundaries)
-      GL.Vertex(v);
-    GL.End();
-    GL.PopMatrix();
-  }
 }

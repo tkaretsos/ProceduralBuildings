@@ -205,34 +205,11 @@ public class Building
   private void CalculateRoofBoundaries ()
   {
     if (_boundaries.Count > 4)
-      _boundaries.RemoveRange(4,4);
+      _boundaries.RemoveRange(4, 4);
 
     for (int i = 0; i < 4; ++i)
       _boundaries.Add(new Vector3(_boundaries[i].x,
                                   _boundaries[i].y + _height,
                                   _boundaries[i].z));
-  }
-
-  /// <summary>
-  /// Draw the current mesh.
-  /// </summary>
-  /// <param name='material'>
-  /// A UnityEngine.Material.
-  /// </param>
-  public void Draw (Material material)
-  {
-    material.SetPass(0);
-
-    // draw roof
-    GL.PushMatrix();
-    GL.Begin(GL.QUADS);
-      for (int i = 4; i < 8; ++i)
-        GL.Vertex(_boundaries[i]);
-    GL.End();
-    GL.PopMatrix();
-    
-    // draw faces
-    foreach (Face face in _faces)
-      face.Draw();
   }
 }
