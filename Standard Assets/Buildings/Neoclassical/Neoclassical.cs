@@ -34,22 +34,29 @@ public sealed class Neoclassical : Building
   public Neoclassical (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   : base(p1, p2, p3, p4, BuildingType.Neoclassical)
   {
-    this.floorHeight = Random.Range(4f, 5f);
-    this.floorNumber = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
+    floorHeight = Random.Range(3.5f, 4.5f);
+    floorNumber = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
   }
   
   
   // methods
-  
-  
+
   public void ConstructFaceComponents ()
   {
-    if (this.faces.Count == 0) throw new Exception("There are no faces to construct the components.");
+    if (_faces.Count == 0) throw new Exception("There are no faces to construct the components.");
   
     float component_width = Random.Range(_component_width_min, _component_width_max);
     float inbetween_space = Random.Range(_component_space_min, _component_space_max);
   
-    foreach (Face face in this.faces)
+    foreach (Face face in _faces)
       face.ConstructFaceComponents(component_width, inbetween_space);
+  }
+
+  public override void ConstructFaces ()
+  {
+    _faces.Add(new NeoclassicalFace(this, _boundaries[0], _boundaries[1]));
+    _faces.Add(new NeoclassicalFace(this, _boundaries[1], _boundaries[2]));
+    _faces.Add(new NeoclassicalFace(this, _boundaries[2], _boundaries[3]));
+    _faces.Add(new NeoclassicalFace(this, _boundaries[3], _boundaries[0]));
   }
 }
