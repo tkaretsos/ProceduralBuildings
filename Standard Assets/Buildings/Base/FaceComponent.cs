@@ -21,6 +21,11 @@ public class FaceComponent
     get { return _parent_face; }
   }
 
+  public Building parentBuilding
+  {
+    get { return _parent_face.parentBuilding; }
+  }
+
   // constructors
 
   public FaceComponent (Face parent)
@@ -49,7 +54,7 @@ public class FaceComponent
   public FaceComponent (Face parent, Vector3 dr, Vector3 dl, float height_modifier = 1f)
   {
     _parent_face = parent;
-    _height = _parent_face.parentBuilding.floorHeight * height_modifier;
+    _height = parentBuilding.floorHeight * height_modifier;
   
     _boundaries.Add(dr);
     _boundaries.Add(dl);
