@@ -234,4 +234,21 @@ public class Building
                                   _boundaries[i].y + _height,
                                   _boundaries[i].z));
   }
+
+  public int[] GetSortedFaces ()
+  {
+    List<KeyValuePair<int, float>> lkv = new List<KeyValuePair<int, float>>();
+    for (int i = 0; i < _faces.Count; ++i)
+      lkv.Add(new KeyValuePair<int, float>(i, _faces[i].width));
+
+    lkv.Sort(delegate (KeyValuePair<int, float> x, KeyValuePair<int, float> y) {
+      return x.Value.CompareTo(y.Value);
+    });
+
+    int[] ret = new int[lkv.Count];
+    for (int i = 0; i < lkv.Count; ++i)
+      ret[i] = lkv[i].Key;
+
+    return ret;
+  }
 }
