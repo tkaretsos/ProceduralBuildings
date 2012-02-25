@@ -48,6 +48,7 @@ public class Face
   public int componentsPerFloor
   {
     get { return _components_per_floor; }
+    protected set { _components_per_floor = value; }
   }
 
   public float width
