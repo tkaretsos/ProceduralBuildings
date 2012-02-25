@@ -154,6 +154,21 @@ public class Building
     int offset = 8;
     for (int face = 0; face < 4; ++face)
     {
+      int face1_mod_4 = (face + 1) % 4;
+
+      if (_faces[face].componentsPerFloor == 0)
+      {
+        _triangles.Add(face);
+        _triangles.Add(face1_mod_4);
+        _triangles.Add(face + 4);
+
+        _triangles.Add(face + 4);
+        _triangles.Add(face1_mod_4);
+        _triangles.Add(face1_mod_4 + 4);
+
+        continue;
+      }
+
       // wall between components and edges
       _triangles.Add(face);
       _triangles.Add(offset);
@@ -164,24 +179,24 @@ public class Building
       _triangles.Add(face + 4);
 
       _triangles.Add(offset + _faces[face].verticesPerRow - 1);
-      _triangles.Add((face + 1) % 4);
-      _triangles.Add((face + 1) % 4 + 4);
+      _triangles.Add(face1_mod_4);
+      _triangles.Add(face1_mod_4 + 4);
 
       _triangles.Add(offset + _faces[face].verticesPerRow - 1);
-      _triangles.Add((face + 1) % 4 + 4);
+      _triangles.Add(face1_mod_4 + 4);
       _triangles.Add(offset + _faces[face].verticesPerRow - 1 + _faces[face].indexModifier);
 
       // wall between components (from ground to roof)
-      int index = 1;
+      int index = offset + 1;
       for (int i = 1; i < _faces[face].componentsPerFloor; ++i)
       {
-        _triangles.Add(offset + index);
-        _triangles.Add(offset + index + 1);
-        _triangles.Add(offset + index + _faces[face].indexModifier);
+        _triangles.Add(index);
+        _triangles.Add(index + 1);
+        _triangles.Add(index + _faces[face].indexModifier);
 
-        _triangles.Add(offset + index + 1);
-        _triangles.Add(offset + index + 1 + _faces[face].indexModifier);
-        _triangles.Add(offset + index + _faces[face].indexModifier);
+        _triangles.Add(index + 1);
+        _triangles.Add(index + 1 + _faces[face].indexModifier);
+        _triangles.Add(index + _faces[face].indexModifier);
 
         index += 2;
       }
