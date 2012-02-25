@@ -7,11 +7,20 @@ public sealed class Neoclassical : Building
   // fields
   private const float _component_width_min = 1.5f;
   private const float _component_width_max = 1.75f;
-  
   private const float _component_space_min = 2f;
   private const float _component_space_max = 2.25f;
 
-  
+  private GameObject meshobj;
+  private Mesh mesh;
+  private MeshFilter mf;
+  private MeshRenderer mr;
+  private Material _material;
+
+  public GameObject gameObject
+  {
+    get { return meshobj; }
+  }
+
   // constructors
   
   /// <summary>
@@ -58,5 +67,26 @@ public sealed class Neoclassical : Building
     _faces.Add(new NeoclassicalFace(this, _boundaries[1], _boundaries[2]));
     _faces.Add(new NeoclassicalFace(this, _boundaries[2], _boundaries[3]));
     _faces.Add(new NeoclassicalFace(this, _boundaries[3], _boundaries[0]));
+  }
+
+  public void ConstructGameObject ()
+  {
+    mesh = new Mesh();
+    meshobj = new GameObject();
+    mf = meshobj.AddComponent<MeshFilter>();
+    mr = meshobj.AddComponent<MeshRenderer>();
+    mr.sharedMaterial = _material;
+
+    mesh.Clear();
+    mesh.vertices = FindVertices();
+    mesh.triangles = FindTriangles();
+    // Assign UVs to shut the editor up -_-'
+    mesh.uv = new Vector2[mesh.vertices.Length];
+    for (int i = 0; i < mesh.vertices.Length; ++i)
+      mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
+
+    mesh.RecalculateNormals();
+    mesh.Optimize();
+    mf.sharedMesh = mesh;
   }
 }
