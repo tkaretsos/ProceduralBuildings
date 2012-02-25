@@ -5,7 +5,7 @@ public class NeoclassicalWindow : FaceComponent {
   public NeoclassicalWindow (Face parent, Vector3 dr, Vector3 dl)
   : base (parent)
   {
-    _height = parentFace.parentBuilding.floorHeight * 0.5f;
+    _height = parentBuilding.floorHeight * 0.5f;
 
     float height_modifier = 0.25f * parentFace.parentBuilding.floorHeight;
 
