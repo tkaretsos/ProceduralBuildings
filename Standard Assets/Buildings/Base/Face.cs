@@ -123,6 +123,7 @@ public class Face
   public Vector3[] FindVertices ()
   {
     _vertices = new Vector3[4 * _components_per_floor * (_parent_building.floorNumber + 1)];
+    if (_components_per_floor == 0) return _vertices;
     _vertices_per_row = 2 * _components_per_floor;
     int index = 0;
 
