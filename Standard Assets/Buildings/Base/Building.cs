@@ -16,6 +16,7 @@ public class Building
   private float         _height = 0f;
   private List<int>     _triangles;
   private List<Vector3> _vertices;
+  private bool          _has_door = false;
 #pragma warning disable 0414
   private readonly      BuildingType _type;
 #pragma warning restore 0414
@@ -77,6 +78,12 @@ public class Building
   public Vector3[] boundariesArray
   {
     get { return _boundaries.ToArray(); }
+  }
+
+  public bool hasDoor
+  {
+    get { return _has_door; }
+    set { _has_door = value; }
   }
   
   
