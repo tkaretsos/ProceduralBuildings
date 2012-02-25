@@ -8,6 +8,13 @@ public class CameraControl : MonoBehaviour
     Horizontal,
     Free
   }
+
+  private enum BuildingMode
+  {
+    Many,
+    Big,
+    Small
+  }
   
   [SerializeField]
   private CameraMode _cameraMode = CameraMode.Horizontal;
@@ -29,25 +36,20 @@ public class CameraControl : MonoBehaviour
   private float _mouse_x;
   private float _mouse_y;
 
-  private GameObject meshobj;
-  private Mesh mesh;
-  private MeshFilter mf;
-  private MeshRenderer mr;
+  private List<Neoclassical> neo = new List<Neoclassical>();
+
+//  private GameObject meshobj;
+//  private Mesh mesh;
+//  private MeshFilter mf;
+//  private MeshRenderer mr;
   
   
   void Start ()
   {
-//    mesh = new Neoclassical(new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)),
-//                            new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
-//                            new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
-//                            new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)));
-//    mesh.ConstructFaces();
-//    mesh.ConstructFaceComponents();
-
     CreateNeoclassical();
   
     _x_rotation = -40f;
-    _y_rotation = 50f;
+    _y_rotation = 45f;
   
     _last_mouse_x = Input.GetAxis("Mouse X");
     _last_mouse_y = Input.GetAxis("Mouse Y");
@@ -105,16 +107,22 @@ public class CameraControl : MonoBehaviour
       else
         _cameraMode = CameraMode.Free;
 
-    if (Input.GetKeyUp(KeyCode.B))
+    if (Input.GetKeyUp(KeyCode.Alpha1))
     {
-//      mesh = new Neoclassical(new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)),
-//      new Vector3( 4f + Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
-//      new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f, -1.5f - Random.Range(0.5f, 1.5f)),
-//      new Vector3(-4f - Random.Range(0.5f, 1.5f), 0f,  1.5f + Random.Range(0.5f, 1.5f)));
-//      mesh.ConstructFaces();
-//      mesh.ConstructFaceComponents();
-      Destroy(meshobj);
-      CreateNeoclassical();
+      DestroyBuildings();
+      CreateNeoclassical(BuildingMode.Many);
+    }
+
+    if (Input.GetKeyUp(KeyCode.Alpha2))
+    {
+      DestroyBuildings();
+      CreateNeoclassical(BuildingMode.Big);
+    }
+
+    if (Input.GetKeyUp(KeyCode.Alpha3))
+    {
+      DestroyBuildings();
+      CreateNeoclassical(BuildingMode.Small);
     }
   } // end of Update()
 
@@ -140,32 +148,52 @@ public class CameraControl : MonoBehaviour
     if (_x_rotation < -vertical) _x_rotation = -vertical;
   }
 
-  private void CreateNeoclassical()
+  private void CreateNeoclassical(BuildingMode mode = BuildingMode.Small)
   {
-    mesh = new Mesh();
-    
-    meshobj = new GameObject();
-    mf = meshobj.AddComponent<MeshFilter>();
-    mr = meshobj.AddComponent<MeshRenderer>();
-    mr.sharedMaterial = _material;
+    switch (mode)
+    {
+      case BuildingMode.Many:
+        for (int i = 0; i < 5; ++i)
+          for (int j = 0; j < 5; ++j)
+          {
+            float x_mod = i * 15f;
+            float z_mod = j * 9f;
+            neo.Add(new Neoclassical(
+              new Vector3(x_mod + 9f + Random.Range(0.5f, 1.5f), 0f, z_mod + 3.5f + Random.Range(0.5f, 1.5f)),
+              new Vector3(x_mod + 9f + Random.Range(0.5f, 1.5f), 0f, z_mod - Random.Range(0.5f, 1.5f)),
+              new Vector3(x_mod - Random.Range(0.5f, 1.5f), 0f, z_mod - Random.Range(0.5f, 1.5f)),
+              new Vector3(x_mod - Random.Range(0.5f, 1.5f), 0f, z_mod + 3.5f + Random.Range(0.5f, 1.5f)),
+              _material
+            ));
+          }
+        break;
 
-    Neoclassical neo = new Neoclassical(new Vector3( 1.5f + Random.Range(0.5f, 1.5f), 0,  4f + Random.Range(0.5f, 1.5f)),
-                                        new Vector3( 1.5f + Random.Range(0.5f, 1.5f), 0, -4f - Random.Range(0.5f, 1.5f)),
-                                        new Vector3(-1.5f - Random.Range(0.5f, 1.5f), 0, -4f - Random.Range(0.5f, 1.5f)),
-                                        new Vector3(-1.5f - Random.Range(0.5f, 1.5f), 0,  4f + Random.Range(0.5f, 1.5f)));
-    neo.ConstructFaces();
-    neo.ConstructFaceComponents();
+      case BuildingMode.Big:
+        neo.Add(new Neoclassical(
+          new Vector3(20f + Random.Range(0.5f, 1.5f), 0f, 8f + Random.Range(0.5f, 1.5f)),
+          new Vector3(20f + Random.Range(0.5f, 1.5f), 0f, Random.Range(0.5f, 1.5f)),
+          new Vector3(Random.Range(0.5f, 1.5f), 0f, -Random.Range(0.5f, 1.5f)),
+          new Vector3(Random.Range(0.5f, 1.5f), 0f, 8f + Random.Range(0.5f, 1.5f)),
+          _material
+        ));
+        break;
 
-    mesh.Clear();
-    mesh.vertices = neo.FindVertices();
-    mesh.triangles = neo.FindTriangles();
-    // Assign UVs to shut the editor up -_-'
-    mesh.uv = new Vector2[mesh.vertices.Length];
-    for (int i = 0; i < mesh.vertices.Length; ++i)
-      mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
+      case BuildingMode.Small:
+        neo.Add(new Neoclassical(
+          new Vector3(9f + Random.Range(0.25f, 0.75f), 0f, 3.5f + Random.Range(0.25f, 0.75f)),
+          new Vector3(9f + Random.Range(0.25f, 0.75f), 0f, Random.Range(0.25f, 0.75f)),
+          new Vector3(Random.Range(0.25f, 0.75f), 0f, -Random.Range(0.25f, 0.75f)),
+          new Vector3(Random.Range(0.25f, 0.75f), 0f, 3.5f + Random.Range(0.25f, 0.75f)),
+          _material
+        ));
+        break;
+    }
+  }
 
-    mesh.RecalculateNormals();
-    mesh.Optimize();
-    mf.sharedMesh = mesh;
+  public void DestroyBuildings ()
+  {
+    foreach (Neoclassical n in neo)
+      Destroy(n.gameObject);
+    neo.Clear();
   }
 }
