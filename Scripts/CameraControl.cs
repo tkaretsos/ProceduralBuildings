@@ -1,4 +1,5 @@
-  using UnityEngine;
+using UnityEngine;
+using System.Collections.Generic;
 
 public class CameraControl : MonoBehaviour 
 {	
@@ -116,6 +117,19 @@ public class CameraControl : MonoBehaviour
       CreateNeoclassical();
     }
   } // end of Update()
+
+  public void OnGUI ()
+  {
+    GUILayout.Label("Controls:");
+    GUILayout.Label("W - Forward");
+    GUILayout.Label("S - Backward");
+    GUILayout.Label("D - Right");
+    GUILayout.Label("A - Left");
+    GUILayout.Label("E - Up");
+    GUILayout.Label("C - Down");
+    GUILayout.Label("B - New buildings");
+    GUILayout.Label("M - Change camera mode");
+  }
 
   private void ClampCamera (float horizontal = 360f, float vertical = 80f)
   {
