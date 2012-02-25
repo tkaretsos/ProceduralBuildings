@@ -49,6 +49,11 @@ public class Face
   {
     get { return _components_per_floor; }
   }
+
+  public float width
+  {
+    get { return _width; }
+  }
   
   
   // constructors
