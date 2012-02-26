@@ -231,15 +231,20 @@ public class Building
                                   _boundaries[i].z));
   }
 
-  public int[] GetSortedFaces ()
+  public int[] GetSortedFaces (bool descending = true)
   {
     List<KeyValuePair<int, float>> lkv = new List<KeyValuePair<int, float>>();
     for (int i = 0; i < _faces.Count; ++i)
       lkv.Add(new KeyValuePair<int, float>(i, _faces[i].width));
 
-    lkv.Sort(delegate (KeyValuePair<int, float> x, KeyValuePair<int, float> y) {
-      return x.Value.CompareTo(y.Value);
-    });
+    if (descending)
+      lkv.Sort(delegate (KeyValuePair<int, float> x, KeyValuePair<int, float> y) {
+        return y.Value.CompareTo(x.Value);
+      });
+    else
+      lkv.Sort(delegate (KeyValuePair<int, float> x, KeyValuePair<int, float> y) {
+        return x.Value.CompareTo(y.Value);
+      });
 
     int[] ret = new int[lkv.Count];
     for (int i = 0; i < lkv.Count; ++i)
