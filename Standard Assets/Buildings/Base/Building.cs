@@ -18,7 +18,13 @@ public class Building
   private List<Vector3> _vertices;
   private bool          _has_door = false;
 
-  
+  private GameObject    _game_object;
+  private Mesh          _mesh;
+  private MeshFilter    _mesh_filter;
+  private MeshRenderer  _mesh_renderer;
+  private Material      _material;
+
+
   // properties
   
   /// <summary>
@@ -82,7 +88,12 @@ public class Building
     get { return _has_door; }
     set { _has_door = value; }
   }
-  
+
+  public GameObject gameObject
+  {
+    get { return _game_object; }
+  }
+
   
   // constructors
   
@@ -106,12 +117,14 @@ public class Building
   /// <param name='type'>
   /// The type of the building.
   /// </param>
-  public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+  public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, Material material)
   {
     _boundaries.Add(p1);
     _boundaries.Add(p2);
     _boundaries.Add(p3);
     _boundaries.Add(p4);
+
+    _material = material;
   }
   
   
@@ -251,5 +264,26 @@ public class Building
       ret[i] = lkv[i].Key;
 
     return ret;
+  }
+
+  public void Render ()
+  {
+    _game_object = new GameObject();
+    _mesh_filter = _game_object.AddComponent<MeshFilter>();
+    _mesh_renderer = _game_object.AddComponent<MeshRenderer>();
+    _mesh_renderer.sharedMaterial = _material;
+
+    _mesh = new Mesh();
+    _mesh.Clear();
+    _mesh.vertices = FindVertices();
+    _mesh.triangles = FindTriangles();
+    // Assign UVs to shut the editor up -_-'
+    _mesh.uv = new Vector2[_mesh.vertices.Length];
+    for (int i = 0; i < _mesh.vertices.Length; ++i)
+      _mesh.uv[i] = new Vector2(_mesh.vertices[i].x, _mesh.vertices[i].y);
+
+    _mesh.RecalculateNormals();
+    _mesh.Optimize();
+    _mesh_filter.sharedMesh = _mesh;
   }
 }

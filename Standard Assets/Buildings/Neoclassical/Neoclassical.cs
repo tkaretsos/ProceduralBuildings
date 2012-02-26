@@ -10,16 +10,7 @@ public sealed class Neoclassical : Building
   private const float _component_space_min = 2f;
   private const float _component_space_max = 2.25f;
 
-  private GameObject meshobj;
-  private Mesh mesh;
-  private MeshFilter mf;
-  private MeshRenderer mr;
-  private Material _material;
 
-  public GameObject gameObject
-  {
-    get { return meshobj; }
-  }
 
   // constructors
   
@@ -41,16 +32,14 @@ public sealed class Neoclassical : Building
   /// A point in space.
   /// </param>
   public Neoclassical (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, Material material)
-  : base(p1, p2, p3, p4)
+  : base(p1, p2, p3, p4, material)
   {
     floorHeight = Random.Range(4.5f, 5f);
     floorNumber = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
 
-    _material = material;
-
     ConstructFaces();
     ConstructFaceComponents();
-    ConstructGameObject();
+    Render();
   }
   
   
@@ -73,26 +62,5 @@ public sealed class Neoclassical : Building
     _faces.Add(new NeoclassicalFace(this, _boundaries[1], _boundaries[2]));
     _faces.Add(new NeoclassicalFace(this, _boundaries[2], _boundaries[3]));
     _faces.Add(new NeoclassicalFace(this, _boundaries[3], _boundaries[0]));
-  }
-
-  public void ConstructGameObject ()
-  {
-    mesh = new Mesh();
-    meshobj = new GameObject();
-    mf = meshobj.AddComponent<MeshFilter>();
-    mr = meshobj.AddComponent<MeshRenderer>();
-    mr.sharedMaterial = _material;
-
-    mesh.Clear();
-    mesh.vertices = FindVertices();
-    mesh.triangles = FindTriangles();
-    // Assign UVs to shut the editor up -_-'
-    mesh.uv = new Vector2[mesh.vertices.Length];
-    for (int i = 0; i < mesh.vertices.Length; ++i)
-      mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
-
-    mesh.RecalculateNormals();
-    mesh.Optimize();
-    mf.sharedMesh = mesh;
   }
 }

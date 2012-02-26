@@ -154,9 +154,10 @@ public class CameraControl : MonoBehaviour
     {
       case BuildingMode.Many:
         for (int i = 0; i < 5; ++i)
+        {
+          float x_mod = i * 15f;
           for (int j = 0; j < 5; ++j)
           {
-            float x_mod = i * 15f;
             float z_mod = j * 9f;
             neo.Add(new Neoclassical(
               new Vector3(x_mod + 9f + Random.Range(0.5f, 1.5f), 0f, z_mod + 3.5f + Random.Range(0.5f, 1.5f)),
@@ -166,6 +167,7 @@ public class CameraControl : MonoBehaviour
               _material
             ));
           }
+        }
         break;
 
       case BuildingMode.Big:
