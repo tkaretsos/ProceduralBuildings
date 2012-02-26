@@ -41,7 +41,7 @@ public sealed class Neoclassical : Building
   /// A point in space.
   /// </param>
   public Neoclassical (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, Material material)
-  : base(p1, p2, p3, p4, BuildingType.Neoclassical)
+  : base(p1, p2, p3, p4)
   {
     floorHeight = Random.Range(4.5f, 5f);
     floorNumber = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});

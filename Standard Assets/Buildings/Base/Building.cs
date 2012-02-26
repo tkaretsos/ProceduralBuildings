@@ -17,9 +17,6 @@ public class Building
   private List<int>     _triangles;
   private List<Vector3> _vertices;
   private bool          _has_door = false;
-#pragma warning disable 0414
-  private readonly      BuildingType _type;
-#pragma warning restore 0414
 
   
   // properties
@@ -109,13 +106,12 @@ public class Building
   /// <param name='type'>
   /// The type of the building.
   /// </param>
-  public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, BuildingType type)
+  public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
     _boundaries.Add(p1);
     _boundaries.Add(p2);
     _boundaries.Add(p3);
     _boundaries.Add(p4);
-    _type = type;
   }
   
   
