@@ -4,15 +4,15 @@ using Exception = System.Exception;
 
 public sealed class Neoclassical : Building
 {
-  // fields
+  /*************** FIELDS ***************/
+
   private const float _component_width_min = 1.5f;
   private const float _component_width_max = 1.75f;
   private const float _component_space_min = 2f;
   private const float _component_space_max = 2.25f;
 
 
-
-  // constructors
+  /*************** CONSTRUCTORS ***************/
   
   /// <summary>
   /// Initializes a new instance of the <see cref="Neoclassical"/> class.
@@ -43,7 +43,7 @@ public sealed class Neoclassical : Building
   }
   
   
-  // methods
+  /*************** METHODS ***************/
 
   public void ConstructFaceComponents ()
   {

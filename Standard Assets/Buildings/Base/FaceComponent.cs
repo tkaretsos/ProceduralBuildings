@@ -4,23 +4,41 @@ using System.Collections.ObjectModel;
 
 public class FaceComponent
 {
+  /// <summary>
+  /// The face which this component is attached to.
+  /// </summary>
   private readonly Face _parent_face;
+
+  /// <summary>
+  /// The height of this component.
+  /// </summary>
   protected float _height;
+
+  /// <summary>
+  /// The boundaries of this component, which are four points on the parent face.
+  /// </summary>
   protected List<Vector3> _boundaries = new List<Vector3>();
 
 
   // properties
 
+  /// <summary>
+  /// Returns a read only collection of the boundaries list.
+  /// </summary>
   public ReadOnlyCollection<Vector3> boundaries
   {
     get { return _boundaries.AsReadOnly(); }
   }
+
 
   public Face parentFace
   {
     get { return _parent_face; }
   }
 
+  /// <summary>
+  /// Returns the parent building, to which this component is attached.
+  /// </summary>
   public Building parentBuilding
   {
     get { return _parent_face.parentBuilding; }

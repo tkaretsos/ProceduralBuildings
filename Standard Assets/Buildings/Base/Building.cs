@@ -6,44 +6,72 @@ using Exception = System.Exception;
 
 public class Building
 {
-  // fields
+  /*************** FIELDS ***************/
 
-  protected int           _floor_number = 0;
-  protected float         _floor_height = 0f;
-  protected List<Face>    _faces        = new List<Face>();
+  /// <summary>
+  /// The number of floors of the building.
+  /// </summary>
+  protected int _floor_number = 0;
+
+  /// <summary>
+  /// The height of each floor.
+  /// </summary>
+  protected float _floor_height = 0f;
+
+  /// <summary>
+  /// A list containing the faces of this building.
+  /// </summary>
+  protected List<Face> _faces = new List<Face>();
+
+  /// <summary>
+  /// The ground and roof boundaries (vertices) of the building.
+  /// </summary>
   protected List<Vector3> _boundaries   = new List<Vector3>();
 
-  private float         _height = 0f;
-  private List<int>     _triangles;
+  /// <summary>
+  /// The total height of the building.
+  /// </summary>
+  private float _height = 0f;
+
+  /// <summary>
+  /// A list that contains the triangles that form the building.
+  /// </summary>
+  private List<int> _triangles = new List<int>();
+
+  /// <summary>
+  /// A list that contains all the vertices of the building.
+  /// </summary>
   private List<Vector3> _vertices;
-  private bool          _has_door = false;
 
-  private GameObject    _game_object;
-  private Mesh          _mesh;
-  private MeshFilter    _mesh_filter;
-  private MeshRenderer  _mesh_renderer;
-  private Material      _material;
+  /// <summary>
+  /// A flag that tells whether the building has door(s) or not.
+  /// </summary>
+  private bool _has_door = false;
+
+  /// <summary>
+  /// The gameObject which is responsible for the rendering of the building.
+  /// </summary>
+  private GameObject _game_object;
+
+  /// <summary>
+  /// The material which will be used for the rendering.
+  /// </summary>
+  private Material _material;
 
 
-  // properties
+  /*************** PROPERTIES ***************/
   
   /// <summary>
-  /// Gets the height.
+  /// The total height of the building.
   /// </summary>
-  /// <value>
-  /// The height.
-  /// </value>
   public float height
   {
     get { return _height; }
   }
   
   /// <summary>
-  /// Gets or sets the height of the floor.
+  /// The height of each floor.
   /// </summary>
-  /// <value>
-  /// The height of the floor.
-  /// </value>
   public float floorHeight
   {
     get { return _floor_height; }
@@ -59,11 +87,8 @@ public class Building
   }
   
   /// <summary>
-  /// Gets or sets the floor number.
+  /// The number of floors.
   /// </summary>
-  /// <value>
-  /// The floor number.
-  /// </value>
   public int floorNumber
   {
     get { return _floor_number; }
@@ -77,25 +102,34 @@ public class Building
       }
     }
   }
-  
+
+  /// <summary>
+  /// The boundaries of this building in array.
+  /// </summary>
   public Vector3[] boundariesArray
   {
     get { return _boundaries.ToArray(); }
   }
 
+  /// <summary>
+  /// Flag that indicates whether this building has door(s).
+  /// </summary>
   public bool hasDoor
   {
     get { return _has_door; }
     set { _has_door = value; }
   }
 
+  /// <summary>
+  /// The gameObject of the building, which is responsible for the rendering.
+  /// </summary>
   public GameObject gameObject
   {
     get { return _game_object; }
   }
 
   
-  // constructors
+  /*************** CONSTRUCTORS ***************/
   
   /// <summary>
   /// Initializes a new instance of the <see cref="Building"/> class.
@@ -128,7 +162,7 @@ public class Building
   }
   
   
-  // methods
+  /*************** METHODS ***************/
   
   /// <summary>
   /// Constructs the faces of the building.
@@ -141,7 +175,21 @@ public class Building
     _faces.Add(new Face(this, _boundaries[3], _boundaries[0]));
   }
 
-  public Vector3[] FindVertices ()
+  /// <summary>
+  /// Finds all the vertices required for the rendering of the building.
+  /// </summary>
+  /// <description>
+  /// Actually puts together the building's boundaries and the vertices
+  /// of each face of the building.
+  /// </description>
+  /// <returns>
+  /// The vertices of the building in an array.
+  /// </returns>
+  /// <exception>
+  /// An exception is thrown when the boundaries of the building
+  /// have not been calculated.
+  /// </exception>
+  private Vector3[] FindVertices ()
   {
     if (_boundaries.Count != 8) throw new Exception("Building doesnt have enough boundaries.");
 
@@ -152,10 +200,19 @@ public class Building
     return _vertices.ToArray();
   }
 
-  public int[] FindTriangles ()
+  /// <summary>
+  /// Calculates the triangles that are required for the rendering of the building.
+  /// </summary>
+  /// <description>
+  /// The calculations starts by adding the 2 triangles of the roof.
+  /// Then the triangles of each face are added. For each face the triangles
+  /// are added in a vertical manner. Firstly, the triangles between the top/bottom
+  /// edges and the respective components are added. Then the triangles between top
+  /// and bottom edges are added (long vertical stripes). Finally, the triangles
+  /// between each component and its adjucent ones (top or/and bottom) are added.
+  /// </description>
+  private int[] FindTriangles ()
   {
-    _triangles = new List<int>();
-
     // roof
     _triangles.Add(4); _triangles.Add(5); _triangles.Add(6);
     _triangles.Add(4); _triangles.Add(6); _triangles.Add(7);
@@ -212,7 +269,6 @@ public class Building
 
       // wall inbetween components
       for (int i = 0; i < _faces[face].componentsPerFloor; ++i)
-      {
         for (int j = 0; j <= floorNumber; ++j)
         {
           int adjustment = 2 * (i + j * _faces[face].verticesPerRow) + offset;
@@ -225,7 +281,6 @@ public class Building
           _triangles.Add(adjustment + 1);
           _triangles.Add(adjustment + 1 + _faces[face].verticesPerRow);
         }
-      }
 
       offset += _faces[face].vertices.Length;
     }
@@ -233,6 +288,9 @@ public class Building
     return _triangles.ToArray();
   }
 
+  /// <summary>
+  /// Helper method that calculates the roof boundaries.
+  /// </summary>
   private void CalculateRoofBoundaries ()
   {
     if (_boundaries.Count > 4)
@@ -244,6 +302,15 @@ public class Building
                                   _boundaries[i].z));
   }
 
+  /// <summary>
+  /// Sort the faces of the building by width.
+  /// </summary>
+  /// <returns>
+  /// An array of int that contains the indexes of the faces sorted by width.
+  /// </returns>
+  /// <param name='descending'>
+  /// The order for the sorting. <c>true</c> for descending, <c>false</c> for ascending.
+  /// </param>
   public int[] GetSortedFaces (bool descending = true)
   {
     List<KeyValuePair<int, float>> lkv = new List<KeyValuePair<int, float>>();
@@ -266,14 +333,17 @@ public class Building
     return ret;
   }
 
+  /// <summary>
+  /// Creates a  gameObject that is responsible for the rendering of the building.
+  /// </summary>
   public void Render ()
   {
     _game_object = new GameObject();
-    _mesh_filter = _game_object.AddComponent<MeshFilter>();
-    _mesh_renderer = _game_object.AddComponent<MeshRenderer>();
+
+    MeshRenderer _mesh_renderer = _game_object.AddComponent<MeshRenderer>();
     _mesh_renderer.sharedMaterial = _material;
 
-    _mesh = new Mesh();
+    Mesh _mesh = new Mesh();
     _mesh.Clear();
     _mesh.vertices = FindVertices();
     _mesh.triangles = FindTriangles();
@@ -284,6 +354,8 @@ public class Building
 
     _mesh.RecalculateNormals();
     _mesh.Optimize();
+
+    MeshFilter _mesh_filter = _game_object.AddComponent<MeshFilter>();
     _mesh_filter.sharedMesh = _mesh;
   }
 }
