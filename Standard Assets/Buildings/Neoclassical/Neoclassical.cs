@@ -2,7 +2,7 @@ using UnityEngine;
 
 using Exception = System.Exception;
 
-public sealed class Neoclassical : Building
+public sealed class Neoclassical : Base.Building
 {
   /*************** FIELDS ***************/
 
@@ -52,7 +52,7 @@ public sealed class Neoclassical : Building
     float component_width = Random.Range(_component_width_min, _component_width_max);
     float inbetween_space = Random.Range(_component_space_min, _component_space_max);
   
-    foreach (Face face in _faces)
+    foreach (Base.Face face in _faces)
       face.ConstructFaceComponents(component_width, inbetween_space);
   }
 

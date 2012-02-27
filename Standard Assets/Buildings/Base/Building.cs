@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 
 using Exception = System.Exception;
 
+namespace Base {
+
 public class Building
 {
   /*************** FIELDS ***************/
@@ -359,3 +361,5 @@ public class Building
     _mesh_filter.sharedMesh = _mesh;
   }
 }
+
+} // namespace Base

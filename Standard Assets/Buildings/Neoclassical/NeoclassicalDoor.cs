@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class NeoclassicalDoor : FaceComponent {
+public class NeoclassicalDoor : Base.FaceComponent {
 
-  public NeoclassicalDoor(Face parent, Vector3 dr, Vector3 dl)
+  public NeoclassicalDoor(Base.Face parent, Vector3 dr, Vector3 dl)
   : base (parent)
   {
     _height = parentBuilding.floorHeight * 0.75f;

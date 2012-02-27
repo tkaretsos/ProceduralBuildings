@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
+namespace Base {
+
 public class FaceComponent
 {
   /// <summary>
@@ -29,7 +31,6 @@ public class FaceComponent
   {
     get { return _boundaries.AsReadOnly(); }
   }
-
 
   public Face parentFace
   {
@@ -80,3 +81,5 @@ public class FaceComponent
     _boundaries.Add(new Vector3(dr.x, dr.y + _height, dr.z));
   }
 }
+
+} // namespace Base

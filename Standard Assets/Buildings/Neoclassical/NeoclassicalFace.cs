@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class NeoclassicalFace : Face {
+public class NeoclassicalFace : Base.Face {
 
-  public NeoclassicalFace (Building parent, Vector3 dr, Vector3 dl)
+  public NeoclassicalFace (Base.Building parent, Vector3 dr, Vector3 dl)
   : base (parent, dr, dl)
   {}
 

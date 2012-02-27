@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+namespace Base {
+
 /// <summary>
 /// A class that represents a face of a building.
 /// </summary>
@@ -236,3 +238,5 @@ public class Face
     return _vertices;
   }
 }
+
+} // namespace Base
