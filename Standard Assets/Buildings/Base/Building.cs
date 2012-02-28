@@ -153,14 +153,14 @@ public class Building
   /// <param name='type'>
   /// The type of the building.
   /// </param>
-  public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, Material material)
+  public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
     _boundaries.Add(p1);
     _boundaries.Add(p2);
     _boundaries.Add(p3);
     _boundaries.Add(p4);
 
-    _material = material;
+    _material = Resources.Load("Materials/BuildingMaterial", typeof(Material)) as Material;
   }
   
   
