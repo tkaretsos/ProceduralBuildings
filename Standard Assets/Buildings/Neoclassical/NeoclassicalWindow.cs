@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class NeoclassicalWindow : Base.FaceComponent {
+public sealed class NeoclassicalWindow : Base.FaceComponent {
 
   public NeoclassicalWindow (Base.Face parent, Vector3 dr, Vector3 dl)
-  : base (parent)
+    : base (parent)
   {
     _height = parentBuilding.floorHeight * 0.5f;
 

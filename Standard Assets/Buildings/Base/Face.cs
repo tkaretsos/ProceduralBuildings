@@ -160,24 +160,7 @@ public class Face
   
   /*************** METHODS ***************/
   
-  public virtual void ConstructFaceComponents (float component_width, float inbetween_space)
-  {
-//    _components_per_floor = Mathf.CeilToInt(_width / (component_width + inbetween_space));
-//    float fixed_space = (_width - _components_per_floor * component_width) / (_components_per_floor + 1);
-//
-//    for (int floor = 0; floor < _parent_building.floorNumber; ++floor)
-//    {
-//      float offset = fixed_space;
-//      for (int i = 0; i < _components_per_floor; ++i)
-//      {
-//        Vector3 dr = _boundaries[0] - _right * offset + (new Vector3(0f, floor * _parent_building.floorHeight, 0f));
-//        Vector3 dl = dr - _right * component_width;
-//        offset += component_width;
-//        _face_components.Add(new FaceComponent(this, dr, dl, 7f / 10f));
-//        offset += fixed_space;
-//      }
-//    }
-  }
+  public virtual void ConstructFaceComponents (float component_width, float inbetween_space) {}
 
   /// <summary>
   /// Creates an array that contains the vertices of the FaceComponents
