@@ -24,6 +24,7 @@ public class CameraControl : MonoBehaviour
   private float _last_mouse_y;
   private float _mouse_x;
   private float _mouse_y;
+  private bool _follow_mouse = true;
 
 
 //  private GameObject meshobj;
@@ -45,12 +46,15 @@ public class CameraControl : MonoBehaviour
 
   void Update ()
   {
-    _mouse_x = Input.GetAxis("Mouse X");
-    _mouse_y = Input.GetAxis("Mouse Y");
-    _y_rotation += Mathf.Lerp(_last_mouse_x * _rotationSpeed, _mouse_x * _rotationSpeed, Time.smoothDeltaTime);
-    _x_rotation += Mathf.Lerp(_last_mouse_y * _rotationSpeed, _mouse_y * _rotationSpeed, Time.smoothDeltaTime);
-    _last_mouse_x = _mouse_x;
-    _last_mouse_y = _mouse_y;
+    if (_follow_mouse)
+    {
+      _mouse_x = Input.GetAxis("Mouse X");
+      _mouse_y = Input.GetAxis("Mouse Y");
+      _y_rotation += Mathf.Lerp(_last_mouse_x * _rotationSpeed, _mouse_x * _rotationSpeed, Time.smoothDeltaTime);
+      _x_rotation += Mathf.Lerp(_last_mouse_y * _rotationSpeed, _mouse_y * _rotationSpeed, Time.smoothDeltaTime);
+      _last_mouse_x = _mouse_x;
+      _last_mouse_y = _mouse_y;
+    }
 
     ClampCamera();
     camera.transform.eulerAngles = new Vector3(-_x_rotation, _y_rotation, 0f);
@@ -83,6 +87,12 @@ public class CameraControl : MonoBehaviour
         _cameraMode = CameraMode.Horizontal;
       else
         _cameraMode = CameraMode.Free;
+
+    if (Input.GetMouseButtonUp(1))
+      if (_follow_mouse)
+        _follow_mouse = false;
+      else
+        _follow_mouse = true;
   }
 
   public void OnGUI ()
