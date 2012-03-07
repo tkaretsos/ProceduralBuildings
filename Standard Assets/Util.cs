@@ -58,6 +58,16 @@ public class Util
   
     return expanded[new System.Random().Next(precision)];
   }
+
+
+  //static public Vector2 LineEquation (Vector2 point1, Vector2 point2)
+  //{
+  //  var a = (point1.y - point2.y) / (point1.x - point2.x);
+  //  var b = point1.y - a * point1.x;
+
+  //  return new Vector2(a, b);
+  //}
+
 	
   static public void PrintVector (string s, Vector3 v)
   {

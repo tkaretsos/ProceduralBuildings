@@ -6,10 +6,10 @@ public sealed class Neoclassical : Base.Building
 {
   /*************** FIELDS ***************/
 
-  private const float _component_width_min = 1.5f;
-  private const float _component_width_max = 1.75f;
-  private const float _component_space_min = 2f;
-  private const float _component_space_max = 2.25f;
+  private const float _componentWidthMin = 1.5f;
+  private const float _componentWidthMax = 1.75f;
+  private const float _componentSpaceMin = 2f;
+  private const float _componentSpaceMax = 2.25f;
 
 
   /*************** CONSTRUCTORS ***************/
@@ -47,20 +47,20 @@ public sealed class Neoclassical : Base.Building
 
   public void ConstructFaceComponents ()
   {
-    if (_faces.Count == 0) throw new Exception("There are no faces to construct the components.");
+    if (faces.Count == 0) throw new Exception("There are no faces to construct the components.");
   
-    float component_width = Random.Range(_component_width_min, _component_width_max);
-    float inbetween_space = Random.Range(_component_space_min, _component_space_max);
+    float component_width = Random.Range(_componentWidthMin, _componentWidthMax);
+    float inbetween_space = Random.Range(_componentSpaceMin, _componentSpaceMax);
   
-    foreach (Base.Face face in _faces)
+    foreach (Base.Face face in faces)
       face.ConstructFaceComponents(component_width, inbetween_space);
   }
 
   public override void ConstructFaces ()
   {
-    _faces.Add(new NeoclassicalFace(this, _boundaries[0], _boundaries[1]));
-    _faces.Add(new NeoclassicalFace(this, _boundaries[1], _boundaries[2]));
-    _faces.Add(new NeoclassicalFace(this, _boundaries[2], _boundaries[3]));
-    _faces.Add(new NeoclassicalFace(this, _boundaries[3], _boundaries[0]));
+    faces.Add(new NeoclassicalFace(this, boundaries[0], boundaries[1]));
+    faces.Add(new NeoclassicalFace(this, boundaries[1], boundaries[2]));
+    faces.Add(new NeoclassicalFace(this, boundaries[2], boundaries[3]));
+    faces.Add(new NeoclassicalFace(this, boundaries[3], boundaries[0]));
   }
 }
