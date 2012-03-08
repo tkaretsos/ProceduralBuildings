@@ -39,7 +39,6 @@ public sealed class Neoclassical : Base.Building
 
     ConstructFaces();
     ConstructFaceComponents();
-    Render();
   }
   
   

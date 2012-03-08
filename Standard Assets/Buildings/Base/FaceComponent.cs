@@ -70,6 +70,8 @@ public class FaceComponent
     boundaries.Add(new Vector3(dl.x, dl.y + height, dl.z));
     boundaries.Add(new Vector3(dr.x, dr.y + height, dr.z));
   }
+
+  public virtual void Render () {}
 }
 
 } // namespace Base

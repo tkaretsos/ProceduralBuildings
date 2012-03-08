@@ -40,6 +40,8 @@ public class Building
   /// </summary>
   public GameObject gameObject;
 
+  public GameObject windowFrameCombiner;
+
   /// <summary>
   /// The material which will be used for the rendering.
   /// </summary>
@@ -308,6 +310,10 @@ public class Building
 
     MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
     meshFilter.sharedMesh = mesh;
+
+    foreach (Base.Face face in faces)
+      foreach (Base.FaceComponent component in face.faceComponents)
+        component.Render();
   }
 
   public Vector3 FindMeshOrigin (Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
@@ -336,6 +342,42 @@ public class Building
       boundaries.Add(new Vector3(boundaries[i].x,
                                  boundaries[i].y + _height,
                                  boundaries[i].z));
+  }
+
+
+  public void CombineWindowFrames ()
+  {
+    windowFrameCombiner = new GameObject("window_frame_combiner");
+    windowFrameCombiner.transform.parent = gameObject.transform;
+    windowFrameCombiner.active = false;
+    var meshFilter = windowFrameCombiner.AddComponent<MeshFilter>();
+    var meshRenderer = windowFrameCombiner.AddComponent<MeshRenderer>();
+    meshRenderer.sharedMaterial = Resources.Load("Materials/WindowFrameMaterial",
+                                                 typeof(Material)) as Material;
+
+    List<Window> windows = new List<Window>();
+
+    foreach (Base.Face face in faces)
+      foreach (Base.FaceComponent fc in face.faceComponents)
+        if (fc.GetType().IsSubclassOf(typeof(Window)))
+          windows.Add(fc as Window);
+
+    MeshFilter[] meshFilters = new MeshFilter[windows.Count];
+    for (var i = 0; i < windows.Count; ++i)
+    {
+      meshFilters[i] = windows[i].windowFrame.gameObject.GetComponent<MeshFilter>();
+      GameObject.Destroy(windows[i].windowFrame.gameObject);
+    }
+
+    CombineInstance[] combine = new CombineInstance[meshFilters.Length];
+    for (var i = 0; i < meshFilters.Length; ++i)
+    {
+      combine[i].mesh = meshFilters[i].sharedMesh;
+      combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+    }
+
+    meshFilter.mesh = new Mesh();
+    meshFilter.mesh.CombineMeshes(combine);
   }
 }
 

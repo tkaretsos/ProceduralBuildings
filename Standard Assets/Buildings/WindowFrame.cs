@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class WindowFrame
 {
   public readonly Base.FaceComponent parentWindow;
-  public List<Vector3> boundaries = new List<Vector3>(8);
+  public List<Vector3> boundaries = new List<Vector3>();
 
   public GameObject gameObject;
   public Material material;
@@ -31,20 +31,20 @@ public class WindowFrame
       boundaries.Add(boundaries[i] - 0.2f * parentWindow.normal);
 
     gameObject = new GameObject("Window Frame");
+    gameObject.active = false;
     gameObject.isStatic = true;
     gameObject.transform.parent = parentBuilding.gameObject.transform;
-    Render();
   }
 
   public void Render ()
   {
-    MeshRenderer _mesh_renderer = gameObject.AddComponent<MeshRenderer>();
-    _mesh_renderer.sharedMaterial = material;
+    var meshRenderer = gameObject.AddComponent<MeshRenderer>();
+    meshRenderer.sharedMaterial = material;
 
-    Mesh _mesh = new Mesh();
-    _mesh.Clear();
-    _mesh.vertices = boundaries.ToArray();
-    _mesh.triangles = new int[] {
+    var mesh = new Mesh();
+    mesh.Clear();
+    mesh.vertices = boundaries.ToArray();
+    mesh.triangles = new int[] {
       0, 4, 7,
       0, 7, 3,
       7, 6, 2,
@@ -54,14 +54,14 @@ public class WindowFrame
       0, 1, 5,
       0, 5, 4
     };
-    _mesh.uv = new Vector2[_mesh.vertices.Length];
-    for (int i = 0; i < _mesh.vertices.Length; ++i)
-      _mesh.uv[i] = new Vector2(_mesh.vertices[i].x, _mesh.vertices[i].y);
+    mesh.uv = new Vector2[mesh.vertices.Length];
+    for (int i = 0; i < mesh.vertices.Length; ++i)
+      mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
 
-    _mesh.RecalculateNormals();
-    _mesh.Optimize();
+    mesh.RecalculateNormals();
+    mesh.Optimize();
 
-    MeshFilter _mesh_filter = gameObject.AddComponent<MeshFilter>();
-    _mesh_filter.sharedMesh = _mesh;
+    var meshFilter = gameObject.AddComponent<MeshFilter>();
+    meshFilter.sharedMesh = mesh;
   }
 }

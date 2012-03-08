@@ -1,9 +1,7 @@
 using UnityEngine;
 
-public sealed class NeoclassicalWindow : Base.FaceComponent
+public sealed class NeoclassicalWindow : Base.Window
 {
-  public WindowFrame windowFrame;
-
   public NeoclassicalWindow (Base.Face parent, Vector3 dr, Vector3 dl)
     : base (parent)
   {
@@ -17,5 +15,12 @@ public sealed class NeoclassicalWindow : Base.FaceComponent
     boundaries.Add(new Vector3(dr.x, dr.y + height + height_modifier, dr.z));
 
     windowFrame = new WindowFrame(this);
+  }
+
+  public override void Render ()
+  {
+    base.Render();
+
+    windowFrame.Render();
   }
 }

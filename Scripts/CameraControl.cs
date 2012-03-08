@@ -35,6 +35,8 @@ public class CameraControl : MonoBehaviour
   
   void Start ()
   {
+    Screen.showCursor = false;
+
     _x_rotation = -40f;
     _y_rotation = 45f;
   
