@@ -40,6 +40,10 @@ public class Building
   /// </summary>
   public GameObject gameObject;
 
+  /// <summary>
+  /// The game object that is created after combining all the
+  /// building's window frames.
+  /// </summary>
   public GameObject windowFrameCombiner;
 
   /// <summary>
@@ -316,6 +320,12 @@ public class Building
         component.Render();
   }
 
+  /// <summary>
+  /// Calculates the center of the quadrangle base of the building.
+  /// Used for properly creating the gameObject and serves as the origin
+  /// of the created mesh.
+  /// </summary>
+  /// <returns>The origin of the building gameObject's mesh</returns>
   public Vector3 FindMeshOrigin (Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
   {
     var par = (p2.x - p0.x) * (p1.z - p3.z) - (p2.z - p0.z) * (p1.x - p3.x);
@@ -344,7 +354,10 @@ public class Building
                                  boundaries[i].z));
   }
 
-
+  /// <summary>
+  /// Combines all the WindowFrame objects of the building
+  /// into one mesh. The WindowFrame objects are then destroyed.
+  /// </summary>
   public void CombineWindowFrames ()
   {
     windowFrameCombiner = new GameObject("window_frame_combiner");

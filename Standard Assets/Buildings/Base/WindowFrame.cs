@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+namespace Base {
+
 public class WindowFrame
 {
   public readonly Base.FaceComponent parentWindow;
@@ -65,3 +67,5 @@ public class WindowFrame
     meshFilter.sharedMesh = mesh;
   }
 }
+
+} // namespace Base

@@ -14,7 +14,7 @@ public sealed class NeoclassicalWindow : Base.Window
     boundaries.Add(new Vector3(dl.x, dl.y + height + height_modifier, dl.z));
     boundaries.Add(new Vector3(dr.x, dr.y + height + height_modifier, dr.z));
 
-    windowFrame = new WindowFrame(this);
+    windowFrame = new Base.WindowFrame(this);
   }
 
   public override void Render ()

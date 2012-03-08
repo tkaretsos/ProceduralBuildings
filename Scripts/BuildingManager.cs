@@ -12,7 +12,6 @@ public class BuildingManager : MonoBehaviour
 
   private List<Neoclassical> neo = new List<Neoclassical>();
 
-
 	void Start ()
   {
 	  CreateNeoclassical();
@@ -37,9 +36,6 @@ public class BuildingManager : MonoBehaviour
       DestroyBuildings();
       CreateNeoclassical(BuildingMode.Small);
     }
-
-    //foreach (Neoclassical n in neo)
-    //  Debug.DrawRay(n.gameObject.transform.position, Vector3.up * 100, Color.green);
 	}
 
   private void CreateNeoclassical(BuildingMode mode = BuildingMode.Small)

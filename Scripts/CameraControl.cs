@@ -25,12 +25,6 @@ public class CameraControl : MonoBehaviour
   private float _mouse_x;
   private float _mouse_y;
   private bool _follow_mouse = true;
-
-
-//  private GameObject meshobj;
-//  private Mesh mesh;
-//  private MeshFilter mf;
-//  private MeshRenderer mr;
   
   
   void Start ()
