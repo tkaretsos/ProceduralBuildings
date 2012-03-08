@@ -51,6 +51,9 @@ public class Building
   /// </summary>
   public Material material;
 
+  /// <summary>
+  /// The origin of the building's mesh
+  /// </summary>
   public Vector3 meshOrigin;
 
   /// <summary>
@@ -190,10 +193,10 @@ public class Building
     triangles.Add(4); triangles.Add(5); triangles.Add(6);
     triangles.Add(4); triangles.Add(6); triangles.Add(7);
 
-    int offset = 8;
-    for (int face = 0; face < 4; ++face)
+    var offset = 8;
+    for (var face = 0; face < 4; ++face)
     {
-      int face1_mod_4 = (face + 1) % 4;
+      var face1_mod_4 = (face + 1) % 4;
 
       if (faces[face].componentsPerFloor == 0)
       {
@@ -226,8 +229,8 @@ public class Building
       triangles.Add(offset + faces[face].verticesPerRow - 1 + faces[face].indexModifier);
 
       // wall between components (from ground to roof)
-      int index = offset + 1;
-      for (int i = 1; i < faces[face].componentsPerFloor; ++i)
+      var index = offset + 1;
+      for (var i = 1; i < faces[face].componentsPerFloor; ++i)
       {
         triangles.Add(index);
         triangles.Add(index + 1);
@@ -241,10 +244,10 @@ public class Building
       }
 
       // wall inbetween components
-      for (int i = 0; i < faces[face].componentsPerFloor; ++i)
-        for (int j = 0; j <= floorNumber; ++j)
+      for (var i = 0; i < faces[face].componentsPerFloor; ++i)
+        for (var j = 0; j <= floorNumber; ++j)
         {
-          int adjustment = 2 * (i + j * faces[face].verticesPerRow) + offset;
+          var adjustment = 2 * (i + j * faces[face].verticesPerRow) + offset;
 
           triangles.Add(adjustment);
           triangles.Add(adjustment + 1);

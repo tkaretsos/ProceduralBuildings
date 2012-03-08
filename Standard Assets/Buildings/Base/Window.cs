@@ -10,7 +10,12 @@ public class Window : FaceComponent
 {
   public WindowFrame windowFrame;
 
-  public Window (Face parent) : base(parent) {}
+  public float depth;
+
+  public Window (Face parent) : base(parent) 
+  {
+    depth = 0.2f;
+  }
 }
 
 }

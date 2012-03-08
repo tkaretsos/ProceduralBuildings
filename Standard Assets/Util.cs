@@ -21,11 +21,10 @@ public class Util
   /// </param>
   static public int RollDice (float[] chances, int[] numbers = null, int precision = 2)
   {
-    float sum = 0f;
-    foreach (float chance in chances)
+    var sum = 0f;
+    foreach (var chance in chances)
     {
-      if (chance == 0f)
-      throw new Exception("RollDice: a chance cannot be zero.");
+      if (chance == 0f) throw new Exception("RollDice: a chance cannot be zero.");
       sum += chance;
     }
     if (sum != 1f) throw new Exception("RollDice: the sum of chances is not equal to 1.");
@@ -33,40 +32,31 @@ public class Util
     if (numbers == null)
     {
       numbers = new int[chances.Length];
-      for (int i = 0; i < chances.Length; ++i)
+      for (var i = 0; i < chances.Length; ++i)
       numbers[i] = i + 1;
     }
     else if (chances.Length != numbers.Length)
       throw new Exception("RollDice: number of chances not equal to number of possible values");
-  
+
     precision = (int) Mathf.Pow(10, precision);
-  
+
     int[] expanded = new int[precision];
-    int start = 0;
-    int end = Mathf.FloorToInt(chances[0] * precision);
+    var start = 0;
+    var end = Mathf.FloorToInt(chances[0] * precision);
   
-    for (int i = start; i < end; ++i)
+    for (var i = start; i < end; ++i)
       expanded[i] = numbers[0];
   
-    for (int i = 1; i < chances.Length; ++i)
+    for (var i = 1; i < chances.Length; ++i)
     {
       start = end;
       end += Mathf.FloorToInt(chances[i] * precision);
-      for (int j = start; j < end; ++j)
+      for (var j = start; j < end; ++j)
         expanded[j] = numbers[i];
     }
   
     return expanded[new System.Random().Next(precision)];
   }
-
-
-  //static public Vector2 LineEquation (Vector2 point1, Vector2 point2)
-  //{
-  //  var a = (point1.y - point2.y) / (point1.x - point2.x);
-  //  var b = point1.y - a * point1.x;
-
-  //  return new Vector2(a, b);
-  //}
 
 	
   static public void PrintVector (string s, Vector3 v)

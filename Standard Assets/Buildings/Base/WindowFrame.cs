@@ -5,7 +5,7 @@ namespace Base {
 
 public class WindowFrame
 {
-  public readonly Base.FaceComponent parentWindow;
+  public readonly Base.Window parentWindow;
   public List<Vector3> boundaries = new List<Vector3>();
 
   public GameObject gameObject;
@@ -21,7 +21,7 @@ public class WindowFrame
     get { return parentWindow.parentBuilding; }
   }
 
-  public WindowFrame (Base.FaceComponent parent)
+  public WindowFrame (Base.Window parent)
   {
     parentWindow = parent;
     material = Resources.Load("Materials/WindowFrameMaterial", typeof(Material)) as Material;
@@ -30,7 +30,7 @@ public class WindowFrame
       boundaries.Add(point + parentBuilding.meshOrigin);
 
     for (var i = 0; i < 4; ++i)
-      boundaries.Add(boundaries[i] - 0.2f * parentWindow.normal);
+      boundaries.Add(boundaries[i] - parentWindow.depth * parentWindow.normal);
 
     gameObject = new GameObject("Window Frame");
     gameObject.active = false;

@@ -43,10 +43,10 @@ public class BuildingManager : MonoBehaviour
     switch (mode)
     {
       case BuildingMode.Many:
-        for (int i = 0; i < 50; ++i)
+        for (int i = 0; i < 25; ++i)
         {
           float x_mod = i * 15f;
-          for (int j = 0; j < 50; ++j)
+          for (int j = 0; j < 25; ++j)
           {
             float z_mod = j * 9f;
             var n = new Neoclassical(
