@@ -6,7 +6,7 @@ using Exception = System.Exception;
 
 namespace Base {
 
-public class Building
+public class Building : Drawable
 {
   /*************** FIELDS ***************/
 
@@ -36,20 +36,16 @@ public class Building
   public bool hasDoor = false;
 
   /// <summary>
-  /// The gameObject of the building, which is responsible for the rendering.
-  /// </summary>
-  public GameObject gameObject;
-
-  /// <summary>
   /// The game object that is created after combining all the
   /// building's window frames.
   /// </summary>
   public GameObject windowFrameCombiner;
 
   /// <summary>
-  /// The material which will be used for the rendering.
+  /// The game object that is created after combining all the
+  /// building's window glasses.
   /// </summary>
-  public Material material;
+  public GameObject windowGlassCombiner;
 
   /// <summary>
   /// The origin of the building's mesh
@@ -98,6 +94,8 @@ public class Building
   private float _height = 0f; 
   public float height { get { return _height; } }
 
+  public int[] sortedFaces;
+
   
   /*************** CONSTRUCTORS ***************/
   
@@ -122,6 +120,7 @@ public class Building
   /// The type of the building.
   /// </param>
   public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+    : base("building", "BuildingMaterial", false)
   {
     FindMeshOrigin(p1, p2, p3, p4);
     boundaries.Add(p1 - meshOrigin);
@@ -129,12 +128,7 @@ public class Building
     boundaries.Add(p3 - meshOrigin);
     boundaries.Add(p4 - meshOrigin);
 
-    gameObject = new GameObject("Building");
-    gameObject.isStatic = true;
-    gameObject.active = false;
-    gameObject.transform.position = meshOrigin;
-
-    material = Resources.Load("Materials/BuildingMaterial", typeof(Material)) as Material;
+    transform.position = meshOrigin;
   }
   
   
@@ -165,7 +159,7 @@ public class Building
   /// An exception is thrown when the boundaries of the building
   /// have not been calculated.
   /// </exception>
-  public Vector3[] FindVertices ()
+  public override Vector3[] FindVertices ()
   {
     if (boundaries.Count != 8) throw new Exception("Building doesnt have enough boundaries.");
 
@@ -187,7 +181,7 @@ public class Building
   /// and bottom edges are added (long vertical stripes). Finally, the triangles
   /// between each component and its adjucent ones (top or/and bottom) are added.
   /// </description>
-  public int[] FindTriangles ()
+  public override int[] FindTriangles ()
   {
     // roof
     triangles.Add(4); triangles.Add(5); triangles.Add(6);
@@ -265,6 +259,18 @@ public class Building
   }
 
   /// <summary>
+  /// Creates a  gameObject that is responsible for the rendering of the building.
+  /// </summary>
+  public override void Draw ()
+  {
+    base.Draw();
+
+    foreach (Base.Face face in faces)
+      foreach (Base.FaceComponent component in face.faceComponents)
+        component.Draw();
+  }
+
+  /// <summary>
   /// Sort the faces of the building by width.
   /// </summary>
   /// <returns>
@@ -280,11 +286,13 @@ public class Building
       lkv.Add(new KeyValuePair<int, float>(i, faces[i].width));
 
     if (descending)
-      lkv.Sort(delegate (KeyValuePair<int, float> x, KeyValuePair<int, float> y) {
+      lkv.Sort(delegate(KeyValuePair<int, float> x, KeyValuePair<int, float> y)
+      {
         return y.Value.CompareTo(x.Value);
       });
     else
-      lkv.Sort(delegate (KeyValuePair<int, float> x, KeyValuePair<int, float> y) {
+      lkv.Sort(delegate(KeyValuePair<int, float> x, KeyValuePair<int, float> y)
+      {
         return x.Value.CompareTo(y.Value);
       });
 
@@ -293,34 +301,6 @@ public class Building
       ret[i] = lkv[i].Key;
 
     return ret;
-  }
-
-  /// <summary>
-  /// Creates a  gameObject that is responsible for the rendering of the building.
-  /// </summary>
-  public void Render ()
-  {
-    MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
-    meshRenderer.sharedMaterial = material;
-
-    Mesh mesh = new Mesh();
-    mesh.Clear();
-    mesh.vertices = FindVertices();
-    mesh.triangles = FindTriangles();
-    // Assign UVs to shut the editor up -_-'
-    mesh.uv = new Vector2[mesh.vertices.Length];
-    for (int i = 0; i < mesh.vertices.Length; ++i)
-      mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
-
-    mesh.RecalculateNormals();
-    mesh.Optimize();
-
-    MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
-    meshFilter.sharedMesh = mesh;
-
-    foreach (Base.Face face in faces)
-      foreach (Base.FaceComponent component in face.faceComponents)
-        component.Render();
   }
 
   /// <summary>
@@ -364,7 +344,7 @@ public class Building
   public void CombineWindowFrames ()
   {
     windowFrameCombiner = new GameObject("window_frame_combiner");
-    windowFrameCombiner.transform.parent = gameObject.transform;
+    windowFrameCombiner.transform.parent = transform;
     windowFrameCombiner.active = false;
     var meshFilter = windowFrameCombiner.AddComponent<MeshFilter>();
     var meshRenderer = windowFrameCombiner.AddComponent<MeshRenderer>();
@@ -372,7 +352,6 @@ public class Building
                                                  typeof(Material)) as Material;
 
     List<Window> windows = new List<Window>();
-
     foreach (Base.Face face in faces)
       foreach (Base.FaceComponent fc in face.faceComponents)
         if (fc.GetType().IsSubclassOf(typeof(Window)))
@@ -381,8 +360,42 @@ public class Building
     MeshFilter[] meshFilters = new MeshFilter[windows.Count];
     for (var i = 0; i < windows.Count; ++i)
     {
-      meshFilters[i] = windows[i].windowFrame.gameObject.GetComponent<MeshFilter>();
+      meshFilters[i] = windows[i].windowFrame.meshFilter;
       GameObject.Destroy(windows[i].windowFrame.gameObject);
+    }
+
+    CombineInstance[] combine = new CombineInstance[meshFilters.Length];
+    for (var i = 0; i < meshFilters.Length; ++i)
+    {
+      combine[i].mesh = meshFilters[i].sharedMesh;
+      combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+    }
+
+    meshFilter.mesh = new Mesh();
+    meshFilter.mesh.CombineMeshes(combine);
+  }
+
+  public void CombineWindowGlasses ()
+  {
+    windowGlassCombiner = new GameObject("window_glass_combiner");
+    windowGlassCombiner.transform.parent = transform;
+    windowGlassCombiner.active = false;
+    var meshFilter = windowGlassCombiner.AddComponent<MeshFilter>();
+    var meshRenderer = windowGlassCombiner.AddComponent<MeshRenderer>();
+    meshRenderer.sharedMaterial = Resources.Load("Materials/WindowGlassMaterial",
+                                                 typeof(Material)) as Material;
+
+    List<Window> windows = new List<Window>();
+    foreach (Base.Face face in faces)
+      foreach (Base.FaceComponent fc in face.faceComponents)
+        if (fc.GetType().IsSubclassOf(typeof(Window)))
+          windows.Add(fc as Window);
+
+    MeshFilter[] meshFilters = new MeshFilter[windows.Count];
+    for (var i = 0; i < windows.Count; ++i)
+    {
+      meshFilters[i] = windows[i].windowGlass.meshFilter;
+      GameObject.Destroy(windows[i].windowGlass.gameObject);
     }
 
     CombineInstance[] combine = new CombineInstance[meshFilters.Length];

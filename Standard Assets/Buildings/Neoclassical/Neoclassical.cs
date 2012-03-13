@@ -39,6 +39,7 @@ public sealed class Neoclassical : Base.Building
 
     ConstructFaces();
     ConstructFaceComponents();
+    faces[sortedFaces[0]].ConstructDoors();
   }
   
   
@@ -61,5 +62,7 @@ public sealed class Neoclassical : Base.Building
     faces.Add(new NeoclassicalFace(this, boundaries[1], boundaries[2]));
     faces.Add(new NeoclassicalFace(this, boundaries[2], boundaries[3]));
     faces.Add(new NeoclassicalFace(this, boundaries[3], boundaries[0]));
+
+    this.sortedFaces = this.GetSortedFaces();
   }
 }

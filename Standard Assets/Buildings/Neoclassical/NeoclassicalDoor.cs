@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class NeoclassicalDoor : Base.FaceComponent {
-
+public class NeoclassicalDoor : Base.Door
+{
   public NeoclassicalDoor(Base.Face parent, Vector3 dr, Vector3 dl)
   : base (parent)
   {

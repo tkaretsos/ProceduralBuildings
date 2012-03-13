@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Base {
 
-public sealed class WindowFrame : Drawable
+public sealed class WindowGlass : Drawable
 {
   /*************** FIELDS ***************/
 
@@ -18,21 +19,18 @@ public sealed class WindowFrame : Drawable
 
   public Base.Building parentBuilding
   {
-    get { return parentWindow.parentBuilding; }
+    get { return parentFace.parentBuilding; }
   }
 
   /*************** CONSTRUCTORS ***************/
 
-  public WindowFrame (Base.Window parent)
-    : base("window_frame", "WindowFrameMaterial", false)
+  public WindowGlass (Base.Window parent)
+    : base("window_glass", "WindowGlassMaterial", false)
   {
     parentWindow = parent;
 
     foreach (var point in parentWindow.boundaries)
-      boundaries.Add(point + parentBuilding.meshOrigin);
-
-    for (var i = 0; i < 4; ++i)
-      boundaries.Add(boundaries[i] - parentWindow.depth * parentWindow.normal);
+      boundaries.Add(point - parentWindow.depth * parentWindow.normal + parentBuilding.meshOrigin);
 
     transform.parent = parentBuilding.gameObject.transform;
   }
@@ -47,14 +45,8 @@ public sealed class WindowFrame : Drawable
   public override int[] FindTriangles ()
   {
     return new int[] {
-      0, 4, 7,
-      0, 7, 3,
-      7, 6, 2,
-      7, 2, 3,
-      6, 5, 1,
-      6, 1, 2,
-      0, 1, 5,
-      0, 5, 4
+      0, 1, 3,
+      1, 2, 3
     };
   }
 }

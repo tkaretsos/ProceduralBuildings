@@ -15,12 +15,14 @@ public sealed class NeoclassicalWindow : Base.Window
     boundaries.Add(new Vector3(dr.x, dr.y + height + height_modifier, dr.z));
 
     windowFrame = new Base.WindowFrame(this);
+    windowGlass = new Base.WindowGlass(this);
   }
 
-  public override void Render ()
+  public override void Draw ()
   {
-    base.Render();
+    base.Draw();
 
-    windowFrame.Render();
+    windowFrame.Draw();
+    windowGlass.Draw();
   }
 }

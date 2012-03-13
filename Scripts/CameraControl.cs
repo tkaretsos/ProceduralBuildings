@@ -86,9 +86,15 @@ public class CameraControl : MonoBehaviour
 
     if (Input.GetMouseButtonUp(1))
       if (_follow_mouse)
+      {
         _follow_mouse = false;
+        Screen.showCursor = true;
+      }
       else
+      {
         _follow_mouse = true;
+        Screen.showCursor = false;
+      }
   }
 
   public void OnGUI ()

@@ -170,6 +170,8 @@ public class Face
 
     return vertices;
   }
+
+  public virtual void ConstructDoors () { }
 }
 
 } // namespace Base
