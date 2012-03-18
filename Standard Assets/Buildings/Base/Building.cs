@@ -189,8 +189,8 @@ public class Building : Drawable
   /// </description>
   public override int[] FindTriangles ()
   {
-    var offset = 4 * (floorNumber + 1);
-    var floorNoX4 = 4 * floorNumber;
+    int offset = 4 * (floorNumber + 1);
+    int floorNoX4 = 4 * floorNumber;
 
     //roof
     triangles.Add(offset - 4);
@@ -201,9 +201,9 @@ public class Building : Drawable
     triangles.Add(offset - 2);
     triangles.Add(offset - 1);
 
-    for (var face = 0; face < 4; ++face)
+    for (int face = 0; face < 4; ++face)
     {
-      var face1_mod4 = (face + 1) % 4;
+      int face1_mod4 = (face + 1) % 4;
 
       if (faces[face].componentsPerFloor == 0)
       {
@@ -218,142 +218,76 @@ public class Building : Drawable
         continue;
       }
 
-      for (var floor = 0; floor < floorNumber; ++floor)
+      for (int floor = 0; floor < floorNumber; ++floor)
       {
-        // wall right and left of components
+        int fixedOffset = offset + 8 * floor * faces[face].componentsPerFloor;
+        int cpf_6 = 6 * faces[face].componentsPerFloor;
+        int floor_4 = 4 * floor;
 
+        // wall right and left of components
+        // ---------------------------------
         // wall between most right component (looking at the visible side of the face) 
         // and the face edge
-        triangles.Add(face + floor * 4);
-        triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor);
-        triangles.Add(face + floor * 4 + 4);
+        triangles.Add(face + floor_4);
+        triangles.Add(fixedOffset);
+        triangles.Add(face + floor_4 + 4);
 
-        triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor);
-        triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 6 * faces[face].componentsPerFloor);
-        triangles.Add(face + floor * 4 + 4);
+        triangles.Add(fixedOffset);
+        triangles.Add(fixedOffset + cpf_6);
+        triangles.Add(face + floor_4 + 4);
 
         // wall between each component
-        var index = offset + 1;
-        for (var i = 1; i < faces[face].componentsPerFloor; ++i)
+        int index = fixedOffset + 1;
+        for (int i = 1; i < faces[face].componentsPerFloor; ++i)
         {
-          triangles.Add(index + floor * 8 * faces[face].componentsPerFloor);
-          triangles.Add(index + 1 + floor * 8 * faces[face].componentsPerFloor);
-          triangles.Add(index + floor * 8 * faces[face].componentsPerFloor + 6 * faces[face].componentsPerFloor);
+          triangles.Add(index);
+          triangles.Add(index + 1);
+          triangles.Add(index + cpf_6);
 
-          triangles.Add(index + 1 + floor * 8 * faces[face].componentsPerFloor);
-          triangles.Add(index + 1 + floor * 8 * faces[face].componentsPerFloor + 6 * faces[face].componentsPerFloor);
-          triangles.Add(index + floor * 8 * faces[face].componentsPerFloor + 6 * faces[face].componentsPerFloor);
+          triangles.Add(index + 1);
+          triangles.Add(index + cpf_6 + 1);
+          triangles.Add(index + cpf_6);
           
           index += 2;
         }
 
         // wall between most left component (looking at the visible side of the face) 
         // and the face edge
-        triangles.Add(index + floor * 8 * faces[face].componentsPerFloor);
-        triangles.Add(face1_mod4 + floor * 4);
-        triangles.Add(index + floor * 8 * faces[face].componentsPerFloor + 6 * faces[face].componentsPerFloor);
+        triangles.Add(index);
+        triangles.Add(face1_mod4 + floor_4);
+        triangles.Add(index + cpf_6);
 
-        triangles.Add(face1_mod4 + floor * 4);
-        triangles.Add(face1_mod4 + floor * 4 + 4);
-        triangles.Add(index + floor * 8 * faces[face].componentsPerFloor + 6 * faces[face].componentsPerFloor);
+        triangles.Add(face1_mod4 + floor_4);
+        triangles.Add(face1_mod4 + floor_4 + 4);
+        triangles.Add(index + cpf_6);
 
         // wall over and under each component
-        for (var i = 0; i < faces[face].componentsPerFloor; ++i)
+        for (int i = 0; i < faces[face].componentsPerFloor; ++i)
         {
-          // under
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 2 * i);
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 1 + 2 * i);
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 2 * faces[face].componentsPerFloor + 2 * i);
+          int extOffset = fixedOffset + 2 * i;
 
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 1 + 2 * i);
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 1 + 2 * i + 2 * faces[face].componentsPerFloor);
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 2 * faces[face].componentsPerFloor + 2 * i);
+          // under
+          triangles.Add(extOffset);
+          triangles.Add(extOffset + 1);
+          triangles.Add(extOffset + 2 * faces[face].componentsPerFloor);
+
+          triangles.Add(extOffset + 1);
+          triangles.Add(extOffset + 2 * faces[face].componentsPerFloor + 1);
+          triangles.Add(extOffset + 2 * faces[face].componentsPerFloor);
 
           // over
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 2 * i + 4 * faces[face].componentsPerFloor);
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 2 * i + 4 * faces[face].componentsPerFloor + 1);
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 2 * i + 6 * faces[face].componentsPerFloor);
+          triangles.Add(extOffset + 4 * faces[face].componentsPerFloor);
+          triangles.Add(extOffset + 4 * faces[face].componentsPerFloor + 1);
+          triangles.Add(extOffset + cpf_6);
 
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 2 * i + 4 * faces[face].componentsPerFloor + 1);
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 2 * i + 6 * faces[face].componentsPerFloor + 1);
-          triangles.Add(offset + floor * 8 * faces[face].componentsPerFloor + 2 * i + 6 * faces[face].componentsPerFloor);
+          triangles.Add(extOffset + 4 * faces[face].componentsPerFloor + 1);
+          triangles.Add(extOffset + cpf_6 + 1);
+          triangles.Add(extOffset + cpf_6);
         }
       }
 
       offset += faces[face].vertices.Length;
     }
-
-    // roof
-    //triangles.Add(4); triangles.Add(5); triangles.Add(6);
-    //triangles.Add(4); triangles.Add(6); triangles.Add(7);
-
-    //var offset = 8;
-    //for (var face = 0; face < 4; ++face)
-    //{
-    //  var face1_mod_4 = (face + 1) % 4;
-
-    //  if (faces[face].componentsPerFloor == 0)
-    //  {
-    //    triangles.Add(face);
-    //    triangles.Add(face1_mod_4);
-    //    triangles.Add(face + 4);
-
-    //    triangles.Add(face + 4);
-    //    triangles.Add(face1_mod_4);
-    //    triangles.Add(face1_mod_4 + 4);
-
-    //    continue;
-    //  }
-
-      // wall between components and edges
-      //triangles.Add(face);
-      //triangles.Add(offset);
-      //triangles.Add(face + 4);
-
-      //triangles.Add(offset);
-      //triangles.Add(offset + faces[face].indexModifier);
-      //triangles.Add(face + 4);
-
-      //triangles.Add(offset + faces[face].verticesPerRow - 1);
-      //triangles.Add(face1_mod_4);
-      //triangles.Add(face1_mod_4 + 4);
-
-      //triangles.Add(offset + faces[face].verticesPerRow - 1);
-      //triangles.Add(face1_mod_4 + 4);
-      //triangles.Add(offset + faces[face].verticesPerRow - 1 + faces[face].indexModifier);
-
-      // wall between components (from ground to roof)
-      //var index = offset + 1;
-      //for (var i = 1; i < faces[face].componentsPerFloor; ++i)
-      //{
-      //  triangles.Add(index);
-      //  triangles.Add(index + 1);
-      //  triangles.Add(index + faces[face].indexModifier);
-
-      //  triangles.Add(index + 1);
-      //  triangles.Add(index + 1 + faces[face].indexModifier);
-      //  triangles.Add(index + faces[face].indexModifier);
-
-      //  index += 2;
-      //}
-
-      // wall inbetween components
-      //for (var i = 0; i < faces[face].componentsPerFloor; ++i)
-      //  for (var j = 0; j <= floorNumber; ++j)
-      //  {
-      //    var adjustment = 2 * (i + j * faces[face].verticesPerRow) + offset;
-
-      //    triangles.Add(adjustment);
-      //    triangles.Add(adjustment + 1);
-      //    triangles.Add(adjustment + faces[face].verticesPerRow);
-
-      //    triangles.Add(adjustment + faces[face].verticesPerRow);
-      //    triangles.Add(adjustment + 1);
-      //    triangles.Add(adjustment + 1 + faces[face].verticesPerRow);
-      //  }
-
-    //  offset += faces[face].vertices.Length;
-    //}
 
     return triangles.ToArray();
   }
