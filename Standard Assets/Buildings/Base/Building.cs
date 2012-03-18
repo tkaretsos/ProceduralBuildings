@@ -142,7 +142,7 @@ public class Building : Drawable
   /// Finds all the vertices required for the rendering of the building.
   /// </summary>
   /// <description>
-  /// Actually puts together the building's boundaries and the vertices
+  /// Puts together the building's boundaries and the vertices
   /// of each face of the building.
   /// </description>
   /// <returns>
@@ -181,11 +181,7 @@ public class Building : Drawable
   /// </summary>
   /// <description>
   /// The calculations starts by adding the 2 triangles of the roof.
-  /// Then the triangles of each face are added. For each face the triangles
-  /// are added in a vertical manner. Firstly, the triangles between the top/bottom
-  /// edges and the respective components are added. Then the triangles between top
-  /// and bottom edges are added (long vertical stripes). Finally, the triangles
-  /// between each component and its adjucent ones (top or/and bottom) are added.
+  /// The tris for the rest building are calculated per face and per floor.
   /// </description>
   public override int[] FindTriangles ()
   {
@@ -205,6 +201,8 @@ public class Building : Drawable
     {
       int face1_mod4 = (face + 1) % 4;
 
+      // if the face has no components add
+      // two tris for this face
       if (faces[face].componentsPerFloor == 0)
       {
         triangles.Add(face);
@@ -220,6 +218,8 @@ public class Building : Drawable
 
       for (int floor = 0; floor < floorNumber; ++floor)
       {
+        // set variables to avoid doing the same 
+        // calculations over and over again
         int fixedOffset = offset + 8 * floor * faces[face].componentsPerFloor;
         int cpf_6 = 6 * faces[face].componentsPerFloor;
         int floor_4 = 4 * floor;
