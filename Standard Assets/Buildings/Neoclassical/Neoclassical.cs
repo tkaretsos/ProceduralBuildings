@@ -40,6 +40,11 @@ public sealed class Neoclassical : Base.Building
     ConstructFaces();
     ConstructFaceComponents();
     faces[sortedFaces[0]].ConstructDoors();
+
+    Draw();
+    CombineWindowFrames();
+    CombineWindowGlasses();
+    SetActiveRecursively(true);
   }
   
   

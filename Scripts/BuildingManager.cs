@@ -38,7 +38,7 @@ public class BuildingManager : MonoBehaviour
     }
 	}
 
-  private void CreateNeoclassical(BuildingMode mode = BuildingMode.Small)
+  private void CreateNeoclassical(BuildingMode mode = BuildingMode.Big)
   {
     switch (mode)
     {
@@ -54,9 +54,6 @@ public class BuildingManager : MonoBehaviour
               new Vector3(x_mod + Random.Range(0.5f, 1.5f) + 9f, 0f, z_mod - Random.Range(0.5f, 1.5f)), 
               new Vector3(x_mod - Random.Range(0.5f, 1.5f)     , 0f, z_mod - Random.Range(0.5f, 1.5f)), 
               new Vector3(x_mod - Random.Range(0.5f, 1.5f)     , 0f, z_mod + Random.Range(0.5f, 1.5f) + 3.5f));
-            n.Draw();
-            n.CombineWindowFrames();
-            n.CombineWindowGlasses();
             n.SetActiveRecursively(true);
             neo.Add(n);
           }
@@ -69,10 +66,6 @@ public class BuildingManager : MonoBehaviour
           new Vector3(Random.Range(0.5f, 1.5f) + 20f, 0f,  Random.Range(0.5f, 1.5f)), 
           new Vector3(Random.Range(0.5f, 1.5f)      , 0f, -Random.Range(0.5f, 1.5f)), 
           new Vector3(Random.Range(0.5f, 1.5f)      , 0f,  Random.Range(0.5f, 1.5f) + 8f));
-        a.Draw();
-        a.CombineWindowFrames();
-        a.CombineWindowGlasses();
-        a.SetActiveRecursively(true);
         neo.Add(a);
         break;
 
@@ -82,10 +75,6 @@ public class BuildingManager : MonoBehaviour
           new Vector3(Random.Range(0.25f, 0.75f) + 9f, 0f,  Random.Range(0.25f, 0.75f)), 
           new Vector3(Random.Range(0.25f, 0.75f)     , 0f, -Random.Range(0.25f, 0.75f)), 
           new Vector3(Random.Range(0.25f, 0.75f)     , 0f,  Random.Range(0.25f, 0.75f) + 3.5f));
-        b.Draw();
-        b.CombineWindowFrames();
-        b.CombineWindowGlasses();
-        b.SetActiveRecursively(true);
         neo.Add(b);
         break;
     }

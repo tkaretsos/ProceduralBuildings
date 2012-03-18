@@ -5,9 +5,14 @@ using UnityEngine;
 public class Drawable
 {
   /*************** FIELDS ***************/
-  public readonly GameObject gameObject;
+  public GameObject gameObject;
 
   public Mesh mesh;
+
+  /// <summary>
+  /// The origin of the building's mesh
+  /// </summary>
+  public Vector3 meshOrigin = new Vector3();
 
   public MeshRenderer meshRenderer;
 
@@ -26,17 +31,18 @@ public class Drawable
     get { return gameObject.transform; }
   }
 
+  private string _name;
+
+  private bool _isActive;
+
   /*************** CONSTRUCTORS ***************/
 
   public Drawable (string name = "drawable_object",
                    string materialName = null,
                    bool isActive = true)
   {
-    gameObject = new GameObject(name);
-    gameObject.isStatic = true;
-    meshRenderer = gameObject.AddComponent<MeshRenderer>();
-    meshFilter = gameObject.AddComponent<MeshFilter>();
-    gameObject.active = isActive;
+    _name = name;
+    _isActive = isActive;
 
     if (materialName != null)
       material = Resources.Load("Materials/" + materialName, typeof(Material)) as Material;
@@ -46,6 +52,13 @@ public class Drawable
 
   public virtual void Draw ()
   {
+    gameObject = new GameObject(_name);
+    gameObject.isStatic = true;
+    meshRenderer = gameObject.AddComponent<MeshRenderer>();
+    meshFilter = gameObject.AddComponent<MeshFilter>();
+    gameObject.active = _isActive;
+    gameObject.transform.position = meshOrigin;
+
     if (material != null)
       meshRenderer.sharedMaterial = material;
 

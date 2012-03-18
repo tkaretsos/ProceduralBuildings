@@ -7,9 +7,12 @@ public class NeoclassicalDoor : Base.Door
   {
     height = parentBuilding.floorHeight * 0.75f;
 
-    boundaries.Add(dr);
-    boundaries.Add(dl);
-    boundaries.Add(new Vector3(dl.x, dl.y + height, dl.z));
-    boundaries.Add(new Vector3(dr.x, dr.y + height, dr.z));
+    var new_dr = dr + 0.4f * parentFace.right;
+    var new_dl = dl - 0.4f * parentFace.right;
+
+    boundaries.Add(new_dr);
+    boundaries.Add(new_dl);
+    boundaries.Add(new Vector3(new_dl.x, new_dl.y + height, new_dl.z));
+    boundaries.Add(new Vector3(new_dr.x, new_dr.y + height, new_dr.z));
   }
 }

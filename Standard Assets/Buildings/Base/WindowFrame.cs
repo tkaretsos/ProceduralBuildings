@@ -33,8 +33,6 @@ public sealed class WindowFrame : Drawable
 
     for (var i = 0; i < 4; ++i)
       boundaries.Add(boundaries[i] - parentWindow.depth * parentWindow.normal);
-
-    transform.parent = parentBuilding.gameObject.transform;
   }
 
   /*************** METHODS ***************/
@@ -56,6 +54,13 @@ public sealed class WindowFrame : Drawable
       0, 1, 5,
       0, 5, 4
     };
+  }
+
+  public override void Draw ()
+  {
+    base.Draw();
+
+    transform.parent = parentBuilding.transform;
   }
 }
 

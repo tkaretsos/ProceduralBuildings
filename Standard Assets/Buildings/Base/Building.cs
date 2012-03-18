@@ -48,11 +48,6 @@ public class Building : Drawable
   public GameObject windowGlassCombiner;
 
   /// <summary>
-  /// The origin of the building's mesh
-  /// </summary>
-  public Vector3 meshOrigin;
-
-  /// <summary>
   /// The number of floors of the building.
   /// </summary>
   private int _floorNumber = 0;
@@ -127,8 +122,6 @@ public class Building : Drawable
     boundaries.Add(p2 - meshOrigin);
     boundaries.Add(p3 - meshOrigin);
     boundaries.Add(p4 - meshOrigin);
-
-    transform.position = meshOrigin;
   }
   
   

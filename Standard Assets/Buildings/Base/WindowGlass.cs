@@ -31,8 +31,6 @@ public sealed class WindowGlass : Drawable
 
     foreach (var point in parentWindow.boundaries)
       boundaries.Add(point - parentWindow.depth * parentWindow.normal + parentBuilding.meshOrigin);
-
-    transform.parent = parentBuilding.gameObject.transform;
   }
 
   /*************** METHODS ***************/
@@ -48,6 +46,13 @@ public sealed class WindowGlass : Drawable
       0, 1, 3,
       1, 2, 3
     };
+  }
+
+  public override void Draw ()
+  {
+    base.Draw();
+
+    transform.parent = parentBuilding.transform;
   }
 }
 
