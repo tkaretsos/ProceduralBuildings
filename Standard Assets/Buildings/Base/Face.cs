@@ -55,7 +55,7 @@ public class Face
   /// For example on a face of one floor and 2 face components this number will be 12.
   /// On a face of 2 floors and 3 components per floor this will give 20.
   /// </description>
-  public int indexModifier = 0;
+  //public int indexModifier = 0;
 
   /// <summary>
   /// Stores how many vertices there are in one "row".
@@ -124,50 +124,82 @@ public class Face
   {
     // calculate the size of the array of vertices
     // in case the face has 0 components return the array with 0 Length
-    vertices = new Vector3[4 * componentsPerFloor * (parentBuilding.floorNumber + 1)];
+    vertices = new Vector3[8 * componentsPerFloor * parentBuilding.floorNumber];
     if (componentsPerFloor == 0) return vertices;
 
-    // store the required vertices on faces top and bottom edges
-    // this is necessary in order to form the required triangles
-    indexModifier = 2 * componentsPerFloor * (2 * parentBuilding.floorNumber + 1);
-    int index = 0;
-    for (int i = 0; i < componentsPerFloor; ++i)
-    {
-      // bottom edge
-      vertices[index] = new Vector3(faceComponents[i].boundaries[0].x,
-                                    parentBuilding.boundaries[0].y,
-                                    faceComponents[i].boundaries[0].z);
+    for (var floor = 1; floor <= parentBuilding.floorNumber; ++floor)
+      for (var cp = 0; cp < componentsPerFloor; ++cp)
+      {
+        int cpn = cp + componentsPerFloor * (floor - 1);
+        int indexModifier = (floor - 1) * 8 * componentsPerFloor + 2 * cp;
+        int double_cpf = 2 * componentsPerFloor;
 
-      vertices[index + 1] = new Vector3(faceComponents[i].boundaries[1].x,
-                                        parentBuilding.boundaries[0].y,
-                                        faceComponents[i].boundaries[1].z);
+        vertices[indexModifier] = new Vector3(faceComponents[cpn].boundaries[0].x,
+                                              parentBuilding.boundaries[0].y + (floor - 1) * parentBuilding.floorHeight,
+                                              faceComponents[cpn].boundaries[0].z);
 
-      // top edge
-      vertices[index + indexModifier] = new Vector3(faceComponents[i].boundaries[0].x,
-                                                    parentBuilding.height,
-                                                    faceComponents[i].boundaries[0].z);
+        vertices[indexModifier + 1] = new Vector3(faceComponents[cpn].boundaries[1].x,
+                                                  parentBuilding.boundaries[0].y + (floor - 1) * parentBuilding.floorHeight,
+                                                  faceComponents[cpn].boundaries[1].z);
 
-      vertices[index + indexModifier + 1] = new Vector3(faceComponents[i].boundaries[1].x,
-                                                        parentBuilding.height,
-                                                        faceComponents[i].boundaries[1].z);
+        vertices[indexModifier + double_cpf] = faceComponents[cpn].boundaries[0];
 
-      index += 2;
-    }
+        vertices[indexModifier + double_cpf + 1] = faceComponents[cpn].boundaries[1];
 
-    // store the vertices of the components attached to this face
-    verticesPerRow = 2 * componentsPerFloor;
-    foreach (FaceComponent fc in faceComponents)
-    {
-      vertices[index]     = fc.boundaries[0];
-      vertices[index + 1] = fc.boundaries[1];
+        vertices[indexModifier + double_cpf * 2] = faceComponents[cpn].boundaries[3];
 
-      vertices[index + verticesPerRow]     = fc.boundaries[3];
-      vertices[index + verticesPerRow + 1] = fc.boundaries[2];
+        vertices[indexModifier + double_cpf * 2 + 1] = faceComponents[cpn].boundaries[2];
 
-      if ((index += 2) % verticesPerRow == 0)
-        index += verticesPerRow;
-    }
+        vertices[indexModifier + double_cpf * 3] = new Vector3(faceComponents[cpn].boundaries[3].x,
+                                                               floor * parentBuilding.floorHeight,
+                                                               faceComponents[cpn].boundaries[3].z);
 
+        vertices[indexModifier + double_cpf * 3 + 1] = new Vector3(faceComponents[cpn].boundaries[2].x,
+                                                                   floor * parentBuilding.floorHeight,
+                                                                   faceComponents[cpn].boundaries[2].z);
+      }
+
+    //// store the required vertices on faces top and bottom edges
+    //// this is necessary in order to form the required triangles
+    //indexModifier = 2 * componentsPerFloor * (2 * parentBuilding.floorNumber + 1);
+    //int index = 0;
+    //for (int i = 0; i < componentsPerFloor; ++i)
+    //{
+    //  // bottom edge
+    //  vertices[index] = new Vector3(faceComponents[i].boundaries[0].x,
+    //                                parentBuilding.boundaries[0].y,
+    //                                faceComponents[i].boundaries[0].z);
+
+    //  vertices[index + 1] = new Vector3(faceComponents[i].boundaries[1].x,
+    //                                    parentBuilding.boundaries[0].y,
+    //                                    faceComponents[i].boundaries[1].z);
+
+    //  // top edge
+    //  vertices[index + indexModifier] = new Vector3(faceComponents[i].boundaries[0].x,
+    //                                                parentBuilding.height,
+    //                                                faceComponents[i].boundaries[0].z);
+
+    //  vertices[index + indexModifier + 1] = new Vector3(faceComponents[i].boundaries[1].x,
+    //                                                    parentBuilding.height,
+    //                                                    faceComponents[i].boundaries[1].z);
+
+    //  index += 2;
+    //}
+
+    //// store the vertices of the components attached to this face
+    //verticesPerRow = 2 * componentsPerFloor;
+    //foreach (FaceComponent fc in faceComponents)
+    //{
+    //  vertices[index]     = fc.boundaries[0];
+    //  vertices[index + 1] = fc.boundaries[1];
+
+    //  vertices[index + verticesPerRow]     = fc.boundaries[3];
+    //  vertices[index + verticesPerRow + 1] = fc.boundaries[2];
+
+    //  if ((index += 2) % verticesPerRow == 0)
+    //    index += verticesPerRow;
+    //}
+    
     return vertices;
   }
 
