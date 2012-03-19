@@ -6,11 +6,14 @@ public sealed class Neoclassical : Base.Building
 {
   /*************** FIELDS ***************/
 
-  private const float _componentWidthMin = 1.5f;
-  private const float _componentWidthMax = 1.75f;
+  private const float _componentWidthMin = 1.3f;
+  private const float _componentWidthMax = 1.5f;
   private const float _componentSpaceMin = 2f;
   private const float _componentSpaceMax = 2.25f;
 
+  public float windowHeight;
+
+  public float doorHeight;
 
   /*************** CONSTRUCTORS ***************/
   
@@ -34,8 +37,11 @@ public sealed class Neoclassical : Base.Building
   public Neoclassical (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
     : base(p1, p2, p3, p4)
   {
-    floorHeight = Random.Range(4.5f, 5f);
+    floorHeight = Random.Range(4.25f, 4.75f);
     floorNumber = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
+
+    windowHeight = Random.Range(2.1f, 2.3f);
+    doorHeight = Random.Range(3.5f, 3.7f);
 
     ConstructFaces();
     ConstructFaceComponents();
