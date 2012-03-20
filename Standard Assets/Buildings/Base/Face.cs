@@ -47,16 +47,8 @@ public class Face
   /// </summary>
   public Vector3[] vertices;
 
-  /// <summary>
-  /// A modifier to calculate the correct index of the vertices of the roof edge.
-  /// </summary>
-  /// <description>
-  /// given the respective index of the vertex of the ground edge of a face.
-  /// For example on a face of one floor and 2 face components this number will be 12.
-  /// On a face of 2 floors and 3 components per floor this will give 20.
-  /// </description>
-  //public int indexModifier = 0;
-
+  public List<int> triangles = new List<int>();
+  
   /// <summary>
   /// Stores how many vertices there are in one "row".
   /// </summary>
@@ -70,7 +62,8 @@ public class Face
   /// The building that has this face.
   /// </summary>
   public readonly Building parentBuilding;
-  
+
+  public int verticesModifier;  
   
   /*************** CONSTRUCTORS ***************/
   
@@ -124,15 +117,27 @@ public class Face
   {
     // calculate the size of the array of vertices
     // in case the face has 0 components return the array with 0 Length
-    vertices = new Vector3[8 * componentsPerFloor * parentBuilding.floorNumber];
+    verticesModifier = 2 * (parentBuilding.floorNumber + 1);
+    vertices = new Vector3[8 * componentsPerFloor * parentBuilding.floorNumber + verticesModifier];
     if (componentsPerFloor == 0) return vertices;
+
+    for (int i = 0; i < verticesModifier; i += 2)
+    {
+      vertices[i] = new Vector3(boundaries[0].x,
+                                boundaries[0].y + (i / 2) * parentBuilding.floorHeight,
+                                boundaries[0].z);
+
+      vertices[i + 1] = new Vector3(boundaries[0].x,
+                                    boundaries[0].y + (i / 2) * parentBuilding.floorHeight,
+                                    boundaries[0].z);
+    }
 
     int double_cpf = 2 * componentsPerFloor;
     for (var floor = 1; floor <= parentBuilding.floorNumber; ++floor)
       for (var cp = 0; cp < componentsPerFloor; ++cp)
       {
         int cpn = cp + componentsPerFloor * (floor - 1);
-        int indexModifier = (floor - 1) * 8 * componentsPerFloor + 2 * cp;
+        int indexModifier = (floor - 1) * 8 * componentsPerFloor + 2 * cp + verticesModifier;
 
         vertices[indexModifier] = new Vector3(faceComponents[cpn].boundaries[0].x,
                                               parentBuilding.boundaries[0].y + (floor - 1) * parentBuilding.floorHeight,
