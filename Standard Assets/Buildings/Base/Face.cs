@@ -119,7 +119,6 @@ public class Face
     // in case the face has 0 components return the array with 0 Length
     verticesModifier = 2 * (parentBuilding.floorNumber + 1);
     vertices = new Vector3[8 * componentsPerFloor * parentBuilding.floorNumber + verticesModifier];
-    if (componentsPerFloor == 0) return vertices;
 
     for (int i = 0; i < verticesModifier; i += 2)
     {
@@ -127,10 +126,12 @@ public class Face
                                 boundaries[0].y + (i / 2) * parentBuilding.floorHeight,
                                 boundaries[0].z);
 
-      vertices[i + 1] = new Vector3(boundaries[0].x,
-                                    boundaries[0].y + (i / 2) * parentBuilding.floorHeight,
-                                    boundaries[0].z);
+      vertices[i + 1] = new Vector3(boundaries[1].x,
+                                    boundaries[1].y + (i / 2) * parentBuilding.floorHeight,
+                                    boundaries[1].z);
     }
+
+    if (componentsPerFloor == 0) return vertices;
 
     int double_cpf = 2 * componentsPerFloor;
     for (var floor = 1; floor <= parentBuilding.floorNumber; ++floor)
@@ -163,7 +164,7 @@ public class Face
                                                                    floor * parentBuilding.floorHeight,
                                                                    faceComponents[cpn].boundaries[2].z);
       }
-    
+
     return vertices;
   }
 
