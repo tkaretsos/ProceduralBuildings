@@ -1,58 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Base {
-
-public sealed class WindowBody : Drawable
+namespace Base 
 {
-  /*************** FIELDS ***************/
 
-  public readonly Window parentWindow;
-
-  public List<Vector3> boundaries = new List<Vector3>();
-
-  public Face parentFace
-  {
-    get { return parentWindow.parentFace; }
-  }
-
-  public Building parentBuilding
-  {
-    get { return parentFace.parentBuilding; }
-  }
-
+public sealed class WindowBody : ComponentBody
+{
   /*************** CONSTRUCTORS ***************/
 
   public WindowBody (Window parent)
-    : base("window_glass", "WindowGlass", false)
+    : base(parent, "window_glass")
   {
-    parentWindow = parent;
-
-    foreach (var point in parentWindow.boundaries)
-      boundaries.Add(point - parentWindow.depth * parentWindow.normal + parentBuilding.meshOrigin);
-  }
-
-  /*************** METHODS ***************/
-
-  public override Vector3[] FindVertices ()
-  {
-    return boundaries.ToArray();
-  }
-
-  public override int[] FindTriangles ()
-  {
-    return new int[] {
-      0, 1, 3,
-      1, 2, 3
-    };
-  }
-
-  public override void Draw ()
-  {
-    base.Draw();
-
-    transform.parent = parentBuilding.transform;
+    active = false;
+    material = Resources.Load("Materials/WindowGlass", typeof(Material)) as Material;
   }
 }
 

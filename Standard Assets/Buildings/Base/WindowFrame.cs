@@ -12,12 +12,6 @@ public sealed class WindowFrame : ComponentFrame
   {
     material = Resources.Load("Materials/ComponentFrame", typeof(Material)) as Material;
     active = false;
-
-    foreach (var point in parentComponent.boundaries)
-      boundaries.Add(point + parentBuilding.meshOrigin);
-
-    for (var i = 0; i < 4; ++i)
-      boundaries.Add(boundaries[i] - parentComponent.depth * parentComponent.normal);
   }
 }
 

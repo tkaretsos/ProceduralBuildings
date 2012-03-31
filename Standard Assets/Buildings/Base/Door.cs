@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Base
+﻿namespace Base
 {
 
 public class Door : FaceComponent

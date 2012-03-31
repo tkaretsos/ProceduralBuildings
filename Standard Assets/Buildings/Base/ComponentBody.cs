@@ -1,10 +1,10 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Base
 {
 
-public class ComponentFrame : Drawable
+public class ComponentBody : Drawable
 {
   /*************** FIELDS ***************/
 
@@ -19,21 +19,19 @@ public class ComponentFrame : Drawable
 
   public Building parentBuilding
   {
-    get { return parentComponent.parentFace.parentBuilding; }
+    get { return parentComponent.parentBuilding; }
   }
 
   /*************** CONSTRUCTORS ***************/
 
-  public ComponentFrame (FaceComponent parent, string name)
+  public ComponentBody (FaceComponent parent, string name)
     : base(name)
   {
     parentComponent = parent;
 
     foreach (var point in parentComponent.boundaries)
-      boundaries.Add(point + parentBuilding.meshOrigin);
-
-    for (var i = 0; i < 4; ++i)
-      boundaries.Add(boundaries[i] - parentComponent.depth * parentComponent.normal);
+      boundaries.Add(point - parentComponent.depth * parentComponent.normal + 
+                             parentBuilding.meshOrigin);
   }
 
   /*************** METHODS ***************/
@@ -46,14 +44,8 @@ public class ComponentFrame : Drawable
   public override int[] FindTriangles ()
   {
     return new int[] {
-      0, 4, 7,
-      0, 7, 3,
-      7, 6, 2,
-      7, 2, 3,
-      6, 5, 1,
-      6, 1, 2,
-      0, 1, 5,
-      0, 5, 4
+      0, 1, 3,
+      1, 2, 3
     };
   }
 
