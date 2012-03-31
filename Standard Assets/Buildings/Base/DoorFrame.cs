@@ -1,38 +1,35 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 
-namespace Base {
+namespace Base
+{
 
-public sealed class WindowFrame : Drawable
+public sealed class DoorFrame : Drawable
 {
   /*************** FIELDS ***************/
 
-  public readonly Window parentWindow;
+  public readonly Door parentDoor;
 
   public List<Vector3> boundaries = new List<Vector3>();
 
-  public Face parentFace
-  {
-    get { return parentWindow.parentFace; }
-  }
-
   public Building parentBuilding
   {
-    get { return parentWindow.parentBuilding; }
+    get { return parentDoor.parentBuilding; }
   }
 
   /*************** CONSTRUCTORS ***************/
 
-  public WindowFrame (Base.Window parent)
-    : base("window_frame", "WindowFrameMaterial", false)
+  public DoorFrame (Door parent)
+    : base("door_frame", "WindowFrameMaterial", false)
   {
-    parentWindow = parent;
+    parentDoor = parent;
 
-    foreach (var point in parentWindow.boundaries)
+    foreach (var point in parentDoor.boundaries)
       boundaries.Add(point + parentBuilding.meshOrigin);
 
     for (var i = 0; i < 4; ++i)
-      boundaries.Add(boundaries[i] - parentWindow.depth * parentWindow.normal);
+      boundaries.Add(boundaries[i] - parentDoor.depth * parentDoor.normal);
   }
 
   /*************** METHODS ***************/
@@ -50,9 +47,7 @@ public sealed class WindowFrame : Drawable
       7, 6, 2,
       7, 2, 3,
       6, 5, 1,
-      6, 1, 2,
-      0, 1, 5,
-      0, 5, 4
+      6, 1, 2
     };
   }
 
@@ -64,4 +59,4 @@ public sealed class WindowFrame : Drawable
   }
 }
 
-} // namespace Base
+}

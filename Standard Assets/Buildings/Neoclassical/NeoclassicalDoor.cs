@@ -1,11 +1,10 @@
 using UnityEngine;
 
-public class NeoclassicalDoor : Base.Door
+public sealed class NeoclassicalDoor : Base.Door
 {
   public NeoclassicalDoor(Base.Face parent, Vector3 dr, Vector3 dl)
   : base (parent)
   {
-    //height = parentBuilding.floorHeight * 0.9f;
     height = ((Neoclassical) parentBuilding).doorHeight;
 
     var new_dr = dr + 0.4f * parentFace.right;
@@ -15,5 +14,16 @@ public class NeoclassicalDoor : Base.Door
     boundaries.Add(new_dl);
     boundaries.Add(new Vector3(new_dl.x, new_dl.y + height, new_dl.z));
     boundaries.Add(new Vector3(new_dr.x, new_dr.y + height, new_dr.z));
+
+    doorFrame = new Base.DoorFrame(this);
+    doorBody = new Base.DoorBody(this);
+  }
+
+  public override void Draw ()
+  {
+    base.Draw();
+
+    doorFrame.Draw();
+    doorBody.Draw();
   }
 }
