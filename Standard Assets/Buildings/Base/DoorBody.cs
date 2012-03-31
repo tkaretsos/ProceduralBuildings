@@ -26,7 +26,7 @@ public sealed class DoorBody : Drawable
   /*************** CONSTRUCTORS ***************/
 
   public DoorBody (Door parent)
-    : base("door_body", "DoorBodyMaterial")
+    : base("door_body", "DoorBody")
   {
     parentDoor = parent;
 

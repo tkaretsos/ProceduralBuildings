@@ -17,6 +17,8 @@ public class FaceComponent
   /// </summary>
   public float height;
 
+  public float depth;
+
   /// <summary>
   /// The boundaries of this component, which are four points on the parent face.
   /// </summary>

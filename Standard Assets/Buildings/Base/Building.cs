@@ -115,7 +115,7 @@ public class Building : Drawable
   /// The type of the building.
   /// </param>
   public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
-    : base("building", "BuildingMaterial", false)
+    : base("building", "Building", false)
   {
     FindMeshOrigin(p1, p2, p3, p4);
     boundaries.Add(p1 - meshOrigin);
@@ -358,7 +358,7 @@ public class Building : Drawable
     windowFrameCombiner.active = false;
     var meshFilter = windowFrameCombiner.AddComponent<MeshFilter>();
     var meshRenderer = windowFrameCombiner.AddComponent<MeshRenderer>();
-    meshRenderer.sharedMaterial = Resources.Load("Materials/WindowFrameMaterial",
+    meshRenderer.sharedMaterial = Resources.Load("Materials/ComponentFrame",
                                                  typeof(Material)) as Material;
 
     List<Window> windows = new List<Window>();
@@ -392,7 +392,7 @@ public class Building : Drawable
     windowGlassCombiner.active = false;
     var meshFilter = windowGlassCombiner.AddComponent<MeshFilter>();
     var meshRenderer = windowGlassCombiner.AddComponent<MeshRenderer>();
-    meshRenderer.sharedMaterial = Resources.Load("Materials/WindowGlassMaterial",
+    meshRenderer.sharedMaterial = Resources.Load("Materials/WindowGlass",
                                                  typeof(Material)) as Material;
 
     List<Window> windows = new List<Window>();

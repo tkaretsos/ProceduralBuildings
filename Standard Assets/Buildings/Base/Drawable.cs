@@ -22,8 +22,18 @@ public class Drawable
 
   public bool active
   {
-    get { return gameObject.active; }
-    set { gameObject.active = value; }
+    get {
+      if (gameObject == null)
+        return _isActive;
+      else
+        return gameObject.active;
+    }
+    set {
+      if (gameObject == null)
+        _isActive = value;
+      else
+        gameObject.active = value;
+    }
   }
 
   public Transform transform

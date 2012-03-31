@@ -7,9 +7,7 @@ public class Window : FaceComponent
 {
   public WindowFrame windowFrame;
 
-  public WindowGlass windowGlass;
-
-  public float depth;
+  public WindowBody windowGlass;
 
   public Window (Face parent) : base(parent) 
   {

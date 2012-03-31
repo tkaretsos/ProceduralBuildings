@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Base {
 
-public sealed class WindowGlass : Drawable
+public sealed class WindowBody : Drawable
 {
   /*************** FIELDS ***************/
 
@@ -24,8 +24,8 @@ public sealed class WindowGlass : Drawable
 
   /*************** CONSTRUCTORS ***************/
 
-  public WindowGlass (Window parent)
-    : base("window_glass", "WindowGlassMaterial", false)
+  public WindowBody (Window parent)
+    : base("window_glass", "WindowGlass", false)
   {
     parentWindow = parent;
 

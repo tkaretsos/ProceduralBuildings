@@ -5,39 +5,22 @@ using System.Collections.Generic;
 namespace Base
 {
 
-public sealed class DoorFrame : Drawable
+public sealed class DoorFrame : ComponentFrame
 {
-  /*************** FIELDS ***************/
-
-  public readonly Door parentDoor;
-
-  public List<Vector3> boundaries = new List<Vector3>();
-
-  public Building parentBuilding
-  {
-    get { return parentDoor.parentBuilding; }
-  }
-
-  /*************** CONSTRUCTORS ***************/
-
   public DoorFrame (Door parent)
-    : base("door_frame", "WindowFrameMaterial", false)
+    : base(parent, "door_frame")
   {
-    parentDoor = parent;
+    material = Resources.Load("Materials/ComponentFrame", typeof(Material)) as Material;
+    active = true;
 
-    foreach (var point in parentDoor.boundaries)
+    foreach (var point in parentComponent.boundaries)
       boundaries.Add(point + parentBuilding.meshOrigin);
 
     for (var i = 0; i < 4; ++i)
-      boundaries.Add(boundaries[i] - parentDoor.depth * parentDoor.normal);
+      boundaries.Add(boundaries[i] - parentComponent.depth * parentComponent.normal);
   }
 
   /*************** METHODS ***************/
-
-  public override Vector3[] FindVertices ()
-  {
-    return boundaries.ToArray();
-  }
 
   public override int[] FindTriangles ()
   {
@@ -49,13 +32,6 @@ public sealed class DoorFrame : Drawable
       6, 5, 1,
       6, 1, 2
     };
-  }
-
-  public override void Draw ()
-  {
-    base.Draw();
-
-    transform.parent = parentBuilding.transform;
   }
 }
 

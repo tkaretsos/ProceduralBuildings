@@ -5,8 +5,6 @@ namespace Base
 
 public class Door : FaceComponent
 {
-  public float depth;
-
   public DoorFrame doorFrame;
 
   public DoorBody doorBody;
