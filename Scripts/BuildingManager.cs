@@ -50,10 +50,10 @@ public class BuildingManager : MonoBehaviour
           {
             float z_mod = j * 9f;
             var n = new Neoclassical(
-              new Vector3(x_mod + Random.Range(0.5f, 1.5f) + 9f, 0f, z_mod + Random.Range(0.5f, 1.5f) + 3.5f),
-              new Vector3(x_mod + Random.Range(0.5f, 1.5f) + 9f, 0f, z_mod - Random.Range(0.5f, 1.5f)), 
-              new Vector3(x_mod - Random.Range(0.5f, 1.5f)     , 0f, z_mod - Random.Range(0.5f, 1.5f)), 
-              new Vector3(x_mod - Random.Range(0.5f, 1.5f)     , 0f, z_mod + Random.Range(0.5f, 1.5f) + 3.5f));
+              new Vector3(x_mod + 9f, 0f, z_mod + 3.5f),
+              new Vector3(x_mod + 9f, 0f, z_mod), 
+              new Vector3(x_mod     , 0f, z_mod), 
+              new Vector3(x_mod     , 0f, z_mod+ 3.5f));
             n.SetActiveRecursively(true);
             neo.Add(n);
           }
@@ -62,19 +62,19 @@ public class BuildingManager : MonoBehaviour
 
       case BuildingMode.Big:
         var a = new Neoclassical(
-          new Vector3(Random.Range(0.5f, 1.5f) + 20f, 0f,  Random.Range(0.5f, 1.5f) + 8f), 
-          new Vector3(Random.Range(0.5f, 1.5f) + 20f, 0f,  Random.Range(0.5f, 1.5f)), 
-          new Vector3(Random.Range(0.5f, 1.5f)      , 0f, -Random.Range(0.5f, 1.5f)), 
-          new Vector3(Random.Range(0.5f, 1.5f)      , 0f,  Random.Range(0.5f, 1.5f) + 8f));
+          new Vector3(20f, 0f, 8f), 
+          new Vector3(20f, 0f, 0f), 
+          new Vector3(0f , 0f, 0f), 
+          new Vector3(0f , 0f, 8f));
         neo.Add(a);
         break;
 
       case BuildingMode.Small:
         var b = new Neoclassical(
-          new Vector3(Random.Range(0.25f, 0.75f) + 9f, 0f,  Random.Range(0.25f, 0.75f) + 3.5f), 
-          new Vector3(Random.Range(0.25f, 0.75f) + 9f, 0f,  Random.Range(0.25f, 0.75f)), 
-          new Vector3(Random.Range(0.25f, 0.75f)     , 0f, -Random.Range(0.25f, 0.75f)), 
-          new Vector3(Random.Range(0.25f, 0.75f)     , 0f,  Random.Range(0.25f, 0.75f) + 3.5f));
+          new Vector3(9f, 0f, 3.5f), 
+          new Vector3(9f, 0f, 0f), 
+          new Vector3(0f, 0f, 0f), 
+          new Vector3(0f, 0f, 3.5f));
         neo.Add(b);
         break;
     }
