@@ -5,7 +5,7 @@ public class Window : FaceComponent
 {
   public WindowFrame windowFrame;
 
-  public WindowBody windowGlass;
+  public Glass windowGlass;
 
   public Window (Face parent) : base(parent) 
   {

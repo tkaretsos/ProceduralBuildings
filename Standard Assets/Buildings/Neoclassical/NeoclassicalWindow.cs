@@ -2,6 +2,8 @@ using UnityEngine;
 
 public sealed class NeoclassicalWindow : Base.Window
 {
+  /*************** CONSTRUCTORS ***************/
+
   public NeoclassicalWindow (Base.Face parent, Vector3 dr, Vector3 dl)
     : base (parent)
   {
@@ -14,8 +16,10 @@ public sealed class NeoclassicalWindow : Base.Window
     boundaries.Add(new Vector3(dr.x, dr.y + height + height_modifier, dr.z));
 
     windowFrame = new Base.WindowFrame(this);
-    windowGlass = new Base.WindowBody(this);
+    windowGlass = new Base.Glass(this);
   }
+
+  /*************** METHODS ***************/
 
   public override void Draw ()
   {

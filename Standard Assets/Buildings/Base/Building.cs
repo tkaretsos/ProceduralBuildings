@@ -296,12 +296,12 @@ public class Building : Drawable
       lkv.Add(new KeyValuePair<int, float>(i, faces[i].width));
 
     if (descending)
-      lkv.Sort(delegate(KeyValuePair<int, float> x, KeyValuePair<int, float> y)
+      lkv.Sort(delegate (KeyValuePair<int, float> x, KeyValuePair<int, float> y)
       {
         return y.Value.CompareTo(x.Value);
       });
     else
-      lkv.Sort(delegate(KeyValuePair<int, float> x, KeyValuePair<int, float> y)
+      lkv.Sort(delegate (KeyValuePair<int, float> x, KeyValuePair<int, float> y)
       {
         return x.Value.CompareTo(y.Value);
       });
@@ -392,7 +392,7 @@ public class Building : Drawable
     windowGlassCombiner.active = false;
     var meshFilter = windowGlassCombiner.AddComponent<MeshFilter>();
     var meshRenderer = windowGlassCombiner.AddComponent<MeshRenderer>();
-    meshRenderer.sharedMaterial = Resources.Load("Materials/WindowGlass",
+    meshRenderer.sharedMaterial = Resources.Load("Materials/Glass",
                                                  typeof(Material)) as Material;
 
     List<Window> windows = new List<Window>();

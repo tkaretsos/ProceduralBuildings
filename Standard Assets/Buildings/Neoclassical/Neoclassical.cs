@@ -15,6 +15,8 @@ public sealed class Neoclassical : Base.Building
 
   public float doorHeight;
 
+  public float balconyHeight;
+
   /*************** CONSTRUCTORS ***************/
   
   /// <summary>
@@ -42,6 +44,9 @@ public sealed class Neoclassical : Base.Building
 
     windowHeight = Random.Range(2.1f, 2.3f);
     doorHeight = Random.Range(3.5f, 3.7f);
+
+    //float height_modifier = floorHeight / 2 - windowHeight / 2;
+    balconyHeight = windowHeight / 2 + floorHeight / 2;
 
     ConstructFaces();
     ConstructFaceComponents();

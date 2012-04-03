@@ -4,15 +4,17 @@ using UnityEngine;
 namespace Base 
 {
 
-public sealed class WindowBody : ComponentBody
+public sealed class Glass : ComponentBody
 {
+  private NeoclassicalBalcony neoclassicalBalcony;
+
   /*************** CONSTRUCTORS ***************/
 
-  public WindowBody (Window parent)
+  public Glass (FaceComponent parent)
     : base(parent, "window_glass")
   {
     active = false;
-    material = Resources.Load("Materials/WindowGlass", typeof(Material)) as Material;
+    material = Resources.Load("Materials/Glass", typeof(Material)) as Material;
   }
 }
 

@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 namespace Base
 {
 
-public sealed class DoorFrame : ComponentFrame
+public class BalconyFrame : ComponentFrame
 {
   /*************** CONSTRUCTORS ***************/
 
-  public DoorFrame (Door parent)
-    : base(parent, "door_frame")
+  public BalconyFrame (Balcony parent)
+    : base(parent, "balcony_frame")
   {
     material = Resources.Load("Materials/ComponentFrame", typeof(Material)) as Material;
     active = true;
