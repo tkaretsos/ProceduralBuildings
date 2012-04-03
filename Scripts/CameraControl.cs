@@ -55,28 +55,32 @@ public class CameraControl : MonoBehaviour
     ClampCamera();
     camera.transform.eulerAngles = new Vector3(-_x_rotation, _y_rotation, 0f);
 
+    float moveSpeed = _movementSpeed;
+    if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+      moveSpeed = 2 * _movementSpeed;
+
     if (Input.GetAxis("Vertical") != 0f)
     {
       if (_cameraMode == CameraMode.Horizontal)
         camera.transform.position += Vector3.Cross(camera.transform.right, Vector3.up) *
                                      Input.GetAxis("Vertical") *
-                                     _movementSpeed * Time.deltaTime;
+                                     moveSpeed * Time.deltaTime;
       else
         camera.transform.position += camera.transform.forward *
                                      Input.GetAxis("Vertical") *
-                                     _movementSpeed * Time.deltaTime;
+                                     moveSpeed * Time.deltaTime;
     }
 
     if (Input.GetAxis("Horizontal") != 0f)
       camera.transform.position += camera.transform.right *
                                    Input.GetAxis("Horizontal") *
-                                   _movementSpeed * Time.deltaTime;
+                                   moveSpeed * Time.deltaTime;
 
     if (Input.GetKey(KeyCode.E))
-      camera.transform.position += Vector3.up * _movementSpeed * Time.deltaTime;
+      camera.transform.position += Vector3.up * moveSpeed * Time.deltaTime;
 
     if (Input.GetKey(KeyCode.C))
-      camera.transform.position -= Vector3.up * _movementSpeed * Time.deltaTime;
+      camera.transform.position -= Vector3.up * moveSpeed * Time.deltaTime;
 
     if (Input.GetKeyUp(KeyCode.M))
       if (_cameraMode == CameraMode.Free)
