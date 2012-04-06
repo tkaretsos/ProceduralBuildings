@@ -7,7 +7,7 @@ public class Window : FaceComponent
 
   public Glass windowGlass;
 
-  public Window (Face parent) : base(parent) 
+  public Window (Face parent, int floor) : base(parent, floor) 
   {
     depth = 0.2f;
   }

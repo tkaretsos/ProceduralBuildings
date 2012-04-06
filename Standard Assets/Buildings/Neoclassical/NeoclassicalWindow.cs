@@ -4,8 +4,8 @@ public sealed class NeoclassicalWindow : Base.Window
 {
   /*************** CONSTRUCTORS ***************/
 
-  public NeoclassicalWindow (Base.Face parent, Vector3 dr, Vector3 dl)
-    : base (parent)
+  public NeoclassicalWindow (Base.Face parent, Vector3 dr, Vector3 dl, int floor)
+    : base (parent, floor)
   {
     height = ((Neoclassical) parentBuilding).windowHeight;
     float height_modifier = parentBuilding.floorHeight / 2 - height / 2;

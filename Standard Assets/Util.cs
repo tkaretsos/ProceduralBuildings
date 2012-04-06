@@ -55,6 +55,10 @@ public class Util
         expanded[j] = numbers[i];
     }
   
+    for (int i = 0; i < expanded.Length; ++i)
+      Debug.Log("asf: " + expanded[i].ToString());
+
+
     return expanded[new System.Random().Next(precision)];
   }
 

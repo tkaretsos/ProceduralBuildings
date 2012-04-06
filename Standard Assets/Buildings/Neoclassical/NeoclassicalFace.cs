@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 public sealed class NeoclassicalFace : Base.Face
 {
+  public List<int> doorIndexes = new List<int>();
+
+  public List<int> balconyIndexes = new List<int>();
+
   public NeoclassicalFace (Base.Building parent, Vector3 dr, Vector3 dl)
     : base (parent, dr, dl)
   {}
@@ -25,16 +29,14 @@ public sealed class NeoclassicalFace : Base.Face
         Vector3 dr = boundaries[0] - right * offset + (new Vector3(0f, floor * parentBuilding.floorHeight, 0f));
         Vector3 dl = dr - right * component_width;
         offset += component_width;
-        faceComponents.Add(new NeoclassicalWindow(this, dr, dl));
+        faceComponents.Add(new NeoclassicalWindow(this, dr, dl, floor));
         offset += fixed_space;
       }
     }
    }
 
   public override void ConstructDoors ()
-  {
-    var doorIndexes = new List<int>();
-    
+  {    
     switch (componentsPerFloor)
     {
       case 1:
@@ -80,7 +82,6 @@ public sealed class NeoclassicalFace : Base.Face
     }
 
     foreach (int index in doorIndexes)
-    {
       faceComponents[index] = new NeoclassicalDoor(
                                 this,
                                 new Vector3(
@@ -90,8 +91,127 @@ public sealed class NeoclassicalFace : Base.Face
                                 new Vector3(
                                   faceComponents[index].boundaries[1].x,
                                   parentBuilding.boundaries[0].y,
-                                  faceComponents[index].boundaries[1].z)
+                                  faceComponents[index].boundaries[1].z),
+                                faceComponents[index].atFloor
                               );      
-    }
+  }
+
+  public override void ConstructBalconies ()
+  {
+    int dice;
+    if (doorIndexes.Count > 0)
+      switch (parentBuilding.floorNumber)
+      {
+        // two floors
+        case 2:
+          switch (componentsPerFloor)
+          {
+            case 3:
+              balconyIndexes.Add(doorIndexes[0] + componentsPerFloor);
+              break;
+
+            case 4:
+              dice = Util.RollDice(new float[] { 0.5f, 0.25f, 0.25f });
+              if (dice == 1)
+              {
+                balconyIndexes.Add(5);
+                balconyIndexes.Add(6);
+              }
+              else if (dice == 2)
+                balconyIndexes.Add(doorIndexes[0] + 4);
+              break;
+
+            case 5:
+              dice = Util.RollDice(new float[] { 0.25f, 0.25f, 0.25f, 0.25f });
+              switch (dice)
+              {
+                case 1:
+                  balconyIndexes.Add(5);
+                  balconyIndexes.Add(7);
+                  balconyIndexes.Add(9);
+                  break;
+                  
+                case 2:
+                  balconyIndexes.Add(5);
+                  balconyIndexes.Add(9);
+                  break;
+
+                case 3:
+                  balconyIndexes.Add(6);
+                  balconyIndexes.Add(7);
+                  balconyIndexes.Add(8);
+                  break;
+
+                default:
+                  break;
+              }
+              break;
+
+            default:
+              break;
+          }
+          break;
+
+        // three floors
+        case 3:
+          switch (componentsPerFloor)
+          {
+            case 3:
+              dice = Util.RollDice(new float[] { 0.5f, 0.25f, 0.25f });
+              balconyIndexes.Add(doorIndexes[0] + componentsPerFloor);
+              switch (dice)
+              {
+                case 1:
+                  balconyIndexes.Add(doorIndexes[0] + 2 * componentsPerFloor);
+                  break;
+
+                case 2:
+                  balconyIndexes.Add(6);
+                  balconyIndexes.Add(8);
+                  break;
+
+                default:
+                  break;
+              }
+              break;
+
+            case 4:
+              break;
+
+            case 5:
+              break;
+          }
+          break;
+
+        default:
+          break;
+      }
+
+    foreach (int i in balconyIndexes)
+      faceComponents[i] = new NeoclassicalBalcony(
+                            this,
+                            new Vector3(faceComponents[i].boundaries[0].x,
+                                        faceComponents[i].atFloor * parentBuilding.floorHeight,
+                                        faceComponents[i].boundaries[0].z),
+                            new Vector3(faceComponents[i].boundaries[1].x,
+                                        faceComponents[i].atFloor * parentBuilding.floorHeight,
+                                        faceComponents[i].boundaries[1].z),
+                            faceComponents[i].atFloor
+                          );
+
+    //if (doorIndexes.Count > 0 && parentBuilding.floorNumber > 1)
+    //{
+    //  foreach (int index in doorIndexes)
+    //  {
+    //    var i = index + componentsPerFloor;
+    //    Vector3 dr = new Vector3(faceComponents[i].boundaries[0].x,
+    //                             parentBuilding.floorHeight,
+    //                             faceComponents[i].boundaries[0].z);
+    //    Vector3 dl = new Vector3(faceComponents[i].boundaries[1].x,
+    //                             parentBuilding.floorHeight,
+    //                             faceComponents[i].boundaries[1].z);
+    //    faceComponents[i] = new NeoclassicalBalcony(this, dr, dl);
+    //  }
+    //}
   }
 }

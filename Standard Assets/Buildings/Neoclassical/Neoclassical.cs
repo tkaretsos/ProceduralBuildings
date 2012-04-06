@@ -6,8 +6,8 @@ public sealed class Neoclassical : Base.Building
 {
   /*************** FIELDS ***************/
 
-  private const float _componentWidthMin = 1.3f;
-  private const float _componentWidthMax = 1.5f;
+  private const float _componentWidthMin = 1.4f;
+  private const float _componentWidthMax = 1.6f;
   private const float _componentSpaceMin = 2f;
   private const float _componentSpaceMax = 2.25f;
 
@@ -51,6 +51,8 @@ public sealed class Neoclassical : Base.Building
     ConstructFaces();
     ConstructFaceComponents();
     faces[sortedFaces[0]].ConstructDoors();
+    foreach (Base.Face face in faces)
+      face.ConstructBalconies();
 
     Draw();
     CombineWindowFrames();

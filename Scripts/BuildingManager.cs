@@ -6,8 +6,10 @@ public class BuildingManager : MonoBehaviour
   private enum BuildingMode
   {
     Many,
-    Big,
-    Small
+    Two,
+    Three,
+    Four,
+    Five
   }
 
   private List<Neoclassical> neo = new List<Neoclassical>();
@@ -28,17 +30,29 @@ public class BuildingManager : MonoBehaviour
     if (Input.GetKeyUp(KeyCode.Alpha2))
     {
       DestroyBuildings();
-      CreateNeoclassical(BuildingMode.Big);
+      CreateNeoclassical(BuildingMode.Two);
     }
 
     if (Input.GetKeyUp(KeyCode.Alpha3))
     {
       DestroyBuildings();
-      CreateNeoclassical(BuildingMode.Small);
+      CreateNeoclassical(BuildingMode.Three);
+    }
+
+    if (Input.GetKeyUp(KeyCode.Alpha4))
+    {
+      DestroyBuildings();
+      CreateNeoclassical(BuildingMode.Four);
+    }
+
+    if (Input.GetKeyUp(KeyCode.Alpha5))
+    {
+      DestroyBuildings();
+      CreateNeoclassical(BuildingMode.Five);
     }
 	}
 
-  private void CreateNeoclassical(BuildingMode mode = BuildingMode.Big)
+  private void CreateNeoclassical(BuildingMode mode = BuildingMode.Two)
   {
     switch (mode)
     {
@@ -60,22 +74,40 @@ public class BuildingManager : MonoBehaviour
         }
         break;
 
-      case BuildingMode.Big:
+      case BuildingMode.Two:
         var a = new Neoclassical(
-          new Vector3(20f, 0f, 8f), 
-          new Vector3(20f, 0f, 0f), 
-          new Vector3(0f , 0f, 0f), 
-          new Vector3(0f , 0f, 8f));
+          new Vector3(8f, 0f, 4f), 
+          new Vector3(8f, 0f, 0f), 
+          new Vector3(0f, 0f, 0f), 
+          new Vector3(0f, 0f, 4f));
         neo.Add(a);
         break;
 
-      case BuildingMode.Small:
+      case BuildingMode.Three:
         var b = new Neoclassical(
-          new Vector3(9f, 0f, 3.5f), 
-          new Vector3(9f, 0f, 0f), 
-          new Vector3(0f, 0f, 0f), 
-          new Vector3(0f, 0f, 3.5f));
+          new Vector3(11f, 0f, 4f), 
+          new Vector3(11f, 0f, 0f), 
+          new Vector3(0f , 0f, 0f), 
+          new Vector3(0f , 0f, 4f));
         neo.Add(b);
+        break;
+
+      case BuildingMode.Four:
+        var c = new Neoclassical(
+          new Vector3(15f, 0f, 6f),
+          new Vector3(15f, 0f, 0f),
+          new Vector3(0f , 0f, 0f),
+          new Vector3(0f , 0f, 6f));
+        neo.Add(c);
+        break;
+
+      case BuildingMode.Five:
+        var d = new Neoclassical(
+          new Vector3(19f, 0f, 8f),
+          new Vector3(19f, 0f, 0f),
+          new Vector3(0f , 0f, 0f),
+          new Vector3(0f , 0f, 8f));
+        neo.Add(d);
         break;
     }
   }

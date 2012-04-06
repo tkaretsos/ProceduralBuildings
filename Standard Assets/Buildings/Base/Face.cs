@@ -169,6 +169,8 @@ public class Face
   }
 
   public virtual void ConstructDoors () { }
+
+  public virtual void ConstructBalconies () { }
 }
 
 } // namespace Base
