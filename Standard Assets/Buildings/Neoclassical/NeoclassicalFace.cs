@@ -59,10 +59,7 @@ public sealed class NeoclassicalFace : Base.Face
         if (Util.RollDice(new float[] { 0.2f, 0.8f }, new int[] { 1, 2 }) == 1)
           doorIndexes.Add(2);
         else
-        {
-          doorIndexes.Add(0);
-          doorIndexes.Add(4);
-        }
+          doorIndexes.AddRange(new int[] { 0, 4 });
         break;
 
       default:
@@ -74,10 +71,7 @@ public sealed class NeoclassicalFace : Base.Face
             doorIndexes.Add((componentsPerFloor - 1) / 2);
         }
         else
-        {
-          doorIndexes.Add(0);
-          doorIndexes.Add(componentsPerFloor - 1);
-        }
+          doorIndexes.AddRange(new int[] { 0, componentsPerFloor - 1 });
         break;
     }
 
@@ -113,10 +107,7 @@ public sealed class NeoclassicalFace : Base.Face
             case 4:
               dice = Util.RollDice(new float[] { 0.5f, 0.25f, 0.25f });
               if (dice == 1)
-              {
-                balconyIndexes.Add(5);
-                balconyIndexes.Add(6);
-              }
+                balconyIndexes.AddRange(new int[] { 5, 6 });
               else if (dice == 2)
                 balconyIndexes.Add(doorIndexes[0] + 4);
               break;
@@ -126,20 +117,15 @@ public sealed class NeoclassicalFace : Base.Face
               switch (dice)
               {
                 case 1:
-                  balconyIndexes.Add(5);
-                  balconyIndexes.Add(7);
-                  balconyIndexes.Add(9);
+                  balconyIndexes.AddRange(new int[] { 5, 7, 9 });
                   break;
                   
                 case 2:
-                  balconyIndexes.Add(5);
-                  balconyIndexes.Add(9);
+                  balconyIndexes.AddRange(new int[] { 5, 9 });
                   break;
 
                 case 3:
-                  balconyIndexes.Add(6);
-                  balconyIndexes.Add(7);
-                  balconyIndexes.Add(8);
+                  balconyIndexes.AddRange(new int[] { 6, 7, 8 });
                   break;
 
                 default:
@@ -166,8 +152,7 @@ public sealed class NeoclassicalFace : Base.Face
                   break;
 
                 case 2:
-                  balconyIndexes.Add(6);
-                  balconyIndexes.Add(8);
+                  balconyIndexes.AddRange(new int[] { 6, 8 });
                   break;
 
                 default:
@@ -176,9 +161,47 @@ public sealed class NeoclassicalFace : Base.Face
               break;
 
             case 4:
+              dice = Util.RollDice(new float[] { 0.33f, 0.34f, 0.33f });
+              switch (dice)
+              {
+                case 1:
+                  balconyIndexes.AddRange(new int[] { 5, 6 });
+                  break;
+
+                case 2:
+                  balconyIndexes.AddRange(new int[] { 9, 10 });
+                  break;
+
+                case 3:
+                  balconyIndexes.AddRange(new int[] { 5, 6, 9, 10 });
+                  break;
+              }
               break;
 
             case 5:
+              dice = Util.RollDice(new float[] { 0.2f, 0.2f, 0.2f, 0.2f, 0.2f });
+              switch (dice)
+              {
+                case 1:
+                  balconyIndexes.AddRange(new int[] { 6, 7, 8 });
+                  break;
+
+                case 2:
+                  balconyIndexes.AddRange(new int[] { 11, 12, 13 });
+                  break;
+
+                case 3:
+                  balconyIndexes.AddRange(new int[] { 6, 7, 8, 11, 12, 13 });
+                  break;
+
+                case 4:
+                  balconyIndexes.AddRange(new int[] { 6, 8, 11, 12, 13 });
+                  break;
+
+                case 5:
+                  balconyIndexes.AddRange(new int[] { 5, 9, 11, 12, 13 });
+                  break;
+              }
               break;
           }
           break;
@@ -198,20 +221,5 @@ public sealed class NeoclassicalFace : Base.Face
                                         faceComponents[i].boundaries[1].z),
                             faceComponents[i].atFloor
                           );
-
-    //if (doorIndexes.Count > 0 && parentBuilding.floorNumber > 1)
-    //{
-    //  foreach (int index in doorIndexes)
-    //  {
-    //    var i = index + componentsPerFloor;
-    //    Vector3 dr = new Vector3(faceComponents[i].boundaries[0].x,
-    //                             parentBuilding.floorHeight,
-    //                             faceComponents[i].boundaries[0].z);
-    //    Vector3 dl = new Vector3(faceComponents[i].boundaries[1].x,
-    //                             parentBuilding.floorHeight,
-    //                             faceComponents[i].boundaries[1].z);
-    //    faceComponents[i] = new NeoclassicalBalcony(this, dr, dl);
-    //  }
-    //}
   }
 }

@@ -4,6 +4,8 @@ using Exception = System.Exception;
 
 public class Util
 {
+  public static System.Random random = new System.Random();
+
   /// <summary>
   /// Rolls a weighted dice.
   /// </summary>
@@ -19,7 +21,7 @@ public class Util
   /// <param name='precision'>
   /// The maximum of decimal digits that a number has.
   /// </param>
-  static public int RollDice (float[] chances, int[] numbers = null, int precision = 2)
+  public static int RollDice (float[] chances, int[] numbers = null, int precision = 2)
   {
     var sum = 0f;
     foreach (var chance in chances)
@@ -54,12 +56,12 @@ public class Util
       for (var j = start; j < end; ++j)
         expanded[j] = numbers[i];
     }
-  
-    return expanded[new System.Random().Next(precision)];
+
+    return expanded[random.Next(precision)];
   }
 
 	
-  static public void PrintVector (string s, Vector3 v)
+  public static void PrintVector (string s, Vector3 v)
   {
     Debug.Log(s + " " + v.x + " " + v.y + " " + v.z);
   }
