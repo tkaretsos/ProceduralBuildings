@@ -1,3 +1,5 @@
+using System;
+using System.Reflection;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -21,19 +23,34 @@ public sealed class NeoclassicalFace : Base.Face
       fixed_space = (width - componentsPerFloor * component_width) / (componentsPerFloor + 1);
     }
 
+    if (parentBuilding.faces[parentBuilding.sortedFaces[0]] == this)
+      ConstructDoors();
+    ConstructBalconies();
+
+    float offset;
+    int index;
+    Vector3 dr;
+    Vector3 dl;
+    ConstructorInfo[] ctors;
     for (int floor = 0; floor < parentBuilding.floorNumber; ++floor)
     {
-      float offset = fixed_space;
-      for (int i = 0; i < componentsPerFloor; ++i)
+      offset = fixed_space;
+      for (int component = 0; component < componentsPerFloor; ++component)
       {
-        Vector3 dr = boundaries[0] - right * offset + (new Vector3(0f, floor * parentBuilding.floorHeight, 0f));
-        Vector3 dl = dr - right * component_width;
+        index = floor * componentsPerFloor + component;
+        dr = boundaries[0] - right * offset + (new Vector3(0f, floor * parentBuilding.floorHeight, 0f));
+        dl = dr - right * component_width;
         offset += component_width;
-        faceComponents.Add(new NeoclassicalWindow(this, dr, dl, floor));
+        if (!pattern.ContainsKey(index))
+          pattern[index] = typeof(NeoclassicalWindow);
+
+        ctors = pattern[index].GetConstructors(BindingFlags.Instance | BindingFlags.Public);
+        faceComponents.Add((Base.FaceComponent) ctors[0].Invoke(new object[] { this, dr, dl, floor }));
+
         offset += fixed_space;
       }
     }
-   }
+  }
 
   public override void ConstructDoors ()
   {    
@@ -76,18 +93,7 @@ public sealed class NeoclassicalFace : Base.Face
     }
 
     foreach (int index in doorIndexes)
-      faceComponents[index] = new NeoclassicalDoor(
-                                this,
-                                new Vector3(
-                                  faceComponents[index].boundaries[0].x,
-                                  parentBuilding.boundaries[0].y,
-                                  faceComponents[index].boundaries[0].z),
-                                new Vector3(
-                                  faceComponents[index].boundaries[1].x,
-                                  parentBuilding.boundaries[0].y,
-                                  faceComponents[index].boundaries[1].z),
-                                faceComponents[index].atFloor
-                              );      
+      pattern[index] = typeof(NeoclassicalDoor);
   }
 
   public override void ConstructBalconies ()
@@ -210,16 +216,7 @@ public sealed class NeoclassicalFace : Base.Face
           break;
       }
 
-    foreach (int i in balconyIndexes)
-      faceComponents[i] = new NeoclassicalBalcony(
-                            this,
-                            new Vector3(faceComponents[i].boundaries[0].x,
-                                        faceComponents[i].atFloor * parentBuilding.floorHeight,
-                                        faceComponents[i].boundaries[0].z),
-                            new Vector3(faceComponents[i].boundaries[1].x,
-                                        faceComponents[i].atFloor * parentBuilding.floorHeight,
-                                        faceComponents[i].boundaries[1].z),
-                            faceComponents[i].atFloor
-                          );
+    foreach (int index in balconyIndexes)
+      pattern[index] = typeof(NeoclassicalBalcony);
   }
 }

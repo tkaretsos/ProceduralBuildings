@@ -50,9 +50,6 @@ public sealed class Neoclassical : Base.Building
 
     ConstructFaces();
     ConstructFaceComponents();
-    faces[sortedFaces[0]].ConstructDoors();
-    foreach (Base.Face face in faces)
-      face.ConstructBalconies();
 
     Draw();
     CombineWindowFrames();
