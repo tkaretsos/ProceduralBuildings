@@ -171,6 +171,12 @@ public class Face
     return vertices;
   }
 
+  public ComponentCoordinate IndexToCoordinate (int index)
+  {
+    return new ComponentCoordinate(index / parentBuilding.floorNumber, 
+                                   index % parentBuilding.floorNumber);
+  }
+
   public virtual void ConstructDoors () { }
 
   public virtual void ConstructBalconies () { }

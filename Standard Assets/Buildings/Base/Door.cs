@@ -7,7 +7,7 @@ public class Door : FaceComponent
 
   public DoorBody doorBody;
 
-  public Door (Face parent, int floor) : base(parent, floor)
+  public Door (Face parent, ComponentCoordinate position) : base(parent, position)
   {
     depth = 0.4f;
   }

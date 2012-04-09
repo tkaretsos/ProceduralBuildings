@@ -2,8 +2,8 @@ using UnityEngine;
 
 public sealed class NeoclassicalDoor : Base.Door
 {
-  public NeoclassicalDoor(Base.Face parent, Vector3 dr, Vector3 dl, int floor)
-  : base (parent, floor)
+  public NeoclassicalDoor(Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
+  : base (parent, position)
   {
     height = ((Neoclassical) parentBuilding).doorHeight;
 

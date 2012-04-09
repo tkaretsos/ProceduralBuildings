@@ -45,7 +45,7 @@ public sealed class NeoclassicalFace : Base.Face
           pattern[index] = typeof(NeoclassicalWindow);
 
         ctors = pattern[index].GetConstructors(BindingFlags.Instance | BindingFlags.Public);
-        faceComponents.Add((Base.FaceComponent) ctors[0].Invoke(new object[] { this, dr, dl, floor }));
+        faceComponents.Add((Base.FaceComponent) ctors[0].Invoke(new object[] { this, dr, dl, IndexToCoordinate(index) }));
 
         offset += fixed_space;
       }

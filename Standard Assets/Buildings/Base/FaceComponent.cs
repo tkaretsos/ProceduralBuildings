@@ -19,7 +19,7 @@ public class FaceComponent
 
   public float depth;
 
-  public readonly int atFloor;
+  public readonly ComponentCoordinate position;
 
   /// <summary>
   /// The boundaries of this component, which are four points on the parent face.
@@ -41,10 +41,10 @@ public class FaceComponent
 
   /*************** CONSTRUCTORS ***************/
 
-  public FaceComponent (Face parent, int floor)
+  public FaceComponent (Face parent, ComponentCoordinate position)
   {
     parentFace = parent;
-    atFloor = floor;
+    this.position = position;
   }
 
   /// <summary>
@@ -65,10 +65,10 @@ public class FaceComponent
   /// <param name='dr'>
   /// Down-right point of the component.
   /// </param>
-  public FaceComponent (Face parent, Vector3 dr, Vector3 dl, int floor, float height_modifier = 1f)
+  public FaceComponent (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position, float height_modifier = 1f)
   {
     parentFace = parent;
-    atFloor = floor;
+    this.position = position;
     height = parentBuilding.floorHeight * height_modifier;
   
     boundaries.Add(dr);

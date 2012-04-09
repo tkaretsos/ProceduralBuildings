@@ -4,8 +4,8 @@ public sealed class NeoclassicalBalcony : Base.Balcony
 {
   /*************** CONSTRUCTORS ***************/
 
-  public NeoclassicalBalcony (Base.Face parent, Vector3 dr, Vector3 dl, int floor)
-    : base(parent, floor)
+  public NeoclassicalBalcony (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
+    : base(parent, position)
   {
     height = ((Neoclassical) parentBuilding).balconyHeight;
 
