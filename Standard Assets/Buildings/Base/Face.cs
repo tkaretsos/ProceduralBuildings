@@ -67,6 +67,10 @@ public class Face
   public int verticesModifier;
 
   public Dictionary<int, Type> pattern = new Dictionary<int, Type>();
+
+  public List<int> doorIndexes = new List<int>();
+
+  public List<int> balconyIndexes = new List<int>();
   
   /*************** CONSTRUCTORS ***************/
   

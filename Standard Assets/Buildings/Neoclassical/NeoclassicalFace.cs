@@ -5,10 +5,6 @@ using System.Collections.Generic;
 
 public sealed class NeoclassicalFace : Base.Face
 {
-  public List<int> doorIndexes = new List<int>();
-
-  public List<int> balconyIndexes = new List<int>();
-
   public NeoclassicalFace (Base.Building parent, Vector3 dr, Vector3 dl)
     : base (parent, dr, dl)
   {}
