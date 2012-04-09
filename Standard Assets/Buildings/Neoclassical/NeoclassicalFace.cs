@@ -20,8 +20,8 @@ public sealed class NeoclassicalFace : Base.Face
     }
 
     if (parentBuilding.faces[parentBuilding.sortedFaces[0]] == this)
-      ConstructDoors();
-    ConstructBalconies();
+      FindDoorIndexes();
+    FindBalconyIndexes();
 
     float offset;
     int index;
@@ -48,7 +48,7 @@ public sealed class NeoclassicalFace : Base.Face
     }
   }
 
-  public override void ConstructDoors ()
+  private void FindDoorIndexes ()
   {    
     switch (componentsPerFloor)
     {
@@ -92,7 +92,7 @@ public sealed class NeoclassicalFace : Base.Face
       pattern[index] = typeof(NeoclassicalDoor);
   }
 
-  public override void ConstructBalconies ()
+  private void FindBalconyIndexes ()
   {
     int dice;
     if (doorIndexes.Count > 0)

@@ -180,10 +180,6 @@ public class Face
     return new ComponentCoordinate(index / parentBuilding.floorNumber, 
                                    index % parentBuilding.floorNumber);
   }
-
-  public virtual void ConstructDoors () { }
-
-  public virtual void ConstructBalconies () { }
 }
 
 } // namespace Base
