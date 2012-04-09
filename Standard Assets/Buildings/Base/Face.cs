@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -63,7 +64,9 @@ public class Face
   /// </summary>
   public readonly Building parentBuilding;
 
-  public int verticesModifier;  
+  public int verticesModifier;
+
+  public Dictionary<int, Type> pattern = new Dictionary<int, Type>();
   
   /*************** CONSTRUCTORS ***************/
   
