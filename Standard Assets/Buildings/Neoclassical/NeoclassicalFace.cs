@@ -95,122 +95,126 @@ public sealed class NeoclassicalFace : Base.Face
   private void FindBalconyIndexes ()
   {
     int dice;
-    if (doorIndexes.Count > 0)
-      switch (parentBuilding.floorNumber)
-      {
-        // two floors
-        case 2:
-          switch (componentsPerFloor)
-          {
-            case 3:
+    
+    switch (parentBuilding.floorNumber)
+    {
+      // two floors
+      case 2:
+        switch (componentsPerFloor)
+        {
+          case 3:
+            if (doorIndexes.Count > 0)
               balconyIndexes.Add(doorIndexes[0] + componentsPerFloor);
-              break;
+            else if (Util.RollDice(new float[] { 0.3f, 0.7f }) == 1)
+              balconyIndexes.Add(4);
+            break;
 
-            case 4:
-              dice = Util.RollDice(new float[] { 0.5f, 0.25f, 0.25f });
-              if (dice == 1)
-                balconyIndexes.AddRange(new int[] { 5, 6 });
-              else if (dice == 2)
-                balconyIndexes.Add(doorIndexes[0] + 4);
-              break;
+          case 4:
+            dice = Util.RollDice(new float[] { 0.3f, 0.4f, 0.3f });
+            if (dice == 1)
+              balconyIndexes.AddRange(new int[] { 5, 6 });
+            else if (dice == 2)
+              balconyIndexes.AddRange(new int[] { 4, 7 });
+            break;
 
-            case 5:
-              dice = Util.RollDice(new float[] { 0.25f, 0.25f, 0.25f, 0.25f });
-              switch (dice)
-              {
-                case 1:
-                  balconyIndexes.AddRange(new int[] { 5, 7, 9 });
-                  break;
+          case 5:
+            dice = Util.RollDice(new float[] { 0.25f, 0.25f, 0.25f, 0.25f });
+            switch (dice)
+            {
+              case 1:
+                balconyIndexes.AddRange(new int[] { 5, 7, 9 });
+                break;
                   
-                case 2:
-                  balconyIndexes.AddRange(new int[] { 5, 9 });
-                  break;
+              case 2:
+                balconyIndexes.AddRange(new int[] { 5, 9 });
+                break;
 
-                case 3:
-                  balconyIndexes.AddRange(new int[] { 6, 7, 8 });
-                  break;
+              case 3:
+                balconyIndexes.AddRange(new int[] { 6, 7, 8 });
+                break;
 
-                default:
-                  break;
-              }
-              break;
+              default:
+                break;
+            }
+            break;
 
-            default:
-              break;
-          }
-          break;
+          default:
+            break;
+        }
+        break;
 
-        // three floors
-        case 3:
-          switch (componentsPerFloor)
-          {
-            case 3:
-              dice = Util.RollDice(new float[] { 0.5f, 0.25f, 0.25f });
-              balconyIndexes.Add(doorIndexes[0] + componentsPerFloor);
-              switch (dice)
-              {
-                case 1:
-                  balconyIndexes.Add(doorIndexes[0] + 2 * componentsPerFloor);
-                  break;
+      // three floors
+      case 3:
+        switch (componentsPerFloor)
+        {
+          case 3:
+            dice = Util.RollDice(new float[] { 0.5f, 0.25f, 0.25f });
+            if (doorIndexes.Count > 0)
+              balconyIndexes.Add(4);
+            switch (dice)
+            {
+              case 1:
+                balconyIndexes.Add(7);
+                break;
 
-                case 2:
-                  balconyIndexes.AddRange(new int[] { 6, 8 });
-                  break;
+              case 2:
+                balconyIndexes.AddRange(new int[] { 6, 8 });
+                break;
 
-                default:
-                  break;
-              }
-              break;
+              default:
+                break;
+            }
+            break;
 
-            case 4:
-              dice = Util.RollDice(new float[] { 0.33f, 0.34f, 0.33f });
-              switch (dice)
-              {
-                case 1:
-                  balconyIndexes.AddRange(new int[] { 5, 6 });
-                  break;
+          case 4:
+            dice = Util.RollDice(new float[] { 0.33f, 0.34f, 0.33f });
+            switch (dice)
+            {
+              case 1:
+                balconyIndexes.AddRange(new int[] { 5, 6 });
+                break;
 
-                case 2:
-                  balconyIndexes.AddRange(new int[] { 9, 10 });
-                  break;
+              case 2:
+                balconyIndexes.AddRange(new int[] { 9, 10 });
+                break;
 
-                case 3:
-                  balconyIndexes.AddRange(new int[] { 5, 6, 9, 10 });
-                  break;
-              }
-              break;
+              case 3:
+                balconyIndexes.AddRange(new int[] { 5, 6, 9, 10 });
+                break;
+            }
+            break;
 
-            case 5:
-              dice = Util.RollDice(new float[] { 0.2f, 0.2f, 0.2f, 0.2f, 0.2f });
-              switch (dice)
-              {
-                case 1:
-                  balconyIndexes.AddRange(new int[] { 6, 7, 8 });
-                  break;
+          case 5:
+            dice = Util.RollDice(new float[] { 0.2f, 0.2f, 0.2f, 0.2f, 0.2f });
+            switch (dice)
+            {
+              case 1:
+                balconyIndexes.AddRange(new int[] { 6, 7, 8 });
+                break;
 
-                case 2:
-                  balconyIndexes.AddRange(new int[] { 11, 12, 13 });
-                  break;
+              case 2:
+                balconyIndexes.AddRange(new int[] { 11, 12, 13 });
+                break;
 
-                case 3:
-                  balconyIndexes.AddRange(new int[] { 6, 7, 8, 11, 12, 13 });
-                  break;
+              case 3:
+                balconyIndexes.AddRange(new int[] { 6, 7, 8, 11, 12, 13 });
+                break;
 
-                case 4:
-                  balconyIndexes.AddRange(new int[] { 6, 8, 11, 12, 13 });
-                  break;
+              case 4:
+                balconyIndexes.AddRange(new int[] { 6, 8, 11, 12, 13 });
+                break;
 
-                case 5:
-                  balconyIndexes.AddRange(new int[] { 5, 9, 11, 12, 13 });
-                  break;
-              }
-              break;
-          }
-          break;
+              case 5:
+                balconyIndexes.AddRange(new int[] { 5, 9, 11, 12, 13 });
+                break;
+            }
+            break;
+        }
+        break;
 
-        default:
-          break;
-      }
+      default:
+        break;
+    }
 
     foreach (int index in balconyIndexes)
       pattern[index] = typeof(NeoclassicalBalcony);
