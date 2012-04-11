@@ -52,8 +52,8 @@ public sealed class Neoclassical : Base.Building
     ConstructFaceComponents();
 
     Draw();
-    CombineWindowFrames();
-    CombineWindowGlasses();
+    CombineFrames();
+    CombineGlasses();
     SetActiveRecursively(true);
   }
   

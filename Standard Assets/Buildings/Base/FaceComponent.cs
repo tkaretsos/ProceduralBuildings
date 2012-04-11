@@ -21,6 +21,10 @@ public class FaceComponent
 
   public readonly ComponentCoordinate position;
 
+  public ComponentFrame frame;
+
+  public ComponentBody body;
+
   /// <summary>
   /// The boundaries of this component, which are four points on the parent face.
   /// </summary>

@@ -15,8 +15,8 @@ public sealed class NeoclassicalWindow : Base.Window
     boundaries.Add(new Vector3(dl.x, dl.y + height + height_modifier, dl.z));
     boundaries.Add(new Vector3(dr.x, dr.y + height + height_modifier, dr.z));
 
-    windowFrame = new Base.WindowFrame(this);
-    windowGlass = new Base.Glass(this);
+    frame = new Base.WindowFrame(this);
+    body = new Base.Glass(this);
   }
 
   /*************** METHODS ***************/
@@ -25,7 +25,7 @@ public sealed class NeoclassicalWindow : Base.Window
   {
     base.Draw();
 
-    windowFrame.Draw();
-    windowGlass.Draw();
+    frame.Draw();
+    body.Draw();
   }
 }

@@ -351,9 +351,9 @@ public class Building : Drawable
   /// Combines all the WindowFrame objects of the building
   /// into one mesh. The WindowFrame objects are then destroyed.
   /// </summary>
-  public void CombineWindowFrames ()
+  public void CombineFrames ()
   {
-    windowFrameCombiner = new GameObject("window_frame_combiner");
+    windowFrameCombiner = new GameObject("frame_combiner");
     windowFrameCombiner.transform.parent = transform;
     windowFrameCombiner.active = false;
     var meshFilter = windowFrameCombiner.AddComponent<MeshFilter>();
@@ -361,17 +361,15 @@ public class Building : Drawable
     meshRenderer.sharedMaterial = Resources.Load("Materials/ComponentFrame",
                                                  typeof(Material)) as Material;
 
-    List<Window> windows = new List<Window>();
+    List<FaceComponent> components = new List<FaceComponent>();
     foreach (Base.Face face in faces)
-      foreach (Base.FaceComponent fc in face.faceComponents)
-        if (fc.GetType().IsSubclassOf(typeof(Window)))
-          windows.Add(fc as Window);
+      components.AddRange(face.faceComponents);
 
-    MeshFilter[] meshFilters = new MeshFilter[windows.Count];
-    for (var i = 0; i < windows.Count; ++i)
+    MeshFilter[] meshFilters = new MeshFilter[components.Count];
+    for (var i = 0; i < components.Count; ++i)
     {
-      meshFilters[i] = windows[i].windowFrame.meshFilter;
-      GameObject.Destroy(windows[i].windowFrame.gameObject);
+      meshFilters[i] = components[i].frame.meshFilter;
+      GameObject.Destroy(components[i].frame.gameObject);
     }
 
     CombineInstance[] combine = new CombineInstance[meshFilters.Length];
@@ -385,9 +383,9 @@ public class Building : Drawable
     meshFilter.mesh.CombineMeshes(combine);
   }
 
-  public void CombineWindowGlasses ()
+  public void CombineGlasses ()
   {
-    windowGlassCombiner = new GameObject("window_glass_combiner");
+    windowGlassCombiner = new GameObject("glass_combiner");
     windowGlassCombiner.transform.parent = transform;
     windowGlassCombiner.active = false;
     var meshFilter = windowGlassCombiner.AddComponent<MeshFilter>();
@@ -395,17 +393,17 @@ public class Building : Drawable
     meshRenderer.sharedMaterial = Resources.Load("Materials/Glass",
                                                  typeof(Material)) as Material;
 
-    List<Window> windows = new List<Window>();
+    List<FaceComponent> components = new List<FaceComponent>();
     foreach (Base.Face face in faces)
       foreach (Base.FaceComponent fc in face.faceComponents)
-        if (fc.GetType().IsSubclassOf(typeof(Window)))
-          windows.Add(fc as Window);
+        if (fc.body.GetType().Equals(typeof(Glass)))
+          components.Add(fc);
 
-    MeshFilter[] meshFilters = new MeshFilter[windows.Count];
-    for (var i = 0; i < windows.Count; ++i)
+    MeshFilter[] meshFilters = new MeshFilter[components.Count];
+    for (var i = 0; i < components.Count; ++i)
     {
-      meshFilters[i] = windows[i].windowGlass.meshFilter;
-      GameObject.Destroy(windows[i].windowGlass.gameObject);
+      meshFilters[i] = components[i].body.meshFilter;
+      GameObject.Destroy(components[i].body.gameObject);
     }
 
     CombineInstance[] combine = new CombineInstance[meshFilters.Length];

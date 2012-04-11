@@ -15,15 +15,15 @@ public sealed class NeoclassicalDoor : Base.Door
     boundaries.Add(new Vector3(new_dl.x, new_dl.y + height, new_dl.z));
     boundaries.Add(new Vector3(new_dr.x, new_dr.y + height, new_dr.z));
 
-    doorFrame = new Base.DoorFrame(this);
-    doorBody = new Base.DoorBody(this);
+    frame = new Base.DoorFrame(this);
+    body = new Base.DoorBody(this);
   }
 
   public override void Draw ()
   {
     base.Draw();
 
-    doorFrame.Draw();
-    doorBody.Draw();
+    frame.Draw();
+    body.Draw();
   }
 }

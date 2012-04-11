@@ -14,8 +14,8 @@ public sealed class NeoclassicalBalcony : Base.Balcony
     boundaries.Add(new Vector3(dl.x, dl.y + height, dl.z));
     boundaries.Add(new Vector3(dr.x, dr.y + height, dr.z));
 
-    balconyFrame = new Base.BalconyFrame(this);
-    balconyGlass = new Base.Glass(this);
+    frame = new Base.BalconyFrame(this);
+    body = new Base.Glass(this);
   }
 
   /*************** METHODS ***************/
@@ -24,7 +24,7 @@ public sealed class NeoclassicalBalcony : Base.Balcony
   {
     base.Draw();
 
-    balconyGlass.Draw();
-    balconyFrame.Draw();
+    body.Draw();
+    frame.Draw();
   }
 }
