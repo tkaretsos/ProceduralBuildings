@@ -27,9 +27,9 @@ public class Building : Drawable
   public List<int> triangles = new List<int>();
 
   /// <summary>
-  /// A list that contains all the vertices of the building.
+  /// An array that contains all the vertices of the building.
   /// </summary>
-  public List<Vector3> vertices = new List<Vector3>();
+  public Vector3[] vertices;
 
   /// <summary>
   /// A flag that tells whether the building has door(s) or not.
@@ -92,7 +92,6 @@ public class Building : Drawable
 
   public int[] sortedFaces;
 
-  
   /*************** CONSTRUCTORS ***************/
   
   /// <summary>
@@ -157,13 +156,28 @@ public class Building : Drawable
   {
     if (boundaries.Count != 8) throw new Exception("Building doesnt have enough boundaries.");
 
-    for (var i = 4; i < 8; ++i)
-      vertices.Add(boundaries[i]);
+    int vert_count = 0;
+    for (int i = 0; i < 4; ++i)
+    {
+      faces[i].FindVertices();
+      vert_count += faces[i].vertices.Length;
+    }
 
-    foreach (Face face in faces)
-      vertices.AddRange(face.FindVertices());
+    vertices = new Vector3[vert_count + 4];
 
-    return vertices.ToArray();
+    // add roof vertices first
+    for (int i = 0; i < 4; ++i)
+      vertices[i] = boundaries[i + 4];
+
+    // index starts from 4 because of roof vertices
+    int index = 4;
+    for (int i = 0; i < 4; ++i)
+    {
+      System.Array.Copy(faces[i].vertices, 0, vertices, index, faces[i].vertices.Length);
+      index += faces[i].vertices.Length;
+    }
+
+    return vertices;
   }
 
   /// <summary>
