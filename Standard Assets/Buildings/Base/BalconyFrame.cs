@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Base
-{
+namespace Base {
 
 public class BalconyFrame : ComponentFrame
 {

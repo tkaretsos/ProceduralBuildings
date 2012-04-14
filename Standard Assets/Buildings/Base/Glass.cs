@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Base 
-{
+namespace Base {
 
 public sealed class Glass : ComponentBody
 {

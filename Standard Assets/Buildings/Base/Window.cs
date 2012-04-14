@@ -1,5 +1,5 @@
-﻿namespace Base
-{
+﻿
+namespace Base {
 
 public class Window : FaceComponent
 {

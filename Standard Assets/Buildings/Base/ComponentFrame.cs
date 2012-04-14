@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace Base
-{
+namespace Base {
 
 public class ComponentFrame : Drawable
 {
