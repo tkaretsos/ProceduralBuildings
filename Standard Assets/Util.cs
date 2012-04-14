@@ -1,10 +1,11 @@
 using UnityEngine;
 
+using Random = System.Random;
 using Exception = System.Exception;
 
 public class Util
 {
-  public static System.Random random = new System.Random();
+  public static Random random = new Random();
 
   /// <summary>
   /// Rolls a weighted dice.
@@ -43,8 +44,8 @@ public class Util
     precision = (int) Mathf.Pow(10, precision);
 
     int[] expanded = new int[precision];
-    var start = 0;
-    var end = Mathf.FloorToInt(chances[0] * precision);
+    int start = 0;
+    int end = Mathf.FloorToInt(chances[0] * precision);
   
     for (var i = start; i < end; ++i)
       expanded[i] = numbers[0];

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CameraControl : MonoBehaviour 
+public class CameraController : MonoBehaviour 
 {	
   private enum CameraMode
   {

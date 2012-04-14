@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public sealed class NeoclassicalBalcony : Base.Balcony
+public sealed class NeoclassicalBalconyDoor : Base.BalconyDoor
 {
   /*************** CONSTRUCTORS ***************/
 
-  public NeoclassicalBalcony (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
+  public NeoclassicalBalconyDoor (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
     : base(parent, position)
   {
     height = ((Neoclassical) parentBuilding).balconyHeight;

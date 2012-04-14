@@ -33,7 +33,7 @@ public class ComponentFrame : Drawable
       boundaries.Add(point + parentBuilding.meshOrigin);
 
     for (var i = 0; i < 4; ++i)
-      boundaries.Add(boundaries[i] - parentComponent.depth * parentComponent.normal);
+      boundaries.Add(boundaries[i] - (parentComponent.depth - 0.001f) * parentComponent.normal);
   }
 
   /*************** METHODS ***************/

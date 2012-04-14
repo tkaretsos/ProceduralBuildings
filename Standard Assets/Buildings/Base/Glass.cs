@@ -6,7 +6,7 @@ namespace Base
 
 public sealed class Glass : ComponentBody
 {
-  private NeoclassicalBalcony neoclassicalBalcony;
+  private NeoclassicalBalconyDoor neoclassicalBalcony;
 
   /*************** CONSTRUCTORS ***************/
 

@@ -217,6 +217,6 @@ public sealed class NeoclassicalFace : Base.Face
     }
 
     foreach (int index in balconyIndexes)
-      pattern[index] = typeof(NeoclassicalBalcony);
+      pattern[index] = typeof(NeoclassicalBalconyDoor);
   }
 }
