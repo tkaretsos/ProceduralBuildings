@@ -120,7 +120,7 @@ public class Face
   /// <returns>
   /// The vertices array.
   /// </returns>
-  public Vector3[] FindVertices ()
+  public void FindVertices ()
   {
     // calculate the size of the array of vertices
     // in case the face has 0 components return the array with 0 Length
@@ -138,7 +138,7 @@ public class Face
                                     boundaries[1].z);
     }
 
-    if (componentsPerFloor == 0) return vertices;
+    if (componentsPerFloor == 0) return;
 
     int double_cpf = 2 * componentsPerFloor;
     for (var floor = 1; floor <= parentBuilding.floorNumber; ++floor)
@@ -171,8 +171,6 @@ public class Face
                                                                    floor * parentBuilding.floorHeight,
                                                                    faceComponents[cpn].boundaries[2].z);
       }
-
-    return vertices;
   }
 
   public ComponentCoordinate IndexToCoordinate (int index)
