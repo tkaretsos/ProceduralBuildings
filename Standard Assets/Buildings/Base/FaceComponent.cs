@@ -19,6 +19,8 @@ public class FaceComponent
 
   public float depth;
 
+  public float width;
+
   public readonly ComponentCoordinate position;
 
   public ComponentFrame frame;
@@ -79,6 +81,8 @@ public class FaceComponent
     boundaries.Add(dl);
     boundaries.Add(new Vector3(dl.x, dl.y + height, dl.z));
     boundaries.Add(new Vector3(dr.x, dr.y + height, dr.z));
+
+    width = (boundaries[0] - boundaries[1]).magnitude;
   }
 
   public virtual void Draw () { }

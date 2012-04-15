@@ -16,6 +16,8 @@ public sealed class NeoclassicalBalconyDoor : Base.BalconyDoor
 
     frame = new Base.BalconyFrame(this);
     body = new Base.Glass(this);
+
+    balconyFloor = new Base.BalconyFloor(this);
   }
 
   /*************** METHODS ***************/
@@ -26,5 +28,7 @@ public sealed class NeoclassicalBalconyDoor : Base.BalconyDoor
 
     body.Draw();
     frame.Draw();
+    balconyFloor.Draw();
+    balconyFloor.gameObject.transform.parent = parentBuilding.gameObject.transform;
   }
 }

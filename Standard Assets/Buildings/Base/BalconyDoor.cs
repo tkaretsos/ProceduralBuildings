@@ -9,6 +9,8 @@ public class BalconyDoor : FaceComponent
 
   public Glass balconyGlass;
 
+  public BalconyFloor balconyFloor;
+
   /*************** CONSTRUCTORS ***************/
 
   public BalconyDoor (Face parent, ComponentCoordinate position) : base(parent, position)
