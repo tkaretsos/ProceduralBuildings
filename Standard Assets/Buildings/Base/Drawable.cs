@@ -96,9 +96,4 @@ public class Drawable
   {
     throw new NotImplementedException();
   }
-
-  public void SetActiveRecursively (bool status)
-  {
-    gameObject.SetActiveRecursively(status);
-  }
 }
