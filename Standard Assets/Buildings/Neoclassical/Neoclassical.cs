@@ -40,7 +40,7 @@ public sealed class Neoclassical : Base.Building
     : base(p1, p2, p3, p4)
   {
     floorHeight = Random.Range(4.25f, 4.75f);
-    floorNumber = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
+    floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
 
     windowHeight = Random.Range(2.1f, 2.3f);
     doorHeight = Random.Range(3.5f, 3.7f);

@@ -28,7 +28,7 @@ public sealed class NeoclassicalFace : Base.Face
     Vector3 dr;
     Vector3 dl;
     ConstructorInfo[] ctors;
-    for (int floor = 0; floor < parentBuilding.floorNumber; ++floor)
+    for (int floor = 0; floor < parentBuilding.floorCount; ++floor)
     {
       offset = fixed_space;
       for (int component = 0; component < componentsPerFloor; ++component)
@@ -96,7 +96,7 @@ public sealed class NeoclassicalFace : Base.Face
   {
     int dice;
     
-    switch (parentBuilding.floorNumber)
+    switch (parentBuilding.floorCount)
     {
       // two floors
       case 2:

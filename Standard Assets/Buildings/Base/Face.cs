@@ -124,8 +124,8 @@ public class Face
   {
     // calculate the size of the array of vertices
     // in case the face has 0 components return the array with 0 Length
-    verticesModifier = 2 * (parentBuilding.floorNumber + 1);
-    vertices = new Vector3[8 * componentsPerFloor * parentBuilding.floorNumber + verticesModifier];
+    verticesModifier = 2 * (parentBuilding.floorCount + 1);
+    vertices = new Vector3[8 * componentsPerFloor * parentBuilding.floorCount + verticesModifier];
 
     for (int i = 0; i < verticesModifier; i += 2)
     {
@@ -141,7 +141,7 @@ public class Face
     if (componentsPerFloor == 0) return;
 
     int double_cpf = 2 * componentsPerFloor;
-    for (var floor = 1; floor <= parentBuilding.floorNumber; ++floor)
+    for (var floor = 1; floor <= parentBuilding.floorCount; ++floor)
       for (var cp = 0; cp < componentsPerFloor; ++cp)
       {
         int cpn = cp + componentsPerFloor * (floor - 1);
@@ -175,8 +175,8 @@ public class Face
 
   public ComponentCoordinate IndexToCoordinate (int index)
   {
-    return new ComponentCoordinate(index / parentBuilding.floorNumber, 
-                                   index % parentBuilding.floorNumber);
+    return new ComponentCoordinate(index / parentBuilding.floorCount,
+                                   index % parentBuilding.floorCount);
   }
 }
 

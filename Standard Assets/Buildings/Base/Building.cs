@@ -51,16 +51,16 @@ public class Building : Drawable
   /// <summary>
   /// The number of floors of the building.
   /// </summary>
-  private int _floorNumber = 0;
-  public int floorNumber
+  private int _floorCount = 0;
+  public int floorCount
   {
-    get { return _floorNumber; }
+    get { return _floorCount; }
     set
     {
-      _floorNumber = value;
+      _floorCount = value;
       if (_floorHeight > 0f)
       {
-        _height = _floorHeight * _floorNumber;
+        _height = _floorHeight * _floorCount;
         CalculateRoofBoundaries();
       }
     }
@@ -76,9 +76,9 @@ public class Building : Drawable
     set
     {
       _floorHeight = value;
-      if (_floorNumber > 0)
+      if (_floorCount > 0)
       {
-        _height = _floorHeight * _floorNumber;
+        _height = _floorHeight * _floorCount;
         CalculateRoofBoundaries();
       }
     }
@@ -195,7 +195,7 @@ public class Building : Drawable
       if (faces[i].componentsPerFloor == 0)
         tris_count += 2;
       else
-        tris_count += floorNumber * (6 * faces[i].componentsPerFloor + 2);
+        tris_count += floorCount * (6 * faces[i].componentsPerFloor + 2);
 
     triangles = new int[tris_count * 3];
 
@@ -226,7 +226,7 @@ public class Building : Drawable
       }
       else
       {
-        for (int floor = 0; floor < floorNumber; ++floor)
+        for (int floor = 0; floor < floorCount; ++floor)
         {
           int fixedOffset = offset + faces[face].verticesModifier + 8 * faces[face].componentsPerFloor * floor;
           int cpfX6 = 6 * faces[face].componentsPerFloor;
