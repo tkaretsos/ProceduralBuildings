@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Base {
 
-public class ComponentFrame : Drawable
+public class ComponentFrame : Drawable, ICombinable
 {
   /*************** FIELDS ***************/
 
@@ -19,6 +19,16 @@ public class ComponentFrame : Drawable
   public Building parentBuilding
   {
     get { return parentComponent.parentFace.parentBuilding; }
+  }
+
+  GameObject ICombinable.gameObject
+  {
+    get { return gameObject; }
+  }
+
+  MeshFilter ICombinable.meshFilter
+  {
+    get { return meshFilter; }
   }
 
   /*************** CONSTRUCTORS ***************/
