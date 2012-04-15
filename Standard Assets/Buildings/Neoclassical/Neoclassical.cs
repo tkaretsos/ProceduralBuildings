@@ -1,6 +1,8 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 using Exception = System.Exception;
+using CombinablesCollection = System.Collections.Generic.IList<ICombinable>;
 
 public sealed class Neoclassical : Base.Building
 {
@@ -52,9 +54,22 @@ public sealed class Neoclassical : Base.Building
     ConstructFaceComponents();
 
     Draw();
-    CombineFrames();
-    CombineGlasses();
-    SetActiveRecursively(true);
+
+    CombinablesCollection frames = new List<ICombinable>();
+    CombinablesCollection glasses = new List<ICombinable>();
+    foreach (Base.Face face in faces)
+      foreach (Base.FaceComponent fc in face.faceComponents)
+      {
+        if (fc.frame != null)
+          frames.Add(fc.frame);
+
+        if (fc.body is Base.Glass)
+          glasses.Add((Base.Glass) fc.body);
+      }
+    windowFrameCombiner = Util.CombineMeshes("frame_combiner", "ComponentFrame", frames, this.gameObject);
+    windowGlassCombiner = Util.CombineMeshes("glass_combiner", "Glass", glasses, this.gameObject);
+
+    gameObject.SetActiveRecursively(true);
   }
   
   
