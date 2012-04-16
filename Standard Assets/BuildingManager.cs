@@ -10,8 +10,9 @@ public sealed class BuildingManager
 
   public void CreateNeoclassical (BuildMode mode)
   {
+    Neoclassical n;
     switch (mode)
-    {
+    {      
       case BuildMode.Many:
         //Thread thread = new Thread(new ThreadStart(BuildMany));
         //thread.Start();
@@ -25,75 +26,119 @@ public sealed class BuildingManager
             switch (dice)
             {
               case 1:
-                neo.Add(new Neoclassical(
-                        new Vector3(x_mod + 9f, 0f, z_mod + 3.5f),
-                        new Vector3(x_mod + 9f, 0f, z_mod),
-                        new Vector3(x_mod, 0f, z_mod),
-                        new Vector3(x_mod, 0f, z_mod + 3.5f)));
+                n = new Neoclassical(
+                    new Vector3(x_mod + 9f, 0f, z_mod + 3.5f),
+                    new Vector3(x_mod + 9f, 0f, z_mod),
+                    new Vector3(x_mod, 0f, z_mod),
+                    new Vector3(x_mod, 0f, z_mod + 3.5f));
+                n.FindVertices();
+                n.FindTriangles();
+                n.Draw();
+                n.Optimize();
+                n.gameObject.SetActiveRecursively(true);
+                neo.Add(n);
                 break;
 
               case 2:
-                neo.Add(new Neoclassical(
-                        new Vector3(x_mod + 11f, 0f, z_mod + 4f),
-                        new Vector3(x_mod + 11f, 0f, z_mod),
-                        new Vector3(x_mod, 0f, z_mod),
-                        new Vector3(x_mod, 0f, z_mod + 4f)));
+                n = new Neoclassical(
+                    new Vector3(x_mod + 11f, 0f, z_mod + 4f),
+                    new Vector3(x_mod + 11f, 0f, z_mod),
+                    new Vector3(x_mod, 0f, z_mod),
+                    new Vector3(x_mod, 0f, z_mod + 4f));
+                n.FindVertices();
+                n.FindTriangles();
+                n.Draw();
+                n.Optimize();
+                n.gameObject.SetActiveRecursively(true);
+                neo.Add(n);
                 break;
 
               case 3:
-                neo.Add(new Neoclassical(
-                        new Vector3(x_mod + 15f, 0f, z_mod + 6f),
-                        new Vector3(x_mod + 15f, 0f, z_mod),
-                        new Vector3(x_mod, 0f, z_mod),
-                        new Vector3(x_mod, 0f, z_mod + 6f)));
+                n = new Neoclassical(
+                    new Vector3(x_mod + 15f, 0f, z_mod + 6f),
+                    new Vector3(x_mod + 15f, 0f, z_mod),
+                    new Vector3(x_mod, 0f, z_mod),
+                    new Vector3(x_mod, 0f, z_mod + 6f));
+                n.FindVertices();
+                n.FindTriangles();
+                n.Draw();
+                n.Optimize();
+                n.gameObject.SetActiveRecursively(true);
+                neo.Add(n);
                 break;
 
               case 4:
-                neo.Add(new Neoclassical(
-                        new Vector3(x_mod + 19f, 0f, z_mod + 8f),
-                        new Vector3(x_mod + 19f, 0f, z_mod),
-                        new Vector3(x_mod, 0f, z_mod),
-                        new Vector3(x_mod, 0f, z_mod + 8f)));
+                n = new Neoclassical(
+                    new Vector3(x_mod + 19f, 0f, z_mod + 8f),
+                    new Vector3(x_mod + 19f, 0f, z_mod),
+                    new Vector3(x_mod, 0f, z_mod),
+                    new Vector3(x_mod, 0f, z_mod + 8f));
+                n.FindVertices();
+                n.FindTriangles();
+                n.Draw();
+                n.Optimize();
+                n.gameObject.SetActiveRecursively(true);
+                neo.Add(n);
                 break;
-            }
+            }            
           }
         }
         break;
 
       case BuildMode.Two:
-        var a = new Neoclassical(
-          new Vector3(8f, 0f, 4f),
-          new Vector3(8f, 0f, 0f),
-          new Vector3(0f, 0f, 0f),
-          new Vector3(0f, 0f, 4f));
-        neo.Add(a);
+        n = new Neoclassical(
+            new Vector3(8f, 0f, 4f),
+            new Vector3(8f, 0f, 0f),
+            new Vector3(0f, 0f, 0f),
+            new Vector3(0f, 0f, 4f));
+        n.FindVertices();
+        n.FindTriangles();
+        n.Draw();
+        n.Optimize();
+        n.gameObject.SetActiveRecursively(true);
+        neo.Add(n);
         break;
 
       case BuildMode.Three:
-        var b = new Neoclassical(
-          new Vector3(11f, 0f, 4f),
-          new Vector3(11f, 0f, 0f),
-          new Vector3(0f, 0f, 0f),
-          new Vector3(0f, 0f, 4f));
-        neo.Add(b);
+        n = new Neoclassical(
+            new Vector3(11f, 0f, 4f),
+            new Vector3(11f, 0f, 0f),
+            new Vector3(0f, 0f, 0f),
+            new Vector3(0f, 0f, 4f));
+        n.FindVertices();
+        n.FindTriangles();
+        n.Draw();
+        n.Optimize();
+        n.gameObject.SetActiveRecursively(true);
+        neo.Add(n);
         break;
 
       case BuildMode.Four:
-        var c = new Neoclassical(
-          new Vector3(15f, 0f, 6f),
-          new Vector3(15f, 0f, 0f),
-          new Vector3(0f, 0f, 0f),
-          new Vector3(0f, 0f, 6f));
-        neo.Add(c);
+        n = new Neoclassical(
+            new Vector3(15f, 0f, 6f),
+            new Vector3(15f, 0f, 0f),
+            new Vector3(0f, 0f, 0f),
+            new Vector3(0f, 0f, 6f));
+        n.FindVertices();
+        n.FindTriangles();
+        n.Draw();
+        n.Optimize();
+        n.gameObject.SetActiveRecursively(true);
+        neo.Add(n);
         break;
 
       case BuildMode.Five:
-        var d = new Neoclassical(
-          new Vector3(19f, 0f, 8f),
-          new Vector3(19f, 0f, 0f),
-          new Vector3(0f, 0f, 0f),
-          new Vector3(0f, 0f, 8f));
-        neo.Add(d);
+        n = new Neoclassical(
+            new Vector3(19f, 0f, 8f),
+            new Vector3(19f, 0f, 0f),
+            new Vector3(0f, 0f, 0f),
+            new Vector3(0f, 0f, 8f));
+        n.FindVertices();
+        n.FindTriangles();
+        n.Draw();
+        n.Optimize();
+        n.gameObject.SetActiveRecursively(true);
+        neo.Add(n);
         break;
     }
   }
