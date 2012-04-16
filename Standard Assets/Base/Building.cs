@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 using Exception = System.Exception;
+using IDrawable = Thesis.Interface.IDrawable;
 
 namespace Thesis {
 namespace Base {
 
-public class Building : Drawable
+public class Building : IDrawable
 {
   /*************** FIELDS ***************/
 
@@ -25,12 +26,20 @@ public class Building : Drawable
   /// <summary>
   /// An array that contains the triangles that form the building.
   /// </summary>
-  int[] triangles;
+  private int[] _triangles;
+  public int[] triangles
+  {
+    get { return _triangles; }
+  }
 
   /// <summary>
   /// An array that contains all the vertices of the building.
   /// </summary>
-  public Vector3[] vertices;
+  private Vector3[] _vertices;
+  public Vector3[] vertices
+  {
+    get { return _vertices; }
+  }
 
   /// <summary>
   /// A flag that tells whether the building has door(s) or not.
@@ -93,6 +102,20 @@ public class Building : Drawable
 
   public int[] sortedFaces;
 
+  public Vector3 meshOrigin = new Vector3();
+
+  private GameObject _gameObject;
+  public GameObject gameObject
+  {
+    get { return _gameObject; }
+  }
+
+  private MeshFilter _meshFilter;
+  public MeshFilter meshFilter
+  {
+    get { return _meshFilter; }
+  }
+
   /*************** CONSTRUCTORS ***************/
   
   /// <summary>
@@ -116,7 +139,6 @@ public class Building : Drawable
   /// The type of the building.
   /// </param>
   public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
-    : base("building", "Building", false)
   {
     FindMeshOrigin(p1, p2, p3, p4);
     boundaries.Add(p1 - meshOrigin);
@@ -153,7 +175,7 @@ public class Building : Drawable
   /// An exception is thrown when the boundaries of the building
   /// have not been calculated.
   /// </exception>
-  public override Vector3[] FindVertices ()
+  public virtual void FindVertices ()
   {
     if (boundaries.Count != 8) throw new Exception("Building doesnt have enough boundaries.");
 
@@ -164,21 +186,19 @@ public class Building : Drawable
       vert_count += faces[i].vertices.Length;
     }
 
-    vertices = new Vector3[vert_count + 4];
+    _vertices = new Vector3[vert_count + 4];
 
     // add roof vertices first
     for (int i = 0; i < 4; ++i)
-      vertices[i] = boundaries[i + 4];
+      _vertices[i] = boundaries[i + 4];
 
     // index starts from 4 because of roof vertices
     int index = 4;
     for (int i = 0; i < 4; ++i)
     {
-      System.Array.Copy(faces[i].vertices, 0, vertices, index, faces[i].vertices.Length);
+      System.Array.Copy(faces[i].vertices, 0, _vertices, index, faces[i].vertices.Length);
       index += faces[i].vertices.Length;
     }
-
-    return vertices;
   }
 
   /// <summary>
@@ -188,7 +208,7 @@ public class Building : Drawable
   /// The calculations starts by adding the 2 triangles of the roof.
   /// The tris for the rest building are calculated per face and per floor.
   /// </description>
-  public override int[] FindTriangles ()
+  public virtual void FindTriangles ()
   {
     // roof tris
     int tris_count = 2;
@@ -198,32 +218,32 @@ public class Building : Drawable
       else
         tris_count += floorCount * (6 * faces[i].componentsPerFloor + 2);
 
-    triangles = new int[tris_count * 3];
+    _triangles = new int[tris_count * 3];
 
     int tris_index = 0;
 
     int offset = 4;
 
     // roof
-    triangles[tris_index++] = 0;
-    triangles[tris_index++] = 1;
-    triangles[tris_index++] = 3;
+    _triangles[tris_index++] = 0;
+    _triangles[tris_index++] = 1;
+    _triangles[tris_index++] = 3;
 
-    triangles[tris_index++] = 1;
-    triangles[tris_index++] = 2;
-    triangles[tris_index++] = 3;
+    _triangles[tris_index++] = 1;
+    _triangles[tris_index++] = 2;
+    _triangles[tris_index++] = 3;
 
     for (int face = 0; face < 4; ++face)
     {
       if (faces[face].componentsPerFloor == 0)
       {
-        triangles[tris_index++] = offset;
-        triangles[tris_index++] = offset + 1;
-        triangles[tris_index++] = offset + faces[face].verticesModifier - 2;
+        _triangles[tris_index++] = offset;
+        _triangles[tris_index++] = offset + 1;
+        _triangles[tris_index++] = offset + faces[face].verticesModifier - 2;
 
-        triangles[tris_index++] = offset + 1;
-        triangles[tris_index++] = offset + faces[face].verticesModifier - 1;
-        triangles[tris_index++] = offset + faces[face].verticesModifier - 2;
+        _triangles[tris_index++] = offset + 1;
+        _triangles[tris_index++] = offset + faces[face].verticesModifier - 1;
+        _triangles[tris_index++] = offset + faces[face].verticesModifier - 2;
       }
       else
       {
@@ -233,36 +253,36 @@ public class Building : Drawable
           int cpfX6 = 6 * faces[face].componentsPerFloor;
           int floorX2 = 2 * floor;
 
-          triangles[tris_index++] = offset + floorX2;
-          triangles[tris_index++] = fixedOffset;
-          triangles[tris_index++] = offset + floorX2 + 2;
+          _triangles[tris_index++] = offset + floorX2;
+          _triangles[tris_index++] = fixedOffset;
+          _triangles[tris_index++] = offset + floorX2 + 2;
 
-          triangles[tris_index++] = fixedOffset;
-          triangles[tris_index++] = fixedOffset + cpfX6;
-          triangles[tris_index++] = offset + floorX2 + 2;
+          _triangles[tris_index++] = fixedOffset;
+          _triangles[tris_index++] = fixedOffset + cpfX6;
+          _triangles[tris_index++] = offset + floorX2 + 2;
 
           // wall between each component
           int index = fixedOffset + 1;
           for (int i = 1; i < faces[face].componentsPerFloor; ++i)
           {
-            triangles[tris_index++] = index;
-            triangles[tris_index++] = index + 1;
-            triangles[tris_index++] = index + cpfX6;
+            _triangles[tris_index++] = index;
+            _triangles[tris_index++] = index + 1;
+            _triangles[tris_index++] = index + cpfX6;
 
-            triangles[tris_index++] = index + 1;
-            triangles[tris_index++] = index + cpfX6 + 1;
-            triangles[tris_index++] = index + cpfX6;
+            _triangles[tris_index++] = index + 1;
+            _triangles[tris_index++] = index + cpfX6 + 1;
+            _triangles[tris_index++] = index + cpfX6;
 
             index += 2;
           }
 
-          triangles[tris_index++] = index;
-          triangles[tris_index++] = offset + floorX2 + 1;
-          triangles[tris_index++] = index + cpfX6;
+          _triangles[tris_index++] = index;
+          _triangles[tris_index++] = offset + floorX2 + 1;
+          _triangles[tris_index++] = index + cpfX6;
 
-          triangles[tris_index++] = offset + floorX2 + 1;
-          triangles[tris_index++] = offset + floorX2 + 3;
-          triangles[tris_index++] = index + cpfX6;
+          _triangles[tris_index++] = offset + floorX2 + 1;
+          _triangles[tris_index++] = offset + floorX2 + 3;
+          _triangles[tris_index++] = index + cpfX6;
 
           // wall over and under each component
           for (int i = 0; i < faces[face].componentsPerFloor; ++i)
@@ -270,38 +290,57 @@ public class Building : Drawable
             int extOffset = fixedOffset + 2 * i;
 
             // under
-            triangles[tris_index++] = extOffset;
-            triangles[tris_index++] = extOffset + 1;
-            triangles[tris_index++] = extOffset + 2 * faces[face].componentsPerFloor;
+            _triangles[tris_index++] = extOffset;
+            _triangles[tris_index++] = extOffset + 1;
+            _triangles[tris_index++] = extOffset + 2 * faces[face].componentsPerFloor;
 
-            triangles[tris_index++] = extOffset + 1;
-            triangles[tris_index++] = extOffset + 2 * faces[face].componentsPerFloor + 1;
-            triangles[tris_index++] = extOffset + 2 * faces[face].componentsPerFloor;
+            _triangles[tris_index++] = extOffset + 1;
+            _triangles[tris_index++] = extOffset + 2 * faces[face].componentsPerFloor + 1;
+            _triangles[tris_index++] = extOffset + 2 * faces[face].componentsPerFloor;
 
             // over
-            triangles[tris_index++] = extOffset + 4 * faces[face].componentsPerFloor;
-            triangles[tris_index++] = extOffset + 4 * faces[face].componentsPerFloor + 1;
-            triangles[tris_index++] = extOffset + cpfX6;
+            _triangles[tris_index++] = extOffset + 4 * faces[face].componentsPerFloor;
+            _triangles[tris_index++] = extOffset + 4 * faces[face].componentsPerFloor + 1;
+            _triangles[tris_index++] = extOffset + cpfX6;
 
-            triangles[tris_index++] = extOffset + 4 * faces[face].componentsPerFloor + 1;
-            triangles[tris_index++] = extOffset + cpfX6 + 1;
-            triangles[tris_index++] = extOffset + cpfX6;
+            _triangles[tris_index++] = extOffset + 4 * faces[face].componentsPerFloor + 1;
+            _triangles[tris_index++] = extOffset + cpfX6 + 1;
+            _triangles[tris_index++] = extOffset + cpfX6;
           }
         }
       }
 
       offset += faces[face].vertices.Length;
     }
-
-    return triangles;
   }
 
   /// <summary>
   /// Creates a  gameObject that is responsible for the rendering of the building.
   /// </summary>
-  public override void Draw ()
+  public virtual void Draw ()
   {
-    base.Draw();
+    _gameObject = new GameObject("building");
+    _gameObject.isStatic = true;
+    var meshRenderer = _gameObject.AddComponent<MeshRenderer>();
+    _meshFilter = _gameObject.AddComponent<MeshFilter>();
+    _gameObject.active = false;
+    _gameObject.transform.position = meshOrigin;
+
+    meshRenderer.sharedMaterial = Resources.Load("Materials/Building", typeof(Material)) as Material;
+
+    var mesh = new Mesh();
+    mesh.Clear();
+
+    mesh.vertices = vertices;
+    mesh.triangles = triangles;
+    mesh.uv = new Vector2[mesh.vertices.Length];
+    for (int i = 0; i < mesh.vertices.Length; ++i)
+      mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
+
+    mesh.RecalculateNormals();
+    mesh.Optimize();
+
+    _meshFilter.sharedMesh = mesh;
 
     foreach (Base.Face face in faces)
       foreach (Base.FaceComponent component in face.faceComponents)

@@ -72,7 +72,7 @@ public class ComponentFrame : Drawable, ICombinable
   {
     base.Draw();
 
-    transform.parent = parentBuilding.transform;
+    transform.parent = parentBuilding.gameObject.transform;
   }
 }
 

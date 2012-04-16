@@ -53,7 +53,7 @@ public class ComponentBody : Drawable
   {
     base.Draw();
 
-    transform.parent = parentBuilding.transform;
+    transform.parent = parentBuilding.gameObject.transform;
   }
 }
 
