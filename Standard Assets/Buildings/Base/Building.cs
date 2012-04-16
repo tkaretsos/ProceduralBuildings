@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 
 using Exception = System.Exception;
 
+namespace Thesis {
 namespace Base {
 
 public class Building : Drawable
@@ -376,3 +377,4 @@ public class Building : Drawable
 }
 
 } // namespace Base
+} // namespace Thesis

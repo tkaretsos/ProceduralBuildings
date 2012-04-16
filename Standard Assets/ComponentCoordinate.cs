@@ -1,4 +1,6 @@
 ﻿
+namespace Thesis {
+
 public struct ComponentCoordinate
 {
   public int floor;
@@ -11,3 +13,5 @@ public struct ComponentCoordinate
     this.component = component;
   }
 }
+
+} // namespace Thesis

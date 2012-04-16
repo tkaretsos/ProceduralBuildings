@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+namespace Thesis {
 namespace Base {
 
 public class BalconyFrame : ComponentFrame
@@ -86,4 +87,5 @@ public class BalconyFrame : ComponentFrame
   }
 }
 
-}
+} // namespace Base
+} // namespace Thesis

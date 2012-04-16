@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace Thesis {
+
 public sealed class NeoclassicalWindow : Base.Window
 {
   /*************** CONSTRUCTORS ***************/
@@ -29,3 +31,5 @@ public sealed class NeoclassicalWindow : Base.Window
     body.Draw();
   }
 }
+
+} // namespace Thesis

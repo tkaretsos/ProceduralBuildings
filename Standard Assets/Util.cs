@@ -2,7 +2,9 @@ using UnityEngine;
 
 using Random = System.Random;
 using Exception = System.Exception;
-using CombinablesCollection = System.Collections.Generic.IList<ICombinable>;
+using CombinablesCollection = System.Collections.Generic.IList<Thesis.ICombinable>;
+
+namespace Thesis {
 
 public class Util
 {
@@ -103,3 +105,5 @@ public class Util
     Debug.Log(s + " " + v.x + " " + v.y + " " + v.z);
   }
 }
+
+} // namespace Thesis

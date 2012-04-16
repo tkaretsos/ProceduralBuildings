@@ -1,4 +1,5 @@
 ﻿
+namespace Thesis {
 namespace Base {
 
 public class Window : FaceComponent
@@ -13,4 +14,5 @@ public class Window : FaceComponent
   }
 }
 
-}
+} // namespace Base
+} // namespace Thesis

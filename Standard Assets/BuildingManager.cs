@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 
+namespace Thesis {
+
 public sealed class BuildingManager
 {
   public List<Neoclassical> neo = new List<Neoclassical>();
@@ -103,3 +105,5 @@ public sealed class BuildingManager
     neo.Clear();
   }
 }
+
+} // namespace Thesis

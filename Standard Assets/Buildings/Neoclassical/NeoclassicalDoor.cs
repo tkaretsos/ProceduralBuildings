@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace Thesis {
+
 public sealed class NeoclassicalDoor : Base.Door
 {
   public NeoclassicalDoor(Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
@@ -27,3 +29,5 @@ public sealed class NeoclassicalDoor : Base.Door
     body.Draw();
   }
 }
+
+} // namespace Thesis

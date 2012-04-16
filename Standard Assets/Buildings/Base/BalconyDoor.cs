@@ -1,4 +1,5 @@
 ﻿
+namespace Thesis {
 namespace Base {
 
 public class BalconyDoor : FaceComponent
@@ -19,4 +20,5 @@ public class BalconyDoor : FaceComponent
   }
 }
 
-}
+} // namespaces Base
+} // namespace Thesis

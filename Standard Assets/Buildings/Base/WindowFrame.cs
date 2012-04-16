@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+namespace Thesis {
 namespace Base {
 
 public sealed class WindowFrame : ComponentFrame
@@ -78,3 +79,4 @@ public sealed class WindowFrame : ComponentFrame
 }
 
 } // namespace Base
+} // namespace Thesis

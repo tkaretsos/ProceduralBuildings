@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+namespace Thesis {
+
 public sealed class NeoclassicalBalconyDoor : Base.BalconyDoor
 {
   /*************** CONSTRUCTORS ***************/
@@ -32,3 +34,5 @@ public sealed class NeoclassicalBalconyDoor : Base.BalconyDoor
     balconyFloor.gameObject.transform.parent = parentBuilding.gameObject.transform;
   }
 }
+
+} // namespace Thesis

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+namespace Thesis {
 namespace Base {
 
 public class ComponentFrame : Drawable, ICombinable
@@ -74,4 +75,5 @@ public class ComponentFrame : Drawable, ICombinable
   }
 }
 
-}
+} // namespace Base
+} // namespace Thesis

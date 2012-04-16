@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
+namespace Thesis {
 namespace Base {
 
 /// <summary>
@@ -181,3 +182,4 @@ public class Face
 }
 
 } // namespace Base
+} // namespace Thesis

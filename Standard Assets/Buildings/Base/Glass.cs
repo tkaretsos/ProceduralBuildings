@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+namespace Thesis {
 namespace Base {
 
 public sealed class Glass : ComponentBody, ICombinable
@@ -26,3 +27,4 @@ public sealed class Glass : ComponentBody, ICombinable
 }
 
 } // namespace Base
+} // namespace Thesis

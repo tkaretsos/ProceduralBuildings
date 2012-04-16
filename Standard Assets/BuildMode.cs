@@ -1,4 +1,6 @@
 ﻿
+namespace Thesis {
+
 public enum BuildMode
 {
   Many,
@@ -7,3 +9,5 @@ public enum BuildMode
   Four,
   Five
 }
+
+} // namespace Thesis

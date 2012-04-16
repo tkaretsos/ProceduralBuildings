@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Thesis {
+
 public class Drawable
 {
   /*************** FIELDS ***************/
@@ -97,3 +99,5 @@ public class Drawable
     throw new NotImplementedException();
   }
 }
+
+} // namespace Thesis

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+namespace Thesis {
 namespace Base {
 
 public sealed class DoorBody : ComponentBody
@@ -15,4 +16,5 @@ public sealed class DoorBody : ComponentBody
   }
 }
 
-}
+} // namespace Base
+} // namespace Thesis

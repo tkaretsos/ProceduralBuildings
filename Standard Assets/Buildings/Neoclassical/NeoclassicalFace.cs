@@ -3,6 +3,8 @@ using System.Reflection;
 using UnityEngine;
 using System.Collections.Generic;
 
+namespace Thesis {
+
 public sealed class NeoclassicalFace : Base.Face
 {
   public NeoclassicalFace (Base.Building parent, Vector3 dr, Vector3 dl)
@@ -220,3 +222,5 @@ public sealed class NeoclassicalFace : Base.Face
       pattern[index] = typeof(NeoclassicalBalconyDoor);
   }
 }
+
+} // namespace Thesis

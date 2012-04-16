@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+namespace Thesis {
 namespace Base {
 
 public class BalconyFloor : Drawable
@@ -76,4 +77,5 @@ public class BalconyFloor : Drawable
   }
 }
 
-}
+} // namespace Base
+} // namespace Thesis

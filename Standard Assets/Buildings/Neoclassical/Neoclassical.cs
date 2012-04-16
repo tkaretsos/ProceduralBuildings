@@ -2,7 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 
 using Exception = System.Exception;
-using CombinablesCollection = System.Collections.Generic.IList<ICombinable>;
+using CombinablesCollection = System.Collections.Generic.IList<Thesis.ICombinable>;
+
+namespace Thesis {
 
 public sealed class Neoclassical : Base.Building
 {
@@ -104,3 +106,5 @@ public sealed class Neoclassical : Base.Building
     this.sortedFaces = this.GetSortedFaces();
   }
 }
+
+} // namespace Thesis
