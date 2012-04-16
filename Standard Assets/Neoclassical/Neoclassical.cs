@@ -2,7 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 
 using Exception = System.Exception;
-using CombinablesCollection = System.Collections.Generic.IList<Thesis.ICombinable>;
+using ICombinable = Thesis.Interface.ICombinable;
+using CombinablesCollection = System.Collections.Generic.IList<Thesis.Interface.ICombinable>;
 
 namespace Thesis {
 

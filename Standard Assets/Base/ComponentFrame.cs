@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using ICombinable = Thesis.Interface.ICombinable;
 
 namespace Thesis {
 namespace Base {

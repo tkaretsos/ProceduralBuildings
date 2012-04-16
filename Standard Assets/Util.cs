@@ -2,7 +2,7 @@ using UnityEngine;
 
 using Random = System.Random;
 using Exception = System.Exception;
-using CombinablesCollection = System.Collections.Generic.IList<Thesis.ICombinable>;
+using CombinablesCollection = System.Collections.Generic.IList<Thesis.Interface.ICombinable>;
 
 namespace Thesis {
 
