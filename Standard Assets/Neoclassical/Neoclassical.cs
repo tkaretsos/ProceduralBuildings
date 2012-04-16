@@ -63,9 +63,10 @@ public sealed class Neoclassical : Base.Building
 
     ConstructFaces();
     ConstructFaceComponents();
+  }
 
-    Draw();
-
+  public void Optimize ()
+  {
     CombinablesCollection frames = new List<ICombinable>();
     CombinablesCollection glasses = new List<ICombinable>();
     foreach (Base.Face face in faces)
@@ -79,8 +80,6 @@ public sealed class Neoclassical : Base.Building
       }
     windowFrameCombiner = Util.CombineMeshes("frame_combiner", "ComponentFrame", frames, this.gameObject);
     windowGlassCombiner = Util.CombineMeshes("glass_combiner", "Glass", glasses, this.gameObject);
-
-    gameObject.SetActiveRecursively(true);
   }
   
   
