@@ -71,7 +71,7 @@ public class Building : IDrawable
       if (_floorHeight > 0f)
       {
         _height = _floorHeight * _floorCount;
-        CalculateRoofBoundaries();
+        //CalculateRoofBoundaries();
       }
     }
   }
@@ -89,7 +89,7 @@ public class Building : IDrawable
       if (_floorCount > 0)
       {
         _height = _floorHeight * _floorCount;
-        CalculateRoofBoundaries();
+        //CalculateRoofBoundaries();
       }
     }
   }
@@ -118,6 +118,8 @@ public class Building : IDrawable
 
   /*************** CONSTRUCTORS ***************/
   
+  public Building () { }
+
   /// <summary>
   /// Initializes a new instance of the <see cref="Building"/> class.
   /// The given Vector3 points must be given in clockwise order (required
@@ -140,11 +142,11 @@ public class Building : IDrawable
   /// </param>
   public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
-    FindMeshOrigin(p1, p2, p3, p4);
-    boundaries.Add(p1 - meshOrigin);
-    boundaries.Add(p2 - meshOrigin);
-    boundaries.Add(p3 - meshOrigin);
-    boundaries.Add(p4 - meshOrigin);
+    //FindMeshOrigin(p1, p2, p3, p4);
+    //boundaries.Add(p1);
+    //boundaries.Add(p2);
+    //boundaries.Add(p3);
+    //boundaries.Add(p4);
   }
   
   
@@ -320,6 +322,7 @@ public class Building : IDrawable
   public virtual void Draw ()
   {
     _gameObject = new GameObject("building");
+    _gameObject.transform.position = meshOrigin;
     _gameObject.isStatic = true;
     var meshRenderer = _gameObject.AddComponent<MeshRenderer>();
     _meshFilter = _gameObject.AddComponent<MeshFilter>();
@@ -333,9 +336,11 @@ public class Building : IDrawable
 
     mesh.vertices = vertices;
     mesh.triangles = triangles;
+
+    // this is required to stop a runtime warning
     mesh.uv = new Vector2[mesh.vertices.Length];
-    for (int i = 0; i < mesh.vertices.Length; ++i)
-      mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
+    //for (int i = 0; i < mesh.vertices.Length; ++i)
+    //  mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
 
     mesh.RecalculateNormals();
     mesh.Optimize();
@@ -356,7 +361,7 @@ public class Building : IDrawable
   /// <param name='descending'>
   /// The order for the sorting. <c>true</c> for descending, <c>false</c> for ascending.
   /// </param>
-  public int[] GetSortedFaces (bool descending = true)
+  public void SortFaces (bool descending = true)
   {
     List<KeyValuePair<int, float>> lkv = new List<KeyValuePair<int, float>>();
     for (int i = 0; i < faces.Count; ++i)
@@ -373,11 +378,9 @@ public class Building : IDrawable
         return x.Value.CompareTo(y.Value);
       });
 
-    int[] ret = new int[lkv.Count];
+    sortedFaces = new int[lkv.Count];
     for (int i = 0; i < lkv.Count; ++i)
-      ret[i] = lkv[i].Key;
-
-    return ret;
+      sortedFaces[i] = lkv[i].Key;
   }
 
   /// <summary>
@@ -386,7 +389,7 @@ public class Building : IDrawable
   /// of the created mesh.
   /// </summary>
   /// <returns>The origin of the building gameObject's mesh</returns>
-  public Vector3 FindMeshOrigin (Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
+  public void FindMeshOrigin (Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float height = 0f)
   {
     var par = (p2.x - p0.x) * (p1.z - p3.z) - (p2.z - p0.z) * (p1.x - p3.x);
 
@@ -396,22 +399,7 @@ public class Building : IDrawable
     var ar_z = (p2.x * p0.z - p2.z * p0.x) * (p1.z - p3.z) -
                (p2.z - p0.z) * (p1.x * p3.z - p1.z * p3.x);
 
-    meshOrigin = new Vector3(ar_x / par, 0f, ar_z / par);
-    return meshOrigin;
-  }
-
-  /// <summary>
-  /// Helper method that calculates the roof boundaries.
-  /// </summary>
-  private void CalculateRoofBoundaries ()
-  {
-    if (boundaries.Count > 4)
-      boundaries.RemoveRange(4, 4);
-
-    for (int i = 0; i < 4; ++i)
-      boundaries.Add(new Vector3(boundaries[i].x,
-                                 boundaries[i].y + _height,
-                                 boundaries[i].z));
+    meshOrigin = new Vector3(ar_x / par, height / 2, ar_z / par);
   }
 }
 

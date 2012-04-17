@@ -48,18 +48,22 @@ public sealed class Neoclassical : Base.Building
   /// A point in space.
   /// </param>
   public Neoclassical (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
-    : base(p1, p2, p3, p4)
+    //: base(p1, p2, p3, p4)
   {
     floorHeight = Random.Range(4.25f, 4.75f);
     floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
 
-    windowHeight = Random.Range(2.1f, 2.3f);
-    doorHeight = Random.Range(3.5f, 3.7f);
+    FindMeshOrigin(p1, p2, p3, p4, floorCount * floorHeight);
 
-    balconyHeight = windowHeight / 2 + floorHeight / 2;
-    balconyFloorHeight = 0.2f;
-    balconyFloorDepth = 1f;
-    balconyFloorWidth = 0.4f;
+    boundaries.Add(p1 - meshOrigin);
+    boundaries.Add(p2 - meshOrigin);
+    boundaries.Add(p3 - meshOrigin);
+    boundaries.Add(p4 - meshOrigin);
+
+    for (int i = 0; i < 4; ++i)
+      boundaries.Add(new Vector3(boundaries[i].x,
+                                 boundaries[i].y + height,
+                                 boundaries[i].z));
 
     ConstructFaces();
     ConstructFaceComponents();
@@ -88,7 +92,15 @@ public sealed class Neoclassical : Base.Building
   public void ConstructFaceComponents ()
   {
     if (faces.Count == 0) throw new Exception("There are no faces to construct the components.");
-  
+
+    windowHeight = Random.Range(2.1f, 2.3f);
+    doorHeight = Random.Range(3.5f, 3.7f);
+
+    balconyHeight = windowHeight / 2 + floorHeight / 2;
+    balconyFloorHeight = 0.2f;
+    balconyFloorDepth = 1f;
+    balconyFloorWidth = 0.4f;
+
     float component_width = Random.Range(_componentWidthMin, _componentWidthMax);
     float inbetween_space = Random.Range(_componentSpaceMin, _componentSpaceMax);
 
@@ -103,7 +115,7 @@ public sealed class Neoclassical : Base.Building
     faces.Add(new NeoclassicalFace(this, boundaries[2], boundaries[3]));
     faces.Add(new NeoclassicalFace(this, boundaries[3], boundaries[0]));
 
-    this.sortedFaces = this.GetSortedFaces();
+    SortFaces();
   }
 }
 

@@ -30,8 +30,9 @@ public sealed class NeoclassicalBalconyDoor : Base.BalconyDoor
 
     body.Draw();
     frame.Draw();
+    balconyFloor.FindVertices();
+    balconyFloor.FindTriangles();
     balconyFloor.Draw();
-    balconyFloor.gameObject.transform.parent = parentBuilding.gameObject.transform;
   }
 }
 

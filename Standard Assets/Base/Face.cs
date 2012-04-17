@@ -165,11 +165,11 @@ public class Face
         vertices[indexModifier + double_cpf * 2 + 1] = faceComponents[cpn].boundaries[2];
 
         vertices[indexModifier + double_cpf * 3] = new Vector3(faceComponents[cpn].boundaries[3].x,
-                                                               floor * parentBuilding.floorHeight,
+                                                               floor * parentBuilding.floorHeight - parentBuilding.meshOrigin.y,
                                                                faceComponents[cpn].boundaries[3].z);
 
         vertices[indexModifier + double_cpf * 3 + 1] = new Vector3(faceComponents[cpn].boundaries[2].x,
-                                                                   floor * parentBuilding.floorHeight,
+                                                                   floor * parentBuilding.floorHeight - parentBuilding.meshOrigin.y,
                                                                    faceComponents[cpn].boundaries[2].z);
       }
   }
