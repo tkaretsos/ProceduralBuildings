@@ -9,17 +9,14 @@ public sealed class DoorFrame : ComponentFrame
   /*************** CONSTRUCTORS ***************/
 
   public DoorFrame (Door parent)
-    : base(parent, "door_frame")
-  {
-    material = Resources.Load("Materials/ComponentFrame", typeof(Material)) as Material;
-    active = true;
-  }
+    : base(parent, "door_frame", "ComponentFrame")
+  { }
 
   /*************** METHODS ***************/
 
-  public override int[] FindTriangles ()
+  public override void FindTriangles ()
   {
-    return new int[] {
+    triangles = new int[] {
       0, 4, 7,
       0, 7, 3,
       7, 6, 2,

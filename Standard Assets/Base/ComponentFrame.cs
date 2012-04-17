@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+
 using ICombinable = Thesis.Interface.ICombinable;
+using IDrawable = Thesis.Interface.IDrawable;
 
 namespace Thesis {
 namespace Base {
 
-public class ComponentFrame : Drawable, ICombinable
+public class ComponentFrame : IDrawable, ICombinable
 {
   /*************** FIELDS ***************/
 
@@ -23,22 +25,43 @@ public class ComponentFrame : Drawable, ICombinable
     get { return parentComponent.parentFace.parentBuilding; }
   }
 
-  GameObject ICombinable.gameObject
+  private Vector3[] _vertices;
+  public Vector3[] vertices
   {
-    get { return gameObject; }
+    get { return _vertices; }
   }
 
-  MeshFilter ICombinable.meshFilter
+  private int[] _triangles;
+  public int[] triangles
   {
-    get { return meshFilter; }
+    get { return _triangles; }
+    set { _triangles = value; }
   }
+  
+  private GameObject _gameObject;
+  public GameObject gameObject
+  {
+    get { return _gameObject; }
+  }
+
+  private MeshFilter _meshFilter;
+  public MeshFilter meshFilter
+  {
+    get { return _meshFilter; }
+  }
+
+  private string _name;
+
+  private string _materialName;
 
   /*************** CONSTRUCTORS ***************/
 
-  public ComponentFrame (FaceComponent parent, string name)
-    : base(name)
+  public ComponentFrame (FaceComponent parent, string name, string materialName)
   {
     parentComponent = parent;
+
+    _name = name;
+    _materialName = materialName;
 
     foreach (var point in parentComponent.boundaries)
       boundaries.Add(point + parentBuilding.meshOrigin);
@@ -49,14 +72,14 @@ public class ComponentFrame : Drawable, ICombinable
 
   /*************** METHODS ***************/
 
-  public override Vector3[] FindVertices ()
+  public virtual void FindVertices ()
   {
-    return boundaries.ToArray();
+    _vertices = boundaries.ToArray();
   }
 
-  public override int[] FindTriangles ()
+  public virtual void FindTriangles ()
   {
-    return new int[] {
+    _triangles = new int[] {
       0, 4, 7,
       0, 7, 3,
       7, 6, 2,
@@ -68,11 +91,32 @@ public class ComponentFrame : Drawable, ICombinable
     };
   }
 
-  public override void Draw ()
+  public virtual void Draw ()
   {
-    base.Draw();
+    _gameObject = new GameObject(_name);
+    _gameObject.transform.parent = parentBuilding.gameObject.transform;
+    _gameObject.transform.parent = parentBuilding.gameObject.transform;
+    _gameObject.isStatic = true;
+    var renderer = _gameObject.AddComponent<MeshRenderer>();
+    _meshFilter = _gameObject.AddComponent<MeshFilter>();
+    _gameObject.active = true;
 
-    transform.parent = parentBuilding.gameObject.transform;
+    renderer.sharedMaterial = Resources.Load("Materials/" + _materialName,
+                                             typeof(Material)) as Material;
+
+    var mesh = new Mesh();
+    mesh.Clear();
+
+    mesh.vertices = vertices;
+    mesh.triangles = triangles;
+    mesh.uv = new Vector2[mesh.vertices.Length];
+    //for (int i = 0; i < mesh.vertices.Length; ++i)
+    //  mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
+
+    mesh.RecalculateNormals();
+    mesh.Optimize();
+
+    _meshFilter.sharedMesh = mesh;
   }
 }
 

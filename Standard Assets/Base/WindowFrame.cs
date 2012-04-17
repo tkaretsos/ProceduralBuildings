@@ -13,11 +13,8 @@ public sealed class WindowFrame : ComponentFrame
   /*************** CONSTRUCTORS ***************/
 
   public WindowFrame (Base.Window parent)
-    : base(parent, "window_frame")
+    : base(parent, "window_frame", "ComponentFrame")
   {
-    material = Resources.Load("Materials/ComponentFrame", typeof(Material)) as Material;
-    active = false;
-
     boundaries.Add(new Vector3((boundaries[4].x + boundaries[5].x) / 2,
                                 boundaries[4].y,
                                (boundaries[4].z + boundaries[5].z) / 2
@@ -42,9 +39,9 @@ public sealed class WindowFrame : ComponentFrame
     boundaries.Add(boundaries[7] - up_width - right_width);
   }
 
-  public override int[] FindTriangles ()
+  public override void FindTriangles ()
   {
-    return new int[] {
+    triangles = new int[] {
       // frame between window and wall
       0, 4, 7,
       0, 7, 3,

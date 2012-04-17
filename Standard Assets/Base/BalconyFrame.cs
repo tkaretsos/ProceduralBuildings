@@ -12,11 +12,8 @@ public class BalconyFrame : ComponentFrame
   /*************** CONSTRUCTORS ***************/
 
   public BalconyFrame (BalconyDoor parent)
-    : base(parent, "balcony_frame")
+    : base(parent, "balcony_frame", "ComponentFrame")
   {
-    material = Resources.Load("Materials/ComponentFrame", typeof(Material)) as Material;
-    active = true;
-
     boundaries.Add(new Vector3((boundaries[4].x + boundaries[5].x) / 2,
                                 boundaries[4].y,
                                (boundaries[4].z + boundaries[5].z) / 2
@@ -43,9 +40,9 @@ public class BalconyFrame : ComponentFrame
 
   /*************** METHODS ***************/
 
-  public override int[] FindTriangles ()
+  public override void FindTriangles ()
   {
-    return new int[] {
+    triangles = new int[] {
       // old stuff
       //0, 4, 7,
       //0, 7, 3,

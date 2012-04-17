@@ -49,6 +49,7 @@ public class ComponentBody : IDrawable
   }
 
   private string _name;
+
   private string _materialName;
 
   /*************** CONSTRUCTORS ***************/

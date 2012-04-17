@@ -27,6 +27,8 @@ public sealed class NeoclassicalWindow : Base.Window
   {
     base.Draw();
 
+    frame.FindVertices();
+    frame.FindTriangles();
     frame.Draw();
 
     body.FindVertices();
