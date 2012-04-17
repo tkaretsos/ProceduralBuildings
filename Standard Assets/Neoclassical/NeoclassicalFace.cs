@@ -1,7 +1,5 @@
-using System;
 using System.Reflection;
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace Thesis {
 

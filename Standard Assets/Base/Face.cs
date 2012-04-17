@@ -5,34 +5,17 @@ using System.Collections.Generic;
 namespace Thesis {
 namespace Base {
 
-/// <summary>
-/// A class that represents a face of a building.
-/// </summary>
-public class Face
+public class Face : DrawableObject
 {
   /*************** FIELDS ***************/
 
-  /// <summary>
-  /// The normal vector of the face's surface.
-  /// </summary>
-  private Vector3 _normal;
-  public Vector3 normal { get { return _normal; } }
+  public readonly Building parentBuilding;
 
-  /// <summary>
-  /// The right vector of the face. Helps with the calculation of components placement.
-  /// </summary>
-  private Vector3 _right;
-  public Vector3 right { get { return _right;  } }
+  public Vector3 normal;
 
-  /// <summary>
-  /// The width of the face.
-  /// </summary>
+  public Vector3 right;
+
   public float width;
-
-  /// <summary>
-  /// The boundaries of the face.
-  /// </summary>
-  public Vector3[] boundaries;
 
   /// <summary>
   /// A list containing all of the components attached to this face.
@@ -43,30 +26,25 @@ public class Face
   /// The number of the components on each floor.
   /// </summary>
   public int componentsPerFloor = 0;
-
-  /// <summary>
-  /// An array containing all vertices of the attached components.
-  /// </summary>
-  public Vector3[] vertices;
-
-  public List<int> triangles = new List<int>();
   
   /// <summary>
-  /// Stores how many vertices there are in one "row".
-  /// </summary>
-  /// <description>
-  /// This number is the sum of the components on each floor times two.
+  /// The sum of the components on each floor times two.
   /// Helps with the calculation of the vertices' indexes and triangles.
-  /// </description>
+  /// </summary>
   public int verticesPerRow = 0;
 
   /// <summary>
-  /// The building that has this face.
+  /// The number we need to add to the index of the vertices of the lowest
+  /// (ground) row, in order to get the correct index of the vertices of the
+  /// higher (roof) row.
   /// </summary>
-  public readonly Building parentBuilding;
-
   public int verticesModifier;
 
+  /// <summary>
+  /// Maps the position (index) of one component to its type.
+  /// The indexing starts from the bottom right corner and goes
+  /// to the left and then up.
+  /// </summary>
   public Dictionary<int, Type> pattern = new Dictionary<int, Type>();
 
   public List<int> doorIndexes = new List<int>();
@@ -80,15 +58,6 @@ public class Face
   /// in clockwise order. The clockwise order is required so that the normal of this face
   /// is properly calculated.
   /// </summary>
-  /// <param name='parent'>
-  /// The parent mesh of this face.
-  /// </param>
-  /// <param name='dr'>
-  /// Down-right point of the face.
-  /// </param>
-  /// <param name='dl'>
-  /// Down-left point of the face.
-  /// </param>
   public Face (Building parent, Vector3 dr, Vector3 dl)
   {
     parentBuilding = parent;
@@ -99,33 +68,30 @@ public class Face
     boundaries[2] = new Vector3(dl.x, dl.y + parentBuilding.height, dl.z);
     boundaries[3] = new Vector3(dr.x, dr.y + parentBuilding.height, dr.z);
   
-    _right = new Vector3(boundaries[0].x - boundaries[1].x,
+    right = new Vector3(boundaries[0].x - boundaries[1].x,
                          0f,
                          boundaries[0].z - boundaries[1].z);
-    width = _right.magnitude;
-    _normal = Vector3.Cross(Vector3.up, _right);
+    width = right.magnitude;
+    normal = Vector3.Cross(Vector3.up, right);
 
-    _right.Normalize();
-    _normal.Normalize();
+    right.Normalize();
+    normal.Normalize();
   }
-  
-  
+
   /*************** METHODS ***************/
   
-  public virtual void ConstructFaceComponents (float component_width, float inbetween_space) {}
+  public virtual void ConstructFaceComponents (float component_width, float inbetween_space)
+  {
+    throw new System.NotImplementedException();
+  }
 
   /// <summary>
   /// Creates an array that contains the vertices of the FaceComponents
   /// attached to this Face. The vertices are put in an order so that it
   /// will be easy to form the triangles of the mesh.
   /// </summary>
-  /// <returns>
-  /// The vertices array.
-  /// </returns>
-  public void FindVertices ()
+  public override void FindVertices ()
   {
-    // calculate the size of the array of vertices
-    // in case the face has 0 components return the array with 0 Length
     verticesModifier = 2 * (parentBuilding.floorCount + 1);
     vertices = new Vector3[8 * componentsPerFloor * parentBuilding.floorCount + verticesModifier];
 
