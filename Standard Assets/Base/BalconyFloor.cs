@@ -12,7 +12,7 @@ public class BalconyFloor : IDrawable
 
   public readonly BalconyDoor parentBalconyDoor;
 
-  public List<Vector3> boundaries = new List<Vector3>();
+  public Vector3[] boundaries;
 
   public float height;
 
@@ -62,18 +62,19 @@ public class BalconyFloor : IDrawable
     var tmp_right = parentBalconyDoor.parentFace.right * width;
     var tmp_normal = parentBalconyDoor.parentFace.normal * depth;
 
-    boundaries.Add(parentBalconyDoor.boundaries[1] - tmp_right + tmp_normal);
-    boundaries.Add(parentBalconyDoor.boundaries[1] - tmp_right - tmp_normal);
-    boundaries.Add(parentBalconyDoor.boundaries[0] + tmp_right - tmp_normal);
-    boundaries.Add(parentBalconyDoor.boundaries[0] + tmp_right + tmp_normal);
+    boundaries = new Vector3[8];
+    boundaries[0] = parentBalconyDoor.boundaries[1] - tmp_right + tmp_normal;
+    boundaries[1] = parentBalconyDoor.boundaries[1] - tmp_right - tmp_normal;
+    boundaries[2] = parentBalconyDoor.boundaries[0] + tmp_right - tmp_normal;
+    boundaries[3] = parentBalconyDoor.boundaries[0] + tmp_right + tmp_normal;
 
     for (var i = 0; i < 4; ++i)
-      boundaries.Add(boundaries[i] + Vector3.up * height);
+      boundaries[i + 4] = boundaries[i] + Vector3.up * height;
   }
 
   public virtual void FindVertices ()
   {
-    _vertices = boundaries.ToArray();
+    _vertices = boundaries;
   }
 
   public virtual void FindTriangles ()

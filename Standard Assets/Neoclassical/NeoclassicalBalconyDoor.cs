@@ -11,10 +11,11 @@ public sealed class NeoclassicalBalconyDoor : Base.BalconyDoor
   {
     height = ((Neoclassical) parentBuilding).balconyHeight;
 
-    boundaries.Add(dr);
-    boundaries.Add(dl);
-    boundaries.Add(new Vector3(dl.x, dl.y + height, dl.z));
-    boundaries.Add(new Vector3(dr.x, dr.y + height, dr.z));
+    boundaries = new Vector3[4];
+    boundaries[0] = dr;
+    boundaries[1] = dl;
+    boundaries[2] = new Vector3(dl.x, dl.y + height, dl.z);
+    boundaries[3] = new Vector3(dr.x, dr.y + height, dr.z);
 
     frame = new Base.BalconyFrame(this);
     body = new Base.Glass(this);

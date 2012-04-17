@@ -12,10 +12,11 @@ public sealed class NeoclassicalWindow : Base.Window
     height = ((Neoclassical) parentBuilding).windowHeight;
     float height_modifier = parentBuilding.floorHeight / 2 - height / 2;
 
-    boundaries.Add(new Vector3(dr.x, dr.y + height_modifier, dr.z));
-    boundaries.Add(new Vector3(dl.x, dl.y + height_modifier, dl.z));
-    boundaries.Add(new Vector3(dl.x, dl.y + height + height_modifier, dl.z));
-    boundaries.Add(new Vector3(dr.x, dr.y + height + height_modifier, dr.z));
+    boundaries = new Vector3[4];
+    boundaries[0] = new Vector3(dr.x, dr.y + height_modifier, dr.z);
+    boundaries[1] = new Vector3(dl.x, dl.y + height_modifier, dl.z);
+    boundaries[2] = new Vector3(dl.x, dl.y + height + height_modifier, dl.z);
+    boundaries[3] = new Vector3(dr.x, dr.y + height + height_modifier, dr.z);
 
     frame = new Base.WindowFrame(this);
     body = new Base.Glass(this);

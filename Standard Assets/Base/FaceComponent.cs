@@ -31,7 +31,7 @@ public class FaceComponent
   /// <summary>
   /// The boundaries of this component, which are four points on the parent face.
   /// </summary>
-  public List<Vector3> boundaries = new List<Vector3>();
+  public Vector3[] boundaries;
 
   /// <summary>
   /// Returns the parent building, to which this component is attached.
@@ -72,19 +72,20 @@ public class FaceComponent
   /// <param name='dr'>
   /// Down-right point of the component.
   /// </param>
-  public FaceComponent (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position, float height_modifier = 1f)
-  {
-    parentFace = parent;
-    this.position = position;
-    height = parentBuilding.floorHeight * height_modifier;
-  
-    boundaries.Add(dr);
-    boundaries.Add(dl);
-    boundaries.Add(new Vector3(dl.x, dl.y + height, dl.z));
-    boundaries.Add(new Vector3(dr.x, dr.y + height, dr.z));
+  //public FaceComponent (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position, float height_modifier = 1f)
+  //{
+  //  parentFace = parent;
+  //  this.position = position;
+  //  height = parentBuilding.floorHeight * height_modifier;
 
-    width = (boundaries[0] - boundaries[1]).magnitude;
-  }
+  //  boundaries = new Vector3[4];
+  //  boundaries[0] = dr;
+  //  boundaries[1] = dl;
+  //  boundaries[2] = new Vector3(dl.x, dl.y + height, dl.z);
+  //  boundaries[3] = new Vector3(dr.x, dr.y + height, dr.z);
+
+  //  width = (boundaries[0] - boundaries[1]).magnitude;
+  //}
 
   public virtual void Draw () { }
 }

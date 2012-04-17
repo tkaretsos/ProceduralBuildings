@@ -32,7 +32,7 @@ public class Face
   /// <summary>
   /// The boundaries of the face.
   /// </summary>
-  public List<Vector3> boundaries = new List<Vector3>();
+  public Vector3[] boundaries;
 
   /// <summary>
   /// A list containing all of the components attached to this face.
@@ -92,11 +92,12 @@ public class Face
   public Face (Building parent, Vector3 dr, Vector3 dl)
   {
     parentBuilding = parent;
-  
-    boundaries.Add(dr);
-    boundaries.Add(dl);
-    boundaries.Add(new Vector3(dl.x, dl.y + parentBuilding.height, dl.z));
-    boundaries.Add(new Vector3(dr.x, dr.y + parentBuilding.height, dr.z));
+
+    boundaries = new Vector3[4];
+    boundaries[0] = dr;
+    boundaries[1] = dl;
+    boundaries[2] = new Vector3(dl.x, dl.y + parentBuilding.height, dl.z);
+    boundaries[3] = new Vector3(dr.x, dr.y + parentBuilding.height, dr.z);
   
     _right = new Vector3(boundaries[0].x - boundaries[1].x,
                          0f,

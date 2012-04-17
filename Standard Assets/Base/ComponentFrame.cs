@@ -13,7 +13,7 @@ public class ComponentFrame : IDrawable, ICombinable
 
   public readonly FaceComponent parentComponent;
 
-  public List<Vector3> boundaries = new List<Vector3>();
+  public Vector3[] boundaries;
 
   public Face parentFace
   {
@@ -63,18 +63,21 @@ public class ComponentFrame : IDrawable, ICombinable
     _name = name;
     _materialName = materialName;
 
-    foreach (var point in parentComponent.boundaries)
-      boundaries.Add(point + parentBuilding.meshOrigin);
-
+    //foreach (var point in parentComponent.boundaries)
+    //  boundaries.Add(point + parentBuilding.meshOrigin);
+    boundaries = new Vector3[8];
     for (var i = 0; i < 4; ++i)
-      boundaries.Add(boundaries[i] - (parentComponent.depth - 0.001f) * parentComponent.normal);
+    {
+      boundaries[i] = parentComponent.boundaries[i] + parentBuilding.meshOrigin;
+      boundaries[i + 4] = boundaries[i] - (parentComponent.depth - 0.001f) * parentComponent.normal;
+    }
   }
 
   /*************** METHODS ***************/
 
   public virtual void FindVertices ()
   {
-    _vertices = boundaries.ToArray();
+    _vertices = boundaries;
   }
 
   public virtual void FindTriangles ()

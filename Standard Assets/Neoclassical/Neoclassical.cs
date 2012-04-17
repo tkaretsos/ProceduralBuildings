@@ -55,15 +55,16 @@ public sealed class Neoclassical : Base.Building
 
     FindMeshOrigin(p1, p2, p3, p4, floorCount * floorHeight);
 
-    boundaries.Add(p1 - meshOrigin);
-    boundaries.Add(p2 - meshOrigin);
-    boundaries.Add(p3 - meshOrigin);
-    boundaries.Add(p4 - meshOrigin);
+    boundaries = new Vector3[8];
+    boundaries[0] = p1 - meshOrigin;
+    boundaries[1] = p2 - meshOrigin;
+    boundaries[2] = p3 - meshOrigin;
+    boundaries[3] = p4 - meshOrigin;
 
     for (int i = 0; i < 4; ++i)
-      boundaries.Add(new Vector3(boundaries[i].x,
-                                 boundaries[i].y + height,
-                                 boundaries[i].z));
+      boundaries[i + 4] = new Vector3(boundaries[i].x,
+                                      boundaries[i].y + height,
+                                      boundaries[i].z);
 
     ConstructFaces();
     ConstructFaceComponents();

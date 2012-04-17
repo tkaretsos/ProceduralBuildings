@@ -21,7 +21,7 @@ public class Building : IDrawable
   /// <summary>
   /// The ground and roof boundaries (vertices) of the building.
   /// </summary>
-  public List<Vector3> boundaries = new List<Vector3>();
+  public Vector3[] boundaries;
 
   /// <summary>
   /// An array that contains the triangles that form the building.
@@ -179,8 +179,6 @@ public class Building : IDrawable
   /// </exception>
   public virtual void FindVertices ()
   {
-    if (boundaries.Count != 8) throw new Exception("Building doesnt have enough boundaries.");
-
     int vert_count = 0;
     for (int i = 0; i < 4; ++i)
     {

@@ -14,28 +14,29 @@ public class BalconyFrame : ComponentFrame
   public BalconyFrame (BalconyDoor parent)
     : base(parent, "balcony_frame", "ComponentFrame")
   {
-    boundaries.Add(new Vector3((boundaries[4].x + boundaries[5].x) / 2,
-                                boundaries[4].y,
-                               (boundaries[4].z + boundaries[5].z) / 2
-                   ));
+    int index = boundaries.Length; // == 8
+    System.Array.Resize<Vector3>(ref boundaries, boundaries.Length + 10);
+    
+    boundaries[index++] = new Vector3((boundaries[4].x + boundaries[5].x) / 2,
+                                       boundaries[4].y,
+                                      (boundaries[4].z + boundaries[5].z) / 2);
 
-    boundaries.Add(new Vector3((boundaries[6].x + boundaries[7].x) / 2,
-                                boundaries[6].y,
-                               (boundaries[6].z + boundaries[7].z) / 2
-                   ));
+    boundaries[index++] = new Vector3((boundaries[6].x + boundaries[7].x) / 2,
+                                       boundaries[6].y,
+                                      (boundaries[6].z + boundaries[7].z) / 2);
 
     Vector3 up_width = Vector3.up * width;
     Vector3 right_width = parentFace.right * width;
 
-    boundaries.Add(boundaries[8] + up_width - right_width);
-    boundaries.Add(boundaries[5] + up_width + right_width);
-    boundaries.Add(boundaries[6] - up_width + right_width);
-    boundaries.Add(boundaries[9] - up_width - right_width);
+    boundaries[index++] = boundaries[8] + up_width - right_width;
+    boundaries[index++] = boundaries[5] + up_width + right_width;
+    boundaries[index++] = boundaries[6] - up_width + right_width;
+    boundaries[index++] = boundaries[9] - up_width - right_width;
 
-    boundaries.Add(boundaries[4] + up_width - right_width);
-    boundaries.Add(boundaries[8] + up_width + right_width);
-    boundaries.Add(boundaries[9] - up_width + right_width);
-    boundaries.Add(boundaries[7] - up_width - right_width);
+    boundaries[index++] = boundaries[4] + up_width - right_width;
+    boundaries[index++] = boundaries[8] + up_width + right_width;
+    boundaries[index++] = boundaries[9] - up_width + right_width;
+    boundaries[index++] = boundaries[7] - up_width - right_width;
   }
 
   /*************** METHODS ***************/
