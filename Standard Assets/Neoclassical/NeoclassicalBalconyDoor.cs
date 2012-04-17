@@ -28,8 +28,12 @@ public sealed class NeoclassicalBalconyDoor : Base.BalconyDoor
   {
     base.Draw();
 
+    body.FindVertices();
+    body.FindTriangles();
     body.Draw();
+
     frame.Draw();
+
     balconyFloor.FindVertices();
     balconyFloor.FindTriangles();
     balconyFloor.Draw();

@@ -28,6 +28,9 @@ public sealed class NeoclassicalWindow : Base.Window
     base.Draw();
 
     frame.Draw();
+
+    body.FindVertices();
+    body.FindTriangles();
     body.Draw();
   }
 }

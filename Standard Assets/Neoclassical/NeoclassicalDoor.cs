@@ -26,6 +26,9 @@ public sealed class NeoclassicalDoor : Base.Door
     base.Draw();
 
     frame.Draw();
+
+    body.FindVertices();
+    body.FindTriangles();
     body.Draw();
   }
 }

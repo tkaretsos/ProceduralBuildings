@@ -108,7 +108,7 @@ public sealed class BuildingManager
         n.FindVertices();
         n.FindTriangles();
         n.Draw();
-        n.Optimize();
+        //n.Optimize();
         n.gameObject.SetActiveRecursively(true);
         neo.Add(n);
         break;
