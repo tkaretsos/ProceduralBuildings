@@ -208,6 +208,8 @@ public class Building : DrawableObject
     foreach (Base.Face face in faces)
       foreach (Base.FaceComponent component in face.faceComponents)
         component.Draw();
+
+    gameObject.transform.position = meshOrigin;
   }
 
   /// <summary>

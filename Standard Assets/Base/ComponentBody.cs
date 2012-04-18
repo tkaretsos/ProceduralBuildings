@@ -27,10 +27,18 @@ public class ComponentBody : DrawableObject
     this.name = name;
     this.materialName = materialName;
 
-    boundaries = new Vector3[parentComponent.boundaries.Length];
+    boundaries = new Vector3[4];
     for (var i = 0; i < parentComponent.boundaries.Length; ++i)
       boundaries[i] = parentComponent.boundaries[i] -
                       parentComponent.depth * parentComponent.normal;
+
+    FindMeshOrigin(boundaries[0],
+                   boundaries[2],
+                   boundaries[1],
+                   boundaries[3]);
+
+    for (var i = 0; i < boundaries.Length; ++i)
+      boundaries[i] -= meshOrigin;
   }
 
   /*************** METHODS ***************/
@@ -52,6 +60,7 @@ public class ComponentBody : DrawableObject
   {
     base.Draw();
 
+    gameObject.transform.position = meshOrigin;
     gameObject.transform.parent = parentBuilding.gameObject.transform;
   }
 }

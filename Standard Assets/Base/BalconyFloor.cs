@@ -42,6 +42,14 @@ public class BalconyFloor : DrawableObject
 
     for (var i = 0; i < 4; ++i)
       boundaries[i + 4] = boundaries[i] + Vector3.up * height;
+
+    FindMeshOrigin(boundaries[0],
+                   boundaries[6],
+                   boundaries[2],
+                   boundaries[4]);
+
+    for (var i = 0; i < boundaries.Length; ++i)
+      boundaries[i] -= meshOrigin;
   }
 
   public override void FindVertices ()
@@ -78,6 +86,7 @@ public class BalconyFloor : DrawableObject
   {
     base.Draw();
 
+    gameObject.transform.position = meshOrigin;
     gameObject.transform.parent = parentBuilding.gameObject.transform;
   }
 }

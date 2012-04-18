@@ -35,6 +35,14 @@ public class ComponentFrame : DrawableObject
       // subtract a small amount to prevent overlaping triangles
       boundaries[i + 4] = boundaries[i] - (parentComponent.depth - 0.001f) * parentComponent.normal;
     }
+
+    FindMeshOrigin(boundaries[0],
+                   boundaries[6],
+                   boundaries[2],
+                   boundaries[4]);
+
+    for (var i = 0; i < boundaries.Length; ++i)
+      boundaries[i] -= meshOrigin;
   }
 
   /*************** METHODS ***************/
@@ -62,6 +70,7 @@ public class ComponentFrame : DrawableObject
   {
     base.Draw();
 
+    gameObject.transform.position = meshOrigin;
     gameObject.transform.parent = parentBuilding.gameObject.transform;
   }
 }
