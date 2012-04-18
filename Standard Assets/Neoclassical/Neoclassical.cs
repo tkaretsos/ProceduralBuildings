@@ -42,7 +42,7 @@ public sealed class Neoclassical : Base.Building
     floorHeight = Random.Range(4.25f, 4.75f);
     floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
 
-    FindMeshOrigin(p1, p2, p3, p4, floorCount * floorHeight);
+    FindMeshOrigin(p1, p3, p2, p4);
 
     boundaries = new Vector3[8];
     boundaries[0] = p1 - meshOrigin;

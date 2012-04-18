@@ -3,9 +3,7 @@
 namespace Thesis {
 namespace Base {
 
-public class BalconyFloor : DrawableObject,
-                            Interface.IDrawable,
-                            Interface.ICombinable
+public class BalconyFloor : DrawableObject
 {
   /*************** FIELDS ***************/
 

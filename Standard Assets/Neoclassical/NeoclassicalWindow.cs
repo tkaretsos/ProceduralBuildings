@@ -26,7 +26,7 @@ public sealed class NeoclassicalWindow : Base.Window
 
   public override void Draw ()
   {
-    base.Draw();
+    //base.Draw();
 
     frame.FindVertices();
     frame.FindTriangles();

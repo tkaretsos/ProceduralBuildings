@@ -3,9 +3,7 @@
 namespace Thesis {
 namespace Base {
 
-public class ComponentFrame : DrawableObject,
-                              Interface.IDrawable, 
-                              Interface.ICombinable
+public class ComponentFrame : DrawableObject
 {
   /*************** FIELDS ***************/
 
@@ -18,7 +16,7 @@ public class ComponentFrame : DrawableObject,
 
   public Building parentBuilding
   {
-    get { return parentComponent.parentFace.parentBuilding; }
+    get { return parentFace.parentBuilding; }
   }
 
   /*************** CONSTRUCTORS ***************/
@@ -34,6 +32,7 @@ public class ComponentFrame : DrawableObject,
     for (var i = 0; i < 4; ++i)
     {
       boundaries[i] = parentComponent.boundaries[i];
+      // subtract a small amount to prevent overlaping triangles
       boundaries[i + 4] = boundaries[i] - (parentComponent.depth - 0.001f) * parentComponent.normal;
     }
   }

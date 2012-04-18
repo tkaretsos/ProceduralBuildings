@@ -34,11 +34,10 @@ public class Face : DrawableObject
   public int verticesPerRow = 0;
 
   /// <summary>
-  /// The number we need to add to the index of the vertices of the lowest
-  /// (ground) row, in order to get the correct index of the vertices of the
-  /// higher (roof) row.
+  /// The number of vertices on the face's vertical edges, including
+  /// the boundaries.
   /// </summary>
-  public int verticesModifier;
+  public int edgeVerticesCount = 0;
 
   /// <summary>
   /// Maps the position (index) of one component to its type.
@@ -85,17 +84,19 @@ public class Face : DrawableObject
     throw new System.NotImplementedException();
   }
 
-  /// <summary>
-  /// Creates an array that contains the vertices of the FaceComponents
-  /// attached to this Face. The vertices are put in an order so that it
-  /// will be easy to form the triangles of the mesh.
-  /// </summary>
   public override void FindVertices ()
   {
-    verticesModifier = 2 * (parentBuilding.floorCount + 1);
-    vertices = new Vector3[8 * componentsPerFloor * parentBuilding.floorCount + verticesModifier];
+    if (componentsPerFloor == 0)
+    {
+      edgeVerticesCount = boundaries.Length;
+      vertices = boundaries;
+      return;
+    }
 
-    for (int i = 0; i < verticesModifier; i += 2)
+    edgeVerticesCount = 2 * (parentBuilding.floorCount + 1);
+    vertices = new Vector3[8 * componentsPerFloor * parentBuilding.floorCount + edgeVerticesCount];
+
+    for (int i = 0; i < edgeVerticesCount; i += 2)
     {
       vertices[i] = new Vector3(boundaries[0].x,
                                 boundaries[0].y + (i / 2) * parentBuilding.floorHeight,
@@ -106,22 +107,22 @@ public class Face : DrawableObject
                                     boundaries[1].z);
     }
 
-    if (componentsPerFloor == 0) return;
-
     int double_cpf = 2 * componentsPerFloor;
     for (var floor = 1; floor <= parentBuilding.floorCount; ++floor)
       for (var cp = 0; cp < componentsPerFloor; ++cp)
       {
         int cpn = cp + componentsPerFloor * (floor - 1);
-        int indexModifier = (floor - 1) * 8 * componentsPerFloor + 2 * cp + verticesModifier;
+        int indexModifier = (floor - 1) * 8 * componentsPerFloor + 2 * cp + edgeVerticesCount;
 
-        vertices[indexModifier] = new Vector3(faceComponents[cpn].boundaries[0].x,
-                                              parentBuilding.boundaries[0].y + (floor - 1) * parentBuilding.floorHeight,
-                                              faceComponents[cpn].boundaries[0].z);
+        vertices[indexModifier] = new Vector3(
+          faceComponents[cpn].boundaries[0].x,
+          parentBuilding.boundaries[0].y + (floor - 1) * parentBuilding.floorHeight,
+          faceComponents[cpn].boundaries[0].z);
 
-        vertices[indexModifier + 1] = new Vector3(faceComponents[cpn].boundaries[1].x,
-                                                  parentBuilding.boundaries[0].y + (floor - 1) * parentBuilding.floorHeight,
-                                                  faceComponents[cpn].boundaries[1].z);
+        vertices[indexModifier + 1] = new Vector3(
+          faceComponents[cpn].boundaries[1].x,
+          parentBuilding.boundaries[0].y + (floor - 1) * parentBuilding.floorHeight,
+          faceComponents[cpn].boundaries[1].z);
 
         vertices[indexModifier + double_cpf] = faceComponents[cpn].boundaries[0];
 
@@ -131,13 +132,15 @@ public class Face : DrawableObject
 
         vertices[indexModifier + double_cpf * 2 + 1] = faceComponents[cpn].boundaries[2];
 
-        vertices[indexModifier + double_cpf * 3] = new Vector3(faceComponents[cpn].boundaries[3].x,
-                                                               floor * parentBuilding.floorHeight - parentBuilding.meshOrigin.y,
-                                                               faceComponents[cpn].boundaries[3].z);
+        vertices[indexModifier + double_cpf * 3] = new Vector3(
+          faceComponents[cpn].boundaries[3].x,
+          floor * parentBuilding.floorHeight - parentBuilding.meshOrigin.y,
+          faceComponents[cpn].boundaries[3].z);
 
-        vertices[indexModifier + double_cpf * 3 + 1] = new Vector3(faceComponents[cpn].boundaries[2].x,
-                                                                   floor * parentBuilding.floorHeight - parentBuilding.meshOrigin.y,
-                                                                   faceComponents[cpn].boundaries[2].z);
+        vertices[indexModifier + double_cpf * 3 + 1] = new Vector3(
+          faceComponents[cpn].boundaries[2].x,
+          floor * parentBuilding.floorHeight - parentBuilding.meshOrigin.y,
+          faceComponents[cpn].boundaries[2].z);
       }
   }
 

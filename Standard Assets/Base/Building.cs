@@ -4,8 +4,7 @@ using System.Collections.Generic;
 namespace Thesis {
 namespace Base {
 
-public class Building : DrawableObject, 
-                        Interface.IDrawable
+public class Building : DrawableObject
 {
   /*************** FIELDS ***************/
 
@@ -127,17 +126,17 @@ public class Building : DrawableObject,
       {
         triangles[tris_index++] = offset;
         triangles[tris_index++] = offset + 1;
-        triangles[tris_index++] = offset + faces[face].verticesModifier - 2;
+        triangles[tris_index++] = offset + 2;
 
-        triangles[tris_index++] = offset + 1;
-        triangles[tris_index++] = offset + faces[face].verticesModifier - 1;
-        triangles[tris_index++] = offset + faces[face].verticesModifier - 2;
+        triangles[tris_index++] = offset;
+        triangles[tris_index++] = offset + 2;
+        triangles[tris_index++] = offset + 3;
       }
       else
       {
         for (int floor = 0; floor < floorCount; ++floor)
         {
-          int fixedOffset = offset + faces[face].verticesModifier + 8 * faces[face].componentsPerFloor * floor;
+          int fixedOffset = offset + faces[face].edgeVerticesCount + 8 * faces[face].componentsPerFloor * floor;
           int cpfX6 = 6 * faces[face].componentsPerFloor;
           int floorX2 = 2 * floor;
 

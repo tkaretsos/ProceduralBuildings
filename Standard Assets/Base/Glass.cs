@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-using ICombinable = Thesis.Interface.ICombinable;
-using IDrawable = Thesis.Interface.IDrawable;
-
+﻿
 namespace Thesis {
 namespace Base {
 
-public sealed class Glass : ComponentBody, IDrawable, ICombinable
+public sealed class Glass : ComponentBody
 {
   /*************** CONSTRUCTORS ***************/
 

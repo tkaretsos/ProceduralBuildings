@@ -27,7 +27,7 @@ public sealed class NeoclassicalBalconyDoor : Base.BalconyDoor
 
   public override void Draw ()
   {
-    base.Draw();
+    //base.Draw();
 
     body.FindVertices();
     body.FindTriangles();
