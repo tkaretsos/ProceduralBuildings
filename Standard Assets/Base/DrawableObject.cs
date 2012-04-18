@@ -35,24 +35,26 @@ public class DrawableObject : ProceduralObject,
   /*************** METHODS ***************/
 
   /// <summary>
-  /// Calculates the center of the quadrangle base of the building.
-  /// Used for properly creating the gameObject and serves as the origin
-  /// of the created mesh.
+  /// Calculates the intersection point of the lines formed by each two points in 3D space.
+  /// Points a1 and a2 form the first line and points b1 and b2 form the second.
+  /// Maths found here: http://mathforum.org/library/drmath/view/62814.html
   /// </summary>
   public virtual void FindMeshOrigin (Vector3 a1, Vector3 a2, Vector3 b1, Vector3 b2)
   {
-    var a_dir = a1 - a2;
-    var b_dir = b1 - b2;
+    var a_dir = a1 - a2; // the direction vector of the first line
+    var b_dir = b1 - b2; // the direction vector of the second line
     var dir_cross = Vector3.Cross(a_dir, b_dir);
     var tmp_cross = Vector3.Cross(b1 - a1, b_dir);
 
     float c1;
     if (dir_cross.x != 0f)
-     c1 = tmp_cross.x / dir_cross.x;
+      c1 = tmp_cross.x / dir_cross.x;
     else if (dir_cross.y != 0f)
       c1 = tmp_cross.y / dir_cross.y;
-    else
+    else if (dir_cross.z != 0f)
       c1 = tmp_cross.z / dir_cross.z;
+    else
+      throw new System.DivideByZeroException("Result of cross product is Vector3(0,0,0)!");
 
     meshOrigin = a1 + c1 * a_dir;
   }
@@ -72,8 +74,7 @@ public class DrawableObject : ProceduralObject,
     gameObject = new GameObject(name);
     gameObject.active = false;
     gameObject.isStatic = true;
-    gameObject.transform.position = meshOrigin;
-    
+
     var renderer = gameObject.AddComponent<MeshRenderer>();
     if (materialName != null)
       renderer.sharedMaterial = Resources.Load("Materials/" + materialName, 
