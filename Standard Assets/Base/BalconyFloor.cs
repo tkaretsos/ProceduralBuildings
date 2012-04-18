@@ -1,18 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-
-using IDrawable = Thesis.Interface.IDrawable;
 
 namespace Thesis {
 namespace Base {
 
-public class BalconyFloor : IDrawable
+public class BalconyFloor : DrawableObject,
+                            Interface.IDrawable,
+                            Interface.ICombinable
 {
   /*************** FIELDS ***************/
 
   public readonly BalconyDoor parentBalconyDoor;
-
-  public Vector3[] boundaries;
 
   public float height;
 
@@ -25,33 +22,10 @@ public class BalconyFloor : IDrawable
     get { return (Neoclassical) parentBalconyDoor.parentBuilding; }
   }
 
-  private Vector3[] _vertices;
-  public Vector3[] vertices
-  {
-    get { return _vertices; }
-  }
-
-  private int[] _triangles;
-  public int[] triangles
-  {
-    get { return _triangles; }
-  }
-
-  private GameObject _gameObject;
-  public GameObject gameObject
-  {
-    get { return _gameObject; }
-  }
-
-  private MeshFilter _meshFilter;
-  public MeshFilter meshFilter
-  {
-    get { return _meshFilter; }
-  }
-
   /*************** CONSTRUCTORS ***************/
 
   public BalconyFloor (BalconyDoor parent)
+    : base("balcony_floor", "Building")
   {
     parentBalconyDoor = parent;
 
@@ -72,14 +46,14 @@ public class BalconyFloor : IDrawable
       boundaries[i + 4] = boundaries[i] + Vector3.up * height;
   }
 
-  public virtual void FindVertices ()
+  public override void FindVertices ()
   {
-    _vertices = boundaries;
+    vertices = boundaries;
   }
 
-  public virtual void FindTriangles ()
+  public override void FindTriangles ()
   {
-    _triangles = new int[] {
+    triangles = new int[] {
       // bottom
       0, 2, 1,
       0, 3, 2,
@@ -102,33 +76,11 @@ public class BalconyFloor : IDrawable
     };
   }
 
-  public virtual void Draw ()
+  public override void Draw ()
   {
-    _gameObject = new GameObject("balcony_floor");
-    _gameObject.transform.parent = parentBuilding.gameObject.transform;
-    _gameObject.isStatic = true;
-    var meshRenderer = _gameObject.AddComponent<MeshRenderer>();
-    _meshFilter = _gameObject.AddComponent<MeshFilter>();
-    _gameObject.active = false;
-    _gameObject.transform.position = parentBuilding.meshOrigin;
+    base.Draw();
 
-    meshRenderer.sharedMaterial = Resources.Load("Materials/Building", typeof(Material)) as Material;
-
-    var mesh = new Mesh();
-    mesh.Clear();
-
-    mesh.vertices = vertices;
-    mesh.triangles = triangles;
-
-    // this is required to stop a runtime warning
-    mesh.uv = new Vector2[mesh.vertices.Length];
-    //for (int i = 0; i < mesh.vertices.Length; ++i)
-    //  mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
-
-    mesh.RecalculateNormals();
-    mesh.Optimize();
-
-    _meshFilter.sharedMesh = mesh;
+    gameObject.transform.parent = parentBuilding.gameObject.transform;
   }
 }
 
