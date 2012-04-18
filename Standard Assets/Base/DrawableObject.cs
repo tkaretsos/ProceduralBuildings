@@ -39,17 +39,22 @@ public class DrawableObject : ProceduralObject,
   /// Used for properly creating the gameObject and serves as the origin
   /// of the created mesh.
   /// </summary>
-  public virtual void FindMeshOrigin (Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float height = 0f)
+  public virtual void FindMeshOrigin (Vector3 a1, Vector3 a2, Vector3 b1, Vector3 b2)
   {
-    var par = (p2.x - p0.x) * (p1.z - p3.z) - (p2.z - p0.z) * (p1.x - p3.x);
+    var a_dir = a1 - a2;
+    var b_dir = b1 - b2;
+    var dir_cross = Vector3.Cross(a_dir, b_dir);
+    var tmp_cross = Vector3.Cross(b1 - a1, b_dir);
 
-    var ar_x = (p2.x * p0.z - p2.z * p0.x) * (p1.x - p3.x) -
-               (p2.x - p0.x) * (p1.x * p3.z - p1.z * p3.x);
+    float c1;
+    if (dir_cross.x != 0f)
+     c1 = tmp_cross.x / dir_cross.x;
+    else if (dir_cross.y != 0f)
+      c1 = tmp_cross.y / dir_cross.y;
+    else
+      c1 = tmp_cross.z / dir_cross.z;
 
-    var ar_z = (p2.x * p0.z - p2.z * p0.x) * (p1.z - p3.z) -
-               (p2.z - p0.z) * (p1.x * p3.z - p1.z * p3.x);
-
-    meshOrigin = new Vector3(ar_x / par, height / 2, ar_z / par);
+    meshOrigin = a1 + c1 * a_dir;
   }
 
   public virtual void FindVertices ()
