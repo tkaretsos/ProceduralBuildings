@@ -1,19 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-
-using ICombinable = Thesis.Interface.ICombinable;
-using IDrawable = Thesis.Interface.IDrawable;
 
 namespace Thesis {
 namespace Base {
 
-public class ComponentFrame : IDrawable, ICombinable
+public class ComponentFrame : DrawableObject,
+                              Interface.IDrawable, 
+                              Interface.ICombinable
 {
   /*************** FIELDS ***************/
 
   public readonly FaceComponent parentComponent;
-
-  public Vector3[] boundaries;
 
   public Face parentFace
   {
@@ -25,64 +21,33 @@ public class ComponentFrame : IDrawable, ICombinable
     get { return parentComponent.parentFace.parentBuilding; }
   }
 
-  private Vector3[] _vertices;
-  public Vector3[] vertices
-  {
-    get { return _vertices; }
-  }
-
-  private int[] _triangles;
-  public int[] triangles
-  {
-    get { return _triangles; }
-    set { _triangles = value; }
-  }
-  
-  private GameObject _gameObject;
-  public GameObject gameObject
-  {
-    get { return _gameObject; }
-  }
-
-  private MeshFilter _meshFilter;
-  public MeshFilter meshFilter
-  {
-    get { return _meshFilter; }
-  }
-
-  private string _name;
-
-  private string _materialName;
-
   /*************** CONSTRUCTORS ***************/
 
   public ComponentFrame (FaceComponent parent, string name, string materialName)
   {
     parentComponent = parent;
 
-    _name = name;
-    _materialName = materialName;
+    this.name = name;
+    this.materialName = materialName;
 
-    //foreach (var point in parentComponent.boundaries)
-    //  boundaries.Add(point + parentBuilding.meshOrigin);
     boundaries = new Vector3[8];
     for (var i = 0; i < 4; ++i)
     {
-      boundaries[i] = parentComponent.boundaries[i] + parentBuilding.meshOrigin;
+      boundaries[i] = parentComponent.boundaries[i];
       boundaries[i + 4] = boundaries[i] - (parentComponent.depth - 0.001f) * parentComponent.normal;
     }
   }
 
   /*************** METHODS ***************/
 
-  public virtual void FindVertices ()
+  public override void FindVertices ()
   {
-    _vertices = boundaries;
+    vertices = boundaries;
   }
 
-  public virtual void FindTriangles ()
+  public override void FindTriangles ()
   {
-    _triangles = new int[] {
+    triangles = new int[] {
       0, 4, 7,
       0, 7, 3,
       7, 6, 2,
@@ -94,32 +59,11 @@ public class ComponentFrame : IDrawable, ICombinable
     };
   }
 
-  public virtual void Draw ()
+  public override void Draw ()
   {
-    _gameObject = new GameObject(_name);
-    _gameObject.transform.parent = parentBuilding.gameObject.transform;
-    _gameObject.transform.parent = parentBuilding.gameObject.transform;
-    _gameObject.isStatic = true;
-    var renderer = _gameObject.AddComponent<MeshRenderer>();
-    _meshFilter = _gameObject.AddComponent<MeshFilter>();
-    _gameObject.active = true;
+    base.Draw();
 
-    renderer.sharedMaterial = Resources.Load("Materials/" + _materialName,
-                                             typeof(Material)) as Material;
-
-    var mesh = new Mesh();
-    mesh.Clear();
-
-    mesh.vertices = vertices;
-    mesh.triangles = triangles;
-    mesh.uv = new Vector2[mesh.vertices.Length];
-    //for (int i = 0; i < mesh.vertices.Length; ++i)
-    //  mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
-
-    mesh.RecalculateNormals();
-    mesh.Optimize();
-
-    _meshFilter.sharedMesh = mesh;
+    gameObject.transform.parent = parentBuilding.gameObject.transform;
   }
 }
 
