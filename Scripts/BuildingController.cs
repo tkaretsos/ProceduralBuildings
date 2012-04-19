@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class BuildingController : MonoBehaviour
 {
-  private BuildingManager manager = new BuildingManager();
+  private NeoclassicalManager manager = new NeoclassicalManager();
 
 	void Start ()
   {
