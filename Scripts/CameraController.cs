@@ -111,6 +111,7 @@ public class CameraController : MonoBehaviour
     GUILayout.Label("E - Up");
     GUILayout.Label("C - Down");
     GUILayout.Label("M - Change camera mode");
+    GUILayout.Label("Shift - Speed boost");
   }
 
   private void ClampCamera (float horizontal = 360f, float vertical = 80f)
