@@ -8,14 +8,8 @@ public class Building : DrawableObject
 {
   /*************** FIELDS ***************/
 
-  /// <summary>
-  /// A list containing the faces of this building.
-  /// </summary>
   public List<Face> faces = new List<Face>();
 
-  /// <summary>
-  /// The number of floors of the building.
-  /// </summary>
   private int _floorCount = 0;
   public int floorCount
   {
@@ -24,16 +18,10 @@ public class Building : DrawableObject
     {
       _floorCount = value;
       if (_floorHeight > 0f)
-      {
         height = _floorHeight * _floorCount;
-        //CalculateRoofBoundaries();
-      }
     }
   }
 
-  /// <summary>
-  /// The height of each floor.
-  /// </summary>
   private float _floorHeight = 0f;
   public float floorHeight
   {
@@ -42,20 +30,16 @@ public class Building : DrawableObject
     {
       _floorHeight = value;
       if (_floorCount > 0)
-      {
         height = _floorHeight * _floorCount;
-        //CalculateRoofBoundaries();
-      }
     }
   }
 
   public float height = 0f;
 
+  /// <summary>
+  /// Stores the indexes of faces in sorted order.
+  /// </summary>
   public int[] sortedFaces;
-
-  /*************** CONSTRUCTORS ***************/
-  
-  public Building () { }
   
   /*************** METHODS ***************/
 
@@ -64,9 +48,6 @@ public class Building : DrawableObject
     throw new System.NotImplementedException();
   }
 
-  /// <summary>
-  /// Finds all the vertices required for the rendering of the building.
-  /// </summary>
   public override void FindVertices ()
   {
     int vert_count = 0;
@@ -92,9 +73,6 @@ public class Building : DrawableObject
     }
   }
 
-  /// <summary>
-  /// Calculates the triangles that are required for the rendering of the building.
-  /// </summary>
   public override void FindTriangles ()
   {
     // roof tris
@@ -213,7 +191,7 @@ public class Building : DrawableObject
   }
 
   /// <summary>
-  /// Sort the faces of the building by width.
+  /// Sorts the faces of the building by width.
   /// </summary>
   public void SortFaces (bool descending = true)
   {
