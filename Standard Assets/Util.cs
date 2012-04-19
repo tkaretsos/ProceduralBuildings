@@ -13,9 +13,6 @@ public class Util
   /// <summary>
   /// Rolls a weighted dice.
   /// </summary>
-  /// <returns>
-  /// The result of the dice (random).
-  /// </returns>
   /// <param name='chances'>
   /// The chances for each possible result.
   /// </param>
@@ -27,33 +24,19 @@ public class Util
   /// </param>
   public static int RollDice (float[] chances, int[] numbers = null, int precision = 2)
   {
-    var sum = 0f;
-    foreach (var chance in chances)
-    {
-      if (chance == 0f) throw new Exception("RollDice: a chance cannot be zero.");
-      sum += chance;
-    }
-    if (sum != 1f) throw new Exception("RollDice: the sum of chances is not equal to 1.");
-  
     if (numbers == null)
     {
       numbers = new int[chances.Length];
       for (var i = 0; i < chances.Length; ++i)
-      numbers[i] = i + 1;
+        numbers[i] = i + 1;
     }
-    else if (chances.Length != numbers.Length)
-      throw new Exception("RollDice: number of chances not equal to number of possible values");
 
     precision = (int) Mathf.Pow(10, precision);
 
     int[] expanded = new int[precision];
     int start = 0;
-    int end = Mathf.FloorToInt(chances[0] * precision);
-  
-    for (var i = start; i < end; ++i)
-      expanded[i] = numbers[0];
-  
-    for (var i = 1; i < chances.Length; ++i)
+    int end = 0;
+    for (var i = 0; i < chances.Length; ++i)
     {
       start = end;
       end += Mathf.FloorToInt(chances[i] * precision);
@@ -77,7 +60,6 @@ public class Util
     var meshRenderer = gameObject.AddComponent<MeshRenderer>();
     meshRenderer.sharedMaterial = Resources.Load("Materials/" + materialName,
                                                  typeof(Material)) as Material;
-
 
     MeshFilter[] meshFilters = new MeshFilter[objects.Count];
     for (var i = 0; i < objects.Count; ++i)
