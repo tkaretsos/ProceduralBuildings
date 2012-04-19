@@ -54,32 +54,68 @@ public class BalconyFloor : DrawableObject
 
   public override void FindVertices ()
   {
-    vertices = boundaries;
+    vertices = new Vector3[boundaries.Length * 3];
+    for (int i = 0; i < 3; ++i)
+      System.Array.Copy(boundaries, 0, vertices, i * boundaries.Length, boundaries.Length);
   }
 
   public override void FindTriangles ()
   {
-    triangles = new int[] {
-      // bottom
-      0, 2, 1,
-      0, 3, 2,
+    triangles = new int[36];
 
-      // top
-      4, 5, 6,
-      4, 6, 7,
+    // bottom
+    triangles[0]  = 0;
+    triangles[1]  = 2;
+    triangles[2]  = 1;
 
-      // front
-      0, 4, 7,
-      0, 7, 3,
+    triangles[3]  = 0;
+    triangles[4]  = 3;
+    triangles[5]  = 2;
 
-      // left side
-      0, 1, 4,
-      4, 1, 5,
+    // top
+    triangles[6]  = 4;
+    triangles[7]  = 5;
+    triangles[8]  = 6;
 
-      // right side
-      3, 7, 6,
-      3, 6, 2
-    };
+    triangles[9]  = 4;
+    triangles[10] = 6;
+    triangles[11] = 7;
+
+    // left
+    triangles[12] = 9;    // 1 + 8
+    triangles[13] = 10;   // 2 + 8
+    triangles[14] = 13;   // 5 + 8
+
+    triangles[15] = 10;   // 2 + 8
+    triangles[16] = 14;   // 6 + 8
+    triangles[17] = 13;   // 5 + 8
+
+    // right
+    triangles[18] = 8;    // 0 + 8
+    triangles[19] = 12;   // 4 + 8
+    triangles[20] = 11;   // 3 + 8
+
+    triangles[21] = 11;   // 3 + 8
+    triangles[22] = 12;   // 4 + 8
+    triangles[23] = 15;   // 7 + 8
+
+    // front
+    triangles[24] = 16;   // 0 + 16
+    triangles[25] = 17;   // 1 + 16
+    triangles[26] = 20;   // 4 + 16
+
+    triangles[27] = 17;   // 1 + 16
+    triangles[28] = 21;   // 5 + 16
+    triangles[29] = 20;   // 4 + 16
+
+    // back
+    triangles[30] = 18;   // 2 + 16
+    triangles[31] = 19;   // 3 + 16
+    triangles[32] = 23;   // 7 + 16
+
+    triangles[33] = 18;   // 2 + 16
+    triangles[34] = 23;   // 7 + 16
+    triangles[35] = 22;   // 6 + 16
   }
 
   public override void Draw ()
