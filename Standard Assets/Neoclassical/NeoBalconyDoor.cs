@@ -2,11 +2,11 @@
 
 namespace Thesis {
 
-public sealed class NeoclassicalBalconyDoor : Base.BalconyDoor
+public sealed class NeoBalconyDoor : Base.BalconyDoor
 {
   /*************** CONSTRUCTORS ***************/
 
-  public NeoclassicalBalconyDoor (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
+  public NeoBalconyDoor (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
     : base(parent, position)
   {
     height = ((NeoBuildingMesh) parentBuilding).balconyHeight;
