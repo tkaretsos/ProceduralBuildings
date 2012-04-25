@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Thesis {
 
-public sealed class NeoclassicalDoor : Base.Door
+public sealed class NeoDoor : Base.Door
 {
-  public NeoclassicalDoor(Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
+  public NeoDoor(Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
   : base (parent, position)
   {
     height = ((NeoBuildingMesh) parentBuilding).doorHeight;
