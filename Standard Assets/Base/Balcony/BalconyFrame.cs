@@ -37,9 +37,6 @@ public class BalconyFrame : ComponentFrame
     boundaries[index++] = boundaries[8] + up_width + right_width;
     boundaries[index++] = boundaries[9] - up_width + right_width;
     boundaries[index++] = boundaries[7] - up_width - right_width;
-
-    name = "neo_balcony_frame";
-    materialName = "ComponentFrame";
   }
 
   /*************** METHODS ***************/
