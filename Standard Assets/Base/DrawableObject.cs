@@ -118,6 +118,11 @@ public class DrawableObject : ProceduralObject,
   {
     get { return meshFilter; }
   }
+
+  string ICombinable.materialName
+  {
+    get { return materialName; }
+  }
 }
 
 } // namespace Thesis
