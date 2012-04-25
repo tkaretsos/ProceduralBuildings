@@ -9,7 +9,7 @@ public class Face : DrawableObject
 {
   /*************** FIELDS ***************/
 
-  public readonly Building parentBuilding;
+  public readonly BuildingMesh parentBuilding;
 
   public Vector3 normal;
 
@@ -57,7 +57,7 @@ public class Face : DrawableObject
   /// in clockwise order. The clockwise order is required so that the normal of this face
   /// is properly calculated.
   /// </summary>
-  public Face (Building parent, Vector3 dr, Vector3 dl)
+  public Face (BuildingMesh parent, Vector3 dr, Vector3 dl)
   {
     parentBuilding = parent;
 

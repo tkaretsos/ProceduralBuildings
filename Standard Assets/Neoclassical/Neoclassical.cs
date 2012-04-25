@@ -6,7 +6,7 @@ using CombinablesCollection = System.Collections.Generic.IList<Thesis.Interface.
 
 namespace Thesis {
 
-public sealed class Neoclassical : Base.Building
+public sealed class Neoclassical : Base.BuildingMesh
 {
   /*************** FIELDS ***************/
 

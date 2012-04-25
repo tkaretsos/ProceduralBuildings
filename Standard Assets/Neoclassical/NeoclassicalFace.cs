@@ -5,7 +5,7 @@ namespace Thesis {
 
 public sealed class NeoclassicalFace : Base.Face
 {
-  public NeoclassicalFace (Base.Building parent, Vector3 dr, Vector3 dl)
+  public NeoclassicalFace (Base.BuildingMesh parent, Vector3 dr, Vector3 dl)
     : base (parent, dr, dl)
   {}
 

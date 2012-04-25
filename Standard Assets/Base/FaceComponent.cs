@@ -21,7 +21,7 @@ public class FaceComponent : DrawableObject
 
   public ComponentBody body;
 
-  public Building parentBuilding
+  public BuildingMesh parentBuilding
   {
     get { return parentFace.parentBuilding; }
   }

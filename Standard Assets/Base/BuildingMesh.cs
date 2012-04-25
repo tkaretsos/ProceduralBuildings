@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Thesis {
 namespace Base {
 
-public class Building : DrawableObject
+public class BuildingMesh : DrawableObject
 {
   /*************** FIELDS ***************/
 

@@ -14,7 +14,7 @@ public class ComponentFrame : DrawableObject
     get { return parentComponent.parentFace; }
   }
 
-  public Building parentBuilding
+  public BuildingMesh parentBuilding
   {
     get { return parentFace.parentBuilding; }
   }
