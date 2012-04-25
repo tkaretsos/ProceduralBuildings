@@ -62,18 +62,12 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
   public void Optimize ()
   {
     CombinablesCollection frames = new List<ICombinable>();
-    CombinablesCollection glasses = new List<ICombinable>();
     foreach (Base.Face face in faces)
       foreach (Base.FaceComponent fc in face.faceComponents)
-      {
         if (fc.frame != null)
           frames.Add(fc.frame);
 
-        if (fc.body is Base.Glass)
-          glasses.Add((Base.Glass) fc.body);
-      }
     Util.CombineMeshes("frame_combiner", "ComponentFrame", frames, this.gameObject);
-    Util.CombineMeshes("glass_combiner", "Glass", glasses, this.gameObject);
   }
   
   
