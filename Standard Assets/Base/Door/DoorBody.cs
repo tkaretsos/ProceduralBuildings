@@ -2,10 +2,8 @@
 namespace Thesis {
 namespace Base {
 
-public sealed class DoorBody : ComponentBody
+public class DoorBody : ComponentBody
 {
-  /*************** CONSTRUCTORS ***************/
-
   public DoorBody (Door parent)
     : base(parent)
   { }
