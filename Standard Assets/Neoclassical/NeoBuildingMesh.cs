@@ -81,10 +81,10 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
 
   public override void ConstructFaces ()
   {
-    faces.Add(new NeoclassicalFace(this, boundaries[0], boundaries[1]));
-    faces.Add(new NeoclassicalFace(this, boundaries[1], boundaries[2]));
-    faces.Add(new NeoclassicalFace(this, boundaries[2], boundaries[3]));
-    faces.Add(new NeoclassicalFace(this, boundaries[3], boundaries[0]));
+    faces.Add(new NeoFace(this, boundaries[0], boundaries[1]));
+    faces.Add(new NeoFace(this, boundaries[1], boundaries[2]));
+    faces.Add(new NeoFace(this, boundaries[2], boundaries[3]));
+    faces.Add(new NeoFace(this, boundaries[3], boundaries[0]));
 
     SortFaces();
   }

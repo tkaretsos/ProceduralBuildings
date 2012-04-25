@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Thesis {
 
-public sealed class NeoclassicalFace : Base.Face
+public sealed class NeoFace : Base.Face
 {
-  public NeoclassicalFace (Base.BuildingMesh parent, Vector3 dr, Vector3 dl)
+  public NeoFace (Base.BuildingMesh parent, Vector3 dr, Vector3 dl)
     : base (parent, dr, dl)
   {}
 
