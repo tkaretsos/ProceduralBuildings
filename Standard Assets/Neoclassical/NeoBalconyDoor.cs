@@ -10,6 +10,7 @@ public sealed class NeoBalconyDoor : Base.BalconyDoor
     : base(parent, position)
   {
     height = ((NeoBuildingMesh) parentBuilding).balconyHeight;
+    depth = 0.2f;
 
     boundaries = new Vector3[4];
     boundaries[0] = dr;
