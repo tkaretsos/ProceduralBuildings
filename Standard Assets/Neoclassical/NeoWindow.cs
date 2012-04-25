@@ -23,7 +23,9 @@ public sealed class NeoWindow : Base.Window
     frame.name = "neo_window_frame";
     frame.materialName = "ComponentFrame";
 
-    body = new Base.Glass(this);
+    body = new Base.WindowBody(this);
+    body.name = "neo_window_body";
+    body.materialName = "Glass";
   }
 
   /*************** METHODS ***************/
