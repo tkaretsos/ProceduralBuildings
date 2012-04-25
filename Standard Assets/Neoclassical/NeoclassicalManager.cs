@@ -5,7 +5,7 @@ namespace Thesis {
 
 public sealed class NeoclassicalManager
 {
-  public List<Neoclassical> neo = new List<Neoclassical>();
+  public List<NeoBuildingMesh> neo = new List<NeoBuildingMesh>();
 
   public void CreateNeoclassical (BuildMode mode)
   {
@@ -85,14 +85,14 @@ public sealed class NeoclassicalManager
 
   public void DestroyBuildings ()
   {
-    foreach (Neoclassical n in neo)
+    foreach (NeoBuildingMesh n in neo)
       GameObject.Destroy(n.gameObject);
     neo.Clear();
   }
 
   private void Build (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
-    var n = new Neoclassical(p1, p2, p3, p4);
+    var n = new NeoBuildingMesh(p1, p2, p3, p4);
     n.FindVertices();
     n.FindTriangles();
     n.Draw();

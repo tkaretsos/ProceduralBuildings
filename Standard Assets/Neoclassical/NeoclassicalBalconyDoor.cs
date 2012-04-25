@@ -9,7 +9,7 @@ public sealed class NeoclassicalBalconyDoor : Base.BalconyDoor
   public NeoclassicalBalconyDoor (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
     : base(parent, position)
   {
-    height = ((Neoclassical) parentBuilding).balconyHeight;
+    height = ((NeoBuildingMesh) parentBuilding).balconyHeight;
 
     boundaries = new Vector3[4];
     boundaries[0] = dr;

@@ -9,7 +9,7 @@ public sealed class NeoclassicalWindow : Base.Window
   public NeoclassicalWindow (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
     : base (parent, position)
   {
-    height = ((Neoclassical) parentBuilding).windowHeight;
+    height = ((NeoBuildingMesh) parentBuilding).windowHeight;
     float height_modifier = parentBuilding.floorHeight / 2 - height / 2;
 
     boundaries = new Vector3[4];

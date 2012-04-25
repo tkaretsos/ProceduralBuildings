@@ -7,7 +7,7 @@ public sealed class NeoclassicalDoor : Base.Door
   public NeoclassicalDoor(Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
   : base (parent, position)
   {
-    height = ((Neoclassical) parentBuilding).doorHeight;
+    height = ((NeoBuildingMesh) parentBuilding).doorHeight;
 
     dr += 0.4f * parentFace.right;
     dl -= 0.4f * parentFace.right;

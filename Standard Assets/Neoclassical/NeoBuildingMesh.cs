@@ -6,7 +6,7 @@ using CombinablesCollection = System.Collections.Generic.IList<Thesis.Interface.
 
 namespace Thesis {
 
-public sealed class Neoclassical : Base.BuildingMesh
+public sealed class NeoBuildingMesh : Base.BuildingMesh
 {
   /*************** FIELDS ***************/
 
@@ -30,11 +30,11 @@ public sealed class Neoclassical : Base.BuildingMesh
   /*************** CONSTRUCTORS ***************/
   
   /// <summary>
-  /// Initializes a new instance of the <see cref="Neoclassical"/> class.
+  /// Initializes a new instance of the <see cref="NeoBuildingMesh"/> class.
   /// The boundaries of the base of this building must be given in 
   /// clockwise order.
   /// </summary>
-  public Neoclassical (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+  public NeoBuildingMesh (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
     name = "Neoclassical";
     materialName = "Building";
