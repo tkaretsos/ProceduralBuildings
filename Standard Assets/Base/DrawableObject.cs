@@ -13,11 +13,11 @@ public class DrawableObject : ProceduralObject,
 
   public string       materialName;
 
-  public GameObject   gameObject;
-
   public MeshFilter   meshFilter;
 
   public Vector3      meshOrigin;
+
+  public Vector3[] boundaries;
 
   public Vector3[]    vertices;
 
