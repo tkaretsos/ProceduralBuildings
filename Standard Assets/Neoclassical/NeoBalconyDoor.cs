@@ -2,7 +2,7 @@
 
 namespace Thesis {
 
-public sealed class NeoBalconyDoor : Base.BalconyDoor
+public sealed class NeoBalconyDoor : Base.Balcony
 {
   /*************** CONSTRUCTORS ***************/
 

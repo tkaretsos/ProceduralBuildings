@@ -7,7 +7,7 @@ public class BalconyFloor : DrawableObject
 {
   /*************** FIELDS ***************/
 
-  public readonly BalconyDoor parentBalconyDoor;
+  public readonly Balcony parentBalconyDoor;
 
   public float height;
 
@@ -22,7 +22,7 @@ public class BalconyFloor : DrawableObject
 
   /*************** CONSTRUCTORS ***************/
 
-  public BalconyFloor (BalconyDoor parent)
+  public BalconyFloor (Balcony parent)
     : base("balcony_floor", "Building")
   {
     parentBalconyDoor = parent;

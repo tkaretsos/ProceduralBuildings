@@ -11,7 +11,7 @@ public class BalconyFrame : ComponentFrame
 
   /*************** CONSTRUCTORS ***************/
 
-  public BalconyFrame (BalconyDoor parent)
+  public BalconyFrame (Balcony parent)
     : base(parent)
   {
     int index = boundaries.Length; // == 8

@@ -2,7 +2,7 @@
 namespace Thesis {
 namespace Base {
 
-public class BalconyDoor : FaceComponent
+public class Balcony : FaceComponent
 {
   /*************** FIELDS ***************/
 
@@ -10,7 +10,7 @@ public class BalconyDoor : FaceComponent
 
   /*************** CONSTRUCTORS ***************/
 
-  public BalconyDoor (Face parent, ComponentCoordinate position) 
+  public Balcony (Face parent, ComponentCoordinate position) 
     : base(parent, position)
   { }
 }
