@@ -7,7 +7,7 @@ public sealed class Glass : ComponentBody
   /*************** CONSTRUCTORS ***************/
 
   public Glass (FaceComponent parent)
-    : base(parent, "window_glass", "Glass")
+    : base(parent)
   { }
 }
 

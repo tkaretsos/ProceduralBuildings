@@ -7,7 +7,7 @@ public sealed class DoorBody : ComponentBody
   /*************** CONSTRUCTORS ***************/
 
   public DoorBody (Door parent)
-    : base(parent, "door_body", "DoorBody")
+    : base(parent)
   { }
 }
 
