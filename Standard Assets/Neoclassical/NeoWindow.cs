@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Thesis {
 
-public sealed class NeoclassicalWindow : Base.Window
+public sealed class NeoWindow : Base.Window
 {
   /*************** CONSTRUCTORS ***************/
 
-  public NeoclassicalWindow (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
+  public NeoWindow (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
     : base (parent, position)
   {
     height = ((NeoBuildingMesh) parentBuilding).windowHeight;
