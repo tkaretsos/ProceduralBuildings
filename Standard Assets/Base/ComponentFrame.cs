@@ -21,12 +21,9 @@ public class ComponentFrame : DrawableObject
 
   /*************** CONSTRUCTORS ***************/
 
-  public ComponentFrame (FaceComponent parent, string name, string materialName)
+  public ComponentFrame (FaceComponent parent)
   {
     parentComponent = parent;
-
-    this.name = name;
-    this.materialName = materialName;
 
     boundaries = new Vector3[8];
     for (var i = 0; i < 4; ++i)

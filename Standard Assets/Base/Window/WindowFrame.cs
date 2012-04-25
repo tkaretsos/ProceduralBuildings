@@ -13,7 +13,7 @@ public sealed class WindowFrame : ComponentFrame
   /*************** CONSTRUCTORS ***************/
 
   public WindowFrame (Base.Window parent)
-    : base(parent, "window_frame", "ComponentFrame")
+    : base(parent)
   {
     int index = boundaries.Length; // == 8
     System.Array.Resize<Vector3>(ref boundaries, boundaries.Length + 10);

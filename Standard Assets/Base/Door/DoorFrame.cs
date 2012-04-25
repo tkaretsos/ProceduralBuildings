@@ -7,7 +7,7 @@ public sealed class DoorFrame : ComponentFrame
   /*************** CONSTRUCTORS ***************/
 
   public DoorFrame (Door parent)
-    : base(parent, "door_frame", "ComponentFrame")
+    : base(parent)
   { }
 
   /*************** METHODS ***************/

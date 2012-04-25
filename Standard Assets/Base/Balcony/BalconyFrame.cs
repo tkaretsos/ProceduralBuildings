@@ -12,7 +12,7 @@ public class BalconyFrame : ComponentFrame
   /*************** CONSTRUCTORS ***************/
 
   public BalconyFrame (BalconyDoor parent)
-    : base(parent, "balcony_frame", "ComponentFrame")
+    : base(parent)
   {
     int index = boundaries.Length; // == 8
     System.Array.Resize<Vector3>(ref boundaries, boundaries.Length + 10);
@@ -37,6 +37,9 @@ public class BalconyFrame : ComponentFrame
     boundaries[index++] = boundaries[8] + up_width + right_width;
     boundaries[index++] = boundaries[9] - up_width + right_width;
     boundaries[index++] = boundaries[7] - up_width - right_width;
+
+    name = "neo_balcony_frame";
+    materialName = "ComponentFrame";
   }
 
   /*************** METHODS ***************/
