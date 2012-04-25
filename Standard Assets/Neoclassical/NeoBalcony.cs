@@ -19,7 +19,12 @@ public sealed class NeoBalcony : Base.Balcony
     boundaries[3] = new Vector3(dr.x, dr.y + height, dr.z);
 
     frame = new Base.BalconyFrame(this);
-    body = new Base.Glass(this);
+    frame.name = "neo_balcony_frame";
+    frame.materialName = "ComponentFrame";
+
+    body = new Base.BalconyBody(this);
+    body.name = "neo_balcony_name";
+    body.materialName = "Glass";
 
     balconyFloor = new Base.BalconyFloor(this);
   }
