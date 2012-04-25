@@ -8,6 +8,7 @@ public class BuildingController : MonoBehaviour
 
 	void Start ()
   {
+    MaterialManager.Instance.Init();
 	  manager.CreateNeoclassical(BuildMode.Three);
 	}
 

@@ -77,8 +77,7 @@ public class DrawableObject : ProceduralObject,
 
     var renderer = gameObject.AddComponent<MeshRenderer>();
     if (materialName != null)
-      renderer.sharedMaterial = Resources.Load("Materials/" + materialName, 
-                                               typeof(Material)) as Material;
+      renderer.sharedMaterial = MaterialManager.Instance.Get(materialName);
 
     var mesh = new Mesh();
     mesh.Clear();
