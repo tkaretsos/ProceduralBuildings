@@ -27,6 +27,8 @@ public sealed class NeoBalcony : Base.Balcony
     body.materialName = "Glass";
 
     balconyFloor = new Base.BalconyFloor(this);
+    balconyFloor.name = "neo_balcony_floor";
+    balconyFloor.materialName = "Building";
   }
 
   /*************** METHODS ***************/
