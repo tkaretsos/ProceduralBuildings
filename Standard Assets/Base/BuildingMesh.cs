@@ -8,6 +8,8 @@ public class BuildingMesh : DrawableObject
 {
   /*************** FIELDS ***************/
 
+  public readonly Building parent;
+
   public List<Face> faces = new List<Face>();
 
   private int _floorCount = 0;
@@ -41,6 +43,13 @@ public class BuildingMesh : DrawableObject
   /// </summary>
   public int[] sortedFaces;
   
+  /*************** CONSTRUCTORS ***************/
+
+  public BuildingMesh (Building parent)
+  {
+    this.parent = parent;
+  }
+
   /*************** METHODS ***************/
 
   public virtual void ConstructFaces ()

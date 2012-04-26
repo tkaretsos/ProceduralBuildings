@@ -27,8 +27,6 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
 
   public float balconyFloorDepth;
 
-  public readonly Neoclassical parent;
-
   /*************** CONSTRUCTORS ***************/
   
   /// <summary>
@@ -37,8 +35,8 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
   /// clockwise order.
   /// </summary>
   public NeoBuildingMesh (Neoclassical parent, Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+    : base(parent)
   {
-    this.parent = parent;
     name = "neo_building_mesh";
     materialName = "Building";
 
