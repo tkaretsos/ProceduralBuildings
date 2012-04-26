@@ -27,6 +27,8 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
 
   public float balconyFloorDepth;
 
+  public readonly Neoclassical parent;
+
   /*************** CONSTRUCTORS ***************/
   
   /// <summary>
@@ -34,9 +36,10 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
   /// The boundaries of the base of this building must be given in 
   /// clockwise order.
   /// </summary>
-  public NeoBuildingMesh (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+  public NeoBuildingMesh (Neoclassical parent, Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
-    name = "Neoclassical";
+    this.parent = parent;
+    name = "neo_building_mesh";
     materialName = "Building";
 
     floorHeight = Random.Range(4.25f, 4.75f);
@@ -98,6 +101,13 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
 
     foreach (Base.Face face in faces)
       face.ConstructFaceComponents(component_width, inbetween_space);
+  }
+
+  public override void Draw()
+  {
+    base.Draw();
+
+    gameObject.transform.parent = parent.gameObject.transform;
   }
 }
 
