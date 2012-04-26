@@ -122,8 +122,8 @@ public class BalconyFloor : DrawableObject
   {
     base.Draw();
 
-    gameObject.transform.position = meshOrigin;
-    gameObject.transform.parent = parentBuilding.gameObject.transform;
+    gameObject.transform.position = meshOrigin + parentBuilding.meshOrigin;
+    gameObject.transform.parent = parentBuilding.parent.gameObject.transform;
   }
 }
 

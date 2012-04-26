@@ -100,13 +100,6 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
     foreach (Base.Face face in faces)
       face.ConstructFaceComponents(component_width, inbetween_space);
   }
-
-  public override void Draw()
-  {
-    base.Draw();
-
-    gameObject.transform.parent = parent.gameObject.transform;
-  }
 }
 
 } // namespace Thesis

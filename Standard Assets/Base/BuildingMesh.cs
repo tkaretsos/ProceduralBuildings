@@ -197,6 +197,7 @@ public class BuildingMesh : DrawableObject
         component.Draw();
 
     gameObject.transform.position = meshOrigin;
+    gameObject.transform.parent = parent.gameObject.transform;
   }
 
   /// <summary>
