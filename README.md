@@ -11,5 +11,5 @@ I also use VS2010 as IDE. I don't think there's anything else here ...
 ## How can I try it out?
 These files are actually the contents of the Assets folder of a Unity3D project.
 So if you want try it out, start an empty Unity3D project, git clone into the
-project's folder and rename the cloned folder to "Assets". I haven't tried it out,
-but it will most probably work...
+project's folder and rename the cloned folder to "Assets" or do `git clone git://github.com/tkaretsos/ProceduralBuildings.git Assets`
+inside the project folder.
