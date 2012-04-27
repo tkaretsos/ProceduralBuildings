@@ -22,10 +22,12 @@ public sealed class NeoWindow : Base.Window
     frame = new Base.WindowFrame(this);
     frame.name = "neo_window_frame";
     frame.materialName = "ComponentFrame";
+    parentBuilding.parent.AddCombinable(frame.materialName, frame);
 
     body = new Base.WindowBody(this);
     body.name = "neo_window_body";
     body.materialName = "Glass";
+    parentBuilding.parent.AddCombinable(body.materialName, body);
   }
 
   /*************** METHODS ***************/

@@ -21,14 +21,17 @@ public sealed class NeoBalcony : Base.Balcony
     frame = new Base.BalconyFrame(this);
     frame.name = "neo_balcony_frame";
     frame.materialName = "ComponentFrame";
+    parentBuilding.parent.AddCombinable(frame.materialName, frame);
 
     body = new Base.BalconyBody(this);
     body.name = "neo_balcony_body";
     body.materialName = "Glass";
+    parentBuilding.parent.AddCombinable(body.materialName, body);
 
     balconyFloor = new Base.BalconyFloor(this);
     balconyFloor.name = "neo_balcony_floor";
     balconyFloor.materialName = "Building";
+    parentBuilding.parent.AddCombinable(balconyFloor.materialName, balconyFloor);
   }
 
   /*************** METHODS ***************/

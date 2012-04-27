@@ -25,10 +25,12 @@ public sealed class NeoDoor : Base.Door
     frame = new Base.DoorFrame(this);
     frame.name = "neo_door_frame";
     frame.materialName = "ComponentFrame";
+    parentBuilding.parent.AddCombinable(frame.materialName, frame);
 
     body = new Base.DoorBody(this);
     body.name = "neo_door_body";
     body.materialName = "DoorBody";
+    parentBuilding.parent.AddCombinable(body.materialName, body);
   }
 
   public override void Draw ()
