@@ -62,18 +62,6 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
     ConstructFaceComponents();
   }
 
-  public void Optimize ()
-  {
-    CombinablesCollection frames = new List<ICombinable>();
-    foreach (Base.Face face in faces)
-      foreach (Base.FaceComponent fc in face.faceComponents)
-        if (fc.frame != null)
-          frames.Add(fc.frame);
-
-    Util.CombineMeshes("frame_combiner", "ComponentFrame", frames, this.gameObject);
-  }
-  
-  
   /*************** METHODS ***************/
 
   public override void ConstructFaces ()

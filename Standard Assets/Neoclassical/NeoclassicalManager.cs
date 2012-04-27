@@ -96,7 +96,6 @@ public sealed class NeoclassicalManager
     n.buildingMesh.FindVertices();
     n.buildingMesh.FindTriangles();
     n.buildingMesh.Draw();
-    //n.buildingMesh.Optimize();
     n.CombineSubmeshes();
     n.gameObject.SetActiveRecursively(true);
     neo.Add(n);
