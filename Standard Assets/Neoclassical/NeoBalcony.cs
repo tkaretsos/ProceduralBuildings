@@ -35,7 +35,7 @@ public sealed class NeoBalcony : Base.Balcony
 
     balconyRail = new Base.BalconyRail(balconyFloor);
     balconyRail.name = "neo_balcony_rail";
-    balconyRail.materialName = "Building";
+    balconyRail.materialName = "mat_neo_balcony_rail";
     parentBuilding.parent.AddCombinable(balconyRail.materialName, balconyRail);
   }
 

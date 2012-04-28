@@ -114,26 +114,23 @@ public class BalconyRail : DrawableObject
   {
     base.Draw();
     
-    //meshRenderer.sharedMaterial = new Material(Shader.Find("Transparent/Cutout/Diffuse"));
-    //meshRenderer.sharedMaterial.mainTexture = parentBuilding.balconyTexture.content;
-
-    //var uvs = new Vector2[mesh.vertices.Length];
-    //uvs[2 + 8] = new Vector2(.5f, 0f);
-    //uvs[6 + 8] = new Vector2(.5f, 1f);
-    //uvs[1 + 8] = new Vector2(1f, 0f);
-    //uvs[5 + 8] = new Vector2(1f, 1f);
+    var uvs = new Vector2[mesh.vertices.Length];
+    uvs[2 + 8] = new Vector2(.5f, 0f);
+    uvs[6 + 8] = new Vector2(.5f, 1f);
+    uvs[1 + 8] = new Vector2(1f, 0f);
+    uvs[5 + 8] = new Vector2(1f, 1f);
     
-    //uvs[1] = new Vector2(0f, 0f);
-    //uvs[5] = new Vector2(0f, 1f);
-    //uvs[0] = new Vector2(1f, 0f);
-    //uvs[4] = new Vector2(1f, 1f);
+    uvs[1] = new Vector2(0f, 0f);
+    uvs[5] = new Vector2(0f, 1f);
+    uvs[0] = new Vector2(1f, 0f);
+    uvs[4] = new Vector2(1f, 1f);
     
-    //uvs[0 + 8] = new Vector2(1f, 0f);
-    //uvs[4 + 8] = new Vector2(1f, 1f);
-    //uvs[3 + 8] = new Vector2(.5f, 0f);
-    //uvs[7 + 8] = new Vector2(.5f, 1f);
+    uvs[0 + 8] = new Vector2(1f, 0f);
+    uvs[4 + 8] = new Vector2(1f, 1f);
+    uvs[3 + 8] = new Vector2(.5f, 0f);
+    uvs[7 + 8] = new Vector2(.5f, 1f);
 
-    //mesh.uv = uvs;
+    mesh.uv = uvs;
 
     gameObject.transform.position = meshOrigin + parentBuilding.meshOrigin + parentFloor.meshOrigin;
     gameObject.transform.parent = parentBuilding.parent.gameObject.transform;
