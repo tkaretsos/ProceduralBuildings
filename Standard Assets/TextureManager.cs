@@ -24,7 +24,7 @@ public sealed class TextureManager
     if (!_textures.ContainsKey(name))
     {
       ConstructorInfo[] ctors = type.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
-      var texture = (ProceduralTexture) ctors[0].Invoke(new object[] { 2f, 1f });
+      var texture = (ProceduralTexture) ctors[0].Invoke(new object[] { });
       texture.Draw();
       _textures.Add(name, texture);
     }
