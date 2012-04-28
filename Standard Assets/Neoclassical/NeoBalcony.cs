@@ -32,6 +32,11 @@ public sealed class NeoBalcony : Base.Balcony
     balconyFloor.name = "neo_balcony_floor";
     balconyFloor.materialName = "Building";
     parentBuilding.parent.AddCombinable(balconyFloor.materialName, balconyFloor);
+
+    balconyRail = new Base.BalconyRail(balconyFloor);
+    balconyRail.name = "neo_balcony_rail";
+    balconyRail.materialName = "Building";
+    parentBuilding.parent.AddCombinable(balconyRail.materialName, balconyRail);
   }
 
   /*************** METHODS ***************/
@@ -51,6 +56,10 @@ public sealed class NeoBalcony : Base.Balcony
     balconyFloor.FindVertices();
     balconyFloor.FindTriangles();
     balconyFloor.Draw();
+
+    balconyRail.FindVertices();
+    balconyRail.FindTriangles();
+    balconyRail.Draw();
   }
 }
 

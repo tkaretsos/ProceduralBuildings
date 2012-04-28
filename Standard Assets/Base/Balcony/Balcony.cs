@@ -8,6 +8,8 @@ public class Balcony : FaceComponent
 
   public BalconyFloor balconyFloor;
 
+  public BalconyRail balconyRail;
+
   /*************** CONSTRUCTORS ***************/
 
   public Balcony (Face parent, ComponentCoordinate position) 
