@@ -7,7 +7,7 @@ public class BalconyFloor : DrawableObject
 {
   /*************** FIELDS ***************/
 
-  public readonly Balcony parentBalconyDoor;
+  public readonly Balcony parentBalcony;
 
   public float height;
 
@@ -17,7 +17,7 @@ public class BalconyFloor : DrawableObject
 
   public NeoBuildingMesh parentBuilding
   {
-    get { return (NeoBuildingMesh) parentBalconyDoor.parentBuilding; }
+    get { return (NeoBuildingMesh) parentBalcony.parentBuilding; }
   }
 
   /*************** CONSTRUCTORS ***************/
@@ -25,20 +25,20 @@ public class BalconyFloor : DrawableObject
   public BalconyFloor (Balcony parent)
     : base("balcony_floor", "Building")
   {
-    parentBalconyDoor = parent;
+    parentBalcony = parent;
 
     height = parentBuilding.balconyFloorHeight;
     width = parentBuilding.balconyFloorWidth;
     depth = parentBuilding.balconyFloorDepth;
 
-    var tmp_right = parentBalconyDoor.parentFace.right * width;
-    var tmp_normal = parentBalconyDoor.parentFace.normal * depth;
+    var tmp_right = parentBalcony.parentFace.right * width;
+    var tmp_normal = parentBalcony.parentFace.normal * depth;
 
     boundaries = new Vector3[8];
-    boundaries[0] = parentBalconyDoor.boundaries[1] - tmp_right + tmp_normal;
-    boundaries[1] = parentBalconyDoor.boundaries[1] - tmp_right - tmp_normal;
-    boundaries[2] = parentBalconyDoor.boundaries[0] + tmp_right - tmp_normal;
-    boundaries[3] = parentBalconyDoor.boundaries[0] + tmp_right + tmp_normal;
+    boundaries[0] = parentBalcony.boundaries[0] + tmp_right + tmp_normal;
+    boundaries[1] = parentBalcony.boundaries[1] - tmp_right + tmp_normal;
+    boundaries[2] = parentBalcony.boundaries[1] - tmp_right - tmp_normal;
+    boundaries[3] = parentBalcony.boundaries[0] + tmp_right - tmp_normal;
 
     for (var i = 0; i < 4; ++i)
       boundaries[i + 4] = boundaries[i] + Vector3.up * height;
