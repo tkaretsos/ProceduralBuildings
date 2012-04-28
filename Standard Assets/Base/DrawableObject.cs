@@ -15,9 +15,11 @@ public class DrawableObject : ProceduralObject,
 
   public MeshFilter   meshFilter;
 
+  public Mesh         mesh;
+
   public Vector3      meshOrigin;
 
-  public Vector3[] boundaries;
+  public Vector3[]    boundaries;
 
   public Vector3[]    vertices;
 
@@ -79,7 +81,7 @@ public class DrawableObject : ProceduralObject,
     if (materialName != null)
       renderer.sharedMaterial = MaterialManager.Instance.Get(materialName);
 
-    var mesh = new Mesh();
+    mesh = new Mesh();
     mesh.Clear();
 
     mesh.vertices = vertices;
