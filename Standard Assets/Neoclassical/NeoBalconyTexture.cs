@@ -13,16 +13,13 @@ public class NeoBalconyTexture : ProceduralTexture
   public float spaceBetweenBorders;
   public float ratio;
     
-  //private int _vOutBorderWidth;
-  //private int _vInBorderWidth;
-  //private int _vInBorderOffset;
-    
-  //private int _hInBorderWidth;
-  //private int _topOutBorderWidth;
-  //private int _topInBorderOffset;
-  //private int _botInBorderOffset;
-
-  private List<TextureLine> lines = new List<TextureLine>();
+  private int _vOutBorderWidth;
+  private int _vInBorderWidth;
+  private int _vInBorderOffset;
+  private int _hInBorderWidth;
+  private int _topOutBorderWidth;
+  private int _topInBorderOffset;
+  private int _botInBorderOffset;
 
   /*************** CONSTRUCTORS ***************/
 
@@ -54,17 +51,17 @@ public class NeoBalconyTexture : ProceduralTexture
     spaceBetweenBorders = 0.06f;
   }
 
-  public void CalculateLines ()
+  public override void CalculateLines ()
   {
-    var _vOutBorderWidth = Mathf.FloorToInt(content.width * outBorderSize);
-    var _topOutBorderWidth = Mathf.FloorToInt(content.height * outBorderSize * 2 * ratio);
+    _vOutBorderWidth    = Mathf.FloorToInt(content.width * outBorderSize);
+    _topOutBorderWidth  = Mathf.FloorToInt(content.height * outBorderSize * 2 * ratio);
 
-    var _vInBorderWidth = Mathf.FloorToInt(content.width * inBorderSize);
-    var _hInBorderWidth = Mathf.FloorToInt(content.height * inBorderSize * ratio);
-    
-    var _vInBorderOffset = Mathf.FloorToInt(content.width * spaceBetweenBorders) +
-                                        _vOutBorderWidth;
-    var _botInBorderOffset = Mathf.FloorToInt(content.height * spaceBetweenBorders * ratio);
+    _vInBorderWidth     = Mathf.FloorToInt(content.width * inBorderSize);
+    _hInBorderWidth     = Mathf.FloorToInt(content.height * inBorderSize * ratio);
+
+    _vInBorderOffset    = Mathf.FloorToInt(content.width * spaceBetweenBorders) +
+                                           _vOutBorderWidth;
+    _botInBorderOffset  = Mathf.FloorToInt(content.height * spaceBetweenBorders * ratio);
 
     var halfWidth = content.width >> 1;
 
