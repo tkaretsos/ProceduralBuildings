@@ -30,7 +30,7 @@ public class ComponentFrame : DrawableObject
     {
       boundaries[i] = parentComponent.boundaries[i];
       // subtract a small amount to prevent overlaping triangles
-      boundaries[i + 4] = boundaries[i] - (parentComponent.depth - 0.001f) * parentComponent.normal;
+      boundaries[i + 4] = boundaries[i] - parentComponent.depth * parentComponent.normal;
     }
 
     FindMeshOrigin(boundaries[0],
@@ -46,21 +46,51 @@ public class ComponentFrame : DrawableObject
 
   public override void FindVertices ()
   {
-    vertices = boundaries;
+    vertices = new Vector3[boundaries.Length << 1];
+    for (var i = 0; i < boundaries.Length; ++i)
+      vertices[i] = vertices[i + 8] = boundaries[i];
   }
 
   public override void FindTriangles ()
   {
-    triangles = new int[] {
-      0, 4, 7,
-      0, 7, 3,
-      7, 6, 2,
-      7, 2, 3,
-      6, 5, 1,
-      6, 1, 2,
-      0, 1, 5,
-      0, 5, 4
-    };
+    triangles = new int[3 * boundaries.Length];
+    var i = 0;
+
+    // right
+    triangles[i++] =  0;
+    triangles[i++] =  4;
+    triangles[i++] =  7;
+
+    triangles[i++] =  0;
+    triangles[i++] =  7;
+    triangles[i++] =  3;
+
+    // left
+    triangles[i++] =  1;
+    triangles[i++] =  2;
+    triangles[i++] =  6;
+
+    triangles[i++] =  1;
+    triangles[i++] =  6;
+    triangles[i++] =  5;
+
+    // bottom
+    triangles[i++] =  8;  // 0 + 8;
+    triangles[i++] =  9;  // 1 + 8;
+    triangles[i++] = 13;  // 5 + 8;
+
+    triangles[i++] =  8;  // 0 + 8;
+    triangles[i++] = 13;  // 5 + 8;
+    triangles[i++] = 12;  // 4 + 8;
+
+    // top
+    triangles[i++] = 10;  // 2 + 8;
+    triangles[i++] = 11;  // 3 + 8;
+    triangles[i++] = 14;  // 6 + 8;
+
+    triangles[i++] = 14;  // 6 + 8;
+    triangles[i++] = 11;  // 3 + 8;
+    triangles[i++] = 15;  // 7 + 8;
   }
 
   public override void Draw ()

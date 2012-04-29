@@ -14,14 +14,35 @@ public sealed class DoorFrame : ComponentFrame
 
   public override void FindTriangles ()
   {
-    triangles = new int[] {
-      0, 4, 7,
-      0, 7, 3,
-      7, 6, 2,
-      7, 2, 3,
-      6, 5, 1,
-      6, 1, 2
-    };
+    triangles = new int[18];
+    var i = 0;
+
+    // right
+    triangles[i++] =  0;
+    triangles[i++] =  4;
+    triangles[i++] =  7;
+
+    triangles[i++] =  0;
+    triangles[i++] =  7;
+    triangles[i++] =  3;
+
+    // left
+    triangles[i++] =  1;
+    triangles[i++] =  2;
+    triangles[i++] =  6;
+
+    triangles[i++] =  1;
+    triangles[i++] =  6;
+    triangles[i++] =  5;
+
+    // top
+    triangles[i++] = 10;  // 2 + 8;
+    triangles[i++] = 11;  // 3 + 8;
+    triangles[i++] = 14;  // 6 + 8;
+
+    triangles[i++] = 14;  // 6 + 8;
+    triangles[i++] = 11;  // 3 + 8;
+    triangles[i++] = 15;  // 7 + 8;
   }
 }
 
