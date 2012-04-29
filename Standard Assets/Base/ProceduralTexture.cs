@@ -22,7 +22,7 @@ public class ProceduralTexture
     content.Apply();
   }
 
-  public sealed void DrawLine (Vector2 p1, Vector2 p2, Color color, int thickness)
+  public void DrawLine (Vector2 p1, Vector2 p2, Color color, int thickness)
   {
     DrawLine(p1, p2, color);
     if (Mathf.Abs(p1.x - p2.x) > Mathf.Abs(p1.y - p2.y))
@@ -44,7 +44,7 @@ public class ProceduralTexture
   /// Implementation of Besenham's line algorithm:
   /// http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm#Simplification
   /// </summary>
-  public sealed void DrawLine (Vector2 p1, Vector2 p2, Color color)
+  public void DrawLine (Vector2 p1, Vector2 p2, Color color)
   {
     int dx = Mathf.Abs((int) (p1.x - p2.x));
     int dy = Mathf.Abs((int) (p1.y - p2.y));
