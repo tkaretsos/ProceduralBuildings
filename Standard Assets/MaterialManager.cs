@@ -44,6 +44,12 @@ public class MaterialManager
     }
   }
 
+  public void Set (string name, Material material)
+  {
+    if (_materials.ContainsKey(name))
+      _materials[name] = material;
+  }
+
   public Material Get (string name)
   {
     return _materials.ContainsKey(name) ? _materials[name] : null;
