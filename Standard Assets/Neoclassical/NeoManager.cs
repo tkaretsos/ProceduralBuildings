@@ -19,6 +19,8 @@ public sealed class NeoManager
   public void Init ()
   {
     CreateBalconyTextures();
+    MaterialManager.Instance.Add("mat_neo_balcony_rail", "Transparent/Cutout/Diffuse",
+                                 TextureManager.Instance.Get("tex_neo_balcony"));
   }
 
   public void CreateNeoclassical (BuildMode mode)
