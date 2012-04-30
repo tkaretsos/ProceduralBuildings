@@ -5,7 +5,15 @@ namespace Thesis {
 
 public sealed class NeoclassicalManager
 {
+  private static readonly NeoclassicalManager _instance = new NeoclassicalManager();
+  public static NeoclassicalManager Instance
+  {
+    get { return _instance; }
+  }
+
   public List<Neoclassical> neo = new List<Neoclassical>();
+
+  private NeoclassicalManager () { }
 
   public void CreateNeoclassical (BuildMode mode)
   {
