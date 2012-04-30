@@ -57,7 +57,7 @@ public class ProceduralTexture
     {
       content.SetPixel((int) p1.x, (int) p1.y, color);
       if (p1.x == p2.x && p1.y == p2.y) break;
-      err2 = 2 * err;
+      err2 = err << 1;
       if (err2 > -dy)
       {
         err -= dy;
