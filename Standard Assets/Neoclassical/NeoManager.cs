@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Thesis.Base;
 
 namespace Thesis {
 
@@ -14,6 +15,11 @@ public sealed class NeoManager
   public List<Neoclassical> neo = new List<Neoclassical>();
 
   private NeoManager () { }
+
+  public void Init ()
+  {
+    CreateBalconyTextures();
+  }
 
   public void CreateNeoclassical (BuildMode mode)
   {
@@ -107,6 +113,89 @@ public sealed class NeoManager
     n.CombineSubmeshes();
     n.gameObject.SetActiveRecursively(true);
     neo.Add(n);
+  }
+
+  private void CreateBalconyTextures ()
+  {
+    var tex = new ProceduralTexture();
+    tex.content = new Texture2D(1024, 512);
+    tex.Clear();
+
+    var ratio = 2f;
+    var outBorderSize = 0.015f;
+    var inBorderSize = 0.01f;
+    var spaceBetweenBorders = 0.06f;
+
+    int vOutBorderWidth    = Mathf.FloorToInt(tex.content.width * outBorderSize);
+    int topOutBorderWidth  = Mathf.FloorToInt(tex.content.height * outBorderSize * 2 * ratio);
+    int vInBorderWidth     = Mathf.FloorToInt(tex.content.width * inBorderSize);
+    int hInBorderWidth     = Mathf.FloorToInt(tex.content.height * inBorderSize * ratio);
+    int vInBorderOffset    = Mathf.FloorToInt(tex.content.width * spaceBetweenBorders) +
+                                              vOutBorderWidth;
+    int botInBorderOffset  = Mathf.FloorToInt(tex.content.height * spaceBetweenBorders * ratio);
+
+    var halfWidth = tex.content.width >> 1;
+
+    int topOutBorderY    = tex.content.height - (topOutBorderWidth >> 1);
+    int botInBorderY     = botInBorderOffset + (hInBorderWidth >> 1);
+    int topInBorderY     = tex.content.height - botInBorderY - topOutBorderWidth;
+    int leftOutBorderX   = (vOutBorderWidth >> 1) - 1;
+    int rightOutBorderX  = tex.content.width - leftOutBorderX;
+    int leftInBorderX    = vInBorderOffset + (vInBorderWidth >> 1);
+    int rightInBorderX   = tex.content.width - leftInBorderX;
+
+    // top out border
+    tex.lines.Add(new TextureLine(0, topOutBorderY,
+                                  tex.content.width, topOutBorderY,
+                                  Color.black, topOutBorderWidth));
+    // bot in border
+    tex.lines.Add(new TextureLine(0, botInBorderY,
+                                  tex.content.width, botInBorderY,
+                                  Color.black, hInBorderWidth));
+    // top in border
+    tex.lines.Add(new TextureLine(0, topInBorderY,
+                                  tex.content.width, topInBorderY,
+                                  Color.black, hInBorderWidth));
+    // left out border
+    tex.lines.Add(new TextureLine(leftOutBorderX, 0,
+                                  leftOutBorderX, tex.content.height,
+                                  Color.black, vOutBorderWidth));
+    // right out border
+    tex.lines.Add(new TextureLine(rightOutBorderX, 0,
+                                  rightOutBorderX, tex.content.height,
+                                  Color.black, vOutBorderWidth));
+    // left in border
+    tex.lines.Add(new TextureLine(leftInBorderX, 0,
+                                  leftInBorderX, tex.content.width,
+                                  Color.black, vInBorderWidth));
+    // right in border
+    tex.lines.Add(new TextureLine(rightInBorderX, 0,
+                                  rightInBorderX, tex.content.width,
+                                  Color.black, vInBorderWidth));
+    // middle border
+    tex.lines.Add(new TextureLine(halfWidth, 0,
+                                  halfWidth, tex.content.height,
+                                  Color.black, vInBorderWidth));
+    // left inner box
+    tex.lines.Add(new TextureLine(leftInBorderX, botInBorderY + 2,
+                                  halfWidth + 1, topInBorderY,
+                                  Color.black, vInBorderWidth));
+
+    tex.lines.Add(new TextureLine(leftInBorderX, topInBorderY - 1,
+                                  halfWidth + 1, botInBorderY,
+                                  Color.black, vInBorderWidth));
+    // right inner box
+    tex.lines.Add(new TextureLine(halfWidth + 1, botInBorderY,
+                                  rightInBorderX, topInBorderY,
+                                  Color.black, vInBorderWidth));
+
+    tex.lines.Add(new TextureLine(halfWidth + 1, topInBorderY,
+                                  rightInBorderX, botInBorderY,
+                                  Color.black, vInBorderWidth));
+
+    tex.Draw();
+
+    TextureManager.Instance.Add("tex_neo_balcony", tex);
   }
 }
 
