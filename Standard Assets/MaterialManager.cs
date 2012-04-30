@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace Thesis {
 
-public class MaterialManager
+public sealed class MaterialManager
 {
   private static readonly MaterialManager _instance = new MaterialManager();
   public static MaterialManager Instance
@@ -24,7 +24,7 @@ public class MaterialManager
     _materials = new Dictionary<string, Material>();
     Object[] mats = Resources.LoadAll("Materials", typeof(Material));
     for (var i = 0; i < mats.Length; ++i)
-      _materials.Add(((Material) mats[i]).name, (Material) mats[i]);
+      _materials.Add(mats[i].name, (Material) mats[i]);
   }
 
   public void Add (string name, Material material)
