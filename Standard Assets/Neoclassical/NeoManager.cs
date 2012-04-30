@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace Thesis {
 
-public sealed class NeoclassicalManager
+public sealed class NeoManager
 {
-  private static readonly NeoclassicalManager _instance = new NeoclassicalManager();
-  public static NeoclassicalManager Instance
+  private static readonly NeoManager _instance = new NeoManager();
+  public static NeoManager Instance
   {
     get { return _instance; }
   }
 
   public List<Neoclassical> neo = new List<Neoclassical>();
 
-  private NeoclassicalManager () { }
+  private NeoManager () { }
 
   public void CreateNeoclassical (BuildMode mode)
   {
