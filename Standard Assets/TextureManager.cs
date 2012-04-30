@@ -20,17 +20,6 @@ public sealed class TextureManager
     _textures = new Dictionary<string, ProceduralTexture>();
   }
 
-  public void Add (string name, Type type)
-  {
-    if (!_textures.ContainsKey(name))
-    {
-      ConstructorInfo[] ctors = type.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
-      var texture = (ProceduralTexture) ctors[0].Invoke(new object[] { });
-      texture.Draw();
-      _textures.Add(name, texture);
-    }
-  }
-
   public void Add (string name, ProceduralTexture texture)
   {
     if (!_textures.ContainsKey(name))
