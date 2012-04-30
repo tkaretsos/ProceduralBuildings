@@ -10,16 +10,19 @@ public class ProceduralTexture
 
   public List<TextureLine> lines = new List<TextureLine>();
 
-  public virtual void CalculateLines () { }
-
   public virtual void Draw ()
   {
-    CalculateLines();
-
     foreach (TextureLine line in lines)
       DrawLine(line.start, line.end, line.color, line.thickness);
 
     content.Apply();
+  }
+
+  public void Clear ()
+  {
+    for (var x = 0; x < content.width; ++x)
+      for (var y = 0; y < content.height; ++y)
+        content.SetPixel(x, y, Color.clear);
   }
 
   public void DrawLine (Vector2 p1, Vector2 p2, Color color, int thickness)
