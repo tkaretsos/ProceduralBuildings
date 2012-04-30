@@ -31,6 +31,18 @@ public sealed class TextureManager
     }
   }
 
+  public void Add (string name, ProceduralTexture texture)
+  {
+    if (!_textures.ContainsKey(name))
+      _textures.Add(name, texture);
+  }
+
+  public void Set (string name, ProceduralTexture texture)
+  {
+    if (_textures.ContainsKey(name))
+      _textures[name] = texture;
+  }
+
   public ProceduralTexture Get (string name)
   {
     return _textures.ContainsKey(name) ? _textures[name] : null;
