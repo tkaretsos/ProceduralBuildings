@@ -58,6 +58,14 @@ public class ComponentBody : DrawableObject
   {
     base.Draw();
 
+    var uvs = new Vector2[mesh.vertices.Length];
+    uvs[1] = new Vector2(0f, 0f);
+    uvs[0] = new Vector2(1f, 0f);
+    uvs[2] = new Vector2(0f, 1f);
+    uvs[3] = new Vector2(1f, 1f);
+
+    mesh.uv = uvs;
+
     gameObject.transform.position = meshOrigin + parentBuilding.meshOrigin;
     gameObject.transform.parent = parentBuilding.parent.gameObject.transform;
   }
