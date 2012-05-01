@@ -17,6 +17,8 @@ public sealed class MaterialManager
 
   private Dictionary<string, Material> _materials;
 
+  private Dictionary<string, List<Material>> _collections;
+
   private MaterialManager () { }
 
   public void Init ()
@@ -33,6 +35,21 @@ public sealed class MaterialManager
       _materials.Add(name, material);
   }
 
+  public void AddToCollection (string name, Material material)
+  {
+    if (_collections.ContainsKey(name))
+    {
+      if (!_collections[name].Contains(material))
+        _collections[name].Add(material);
+    }
+    else
+    {
+      var list = new List<Material>();
+      list.Add(material);
+      _collections.Add(name, list);
+    }
+  }
+
   public void Add (string name, string shaderName, ProceduralTexture texture)
   {
     if (!_materials.ContainsKey(name))
@@ -41,6 +58,25 @@ public sealed class MaterialManager
       mat.name = name;
       mat.mainTexture = texture.content;
       _materials.Add(mat.name, mat);
+    }
+  }
+
+  public void AddToCollection (string collectionName, string shaderName, 
+                               ProceduralTexture texture)
+  {
+    var mat = new Material(Shader.Find(shaderName));
+    mat.mainTexture = texture.content;
+    if (_collections.ContainsKey(collectionName))
+    {
+      mat.name = collectionName + "_" + (_collections[collectionName].Count + 1).ToString();
+      _collections[collectionName].Add(mat);
+    }
+    else
+    {
+      mat.name = collectionName + "_1";
+      var list = new List<Material>();
+      list.Add(mat);
+      _collections.Add(collectionName, list);
     }
   }
 
@@ -53,6 +89,11 @@ public sealed class MaterialManager
   public Material Get (string name)
   {
     return _materials.ContainsKey(name) ? _materials[name] : null;
+  }
+
+  public List<Material> GetCollection (string name)
+  {
+    return _collections.ContainsKey(name) ? _collections[name] : null;
   }
 }
 
