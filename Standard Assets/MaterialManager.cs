@@ -19,11 +19,14 @@ public sealed class MaterialManager
 
   private Dictionary<string, List<Material>> _collections;
 
-  private MaterialManager () { }
+  private MaterialManager ()
+  {
+    _materials = new Dictionary<string,Material>();
+    _collections = new Dictionary<string,List<Material>>();
+  }
 
   public void Init ()
   {
-    _materials = new Dictionary<string, Material>();
     Object[] mats = Resources.LoadAll("Materials", typeof(Material));
     for (var i = 0; i < mats.Length; ++i)
       _materials.Add(mats[i].name, (Material) mats[i]);

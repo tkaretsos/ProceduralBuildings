@@ -20,6 +20,7 @@ public sealed class TextureManager
   private TextureManager ()
   {
     _textures = new Dictionary<string, ProceduralTexture>();
+    _collections = new Dictionary<string,List<ProceduralTexture>>();
   }
 
   public void Add (string name, ProceduralTexture texture)
