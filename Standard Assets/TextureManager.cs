@@ -25,16 +25,23 @@ public sealed class TextureManager
   public void Add (string name, ProceduralTexture texture)
   {
     if (!_textures.ContainsKey(name))
+    {
+      texture.content.name = name;
       _textures.Add(name, texture);
+    }
   }
 
   public void AddToCollection (string name, ProceduralTexture texture)
   {
     if (_collections.ContainsKey(name))
+    {
+      texture.content.name = name + "_" + (_collections[name].Count + 1).ToString();
       _collections[name].Add(texture);
+    }
     else
     {
       var list = new List<ProceduralTexture>();
+      texture.content.name = name + "_1";
       list.Add(texture);
       _collections.Add(name, list);
     }
