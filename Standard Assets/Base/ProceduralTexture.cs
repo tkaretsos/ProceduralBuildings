@@ -8,7 +8,19 @@ public class ProceduralTexture
 {
   public Texture2D content;
 
-  public List<TextureLine> lines = new List<TextureLine>();
+  public List<TextureLine> lines;
+
+  public ProceduralTexture (int width = 256, int height = 128)
+  {
+    content = new Texture2D(width, height);
+    lines = new List<TextureLine>();
+  }
+
+  public ProceduralTexture (ProceduralTexture copy)
+  {
+    this.lines = new List<TextureLine>(copy.lines);
+    this.content = copy.content;
+  }
 
   public virtual void Draw ()
   {
