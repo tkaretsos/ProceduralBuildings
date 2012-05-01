@@ -16,12 +16,6 @@ public class ProceduralTexture
     lines = new List<TextureLine>();
   }
 
-  public ProceduralTexture (ProceduralTexture copy)
-  {
-    this.lines = new List<TextureLine>(copy.lines);
-    this.content = copy.content;
-  }
-
   public virtual void Draw ()
   {
     foreach (TextureLine line in lines)
