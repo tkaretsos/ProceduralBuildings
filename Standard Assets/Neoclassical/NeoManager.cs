@@ -208,101 +208,110 @@ public sealed class NeoManager
 
   public void CreateWindowTextures ()
   {
-    var tex = new ProceduralTexture(512, 1024);
-    tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
-
     var color = Color.white;
     var th = 22;
-    var half_th = th >> 1;
-
-    // borders
-    tex.lines.Add(new TextureLine(half_th, 0, half_th, tex.content.height,
-                                  color, th));
-    tex.lines.Add(new TextureLine(0, half_th, tex.content.width, half_th,
-                                  color, th));
-    tex.lines.Add(new TextureLine(tex.content.width - half_th, 0,
-                                  tex.content.width - half_th, tex.content.height,
-                                  color, th));
-    tex.lines.Add(new TextureLine(0, tex.content.height - half_th,
-                                  tex.content.width, tex.content.height - half_th,
-                                  color, th));
-    // borders
 
     // 1st texture
-    var temp = new ProceduralTexture(tex);
-    var h = (temp.content.height * 3) >> 2;
-    temp.lines.Add(new TextureLine(0, h, temp.content.width, h,
+    var tex = new ProceduralTexture(512, 1024);
+    tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
+    AddBorders(ref tex, color, th);
+    var h = (tex.content.height * 3) >> 2;
+    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
                                    color, th));
-    temp.lines.Add(new TextureLine(temp.content.width >> 1, 0,
-                                   temp.content.width >> 1, h,
+    tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
+                                   tex.content.width >> 1, h,
                                    color, th << 1));
-    temp.Draw();
-    TextureManager.Instance.Add("tex_neo_window_1", temp);
+    tex.Draw();
+    TextureManager.Instance.AddToCollection("tex_neo_window", tex);
     // 1st texture
 
     // 2nd texture
-    temp = new ProceduralTexture(tex);
-    h = (temp.content.height * 3) >> 2;
-    temp.lines.Add(new TextureLine(0, h, temp.content.width, h,
+    tex = new ProceduralTexture(512, 1024);
+    tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
+    AddBorders(ref tex, color, th);
+    h = (tex.content.height * 3) >> 2;
+    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
                                    color, th));
-    temp.lines.Add(new TextureLine(temp.content.width >> 1, 0,
-                                   temp.content.width >> 1, h,
+    tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
+                                   tex.content.width >> 1, h,
                                    color, th << 1));
-    temp.lines.Add(new TextureLine(0, h >> 1, temp.content.width, h >> 1,
+    tex.lines.Add(new TextureLine(0, h >> 1, tex.content.width, h >> 1,
                                    color, th));
-    temp.Draw();
-    TextureManager.Instance.Add("tex_neo_window_2", temp);
+    tex.Draw();
+    TextureManager.Instance.AddToCollection("tex_neo_window", tex);
     // 2nd texture
 
     // 3rd texture
-    temp = new ProceduralTexture(tex);
-    h = temp.content.height / 3;
-    temp.lines.Add(new TextureLine(temp.content.width >> 1, 0,
-                                   temp.content.width >> 1, temp.content.height,
+    tex = new ProceduralTexture(512, 1024);
+    tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
+    AddBorders(ref tex, color, th);
+    h = tex.content.height / 3;
+    tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
+                                   tex.content.width >> 1, tex.content.height,
                                    color, th << 1));
-    temp.lines.Add(new TextureLine(0, h, temp.content.width, h,
+    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
                                    color, th));
-    temp.lines.Add(new TextureLine(0, h << 1, temp.content.width, h << 1,
+    tex.lines.Add(new TextureLine(0, h << 1, tex.content.width, h << 1,
                                    color, th));
-    temp.Draw();
-    TextureManager.Instance.Add("tex_neo_window_3", temp);
+    tex.Draw();
+    TextureManager.Instance.AddToCollection("tex_neo_window", tex);
     // 3rd texture
 
     // 4th texture
-    temp = new ProceduralTexture(tex);
-    h = temp.content.height >> 2;
-    temp.lines.Add(new TextureLine(0, h, temp.content.width, h,
+    tex = new ProceduralTexture(512, 1024);
+    tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
+    AddBorders(ref tex, color, th);
+    h = tex.content.height >> 2;
+    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
                                    color, th));
-    h += temp.content.height >> 2;
-    temp.lines.Add(new TextureLine(0, h, temp.content.width, h,
+    h += tex.content.height >> 2;
+    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
                                    color, th));
-    h += temp.content.height >> 2;
-    temp.lines.Add(new TextureLine(0, h, temp.content.width, h,
+    h += tex.content.height >> 2;
+    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
                                    color, th));
-    temp.lines.Add(new TextureLine(temp.content.width >> 1, 0,
-                                   temp.content.width >> 1, h,
+    tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
+                                   tex.content.width >> 1, h,
                                    color, th << 1));
-    temp.Draw();
-    TextureManager.Instance.Add("tex_neo_window_4", temp);
+    tex.Draw();
+    TextureManager.Instance.AddToCollection("tex_neo_window", tex);
     // 4th texture
 
     // 5th texture
-    temp = new ProceduralTexture(tex);
-    h = temp.content.height >> 2;
-    temp.lines.Add(new TextureLine(0, h, temp.content.width, h,
+    tex = new ProceduralTexture(512, 1024);
+    tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
+    AddBorders(ref tex, color, th);
+    h = tex.content.height >> 2;
+    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
                                    color, th));
-    h += temp.content.height >> 2;
-    temp.lines.Add(new TextureLine(0, h, temp.content.width, h,
+    h += tex.content.height >> 2;
+    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
                                    color, th));
-    h += temp.content.height >> 2;
-    temp.lines.Add(new TextureLine(0, h, temp.content.width, h,
+    h += tex.content.height >> 2;
+    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
                                    color, th));
-    temp.lines.Add(new TextureLine(temp.content.width >> 1, 0,
-                                   temp.content.width >> 1, h,
+    tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
+                                   tex.content.width >> 1, h,
                                    color, th << 1));
-    temp.Draw();
-    TextureManager.Instance.Add("tex_neo_window_5", temp);
+    tex.Draw();
+    TextureManager.Instance.AddToCollection("tex_neo_window", tex);
     // 5th texture
+  }
+
+  private void AddBorders (ref ProceduralTexture tex, Color color, int thickness)
+  {
+    tex.lines.Add(new TextureLine(thickness >> 1, 0,
+                                  thickness >> 1, tex.content.height,
+                                  color, thickness));
+    tex.lines.Add(new TextureLine(0, thickness >> 1,
+                                  tex.content.width, thickness >> 1,
+                                  color, thickness));
+    tex.lines.Add(new TextureLine(tex.content.width - (thickness >> 1), 0,
+                                  tex.content.width - (thickness >> 1), tex.content.height,
+                                  color, thickness));
+    tex.lines.Add(new TextureLine(0, tex.content.height - (thickness >> 1),
+                                  tex.content.width, tex.content.height - (thickness >> 1),
+                                  color, thickness));
   }
 }
 
