@@ -120,11 +120,6 @@ public class DrawableObject : ProceduralObject,
   {
     get { return meshFilter; }
   }
-
-  Material ICombinable.material
-  {
-    get { return material; }
-  }
 }
 
 } // namespace Thesis
