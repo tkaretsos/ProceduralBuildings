@@ -26,7 +26,7 @@ public sealed class NeoWindow : Base.Window
 
     body = new Base.WindowBody(this);
     body.name = "neo_window_body";
-    body.material = MaterialManager.Instance.Get("Glass");
+    body.material = ((Neoclassical) parentBuilding.parent).windowMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
   }
 
