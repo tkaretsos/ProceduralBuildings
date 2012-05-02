@@ -20,17 +20,12 @@ public sealed class NeoManager
   {
     CreateBalconyTextures();
     CreateWindowTextures();
-    MaterialManager.Instance.Add("mat_neo_window_1", "Diffuse",
-                                 TextureManager.Instance.Get("tex_neo_window_1"));
-    MaterialManager.Instance.Add("mat_neo_window_2", "Diffuse",
-                                 TextureManager.Instance.Get("tex_neo_window_2"));
-    MaterialManager.Instance.Add("mat_neo_window_3", "Diffuse",
-                                 TextureManager.Instance.Get("tex_neo_window_3"));
-    MaterialManager.Instance.Add("mat_neo_window_4", "Diffuse",
-                                 TextureManager.Instance.Get("tex_neo_window_4"));
-    MaterialManager.Instance.Add("mat_neo_window_5", "Diffuse",
-                                 TextureManager.Instance.Get("tex_neo_window_5"));
-    MaterialManager.Instance.Add("mat_neo_balcony_rail", "Transparent/Cutout/Diffuse",
+    foreach (ProceduralTexture tex
+              in TextureManager.Instance.GetCollection("tex_neo_window"))
+      MaterialManager.Instance.AddToCollection("mat_neo_window", "Diffuse", tex);
+
+    MaterialManager.Instance.Add("mat_neo_balcony_rail",
+                                 "Transparent/Cutout/Diffuse",
                                  TextureManager.Instance.Get("tex_neo_balcony"));
   }
 
