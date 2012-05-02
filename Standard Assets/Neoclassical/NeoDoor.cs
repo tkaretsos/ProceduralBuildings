@@ -24,13 +24,13 @@ public sealed class NeoDoor : Base.Door
 
     frame = new Base.DoorFrame(this);
     frame.name = "neo_door_frame";
-    frame.material = "ComponentFrame";
-    parentBuilding.parent.AddCombinable(frame.material, frame);
+    frame.material = MaterialManager.Instance.Get("ComponentFrame");
+    parentBuilding.parent.AddCombinable(frame.material.name, frame);
 
     body = new Base.DoorBody(this);
     body.name = "neo_door_body";
-    body.material = "DoorBody";
-    parentBuilding.parent.AddCombinable(body.material, body);
+    body.material = MaterialManager.Instance.Get("DoorBody");
+    parentBuilding.parent.AddCombinable(body.material.name, body);
   }
 
   public override void Draw ()

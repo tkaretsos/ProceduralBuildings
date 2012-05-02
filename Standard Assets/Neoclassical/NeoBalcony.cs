@@ -20,23 +20,23 @@ public sealed class NeoBalcony : Base.Balcony
 
     frame = new Base.BalconyFrame(this);
     frame.name = "neo_balcony_frame";
-    frame.material = "ComponentFrame";
-    parentBuilding.parent.AddCombinable(frame.material, frame);
+    frame.material = MaterialManager.Instance.Get("ComponentFrame");
+    parentBuilding.parent.AddCombinable(frame.material.name, frame);
 
     body = new Base.BalconyBody(this);
     body.name = "neo_balcony_body";
-    body.material = "Glass";
-    parentBuilding.parent.AddCombinable(body.material, body);
+    body.material = MaterialManager.Instance.Get("Glass");
+    parentBuilding.parent.AddCombinable(body.material.name, body);
 
     balconyFloor = new Base.BalconyFloor(this);
     balconyFloor.name = "neo_balcony_floor";
-    balconyFloor.material = "Building";
-    parentBuilding.parent.AddCombinable(balconyFloor.material, balconyFloor);
+    balconyFloor.material = MaterialManager.Instance.Get("Building");
+    parentBuilding.parent.AddCombinable(balconyFloor.material.name, balconyFloor);
 
     balconyRail = new Base.BalconyRail(balconyFloor);
     balconyRail.name = "neo_balcony_rail";
-    balconyRail.material = "mat_neo_balcony_rail";
-    parentBuilding.parent.AddCombinable(balconyRail.material, balconyRail);
+    balconyRail.material = MaterialManager.Instance.Get("mat_neo_balcony_rail");
+    parentBuilding.parent.AddCombinable(balconyRail.material.name, balconyRail);
   }
 
   /*************** METHODS ***************/

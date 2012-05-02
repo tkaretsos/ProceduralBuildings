@@ -21,13 +21,13 @@ public sealed class NeoWindow : Base.Window
 
     frame = new Base.WindowFrame(this);
     frame.name = "neo_window_frame";
-    frame.material = "ComponentFrame";
-    parentBuilding.parent.AddCombinable(frame.material, frame);
+    frame.material = MaterialManager.Instance.Get("ComponentFrame");
+    parentBuilding.parent.AddCombinable(frame.material.name, frame);
 
     body = new Base.WindowBody(this);
     body.name = "neo_window_body";
-    body.material = "Glass";
-    parentBuilding.parent.AddCombinable(body.material, body);
+    body.material = MaterialManager.Instance.Get("Glass");
+    parentBuilding.parent.AddCombinable(body.material.name, body);
   }
 
   /*************** METHODS ***************/
