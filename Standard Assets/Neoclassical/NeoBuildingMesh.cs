@@ -38,9 +38,9 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
     : base(parent)
   {
     name = "neo_building_mesh";
-    materialName = "Building";
+    material = "Building";
 
-    parent.AddCombinable(materialName, this);
+    parent.AddCombinable(material, this);
 
     floorHeight = Random.Range(4.25f, 4.75f);
     floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});

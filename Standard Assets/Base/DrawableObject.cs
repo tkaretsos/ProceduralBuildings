@@ -11,7 +11,7 @@ public class DrawableObject : ProceduralObject,
 
   public string       name;
 
-  public string       materialName;
+  public string       material;
 
   public MeshFilter   meshFilter;
 
@@ -31,7 +31,7 @@ public class DrawableObject : ProceduralObject,
   {
     this.name = name;
     if (materialName != null)
-      this.materialName = materialName;
+      this.material = materialName;
   }
 
   /*************** METHODS ***************/
@@ -78,8 +78,8 @@ public class DrawableObject : ProceduralObject,
     gameObject.isStatic = true;
 
     var renderer = gameObject.AddComponent<MeshRenderer>();
-    if (materialName != null)
-      renderer.sharedMaterial = MaterialManager.Instance.Get(materialName);
+    if (material != null)
+      renderer.sharedMaterial = MaterialManager.Instance.Get(material);
 
     mesh = new Mesh();
     mesh.Clear();
@@ -123,7 +123,7 @@ public class DrawableObject : ProceduralObject,
 
   string ICombinable.materialName
   {
-    get { return materialName; }
+    get { return material; }
   }
 }
 
