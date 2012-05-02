@@ -121,7 +121,7 @@ public class DrawableObject : ProceduralObject,
     get { return meshFilter; }
   }
 
-  string ICombinable.materialName
+  string ICombinable.material
   {
     get { return material; }
   }

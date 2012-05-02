@@ -8,7 +8,7 @@ public interface ICombinable
 
   UnityEngine.MeshFilter meshFilter { get; }
 
-  string materialName { get; }
+  UnityEngine.Material   material   { get; }
 }
 
 } // namespace Interface
