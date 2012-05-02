@@ -45,7 +45,7 @@ public class Building
       gobject.transform.parent = gameObject.transform;
       var filter = gobject.AddComponent<MeshFilter>();
       var renderer = gobject.AddComponent<MeshRenderer>();
-      renderer.sharedMaterial = MaterialManager.Instance.Get(key);
+      renderer.sharedMaterial = _combinables[key][0].material;
 
       var filters = new MeshFilter[_combinables[key].Count];
       for (var i = 0; i < _combinables[key].Count; ++i)
