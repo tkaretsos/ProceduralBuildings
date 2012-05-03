@@ -18,7 +18,7 @@ public sealed class NeoManager
 
   public void Init ()
   {
-    CreateBalconyTextures();
+    CreateBalconyRailTextures();
     CreateWindowTextures();
     foreach (ProceduralTexture tex
               in TextureManager.Instance.GetCollection("tex_neo_window"))
@@ -123,7 +123,7 @@ public sealed class NeoManager
     neo.Add(n);
   }
 
-  private void CreateBalconyTextures ()
+  private void CreateBalconyRailTextures ()
   {
     var tex = new ProceduralTexture();
     tex.content = new Texture2D(1024, 512);
@@ -210,17 +210,19 @@ public sealed class NeoManager
   {
     var color = Color.white;
     var th = 22;
+    ProceduralTexture tex;
+    int h;
 
     // 1st texture
-    var tex = new ProceduralTexture(512, 1024);
+    tex = new ProceduralTexture(512, 1024);
     tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
     AddBorders(ref tex, color, th);
-    var h = (tex.content.height * 3) >> 2;
+    h = (tex.content.height * 3) >> 2;
     tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
-                                   color, th));
+                                  color, th));
     tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
-                                   tex.content.width >> 1, h,
-                                   color, th << 1));
+                                  tex.content.width >> 1, h,
+                                  color, th << 1));
     tex.Draw();
     TextureManager.Instance.AddToCollection("tex_neo_window", tex);
     // 1st texture
@@ -231,12 +233,12 @@ public sealed class NeoManager
     AddBorders(ref tex, color, th);
     h = (tex.content.height * 3) >> 2;
     tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
-                                   color, th));
+                                  color, th));
     tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
-                                   tex.content.width >> 1, h,
-                                   color, th << 1));
+                                  tex.content.width >> 1, h,
+                                  color, th << 1));
     tex.lines.Add(new TextureLine(0, h >> 1, tex.content.width, h >> 1,
-                                   color, th));
+                                  color, th));
     tex.Draw();
     TextureManager.Instance.AddToCollection("tex_neo_window", tex);
     // 2nd texture
@@ -245,14 +247,10 @@ public sealed class NeoManager
     tex = new ProceduralTexture(512, 1024);
     tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
     AddBorders(ref tex, color, th);
-    h = tex.content.height / 3;
+    AddBalancedLines(ref tex, 2, color, th);
     tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
-                                   tex.content.width >> 1, tex.content.height,
-                                   color, th << 1));
-    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
-                                   color, th));
-    tex.lines.Add(new TextureLine(0, h << 1, tex.content.width, h << 1,
-                                   color, th));
+                                  tex.content.width >> 1, tex.content.height,
+                                  color, th << 1));
     tex.Draw();
     TextureManager.Instance.AddToCollection("tex_neo_window", tex);
     // 3rd texture
@@ -261,18 +259,10 @@ public sealed class NeoManager
     tex = new ProceduralTexture(512, 1024);
     tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
     AddBorders(ref tex, color, th);
-    h = tex.content.height >> 2;
-    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
-                                   color, th));
-    h += tex.content.height >> 2;
-    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
-                                   color, th));
-    h += tex.content.height >> 2;
-    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
-                                   color, th));
+    AddBalancedLines(ref tex, 3, color, th);
     tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
-                                   tex.content.width >> 1, h,
-                                   color, th << 1));
+                                  tex.content.width >> 1, (tex.content.height * 3) >> 2,
+                                  color, th << 1));
     tex.Draw();
     TextureManager.Instance.AddToCollection("tex_neo_window", tex);
     // 4th texture
@@ -281,18 +271,10 @@ public sealed class NeoManager
     tex = new ProceduralTexture(512, 1024);
     tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
     AddBorders(ref tex, color, th);
-    h = tex.content.height >> 2;
-    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
-                                   color, th));
-    h += tex.content.height >> 2;
-    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
-                                   color, th));
-    h += tex.content.height >> 2;
-    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
-                                   color, th));
+    AddBalancedLines(ref tex, 3, color, th);
     tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
-                                   tex.content.width >> 1, h,
-                                   color, th << 1));
+                                  tex.content.width >> 1, tex.content.height,
+                                  color, th << 1));
     tex.Draw();
     TextureManager.Instance.AddToCollection("tex_neo_window", tex);
     // 5th texture
@@ -312,6 +294,20 @@ public sealed class NeoManager
     tex.lines.Add(new TextureLine(0, tex.content.height - (thickness >> 1),
                                   tex.content.width, tex.content.height - (thickness >> 1),
                                   color, thickness));
+  }
+
+  private void AddBalancedLines (ref ProceduralTexture tex, int count,
+                                 Color color, int thickness)
+  {
+    int interval = tex.content.height / (count + 1);
+    int h = 0;
+    for (int i = 0; i < count; ++i)
+    {
+      h+= interval;
+      tex.lines.Add(new TextureLine(0, h,
+                                    tex.content.width, h,
+                                    color, thickness));
+    }
   }
 }
 
