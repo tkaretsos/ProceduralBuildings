@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class BuildingController : MonoBehaviour
 {
-	void Start ()
+  void Start ()
   {
     MaterialManager.Instance.Init();
     NeoManager.Instance.Init();
