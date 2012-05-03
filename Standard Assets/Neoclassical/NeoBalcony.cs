@@ -25,7 +25,7 @@ public sealed class NeoBalcony : Base.Balcony
 
     body = new Base.BalconyBody(this);
     body.name = "neo_balcony_body";
-    body.material = MaterialManager.Instance.Get("Glass");
+    body.material = ((Neoclassical) parentBuilding.parent).balconyDoorMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
 
     balconyFloor = new Base.BalconyFloor(this);
