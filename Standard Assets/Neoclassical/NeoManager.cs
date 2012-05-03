@@ -20,9 +20,14 @@ public sealed class NeoManager
   {
     CreateBalconyRailTextures();
     CreateWindowTextures();
+    CreateBalconyBodyTextures();
     foreach (ProceduralTexture tex
               in TextureManager.Instance.GetCollection("tex_neo_window"))
       MaterialManager.Instance.AddToCollection("mat_neo_window", "Diffuse", tex);
+
+    foreach (ProceduralTexture tex
+              in TextureManager.Instance.GetCollection("tex_neo_balcony_door"))
+      MaterialManager.Instance.AddToCollection("mat_neo_balcony_door", "Diffuse", tex);
 
     MaterialManager.Instance.Add("mat_neo_balcony_rail",
                                  "Transparent/Cutout/Diffuse",
@@ -277,6 +282,80 @@ public sealed class NeoManager
                                   color, th << 1));
     tex.Draw();
     TextureManager.Instance.AddToCollection("tex_neo_window", tex);
+    // 5th texture
+  }
+
+  public void CreateBalconyBodyTextures ()
+  {
+    var color = Color.white;
+    var th = 22;
+    ProceduralTexture tex;
+    int h;
+
+    // 1st texture
+    tex = new ProceduralTexture(512, 1024);
+    tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
+    AddBorders(ref tex, color, th);
+    h = (tex.content.height * 3) >> 2;
+    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
+                                  color, th));
+    tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
+                                  tex.content.width >> 1, h,
+                                  color, th << 1));
+    tex.Draw();
+    TextureManager.Instance.AddToCollection("tex_neo_balcony_door", tex);
+    // 1st texture
+
+    // 2nd texture
+    tex = new ProceduralTexture(512, 1024);
+    tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
+    AddBorders(ref tex, color, th);
+    h = (tex.content.height * 3) >> 2;
+    tex.lines.Add(new TextureLine(0, h, tex.content.width, h,
+                                  color, th));
+    tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
+                                  tex.content.width >> 1, h,
+                                  color, th << 1));
+    tex.lines.Add(new TextureLine(0, h >> 1, tex.content.width, h >> 1,
+                                  color, th));
+    tex.Draw();
+    TextureManager.Instance.AddToCollection("tex_neo_balcony_door", tex);
+    // 2nd texture
+
+    // 3rd texture
+    tex = new ProceduralTexture(512, 1024);
+    tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
+    AddBorders(ref tex, color, th);
+    AddBalancedLines(ref tex, 3, color, th);
+    tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
+                                  tex.content.width >> 1, tex.content.height,
+                                  color, th << 1));
+    tex.Draw();
+    TextureManager.Instance.AddToCollection("tex_neo_balcony_door", tex);
+    // 3rd texture
+
+    // 4th texture
+    tex = new ProceduralTexture(512, 1024);
+    tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
+    AddBorders(ref tex, color, th);
+    AddBalancedLines(ref tex, 4, color, th);
+    tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
+                                  tex.content.width >> 1, (tex.content.height << 2) / 5,
+                                  color, th << 1));
+    tex.Draw();
+    TextureManager.Instance.AddToCollection("tex_neo_balcony_door", tex);
+    // 4th texture
+
+    // 5th texture
+    tex = new ProceduralTexture(512, 1024);
+    tex.SetBackgroundColor(new Color32(25, 0, 143, 255));
+    AddBorders(ref tex, color, th);
+    AddBalancedLines(ref tex, 4, color, th);
+    tex.lines.Add(new TextureLine(tex.content.width >> 1, 0,
+                                  tex.content.width >> 1, tex.content.height,
+                                  color, th << 1));
+    tex.Draw();
+    TextureManager.Instance.AddToCollection("tex_neo_balcony_door", tex);
     // 5th texture
   }
 
