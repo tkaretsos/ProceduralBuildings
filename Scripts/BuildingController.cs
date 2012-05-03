@@ -8,10 +8,10 @@ public class BuildingController : MonoBehaviour
   {
     MaterialManager.Instance.Init();
     NeoManager.Instance.Init();
-	  NeoManager.Instance.CreateNeoclassical(BuildMode.Three);
-	}
+    NeoManager.Instance.CreateNeoclassical(BuildMode.Three);
+  }
 
-	void Update ()
+  void Update ()
   {
     if (Input.GetKeyUp(KeyCode.Alpha1))
     {
@@ -43,5 +43,5 @@ public class BuildingController : MonoBehaviour
       NeoManager.Instance.DestroyBuildings();
       NeoManager.Instance.CreateNeoclassical(BuildMode.Five);
     }
-	}
+  }
 }
