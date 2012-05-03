@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Thesis {
 
 public class Neoclassical : Base.Building
 {
   public readonly Material windowMaterial;
+
+  public readonly Material balconyDoorMaterial;
 
   /*************** CONSTRUCTORS ***************/
 
@@ -13,7 +16,11 @@ public class Neoclassical : Base.Building
   {
     // find window material randomly
     var list = MaterialManager.Instance.GetCollection("mat_neo_window");
-    windowMaterial = list[Random.Range(0, list.Count - 1)];
+    var num = Random.Range(0, list.Count - 1);
+    windowMaterial = list[num];
+
+    list = MaterialManager.Instance.GetCollection("mat_neo_balcony_door");
+    balconyDoorMaterial = list[num];
 
     // must be _after_ the initialization of this object
     buildingMesh = new NeoBuildingMesh(this, p1, p2, p3, p4);
