@@ -29,7 +29,7 @@ public sealed class NeoDoor : Base.Door
 
     body = new Base.DoorBody(this);
     body.name = "neo_door_body";
-    body.material = MaterialManager.Instance.Get("DoorBody");
+    body.material = ((Neoclassical) parentBuilding.parent).doorMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
   }
 
