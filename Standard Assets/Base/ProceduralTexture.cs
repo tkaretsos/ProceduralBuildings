@@ -16,6 +16,12 @@ public class ProceduralTexture
     lines = new List<TextureLine>();
   }
 
+  public ProceduralTexture (Texture2D texture)
+  {
+    content = texture;
+    lines = new List<TextureLine>();
+  }
+
   public virtual void Draw ()
   {
     foreach (TextureLine line in lines)
