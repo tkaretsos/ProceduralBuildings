@@ -27,11 +27,18 @@ public sealed class NeoManager
 
     foreach (ProceduralTexture tex
               in TextureManager.Instance.GetCollection("tex_neo_balcony_door"))
-      MaterialManager.Instance.AddToCollection("mat_neo_balcony_door", "Diffuse", tex);
+      MaterialManager.Instance.AddToCollection("mat_neo_balcony_door",
+                                               "Diffuse", tex);
 
     MaterialManager.Instance.Add("mat_neo_balcony_rail",
                                  "Transparent/Cutout/Diffuse",
                                  TextureManager.Instance.Get("tex_neo_balcony"));
+
+    // door materials
+    foreach (ProceduralTexture tex
+              in TextureManager.Instance.GetCollection("tex_neo_door"))
+      MaterialManager.Instance.AddToCollection("mat_neo_door",
+                                               "Diffuse", tex);
   }
 
   public void CreateNeoclassical (BuildMode mode)
