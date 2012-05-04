@@ -2,6 +2,9 @@ using System;
 using System.Reflection;
 using System.Collections.Generic;
 using Thesis.Base;
+using UnityEngine;
+
+using Object = UnityEngine.Object;
 
 namespace Thesis {
 
@@ -21,6 +24,13 @@ public sealed class TextureManager
   {
     _textures = new Dictionary<string, ProceduralTexture>();
     _collections = new Dictionary<string,List<ProceduralTexture>>();
+  }
+
+  public void Init ()
+  {
+    Object[] texs = Resources.LoadAll("Textures/Neoclassical", typeof(Texture2D));
+    for (var i = 0; i < texs.Length; ++i)
+      AddToCollection("tex_neo_door", new ProceduralTexture((Texture2D) texs[i]));
   }
 
   public void Add (string name, ProceduralTexture texture)
