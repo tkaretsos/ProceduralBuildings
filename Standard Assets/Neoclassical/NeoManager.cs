@@ -135,8 +135,8 @@ public sealed class NeoManager
     tex.Clear();
 
     var ratio = 2f;
-    var outBorderSize = 0.015f;
-    var inBorderSize = 0.01f;
+    var outBorderSize = 0.02f;
+    var inBorderSize = 0.018f;
     var spaceBetweenBorders = 0.06f;
 
     int vOutBorderWidth    = Mathf.FloorToInt(tex.content.width * outBorderSize);
