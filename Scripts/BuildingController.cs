@@ -16,7 +16,6 @@ public class BuildingController : MonoBehaviour
     if (Input.GetKeyUp(KeyCode.Alpha1))
     {
       NeoManager.Instance.DestroyBuildings();
-      //StartCoroutine("NeoclassicalManager.Instance.CreateNeoclassical", BuildMode.Many);
       NeoManager.Instance.CreateNeoclassical(BuildMode.Many);
     }
 
