@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿
 namespace Thesis {
 namespace Base {
 

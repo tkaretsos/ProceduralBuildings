@@ -1,8 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
-
-using ICombinable = Thesis.Interface.ICombinable;
-using CombinablesCollection = System.Collections.Generic.IList<Thesis.Interface.ICombinable>;
 
 namespace Thesis {
 
