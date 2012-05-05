@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BuildingController : MonoBehaviour
 {
-  void Start ()
+  void Awake ()
   {
     TextureManager.Instance.Init();
     MaterialManager.Instance.Init();
