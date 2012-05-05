@@ -14,6 +14,8 @@ public sealed class NeoManager
 
   public List<Neoclassical> neo = new List<Neoclassical>();
 
+  private List<Color> colorList = new List<Color>();
+
   private NeoManager () { }
 
   public void Init ()
@@ -35,10 +37,16 @@ public sealed class NeoManager
                                  TextureManager.Instance.Get("tex_neo_balcony"));
 
     // door materials
+    AddColors();
     foreach (ProceduralTexture tex
               in TextureManager.Instance.GetCollection("tex_neo_door"))
-      MaterialManager.Instance.AddToCollection("mat_neo_door",
-                                               "Diffuse", tex);
+      foreach (Color color in colorList)
+      {
+        Material mat = new Material(Shader.Find("Diffuse"));
+        mat.color = color;
+        mat.mainTexture = tex.content;
+        MaterialManager.Instance.AddToCollection("mat_neo_door", mat);
+      }
   }
 
   public void CreateNeoclassical (BuildMode mode)
@@ -394,6 +402,20 @@ public sealed class NeoManager
                                     tex.content.width, h,
                                     color, thickness));
     }
+  }
+
+  private void AddColors ()
+  {
+    colorList.Add(new Color32(  92,  64,  51, 255));
+    colorList.Add(new Color32( 222, 184, 135, 255));
+    colorList.Add(new Color32( 255, 211, 155, 255));
+    colorList.Add(new Color32( 238, 197, 145, 255));
+    colorList.Add(new Color32( 205, 170, 125, 255));
+    colorList.Add(new Color32( 139, 115,  85, 255));
+    colorList.Add(new Color32( 133,  94,  66, 255));
+    colorList.Add(new Color32( 166, 128, 100, 255));
+    colorList.Add(new Color32( 139,  35,  35, 255));
+    colorList.Add(new Color32( 165,  42,  42, 255));
   }
 }
 
