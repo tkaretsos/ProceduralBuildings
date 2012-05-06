@@ -3,9 +3,11 @@
 namespace Thesis {
 namespace Base {
 
-public class WindowShutter : DrawableObject
+public class Shutter : DrawableObject
 {
   public readonly Window parentWindow;
+
+  public readonly ShutterSide side;
 
   public BuildingMesh parentBuilding
   {
@@ -14,20 +16,33 @@ public class WindowShutter : DrawableObject
 
   /*************** CONSTRUCTORS ***************/
 
-  public WindowShutter (Window parent)
+  public Shutter (Window parent, ShutterSide side)
   {
     parentWindow = parent;
+    this.side = side;
     boundaries = new Vector3[8];
 
-    boundaries[0] = Vector3.zero;
-    boundaries[1] = boundaries[0] - parent.parentFace.right * (parent.width / 2);
-    boundaries[2] = boundaries[1] + Vector3.up * parent.height;
-    boundaries[3] = boundaries[0] + Vector3.up * parent.height;
+    if (side == ShutterSide.Right)
+    {
+      boundaries[0] = Vector3.zero;
+      boundaries[1] = - parentWindow.parentFace.right * (parentWindow.width / 2);
+      boundaries[2] = boundaries[1] + Vector3.up * parentWindow.height;
+      boundaries[3] = Vector3.up * parentWindow.height;
+
+      meshOrigin = parentWindow.boundaries[0];
+    }
+    else
+    {
+      boundaries[0] = parentWindow.parentFace.right * (parentWindow.width / 2);
+      boundaries[1] = Vector3.zero;
+      boundaries[2] = Vector3.up * parentWindow.height;
+      boundaries[3] = boundaries[0] + boundaries[2];
+
+      meshOrigin = parentWindow.boundaries[1];
+    }
 
     for (var i = 0; i < 4; ++i)
-      boundaries[i + 4] = boundaries[i] - parent.normal * parent.depth;
-
-    meshOrigin = parent.boundaries[0];
+        boundaries[i + 4] = boundaries[i] - parentWindow.normal * parentWindow.depth / 2;
   }
 
   public override void FindVertices()
