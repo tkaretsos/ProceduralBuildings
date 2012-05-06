@@ -4,6 +4,8 @@ namespace Thesis {
 
 public sealed class NeoWindow : Base.Window
 {
+  public Base.WindowShutter shutter;
+
   /*************** CONSTRUCTORS ***************/
 
   public NeoWindow (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
@@ -11,6 +13,7 @@ public sealed class NeoWindow : Base.Window
   {
     height = ((NeoBuildingMesh) parentBuilding).windowHeight;
     depth = 0.2f;
+    width = (dr - dl).magnitude;
     float height_modifier = parentBuilding.floorHeight / 2 - height / 2;
 
     boundaries = new Vector3[4];
@@ -28,6 +31,10 @@ public sealed class NeoWindow : Base.Window
     body.name = "neo_window_body";
     body.material = ((Neoclassical) parentBuilding.parent).windowMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
+
+    shutter = new Base.WindowShutter(this);
+    shutter.name = "shutter";
+    shutter.material = MaterialManager.Instance.Get("Building");
   }
 
   /*************** METHODS ***************/
@@ -43,6 +50,10 @@ public sealed class NeoWindow : Base.Window
     body.FindVertices();
     body.FindTriangles();
     body.Draw();
+
+    shutter.FindVertices();
+    shutter.FindTriangles();
+    shutter.Draw();
   }
 }
 
