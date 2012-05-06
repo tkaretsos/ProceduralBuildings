@@ -5,7 +5,7 @@ namespace Base {
 
 public class Shutter : DrawableObject
 {
-  public readonly Window parentWindow;
+  public readonly FaceComponent parentWindow;
 
   public readonly ShutterSide side;
 
@@ -16,7 +16,7 @@ public class Shutter : DrawableObject
 
   /*************** CONSTRUCTORS ***************/
 
-  public Shutter (Window parent, ShutterSide side)
+  public Shutter (FaceComponent parent, ShutterSide side)
   {
     parentWindow = parent;
     this.side = side;
