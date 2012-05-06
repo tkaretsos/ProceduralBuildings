@@ -5,44 +5,44 @@ namespace Base {
 
 public class Shutter : DrawableObject
 {
-  public readonly FaceComponent parentWindow;
+  public readonly FaceComponent parent;
 
   public readonly ShutterSide side;
 
   public BuildingMesh parentBuilding
   {
-    get { return parentWindow.parentBuilding; }
+    get { return parent.parentBuilding; }
   }
 
   /*************** CONSTRUCTORS ***************/
 
   public Shutter (FaceComponent parent, ShutterSide side)
   {
-    parentWindow = parent;
+    this.parent = parent;
     this.side = side;
     boundaries = new Vector3[8];
 
     if (side == ShutterSide.Right)
     {
       boundaries[0] = Vector3.zero;
-      boundaries[1] = - parentWindow.parentFace.right * (parentWindow.width / 2);
-      boundaries[2] = boundaries[1] + Vector3.up * parentWindow.height;
-      boundaries[3] = Vector3.up * parentWindow.height;
+      boundaries[1] = - parent.parentFace.right * (parent.width / 2);
+      boundaries[2] = boundaries[1] + Vector3.up * parent.height;
+      boundaries[3] = Vector3.up * parent.height;
 
-      meshOrigin = parentWindow.boundaries[0];
+      meshOrigin = parent.boundaries[0];
     }
     else
     {
-      boundaries[0] = parentWindow.parentFace.right * (parentWindow.width / 2);
+      boundaries[0] = parent.parentFace.right * (parent.width / 2);
       boundaries[1] = Vector3.zero;
-      boundaries[2] = Vector3.up * parentWindow.height;
+      boundaries[2] = Vector3.up * parent.height;
       boundaries[3] = boundaries[0] + boundaries[2];
 
-      meshOrigin = parentWindow.boundaries[1];
+      meshOrigin = parent.boundaries[1];
     }
 
     for (var i = 0; i < 4; ++i)
-        boundaries[i + 4] = boundaries[i] - parentWindow.normal * parentWindow.depth / 2;
+        boundaries[i + 4] = boundaries[i] - parent.normal * parent.depth / 2;
   }
 
   public override void FindVertices()
@@ -116,7 +116,7 @@ public class Shutter : DrawableObject
   {
     base.Draw();
 
-    gameObject.transform.position = meshOrigin + parentWindow.meshOrigin +
+    gameObject.transform.position = meshOrigin + parent.meshOrigin +
                                     parentBuilding.meshOrigin;
     gameObject.transform.parent = parentBuilding.parent.gameObject.transform;
   }
