@@ -4,7 +4,7 @@ namespace Thesis {
 
 public sealed class NeoWindow : Base.Window
 {
-  public Base.WindowShutter shutter;
+  public Base.Shutter shutter;
 
   /*************** CONSTRUCTORS ***************/
 
@@ -32,8 +32,8 @@ public sealed class NeoWindow : Base.Window
     body.material = ((Neoclassical) parentBuilding.parent).windowMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
 
-    shutter = new Base.WindowShutter(this);
-    shutter.name = "shutter";
+    shutter = new Base.Shutter(this, ShutterSide.Left);
+    shutter.name = "right_shutter";
     shutter.material = MaterialManager.Instance.Get("Building");
   }
 
