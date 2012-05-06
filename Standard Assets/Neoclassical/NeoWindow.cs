@@ -4,7 +4,9 @@ namespace Thesis {
 
 public sealed class NeoWindow : Base.Window
 {
-  public Base.Shutter shutter;
+  public Base.Shutter rightShutter;
+
+  public Base.Shutter leftShutter;
 
   /*************** CONSTRUCTORS ***************/
 
@@ -32,9 +34,15 @@ public sealed class NeoWindow : Base.Window
     body.material = ((Neoclassical) parentBuilding.parent).windowMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
 
-    shutter = new Base.Shutter(this, ShutterSide.Left);
-    shutter.name = "right_shutter";
-    shutter.material = MaterialManager.Instance.Get("Building");
+    rightShutter = new Base.Shutter(this, ShutterSide.Right);
+    rightShutter.name = "right_shutter";
+    rightShutter.material = MaterialManager.Instance.Get("Building");
+    parentBuilding.parent.AddCombinable(rightShutter.material.name, rightShutter);
+
+    leftShutter = new Base.Shutter(this, ShutterSide.Left);
+    leftShutter.name = "left_shutter";
+    leftShutter.material = MaterialManager.Instance.Get("Building");
+    parentBuilding.parent.AddCombinable(leftShutter.material.name, leftShutter);
   }
 
   /*************** METHODS ***************/
@@ -51,9 +59,13 @@ public sealed class NeoWindow : Base.Window
     body.FindTriangles();
     body.Draw();
 
-    shutter.FindVertices();
-    shutter.FindTriangles();
-    shutter.Draw();
+    rightShutter.FindVertices();
+    rightShutter.FindTriangles();
+    rightShutter.Draw();
+
+    leftShutter.FindVertices();
+    leftShutter.FindTriangles();
+    leftShutter.Draw();
   }
 }
 
