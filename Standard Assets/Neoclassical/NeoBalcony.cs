@@ -4,12 +4,17 @@ namespace Thesis {
 
 public sealed class NeoBalcony : Base.Balcony
 {
+  public Base.Shutter rightShutter;
+
+  public Base.Shutter leftShutter;
+
   /*************** CONSTRUCTORS ***************/
 
   public NeoBalcony (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
     : base(parent, position)
   {
     height = ((NeoBuildingMesh) parentBuilding).balconyHeight;
+    width = (dr - dl).magnitude;
     depth = 0.2f;
 
     boundaries = new Vector3[4];
@@ -37,6 +42,16 @@ public sealed class NeoBalcony : Base.Balcony
     balconyRail.name = "neo_balcony_rail";
     balconyRail.material = MaterialManager.Instance.Get("mat_neo_balcony_rail");
     parentBuilding.parent.AddCombinable(balconyRail.material.name, balconyRail);
+
+    rightShutter = new Base.Shutter(this, ShutterSide.Right);
+    rightShutter.name = "bal_right_shutter";
+    rightShutter.material = MaterialManager.Instance.Get("Building");
+    parentBuilding.parent.AddCombinable(rightShutter.material.name, rightShutter);
+
+    leftShutter = new Base.Shutter(this, ShutterSide.Left);
+    leftShutter.name = "bal_left_shutter";
+    leftShutter.material = MaterialManager.Instance.Get("Building");
+    parentBuilding.parent.AddCombinable(leftShutter.material.name, leftShutter);
   }
 
   /*************** METHODS ***************/
@@ -60,6 +75,14 @@ public sealed class NeoBalcony : Base.Balcony
     balconyRail.FindVertices();
     balconyRail.FindTriangles();
     balconyRail.Draw();
+
+    rightShutter.FindVertices();
+    rightShutter.FindTriangles();
+    rightShutter.Draw();
+
+    leftShutter.FindVertices();
+    leftShutter.FindTriangles();
+    leftShutter.Draw();
   }
 }
 
