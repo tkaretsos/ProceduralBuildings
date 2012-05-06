@@ -116,6 +116,11 @@ public class Shutter : DrawableObject
   {
     base.Draw();
 
+    if (side == ShutterSide.Right)
+      gameObject.transform.RotateAround(meshOrigin, Vector3.up, -110);
+    else
+      gameObject.transform.RotateAround(meshOrigin, Vector3.up,  110);
+
     gameObject.transform.position = meshOrigin + parent.meshOrigin +
                                     parentBuilding.meshOrigin;
     gameObject.transform.parent = parentBuilding.parent.gameObject.transform;
