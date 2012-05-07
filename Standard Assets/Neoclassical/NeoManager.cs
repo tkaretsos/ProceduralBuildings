@@ -38,15 +38,26 @@ public sealed class NeoManager
 
     // door materials
     AddColors();
-    foreach (ProceduralTexture tex
-              in TextureManager.Instance.GetCollection("tex_neo_door"))
-      foreach (Color color in colorList)
+    foreach (Color color in colorList)
+    {
+      foreach (ProceduralTexture tex
+                in TextureManager.Instance.GetCollection("tex_neo_door"))
       {
         Material mat = new Material(Shader.Find("Diffuse"));
         mat.color = color;
         mat.mainTexture = tex.content;
         MaterialManager.Instance.AddToCollection("mat_neo_door", mat);
       }
+
+      foreach (ProceduralTexture tex
+                in TextureManager.Instance.GetCollection("tex_neo_shutter"))
+      {
+        Material mat = new Material(Shader.Find("Diffuse"));
+        mat.color = color;
+        mat.mainTexture = tex.content;
+        MaterialManager.Instance.AddToCollection("mat_neo_shutter", mat);
+      }
+    }
   }
 
   public void CreateNeoclassical (BuildMode mode)
