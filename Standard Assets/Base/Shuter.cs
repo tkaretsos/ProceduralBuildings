@@ -116,6 +116,55 @@ public class Shutter : DrawableObject
   {
     base.Draw();
 
+    var uvs = new Vector2[mesh.vertices.Length];
+
+    if (parent.GetType().IsSubclassOf(typeof(Window)) && side == ShutterSide.Left)
+    {
+      uvs[0] = new Vector2(.5f, .5f);
+      uvs[1] = new Vector2(  0, .5f);
+      uvs[2] = new Vector2(  0,   1);
+      uvs[3] = new Vector2(.5f,   1);
+      uvs[4] = new Vector2(.5f, .5f);
+      uvs[5] = new Vector2(  0, .5f);
+      uvs[6] = new Vector2(  0,   1);
+      uvs[7] = new Vector2(.5f,   1);
+    }
+    else if (parent.GetType().IsSubclassOf(typeof(Window)) && side == ShutterSide.Right)
+    {
+      uvs[0] = new Vector2(  0, .5f);
+      uvs[1] = new Vector2(.5f, .5f);
+      uvs[2] = new Vector2(.5f,   1);
+      uvs[3] = new Vector2(  0,   1);
+      uvs[4] = new Vector2(  0, .5f);
+      uvs[5] = new Vector2(.5f, .5f);
+      uvs[6] = new Vector2(.5f,   1);
+      uvs[7] = new Vector2(  0,   1);
+    }
+    else if (parent.GetType().IsSubclassOf(typeof(Balcony)) && side == ShutterSide.Left)
+    {
+      uvs[0] = new Vector2(  1, 0);
+      uvs[1] = new Vector2(.5f, 0);
+      uvs[2] = new Vector2(.5f, 1);
+      uvs[3] = new Vector2(  1, 1);
+      uvs[4] = new Vector2(  1, 0);
+      uvs[5] = new Vector2(.5f, 0);
+      uvs[6] = new Vector2(.5f, 1);
+      uvs[7] = new Vector2(  1, 1);
+    }
+    else
+    {
+      uvs[0] = new Vector2(.5f, 0);
+      uvs[1] = new Vector2(  1, 0);
+      uvs[2] = new Vector2(  1, 1);
+      uvs[3] = new Vector2(.5f, 1);
+      uvs[4] = new Vector2(.5f, 0);
+      uvs[5] = new Vector2(  1, 0);
+      uvs[6] = new Vector2(  1, 1);
+      uvs[7] = new Vector2(.5f, 1);
+    }
+
+    mesh.uv = uvs;
+
     if (side == ShutterSide.Right)
       gameObject.transform.RotateAround(meshOrigin, Vector3.up, -110);
     else
