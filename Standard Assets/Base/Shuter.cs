@@ -57,23 +57,23 @@ public class Shutter : DrawableObject
     triangles = new int[36];
     int i = 0;
 
-    // bottom
-    triangles[i++] =  0;
-    triangles[i++] =  4;
-    triangles[i++] =  1;
+    // front
+    triangles[i++] = 0;
+    triangles[i++] = 1;
+    triangles[i++] = 3;
 
-    triangles[i++] =  1;
-    triangles[i++] =  4;
-    triangles[i++] =  5;
+    triangles[i++] = 1;
+    triangles[i++] = 2;
+    triangles[i++] = 3;
 
-    // top
-    triangles[i++] =  2;
-    triangles[i++] =  6;
-    triangles[i++] =  7;
+    // back
+    triangles[i++] = 4;
+    triangles[i++] = 7;
+    triangles[i++] = 5;
 
-    triangles[i++] =  2;
-    triangles[i++] =  7;
-    triangles[i++] =  3;
+    triangles[i++] = 5;
+    triangles[i++] = 7;
+    triangles[i++] = 6;
 
     // right  (+8)
     triangles[i++] =  8;
@@ -93,23 +93,23 @@ public class Shutter : DrawableObject
     triangles[i++] = 14;
     triangles[i++] = 10;
 
-    // front  (+16)
-    triangles[i++] = 16;
-    triangles[i++] = 17;
-    triangles[i++] = 19;
+    // bottom   (+16)
+    triangles[i++] =  16;
+    triangles[i++] =  20;
+    triangles[i++] =  17;
 
-    triangles[i++] = 17;
-    triangles[i++] = 18;
-    triangles[i++] = 19;
+    triangles[i++] =  17;
+    triangles[i++] =  20;
+    triangles[i++] =  21;
 
-    // back   (+16)
-    triangles[i++] = 20;
-    triangles[i++] = 23;
-    triangles[i++] = 21;
+    // top      (+16)
+    triangles[i++] =  18;
+    triangles[i++] =  22;
+    triangles[i++] =  23;
 
-    triangles[i++] = 21;
-    triangles[i++] = 23;
-    triangles[i++] = 22;
+    triangles[i++] =  18;
+    triangles[i++] =  23;
+    triangles[i++] =  19;
   }
 
   public override void Draw()
