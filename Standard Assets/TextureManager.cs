@@ -26,9 +26,17 @@ public sealed class TextureManager
 
   public void Init ()
   {
-    Object[] texs = Resources.LoadAll("Textures/Neoclassical", typeof(Texture2D));
+    Object[] texs = Resources.LoadAll("Textures/Neoclassical/Door",
+                                      typeof(Texture2D));
     for (var i = 0; i < texs.Length; ++i)
-      AddToCollection("tex_neo_door", new ProceduralTexture((Texture2D) texs[i]));
+      AddToCollection("tex_neo_door",
+                      new ProceduralTexture((Texture2D) texs[i]));
+
+    texs = Resources.LoadAll("Textures/Neoclassical/Shutter",
+                             typeof(Texture2D));
+    for (var i = 0; i < texs.Length; ++i)
+      AddToCollection("tex_neo_shutter",
+                      new ProceduralTexture((Texture2D) texs[i]));
   }
 
   public void Add (string name, ProceduralTexture texture)
