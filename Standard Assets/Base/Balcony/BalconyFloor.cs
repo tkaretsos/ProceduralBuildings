@@ -33,12 +33,13 @@ public class BalconyFloor : DrawableObject
 
     var tmp_right = parentBalcony.parentFace.right * width;
     var tmp_normal = parentBalcony.parentFace.normal * depth;
+    var tmp_up = -(height - 0.01f) * Vector3.up;
 
     boundaries = new Vector3[8];
-    boundaries[0] = parentBalcony.boundaries[0] + tmp_right + tmp_normal;
-    boundaries[1] = parentBalcony.boundaries[1] - tmp_right + tmp_normal;
-    boundaries[2] = parentBalcony.boundaries[1] - tmp_right - tmp_normal;
-    boundaries[3] = parentBalcony.boundaries[0] + tmp_right - tmp_normal;
+    boundaries[0] = parentBalcony.boundaries[0] + tmp_right + tmp_normal + tmp_up;
+    boundaries[1] = parentBalcony.boundaries[1] - tmp_right + tmp_normal + tmp_up;
+    boundaries[2] = parentBalcony.boundaries[1] - tmp_right - tmp_normal + tmp_up;
+    boundaries[3] = parentBalcony.boundaries[0] + tmp_right - tmp_normal + tmp_up;
 
     for (var i = 0; i < 4; ++i)
       boundaries[i + 4] = boundaries[i] + Vector3.up * height;
