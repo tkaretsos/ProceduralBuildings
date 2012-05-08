@@ -417,16 +417,16 @@ public sealed class NeoManager
 
   private void AddColors ()
   {
-    colorList.Add(new Color32(  92,  64,  51, 255));
-    colorList.Add(new Color32( 222, 184, 135, 255));
     colorList.Add(new Color32( 255, 211, 155, 255));
-    colorList.Add(new Color32( 238, 197, 145, 255));
-    colorList.Add(new Color32( 205, 170, 125, 255));
-    colorList.Add(new Color32( 139, 115,  85, 255));
-    colorList.Add(new Color32( 133,  94,  66, 255));
-    colorList.Add(new Color32( 166, 128, 100, 255));
-    colorList.Add(new Color32( 139,  35,  35, 255));
-    colorList.Add(new Color32( 165,  42,  42, 255));
+    colorList.Add(new Color32( 245, 245, 220, 255));
+    colorList.Add(new Color32( 235, 199, 158, 255));
+    colorList.Add(new Color32( 210, 180, 140, 255));
+    colorList.Add(new Color32( 205, 133,  63, 255));
+    colorList.Add(new Color32( 151, 105,  79, 255));
+    colorList.Add(new Color32( 139,  69,  19, 255));
+    colorList.Add(new Color32( 133,  99,  99, 255));
+    colorList.Add(new Color32( 107,  66,  38, 255));
+    colorList.Add(new Color32(  92,  51,  23, 255));
   }
 }
 
