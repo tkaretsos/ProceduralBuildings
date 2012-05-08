@@ -99,20 +99,20 @@ public class Face : DrawableObject
     for (int i = 0; i < edgeVerticesCount; i += 2)
     {
       vertices[i] = new Vector3(boundaries[0].x,
-                                boundaries[0].y + (i / 2) * parentBuilding.floorHeight,
+                                boundaries[0].y + (i >> 1) * parentBuilding.floorHeight,
                                 boundaries[0].z);
 
       vertices[i + 1] = new Vector3(boundaries[1].x,
-                                    boundaries[1].y + (i / 2) * parentBuilding.floorHeight,
+                                    boundaries[1].y + (i >> 1) * parentBuilding.floorHeight,
                                     boundaries[1].z);
     }
 
-    int double_cpf = 2 * componentsPerFloor;
+    int double_cpf = componentsPerFloor << 1;
     for (var floor = 1; floor <= parentBuilding.floorCount; ++floor)
       for (var cp = 0; cp < componentsPerFloor; ++cp)
       {
         int cpn = cp + componentsPerFloor * (floor - 1);
-        int indexModifier = (floor - 1) * 8 * componentsPerFloor + 2 * cp + edgeVerticesCount;
+        int indexModifier = (floor - 1) * (componentsPerFloor << 3) + (cp << 1) + edgeVerticesCount;
 
         vertices[indexModifier] = new Vector3(
           faceComponents[cpn].boundaries[0].x,
@@ -128,9 +128,9 @@ public class Face : DrawableObject
 
         vertices[indexModifier + double_cpf + 1] = faceComponents[cpn].boundaries[1];
 
-        vertices[indexModifier + double_cpf * 2] = faceComponents[cpn].boundaries[3];
+        vertices[indexModifier + (double_cpf << 1)] = faceComponents[cpn].boundaries[3];
 
-        vertices[indexModifier + double_cpf * 2 + 1] = faceComponents[cpn].boundaries[2];
+        vertices[indexModifier + (double_cpf << 1) + 1] = faceComponents[cpn].boundaries[2];
 
         vertices[indexModifier + double_cpf * 3] = new Vector3(
           faceComponents[cpn].boundaries[3].x,
