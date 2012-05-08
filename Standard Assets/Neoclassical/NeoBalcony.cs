@@ -45,12 +45,12 @@ public sealed class NeoBalcony : Base.Balcony
 
     rightShutter = new Base.Shutter(this, ShutterSide.Right);
     rightShutter.name = "bal_right_shutter";
-    rightShutter.material = MaterialManager.Instance.Get("Building");
+    rightShutter.material = ((Neoclassical) parentBuilding.parent).shutterMaterial;
     parentBuilding.parent.AddCombinable(rightShutter.material.name, rightShutter);
 
     leftShutter = new Base.Shutter(this, ShutterSide.Left);
     leftShutter.name = "bal_left_shutter";
-    leftShutter.material = MaterialManager.Instance.Get("Building");
+    leftShutter.material = ((Neoclassical) parentBuilding.parent).shutterMaterial;
     parentBuilding.parent.AddCombinable(leftShutter.material.name, leftShutter);
   }
 

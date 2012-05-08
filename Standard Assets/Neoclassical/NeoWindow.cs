@@ -36,12 +36,12 @@ public sealed class NeoWindow : Base.Window
 
     rightShutter = new Base.Shutter(this, ShutterSide.Right);
     rightShutter.name = "right_shutter";
-    rightShutter.material = MaterialManager.Instance.Get("Building");
+    rightShutter.material = ((Neoclassical) parentBuilding.parent).shutterMaterial;
     parentBuilding.parent.AddCombinable(rightShutter.material.name, rightShutter);
 
     leftShutter = new Base.Shutter(this, ShutterSide.Left);
     leftShutter.name = "left_shutter";
-    leftShutter.material = MaterialManager.Instance.Get("Building");
+    leftShutter.material = ((Neoclassical) parentBuilding.parent).shutterMaterial;
     parentBuilding.parent.AddCombinable(leftShutter.material.name, leftShutter);
   }
 
