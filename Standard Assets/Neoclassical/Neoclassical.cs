@@ -38,7 +38,7 @@ public class Neoclassical : Base.Building
     list = MaterialManager.Instance.GetCollection("mat_neo_shutter");
     var doorCount = MaterialManager.Instance.GetCollection("mat_neo_door").Count;
     var shutCount = MaterialManager.Instance.GetCollection("mat_neo_shutter").Count;
-    shutterMaterial = list[Mathf.FloorToInt(num * shutCount / doorCount)];
+    shutterMaterial = list[num * shutCount / doorCount];
 
     // must be _after_ the initialization of this object
     buildingMesh = new NeoBuildingMesh(this, p1, p2, p3, p4);
