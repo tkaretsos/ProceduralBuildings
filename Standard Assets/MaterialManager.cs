@@ -42,11 +42,15 @@ public sealed class MaterialManager
     if (_collections.ContainsKey(name))
     {
       if (!_collections[name].Contains(material))
+      {
+        material.name = name;
         _collections[name].Add(material);
+      }
     }
     else
     {
       var list = new List<Material>();
+      material.name = name;
       list.Add(material);
       _collections.Add(name, list);
     }
