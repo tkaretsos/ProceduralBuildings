@@ -16,7 +16,7 @@ public sealed class NeoWindow : Base.Window
     height = ((NeoBuildingMesh) parentBuilding).windowHeight;
     depth = 0.2f;
     width = (dr - dl).magnitude;
-    float height_modifier = parentBuilding.floorHeight / 2 - height / 2;
+    float height_modifier = parentBuilding.floorHeight / 2.5f - height / 2;
 
     boundaries = new Vector3[4];
     boundaries[0] = new Vector3(dr.x, dr.y + height_modifier, dr.z);

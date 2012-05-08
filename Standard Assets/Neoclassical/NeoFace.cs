@@ -13,7 +13,7 @@ public sealed class NeoFace : Base.Face
   {
     componentsPerFloor = Mathf.CeilToInt(width / (component_width + inbetween_space));
     float fixed_space = (width - componentsPerFloor * component_width) / (componentsPerFloor + 1);
-    while (fixed_space < 1.5f)
+    while (fixed_space < 1.75f)
     {
       componentsPerFloor -= 1;
       fixed_space = (width - componentsPerFloor * component_width) / (componentsPerFloor + 1);

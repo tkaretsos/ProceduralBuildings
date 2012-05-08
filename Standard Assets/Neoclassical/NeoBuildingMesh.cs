@@ -6,8 +6,8 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
 {
   /*************** FIELDS ***************/
 
-  private const float _componentWidthMin = 1.4f;
-  private const float _componentWidthMax = 1.6f;
+  private const float _componentWidthMin = 1.1f;
+  private const float _componentWidthMax = 1.25f;
   private const float _componentSpaceMin = 2f;
   private const float _componentSpaceMax = 2.25f;
 
@@ -38,7 +38,7 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
 
     parent.AddCombinable(material.name, this);
 
-    floorHeight = Random.Range(4.25f, 4.75f);
+    floorHeight = Random.Range(4f, 4.25f);
     floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
 
     FindMeshOrigin(p1, p3, p2, p4);
@@ -72,13 +72,13 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
   
   public void ConstructFaceComponents ()
   {
-    windowHeight = Random.Range(2.1f, 2.3f);
-    doorHeight = Random.Range(3.5f, 3.7f);
+    windowHeight = Random.Range(1.8f, 2f);
+    doorHeight = Random.Range(2.8f, 3f);
 
-    balconyHeight = windowHeight / 2 + floorHeight / 2;
+    balconyHeight = windowHeight / 2 + floorHeight / 2.5f;
     balconyFloorHeight = 0.2f;
     balconyFloorDepth = 1f;
-    balconyFloorWidth = 0.4f;
+    balconyFloorWidth = 0.6f;
 
     float component_width = Random.Range(_componentWidthMin, _componentWidthMax);
     float inbetween_space = Random.Range(_componentSpaceMin, _componentSpaceMax);
