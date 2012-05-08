@@ -51,6 +51,7 @@ public class Building
       for (var i = 0; i < _combinables[key].Count; ++i)
       {
         filters[i] = _combinables[key][i].meshFilter;
+        GameObject.Destroy(_combinables[key][i].mesh);
         GameObject.Destroy(_combinables[key][i].gameObject);
       }
 
@@ -61,7 +62,7 @@ public class Building
         combine[i].transform = filters[i].transform.localToWorldMatrix;
       }
 
-      filter.mesh = new Mesh();
+      //filter.mesh = new Mesh();
       filter.mesh.CombineMeshes(combine);
 
       if (_combiners.ContainsKey(key))
@@ -69,7 +70,23 @@ public class Building
       else
         _combiners.Add(key, gobject);
     }
+    _combinables.Clear();
   }
+
+  //public void Destroy ()
+  //{
+  //  GameObject.Destroy(gameObject);
+
+  //  foreach (string key in _combinables.Keys)
+  //    for (var i = 0; i < _combinables[key].Count; ++i)
+  //    {
+  //      GameObject.Destroy(_combinables[key][i].mesh);
+  //      GameObject.Destroy(_combinables[key][i].gameObject);
+  //    }
+
+  //  foreach (string key in _combiners.Keys)
+  //    GameObject.Destroy(_combiners[key]);
+  //}
 }
 
 } // namespace Base
