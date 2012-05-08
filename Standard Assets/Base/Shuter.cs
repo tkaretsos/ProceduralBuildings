@@ -115,10 +115,24 @@ public class Shutter : DrawableObject
   public override void Draw()
   {
     base.Draw();
+    AssignUVs();
 
+    if (side == ShutterSide.Right)
+      gameObject.transform.RotateAround(meshOrigin, Vector3.up, -110);
+    else
+      gameObject.transform.RotateAround(meshOrigin, Vector3.up,  110);
+
+    gameObject.transform.position = meshOrigin + parent.meshOrigin +
+                                    parentBuilding.meshOrigin;
+    gameObject.transform.parent = parentBuilding.parent.gameObject.transform;
+  }
+
+  private void AssignUVs ()
+  {
     var uvs = new Vector2[mesh.vertices.Length];
 
-    if (parent.GetType().IsSubclassOf(typeof(Window)) && side == ShutterSide.Left)
+    if (parent.GetType().IsSubclassOf(typeof(Window)) &&
+        side == ShutterSide.Left)
     {
       uvs[0] = new Vector2(.5f, .5f);
       uvs[1] = new Vector2(  0, .5f);
@@ -129,7 +143,8 @@ public class Shutter : DrawableObject
       uvs[6] = new Vector2(  0,   1);
       uvs[7] = new Vector2(.5f,   1);
     }
-    else if (parent.GetType().IsSubclassOf(typeof(Window)) && side == ShutterSide.Right)
+    else if (parent.GetType().IsSubclassOf(typeof(Window)) &&
+             side == ShutterSide.Right)
     {
       uvs[0] = new Vector2(  0, .5f);
       uvs[1] = new Vector2(.5f, .5f);
@@ -140,7 +155,8 @@ public class Shutter : DrawableObject
       uvs[6] = new Vector2(.5f,   1);
       uvs[7] = new Vector2(  0,   1);
     }
-    else if (parent.GetType().IsSubclassOf(typeof(Balcony)) && side == ShutterSide.Left)
+    else if (parent.GetType().IsSubclassOf(typeof(Balcony)) &&
+             side == ShutterSide.Left)
     {
       uvs[0] = new Vector2(  1, 0);
       uvs[1] = new Vector2(.5f, 0);
@@ -164,15 +180,6 @@ public class Shutter : DrawableObject
     }
 
     mesh.uv = uvs;
-
-    if (side == ShutterSide.Right)
-      gameObject.transform.RotateAround(meshOrigin, Vector3.up, -110);
-    else
-      gameObject.transform.RotateAround(meshOrigin, Vector3.up,  110);
-
-    gameObject.transform.position = meshOrigin + parent.meshOrigin +
-                                    parentBuilding.meshOrigin;
-    gameObject.transform.parent = parentBuilding.parent.gameObject.transform;
   }
 }
 
