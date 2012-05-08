@@ -9,6 +9,8 @@ public class Shutter : DrawableObject
 
   public readonly ShutterSide side;
 
+  public int angles;
+
   public BuildingMesh parentBuilding
   {
     get { return parent.parentBuilding; }
@@ -20,6 +22,7 @@ public class Shutter : DrawableObject
   {
     this.parent = parent;
     this.side = side;
+    angles = 0;
     boundaries = new Vector3[8];
 
     if (side == ShutterSide.Right)
@@ -117,10 +120,12 @@ public class Shutter : DrawableObject
     base.Draw();
     AssignUVs();
 
+
+
     if (side == ShutterSide.Right)
-      gameObject.transform.RotateAround(meshOrigin, Vector3.up, -110);
+      gameObject.transform.RotateAround(meshOrigin, Vector3.up, -angles);
     else
-      gameObject.transform.RotateAround(meshOrigin, Vector3.up,  110);
+      gameObject.transform.RotateAround(meshOrigin, Vector3.up,  angles);
 
     gameObject.transform.position = meshOrigin + parent.meshOrigin +
                                     parentBuilding.meshOrigin;
