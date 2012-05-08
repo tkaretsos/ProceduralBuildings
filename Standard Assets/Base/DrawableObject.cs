@@ -125,6 +125,11 @@ public class DrawableObject : ProceduralObject,
   {
     get { return material; }
   }
+
+  Mesh ICombinable.mesh
+  {
+    get { return mesh; }
+  }
 }
 
 } // namespace Thesis

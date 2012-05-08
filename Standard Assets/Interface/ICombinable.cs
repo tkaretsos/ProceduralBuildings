@@ -4,11 +4,13 @@ namespace Interface {
 
 public interface ICombinable
 {
-  UnityEngine.GameObject gameObject { get; }
+  UnityEngine.GameObject  gameObject  { get; }
 
-  UnityEngine.MeshFilter meshFilter { get; }
+  UnityEngine.MeshFilter  meshFilter  { get; }
 
-  UnityEngine.Material   material   { get; }
+  UnityEngine.Material    material    { get; }
+
+  UnityEngine.Mesh        mesh        { get; }
 }
 
 } // namespace Interface
