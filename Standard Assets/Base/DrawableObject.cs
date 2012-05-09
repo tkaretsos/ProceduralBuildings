@@ -74,28 +74,21 @@ public class DrawableObject : ProceduralObject,
   public virtual void Draw ()
   {
     gameObject = new GameObject(name);
+    meshFilter = gameObject.AddComponent<MeshFilter>();
+    var renderer = gameObject.AddComponent<MeshRenderer>();
+
     gameObject.active = false;
     gameObject.isStatic = true;
-
-    var renderer = gameObject.AddComponent<MeshRenderer>();
     if (material != null)
       renderer.sharedMaterial = material;
 
-    mesh = new Mesh();
+    mesh = meshFilter.mesh;
     mesh.Clear();
-
     mesh.vertices = vertices;
     mesh.triangles = triangles;
-
-    // this is required to stop a runtime warning
     mesh.uv = new Vector2[mesh.vertices.Length];
-    //for (int i = 0; i < mesh.vertices.Length; ++i)
-    //  mesh.uv[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].y);
-
     mesh.RecalculateNormals();
     mesh.Optimize();
-
-    meshFilter = gameObject.AddComponent<MeshFilter>();
     meshFilter.sharedMesh = mesh;
   }
 
