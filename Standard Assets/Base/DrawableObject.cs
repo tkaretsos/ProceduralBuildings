@@ -99,6 +99,12 @@ public class DrawableObject : ProceduralObject,
     meshFilter.sharedMesh = mesh;
   }
 
+  public virtual void Destroy ()
+  {
+    GameObject.Destroy(mesh);
+    GameObject.Destroy(gameObject);
+  }
+
   /*************** INTERFACE EXPLICIT IMPLEMENTATION ***************/
 
   Vector3[] IDrawable.vertices

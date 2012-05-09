@@ -139,7 +139,7 @@ public sealed class NeoManager
   public void DestroyBuildings ()
   {
     foreach (Neoclassical n in neo)
-      GameObject.Destroy(n.gameObject);
+      n.Destroy();
     neo.Clear();
   }
 

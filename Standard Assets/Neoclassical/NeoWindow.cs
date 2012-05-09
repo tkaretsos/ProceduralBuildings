@@ -84,6 +84,14 @@ public sealed class NeoWindow : Base.Window
     leftShutter.angles = angles;
     leftShutter.Draw();
   }
+
+  public override void Destroy()
+  {
+    base.Destroy();
+
+    rightShutter.Destroy();
+    leftShutter.Destroy();
+  }
 }
 
 } // namespace Thesis

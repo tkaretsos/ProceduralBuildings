@@ -38,6 +38,14 @@ public class FaceComponent : DrawableObject
     parentFace = parent;
     this.position = position;
   }
+
+  public override void Destroy()
+  {
+    base.Destroy();
+
+    frame.Destroy();
+    body.Destroy();
+  }
 }
 
 } // namespace Base

@@ -13,6 +13,8 @@ public interface IDrawable : ICombinable
   void FindTriangles ();
 
   void Draw ();
+
+  void Destroy ();
 }
 
 } // namespace Interface

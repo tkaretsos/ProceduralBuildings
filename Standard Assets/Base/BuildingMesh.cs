@@ -224,6 +224,14 @@ public class BuildingMesh : DrawableObject
     for (int i = 0; i < lkv.Count; ++i)
       sortedFaces[i] = lkv[i].Key;
   }
+
+  public override void Destroy()
+  {
+    base.Destroy();
+
+    foreach (Face face in faces)
+      face.Destroy();
+  }
 }
 
 } // namespace Base

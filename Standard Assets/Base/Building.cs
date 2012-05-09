@@ -73,20 +73,25 @@ public class Building
     _combinables.Clear();
   }
 
-  //public void Destroy ()
-  //{
-  //  GameObject.Destroy(gameObject);
+  public void Destroy ()
+  {
+    GameObject.Destroy(gameObject);
 
-  //  foreach (string key in _combinables.Keys)
-  //    for (var i = 0; i < _combinables[key].Count; ++i)
-  //    {
-  //      GameObject.Destroy(_combinables[key][i].mesh);
-  //      GameObject.Destroy(_combinables[key][i].gameObject);
-  //    }
+    foreach (string key in _combinables.Keys)
+      for (var i = 0; i < _combinables[key].Count; ++i)
+      {
+        GameObject.Destroy(_combinables[key][i].mesh);
+        GameObject.Destroy(_combinables[key][i].gameObject);
+      }
 
-  //  foreach (string key in _combiners.Keys)
-  //    GameObject.Destroy(_combiners[key]);
-  //}
+    foreach (GameObject go in _combiners.Values)
+    {
+      GameObject.Destroy(go.GetComponent<MeshFilter>().mesh);
+      GameObject.Destroy(go);
+    }
+
+    buildingMesh.Destroy();
+  }
 }
 
 } // namespace Base

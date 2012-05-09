@@ -149,6 +149,14 @@ public class Face : DrawableObject
     return new ComponentCoordinate(index / parentBuilding.floorCount,
                                    index % parentBuilding.floorCount);
   }
+
+  public override void Destroy()
+  {
+    base.Destroy();
+
+    foreach (FaceComponent fc in faceComponents)
+      fc.Destroy();
+  }
 }
 
 } // namespace Base

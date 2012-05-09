@@ -15,6 +15,14 @@ public class Balcony : FaceComponent
   public Balcony (Face parent, ComponentCoordinate position) 
     : base(parent, position)
   { }
+
+  public override void Destroy()
+  {
+    base.Destroy();
+
+    balconyFloor.Destroy();
+    balconyRail.Destroy();
+  }
 }
 
 } // namespaces Base
