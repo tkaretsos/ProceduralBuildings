@@ -76,20 +76,7 @@ public sealed class NeoBalcony : Base.Balcony
     balconyRail.FindTriangles();
     balconyRail.Draw();
 
-    switch (Util.RollDice(new float[] {0.33f, 0.33f, 0.34f}))
-    {
-      case 1:
-        Base.Shutter.angles = 150;
-        break;
-
-      case 2:
-        Base.Shutter.angles = Random.Range(130, 150);
-        break;
-
-      case 3:
-        Base.Shutter.angles = 0;
-        break;
-    }
+    Base.Shutter.SetAngles();
 
     rightShutter.FindVertices();
     rightShutter.FindTriangles();

@@ -186,6 +186,24 @@ public class Shutter : DrawableObject
 
     mesh.uv = uvs;
   }
+
+  public static void SetAngles ()
+  {
+    switch (Util.RollDice(new float[] {0.33f, 0.33f, 0.34f}))
+    {
+      case 1:
+        angles = 150;
+        break;
+
+      case 2:
+        angles = Random.Range(130, 150);
+        break;
+
+      case 3:
+        angles = 0;
+        break;
+    }
+  }
 }
 
 } // Base
