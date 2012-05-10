@@ -59,29 +59,27 @@ public sealed class NeoWindow : Base.Window
     body.FindTriangles();
     body.Draw();
 
-    var angles = 0;
     switch (Util.RollDice(new float[] {0.33f, 0.33f, 0.34f}))
     {
       case 1:
-        angles = 150;
+        Base.Shutter.angles = 150;
         break;
 
       case 2:
-        angles = Random.Range(130, 150);
+        Base.Shutter.angles = Random.Range(130, 150);
         break;
 
-      default:
+      case 3:
+        Base.Shutter.angles = 0;
         break;
     }
 
     rightShutter.FindVertices();
     rightShutter.FindTriangles();
-    rightShutter.angles = angles;
     rightShutter.Draw();
 
     leftShutter.FindVertices();
     leftShutter.FindTriangles();
-    leftShutter.angles = angles;
     leftShutter.Draw();
   }
 
