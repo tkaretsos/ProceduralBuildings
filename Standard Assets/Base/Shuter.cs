@@ -120,8 +120,6 @@ public class Shutter : DrawableObject
     base.Draw();
     AssignUVs();
 
-
-
     if (side == ShutterSide.Right)
       gameObject.transform.RotateAround(meshOrigin, Vector3.up, -angles);
     else
