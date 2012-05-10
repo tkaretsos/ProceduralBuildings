@@ -9,7 +9,7 @@ public class Shutter : DrawableObject
 
   public readonly ShutterSide side;
 
-  static public int angles;
+  static private int angles;
 
   public BuildingMesh parentBuilding
   {
