@@ -59,7 +59,7 @@ public class BuildingMesh : DrawableObject
 
   public float balconyFloorDepth;
 
-  public Roof roof;
+  public FlatRoof roof;
   
   /*************** CONSTRUCTORS ***************/
 
@@ -90,7 +90,7 @@ public class BuildingMesh : DrawableObject
     ConstructFaces();
     ConstructFaceComponents();
 
-    roof = new Roof(this, RoofType.Flat);
+    roof = new FlatRoof(this);
     roof.material = MaterialManager.Instance.Get("Building");
     parent.AddCombinable(roof.material.name, roof);
   }
