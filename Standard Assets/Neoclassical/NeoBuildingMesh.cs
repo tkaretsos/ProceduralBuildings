@@ -23,6 +23,8 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
 
   public float balconyFloorDepth;
 
+  public NeoRoof roof;
+
   /*************** CONSTRUCTORS ***************/
   
   /// <summary>
@@ -56,6 +58,10 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
 
     ConstructFaces();
     ConstructFaceComponents();
+
+    roof = new NeoRoof(this, RoofType.Flat);
+    roof.material = MaterialManager.Instance.Get("Building");
+    parent.AddCombinable(roof.material.name, roof);
   }
 
   /*************** METHODS ***************/
@@ -85,6 +91,22 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
 
     foreach (Base.Face face in faces)
       face.ConstructFaceComponents(component_width, inbetween_space);
+  }
+
+  public override void Draw()
+  {
+    base.Draw();
+
+    roof.FindVertices();
+    roof.FindTriangles();
+    roof.Draw();
+  }
+
+  public override void Destroy()
+  {
+    base.Destroy();
+
+    roof.Destroy();
   }
 }
 
