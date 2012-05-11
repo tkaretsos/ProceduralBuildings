@@ -7,40 +7,40 @@ public class BuildingController : MonoBehaviour
   {
     TextureManager.Instance.Init();
     MaterialManager.Instance.Init();
-    NeoManager.Instance.Init();
-    NeoManager.Instance.CreateNeoclassical(BuildMode.Three);
+    BuildingManager.Instance.Init();
+    BuildingManager.Instance.CreateNeoclassical(BuildMode.Three);
   }
 
   void Update ()
   {
     if (Input.GetKeyUp(KeyCode.Alpha1))
     {
-      NeoManager.Instance.DestroyBuildings();
-      NeoManager.Instance.CreateNeoclassical(BuildMode.Many);
+      BuildingManager.Instance.DestroyBuildings();
+      BuildingManager.Instance.CreateNeoclassical(BuildMode.Many);
     }
 
     if (Input.GetKeyUp(KeyCode.Alpha2))
     {
-      NeoManager.Instance.DestroyBuildings();
-      NeoManager.Instance.CreateNeoclassical(BuildMode.Two);
+      BuildingManager.Instance.DestroyBuildings();
+      BuildingManager.Instance.CreateNeoclassical(BuildMode.Two);
     }
 
     if (Input.GetKeyUp(KeyCode.Alpha3))
     {
-      NeoManager.Instance.DestroyBuildings();
-      NeoManager.Instance.CreateNeoclassical(BuildMode.Three);
+      BuildingManager.Instance.DestroyBuildings();
+      BuildingManager.Instance.CreateNeoclassical(BuildMode.Three);
     }
 
     if (Input.GetKeyUp(KeyCode.Alpha4))
     {
-      NeoManager.Instance.DestroyBuildings();
-      NeoManager.Instance.CreateNeoclassical(BuildMode.Four);
+      BuildingManager.Instance.DestroyBuildings();
+      BuildingManager.Instance.CreateNeoclassical(BuildMode.Four);
     }
 
     if (Input.GetKeyUp(KeyCode.Alpha5))
     {
-      NeoManager.Instance.DestroyBuildings();
-      NeoManager.Instance.CreateNeoclassical(BuildMode.Five);
+      BuildingManager.Instance.DestroyBuildings();
+      BuildingManager.Instance.CreateNeoclassical(BuildMode.Five);
     }
   }
 }

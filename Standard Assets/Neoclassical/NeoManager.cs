@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace Thesis {
 
-public sealed class NeoManager
+public sealed class BuildingManager
 {
-  private static readonly NeoManager _instance = new NeoManager();
-  public static NeoManager Instance
+  private static readonly BuildingManager _instance = new BuildingManager();
+  public static BuildingManager Instance
   {
     get { return _instance; }
   }
@@ -15,7 +15,7 @@ public sealed class NeoManager
 
   private List<Color> colorList = new List<Color>();
 
-  private NeoManager () { }
+  private BuildingManager () { }
 
   public void Init ()
   {
