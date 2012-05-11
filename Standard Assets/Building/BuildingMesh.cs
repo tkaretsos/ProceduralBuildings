@@ -161,92 +161,93 @@ public class BuildingMesh : DrawableObject
 
     triangles = new int[tris_count * 3];
 
-    int tris_index = 0;
-
+    // triangles index
+    int trin = 0;
     int offset = 4;
 
     // roof
-    triangles[tris_index++] = 0;
-    triangles[tris_index++] = 1;
-    triangles[tris_index++] = 3;
+    triangles[trin++] = 0;
+    triangles[trin++] = 1;
+    triangles[trin++] = 3;
 
-    triangles[tris_index++] = 1;
-    triangles[tris_index++] = 2;
-    triangles[tris_index++] = 3;
+    triangles[trin++] = 1;
+    triangles[trin++] = 2;
+    triangles[trin++] = 3;
 
     for (int face = 0; face < 4; ++face)
     {
       if (faces[face].componentsPerFloor == 0)
       {
-        triangles[tris_index++] = offset;
-        triangles[tris_index++] = offset + 1;
-        triangles[tris_index++] = offset + 2;
+        triangles[trin++] = offset;
+        triangles[trin++] = offset + 1;
+        triangles[trin++] = offset + 2;
 
-        triangles[tris_index++] = offset;
-        triangles[tris_index++] = offset + 2;
-        triangles[tris_index++] = offset + 3;
+        triangles[trin++] = offset;
+        triangles[trin++] = offset + 2;
+        triangles[trin++] = offset + 3;
       }
       else
       {
         for (int floor = 0; floor < floorCount; ++floor)
         {
-          int fixedOffset = offset + faces[face].edgeVerticesCount + 8 * faces[face].componentsPerFloor * floor;
+          int fixedOffset = offset + faces[face].edgeVerticesCount + 
+                            (faces[face].componentsPerFloor << 3) * floor;
           int cpfX6 = 6 * faces[face].componentsPerFloor;
-          int floorX2 = 2 * floor;
+          int floorX2 = floor << 1;
 
-          triangles[tris_index++] = offset + floorX2;
-          triangles[tris_index++] = fixedOffset;
-          triangles[tris_index++] = offset + floorX2 + 2;
+          triangles[trin++] = offset + floorX2;
+          triangles[trin++] = fixedOffset;
+          triangles[trin++] = offset + floorX2 + 2;
 
-          triangles[tris_index++] = fixedOffset;
-          triangles[tris_index++] = fixedOffset + cpfX6;
-          triangles[tris_index++] = offset + floorX2 + 2;
+          triangles[trin++] = fixedOffset;
+          triangles[trin++] = fixedOffset + cpfX6;
+          triangles[trin++] = offset + floorX2 + 2;
 
           // wall between each component
           int index = fixedOffset + 1;
           for (int i = 1; i < faces[face].componentsPerFloor; ++i)
           {
-            triangles[tris_index++] = index;
-            triangles[tris_index++] = index + 1;
-            triangles[tris_index++] = index + cpfX6;
+            triangles[trin++] = index;
+            triangles[trin++] = index + 1;
+            triangles[trin++] = index + cpfX6;
 
-            triangles[tris_index++] = index + 1;
-            triangles[tris_index++] = index + cpfX6 + 1;
-            triangles[tris_index++] = index + cpfX6;
+            triangles[trin++] = index + 1;
+            triangles[trin++] = index + cpfX6 + 1;
+            triangles[trin++] = index + cpfX6;
 
             index += 2;
           }
 
-          triangles[tris_index++] = index;
-          triangles[tris_index++] = offset + floorX2 + 1;
-          triangles[tris_index++] = index + cpfX6;
+          triangles[trin++] = index;
+          triangles[trin++] = offset + floorX2 + 1;
+          triangles[trin++] = index + cpfX6;
 
-          triangles[tris_index++] = offset + floorX2 + 1;
-          triangles[tris_index++] = offset + floorX2 + 3;
-          triangles[tris_index++] = index + cpfX6;
+          triangles[trin++] = offset + floorX2 + 1;
+          triangles[trin++] = offset + floorX2 + 3;
+          triangles[trin++] = index + cpfX6;
 
           // wall over and under each component
           for (int i = 0; i < faces[face].componentsPerFloor; ++i)
           {
-            int extOffset = fixedOffset + 2 * i;
+            int extOffset = fixedOffset + (i << 1);
 
             // under
-            triangles[tris_index++] = extOffset;
-            triangles[tris_index++] = extOffset + 1;
-            triangles[tris_index++] = extOffset + 2 * faces[face].componentsPerFloor;
+            triangles[trin++] = extOffset;
+            triangles[trin++] = extOffset + 1;
+            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 1);
 
-            triangles[tris_index++] = extOffset + 1;
-            triangles[tris_index++] = extOffset + 2 * faces[face].componentsPerFloor + 1;
-            triangles[tris_index++] = extOffset + 2 * faces[face].componentsPerFloor;
+            triangles[trin++] = extOffset + 1;
+            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 1) + 1;
+            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 1);
 
             // over
-            triangles[tris_index++] = extOffset + 4 * faces[face].componentsPerFloor;
-            triangles[tris_index++] = extOffset + 4 * faces[face].componentsPerFloor + 1;
-            triangles[tris_index++] = extOffset + cpfX6;
+            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 2);
+            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 2) + 1;
+            triangles[trin++] = extOffset + cpfX6;
 
-            triangles[tris_index++] = extOffset + 4 * faces[face].componentsPerFloor + 1;
-            triangles[tris_index++] = extOffset + cpfX6 + 1;
-            triangles[tris_index++] = extOffset + cpfX6;
+            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 2) + 1;
+            triangles[trin++] = extOffset + cpfX6 + 1;
+            triangles[trin++] = extOffset + cpfX6;
           }
         }
       }
