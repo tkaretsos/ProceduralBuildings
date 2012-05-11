@@ -7,7 +7,7 @@ public class Door : FaceComponent
   public Door (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position) 
     : base(parent, position)
   {
-    height = ((BuildingMesh) parentBuilding).doorHeight;
+    height = parentBuilding.doorHeight;
     depth = 0.4f;
 
     dr += 0.4f * parentFace.right;
@@ -29,7 +29,7 @@ public class Door : FaceComponent
 
     body = new DoorBody(this);
     body.name = "neo_door_body";
-    body.material = ((Building) parentBuilding.parent).doorMaterial;
+    body.material = parentBuilding.parent.doorMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
   }
 

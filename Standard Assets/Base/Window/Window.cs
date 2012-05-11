@@ -15,7 +15,7 @@ public class Window : FaceComponent
   public Window (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position) 
     : base(parent, position)
   {
-    height = ((BuildingMesh) parentBuilding).windowHeight;
+    height = parentBuilding.windowHeight;
     depth = 0.2f;
     width = (dr - dl).magnitude;
     float height_modifier = parentBuilding.floorHeight / 2.5f - height / 2;
@@ -33,17 +33,17 @@ public class Window : FaceComponent
 
     body = new WindowBody(this);
     body.name = "neo_window_body";
-    body.material = ((Building) parentBuilding.parent).windowMaterial;
+    body.material = parentBuilding.parent.windowMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
 
     rightShutter = new Shutter(this, ShutterSide.Right);
     rightShutter.name = "right_shutter";
-    rightShutter.material = ((Building) parentBuilding.parent).shutterMaterial;
+    rightShutter.material = parentBuilding.parent.shutterMaterial;
     parentBuilding.parent.AddCombinable(rightShutter.material.name, rightShutter);
 
     leftShutter = new Shutter(this, ShutterSide.Left);
     leftShutter.name = "left_shutter";
-    leftShutter.material = ((Building) parentBuilding.parent).shutterMaterial;
+    leftShutter.material = parentBuilding.parent.shutterMaterial;
     parentBuilding.parent.AddCombinable(leftShutter.material.name, leftShutter);
   }
 

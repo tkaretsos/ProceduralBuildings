@@ -16,7 +16,7 @@ public class BalconyFloor : DrawableObject
 
   public BuildingMesh parentBuilding
   {
-    get { return (BuildingMesh) parentBalcony.parentBuilding; }
+    get { return parentBalcony.parentBuilding; }
   }
 
   /*************** CONSTRUCTORS ***************/
