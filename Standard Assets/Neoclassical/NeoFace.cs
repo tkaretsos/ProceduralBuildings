@@ -38,7 +38,7 @@ public sealed class NeoFace : Face
         dl = dr - right * component_width;
         offset += component_width;
         if (!pattern.ContainsKey(index))
-          pattern[index] = typeof(NeoWindow);
+          pattern[index] = typeof(Window);
 
         ctors = pattern[index].GetConstructors(BindingFlags.Instance | BindingFlags.Public);
         faceComponents.Add((FaceComponent) ctors[0].Invoke(new object[] { this, dr, dl, IndexToCoordinate(index) }));
