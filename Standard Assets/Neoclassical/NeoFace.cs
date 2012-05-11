@@ -89,7 +89,7 @@ public sealed class NeoFace : Face
     }
 
     foreach (int index in doorIndexes)
-      pattern[index] = typeof(NeoDoor);
+      pattern[index] = typeof(Door);
   }
 
   private void FindBalconyIndexes ()
