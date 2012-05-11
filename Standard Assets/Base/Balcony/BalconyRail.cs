@@ -8,7 +8,7 @@ public class BalconyRail : DrawableObject
 
   public readonly BalconyFloor parentFloor;
 
-  public NeoBuildingMesh parentBuilding
+  public BuildingMesh parentBuilding
   {
     get { return parentFloor.parentBuilding; }
   }

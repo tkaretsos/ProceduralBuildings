@@ -15,7 +15,7 @@ public class Window : FaceComponent
   public Window (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position) 
     : base(parent, position)
   {
-    height = ((NeoBuildingMesh) parentBuilding).windowHeight;
+    height = ((BuildingMesh) parentBuilding).windowHeight;
     depth = 0.2f;
     width = (dr - dl).magnitude;
     float height_modifier = parentBuilding.floorHeight / 2.5f - height / 2;

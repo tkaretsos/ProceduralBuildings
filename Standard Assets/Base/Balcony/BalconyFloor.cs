@@ -14,9 +14,9 @@ public class BalconyFloor : DrawableObject
 
   public float depth;
 
-  public NeoBuildingMesh parentBuilding
+  public BuildingMesh parentBuilding
   {
-    get { return (NeoBuildingMesh) parentBalcony.parentBuilding; }
+    get { return (BuildingMesh) parentBalcony.parentBuilding; }
   }
 
   /*************** CONSTRUCTORS ***************/

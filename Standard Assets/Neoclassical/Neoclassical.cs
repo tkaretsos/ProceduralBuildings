@@ -41,7 +41,7 @@ public class Neoclassical : Building
     shutterMaterial = list[num * shutCount / doorCount];
 
     // must be _after_ the initialization of this object
-    buildingMesh = new NeoBuildingMesh(this, p1, p2, p3, p4);
+    buildingMesh = new BuildingMesh(this, p1, p2, p3, p4);
     gameObject = new GameObject("Neoclassical");
     gameObject.transform.position = buildingMesh.meshOrigin;
   }

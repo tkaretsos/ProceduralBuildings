@@ -4,7 +4,7 @@ namespace Thesis {
 
 public class NeoRoof : DrawableObject
 {
-  public readonly NeoBuildingMesh parentMesh;
+  public readonly BuildingMesh parentMesh;
 
   public readonly RoofType type;
 
@@ -12,7 +12,7 @@ public class NeoRoof : DrawableObject
 
   public float height;
 
-  public NeoRoof (NeoBuildingMesh parent, RoofType roofType)
+  public NeoRoof (BuildingMesh parent, RoofType roofType)
   {
     parentMesh = parent;
     type = roofType;

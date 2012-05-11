@@ -19,7 +19,7 @@ public class Balcony : FaceComponent
   public Balcony (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position) 
     : base(parent, position)
   {
-    height = ((NeoBuildingMesh) parentBuilding).balconyHeight;
+    height = ((BuildingMesh) parentBuilding).balconyHeight;
     width = (dr - dl).magnitude;
     depth = 0.2f;
 
