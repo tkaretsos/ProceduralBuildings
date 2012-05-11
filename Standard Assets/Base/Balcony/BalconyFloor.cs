@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 namespace Thesis {
-namespace Base {
 
 public class BalconyFloor : DrawableObject
 {
@@ -128,5 +127,4 @@ public class BalconyFloor : DrawableObject
   }
 }
 
-} // namespace Base
 } // namespace Thesis

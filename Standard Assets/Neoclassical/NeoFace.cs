@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Thesis {
 
-public sealed class NeoFace : Base.Face
+public sealed class NeoFace : Face
 {
-  public NeoFace (Base.BuildingMesh parent, Vector3 dr, Vector3 dl)
+  public NeoFace (BuildingMesh parent, Vector3 dr, Vector3 dl)
     : base (parent, dr, dl)
   {}
 
@@ -41,7 +41,7 @@ public sealed class NeoFace : Base.Face
           pattern[index] = typeof(NeoWindow);
 
         ctors = pattern[index].GetConstructors(BindingFlags.Instance | BindingFlags.Public);
-        faceComponents.Add((Base.FaceComponent) ctors[0].Invoke(new object[] { this, dr, dl, IndexToCoordinate(index) }));
+        faceComponents.Add((FaceComponent) ctors[0].Invoke(new object[] { this, dr, dl, IndexToCoordinate(index) }));
 
         offset += fixed_space;
       }

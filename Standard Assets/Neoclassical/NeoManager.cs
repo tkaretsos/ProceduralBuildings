@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Thesis.Base;
 
 namespace Thesis {
 

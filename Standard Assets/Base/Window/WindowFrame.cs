@@ -1,6 +1,5 @@
 ﻿
 namespace Thesis {
-namespace Base {
 
 public sealed class WindowFrame : ComponentFrame
 {
@@ -10,10 +9,9 @@ public sealed class WindowFrame : ComponentFrame
 
   /*************** CONSTRUCTORS ***************/
 
-  public WindowFrame (Base.Window parent)
+  public WindowFrame (Window parent)
     : base(parent)
   { }
 }
 
-} // namespace Base
 } // namespace Thesis

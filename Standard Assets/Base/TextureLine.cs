@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 namespace Thesis {
-namespace Base {
 
 public struct TextureLine
 {
@@ -30,5 +29,4 @@ public struct TextureLine
   }
 }
 
-} // namespace Base
 } // namespace Thesis

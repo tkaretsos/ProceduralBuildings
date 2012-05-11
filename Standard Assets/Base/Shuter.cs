@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 namespace Thesis {
-namespace Base {
 
 public class Shutter : DrawableObject
 {
@@ -204,5 +203,4 @@ public class Shutter : DrawableObject
   }
 }
 
-} // Base
 } // Thesis

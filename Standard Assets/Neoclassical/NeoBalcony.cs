@@ -2,15 +2,15 @@
 
 namespace Thesis {
 
-public sealed class NeoBalcony : Base.Balcony
+public sealed class NeoBalcony : Balcony
 {
-  public Base.Shutter rightShutter;
+  public Shutter rightShutter;
 
-  public Base.Shutter leftShutter;
+  public Shutter leftShutter;
 
   /*************** CONSTRUCTORS ***************/
 
-  public NeoBalcony (Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
+  public NeoBalcony (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
     : base(parent, position)
   {
     height = ((NeoBuildingMesh) parentBuilding).balconyHeight;
@@ -23,32 +23,32 @@ public sealed class NeoBalcony : Base.Balcony
     boundaries[2] = new Vector3(dl.x, dl.y + height, dl.z);
     boundaries[3] = new Vector3(dr.x, dr.y + height, dr.z);
 
-    frame = new Base.BalconyFrame(this);
+    frame = new BalconyFrame(this);
     frame.name = "neo_balcony_frame";
     frame.material = MaterialManager.Instance.Get("ComponentFrame");
     parentBuilding.parent.AddCombinable(frame.material.name, frame);
 
-    body = new Base.BalconyBody(this);
+    body = new BalconyBody(this);
     body.name = "neo_balcony_body";
     body.material = ((Neoclassical) parentBuilding.parent).balconyDoorMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
 
-    balconyFloor = new Base.BalconyFloor(this);
+    balconyFloor = new BalconyFloor(this);
     balconyFloor.name = "neo_balcony_floor";
     balconyFloor.material = MaterialManager.Instance.Get("Building");
     parentBuilding.parent.AddCombinable(balconyFloor.material.name, balconyFloor);
 
-    balconyRail = new Base.BalconyRail(balconyFloor);
+    balconyRail = new BalconyRail(balconyFloor);
     balconyRail.name = "neo_balcony_rail";
     balconyRail.material = MaterialManager.Instance.Get("mat_neo_balcony_rail");
     parentBuilding.parent.AddCombinable(balconyRail.material.name, balconyRail);
 
-    rightShutter = new Base.Shutter(this, ShutterSide.Right);
+    rightShutter = new Shutter(this, ShutterSide.Right);
     rightShutter.name = "bal_right_shutter";
     rightShutter.material = ((Neoclassical) parentBuilding.parent).shutterMaterial;
     parentBuilding.parent.AddCombinable(rightShutter.material.name, rightShutter);
 
-    leftShutter = new Base.Shutter(this, ShutterSide.Left);
+    leftShutter = new Shutter(this, ShutterSide.Left);
     leftShutter.name = "bal_left_shutter";
     leftShutter.material = ((Neoclassical) parentBuilding.parent).shutterMaterial;
     parentBuilding.parent.AddCombinable(leftShutter.material.name, leftShutter);
@@ -76,7 +76,7 @@ public sealed class NeoBalcony : Base.Balcony
     balconyRail.FindTriangles();
     balconyRail.Draw();
 
-    Base.Shutter.SetAngles();
+    Shutter.SetAngles();
 
     rightShutter.FindVertices();
     rightShutter.FindTriangles();

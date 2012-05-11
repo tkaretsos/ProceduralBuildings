@@ -1,6 +1,5 @@
 ﻿
 namespace Thesis {
-namespace Base {
 
 public class WindowBody : ComponentBody
 {
@@ -9,5 +8,4 @@ public class WindowBody : ComponentBody
   { }
 }
 
-} // namespace Base
 } // namespace Thesis

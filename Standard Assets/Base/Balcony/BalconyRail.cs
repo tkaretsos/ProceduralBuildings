@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 namespace Thesis {
-namespace Base {
 
 public class BalconyRail : DrawableObject
 {
@@ -182,5 +181,4 @@ public class BalconyRail : DrawableObject
   }
 }
 
-} // namespace Base
 } // namespace Thesis

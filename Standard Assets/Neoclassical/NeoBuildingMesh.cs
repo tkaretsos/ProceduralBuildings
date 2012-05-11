@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Thesis {
 
-public sealed class NeoBuildingMesh : Base.BuildingMesh
+public sealed class NeoBuildingMesh : BuildingMesh
 {
   /*************** FIELDS ***************/
 
@@ -89,7 +89,7 @@ public sealed class NeoBuildingMesh : Base.BuildingMesh
     float component_width = Random.Range(_componentWidthMin, _componentWidthMax);
     float inbetween_space = Random.Range(_componentSpaceMin, _componentSpaceMax);
 
-    foreach (Base.Face face in faces)
+    foreach (Face face in faces)
       face.ConstructFaceComponents(component_width, inbetween_space);
   }
 

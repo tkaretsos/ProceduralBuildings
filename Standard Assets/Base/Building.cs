@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using CombinablesCollection = System.Collections.Generic.IList<Thesis.Interface.ICombinable>;
 
 namespace Thesis {
-namespace Base {
 
 public class Building
 {
@@ -94,5 +93,4 @@ public class Building
   }
 }
 
-} // namespace Base
 } // namespace Thesis

@@ -1,6 +1,5 @@
 ﻿
 namespace Thesis {
-namespace Base {
 
 public class DoorBody : ComponentBody
 {
@@ -9,5 +8,4 @@ public class DoorBody : ComponentBody
   { }
 }
 
-} // namespace Base
 } // namespace Thesis

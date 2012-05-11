@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 namespace Thesis {
-namespace Base {
 
 public class ProceduralTexture
 {
@@ -95,5 +94,4 @@ public class ProceduralTexture
   }
 }
 
-} // namespace Base
 } // namespace Thesis

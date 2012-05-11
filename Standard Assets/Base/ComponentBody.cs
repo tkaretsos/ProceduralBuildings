@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 namespace Thesis {
-namespace Base {
 
 public class ComponentBody : DrawableObject
 {
@@ -71,5 +70,4 @@ public class ComponentBody : DrawableObject
   }
 }
 
-} // namespace Base
 } // namespace Thesis

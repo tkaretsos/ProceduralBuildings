@@ -2,7 +2,7 @@
 
 namespace Thesis {
 
-public class Neoclassical : Base.Building
+public class Neoclassical : Building
 {
   public readonly Material windowMaterial;
 

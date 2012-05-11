@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Thesis {
 
-public sealed class NeoDoor : Base.Door
+public sealed class NeoDoor : Door
 {
-  public NeoDoor(Base.Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
+  public NeoDoor(Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position)
   : base (parent, position)
   {
     height = ((NeoBuildingMesh) parentBuilding).doorHeight;
@@ -22,12 +22,12 @@ public sealed class NeoDoor : Base.Door
     boundaries[2] = ul;
     boundaries[3] = ur;
 
-    frame = new Base.DoorFrame(this);
+    frame = new DoorFrame(this);
     frame.name = "neo_door_frame";
     frame.material = MaterialManager.Instance.Get("ComponentFrame");
     parentBuilding.parent.AddCombinable(frame.material.name, frame);
 
-    body = new Base.DoorBody(this);
+    body = new DoorBody(this);
     body.name = "neo_door_body";
     body.material = ((Neoclassical) parentBuilding.parent).doorMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);

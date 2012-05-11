@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 
 namespace Thesis {
-namespace Base {
 
 public class BuildingMesh : DrawableObject
 {
@@ -192,8 +191,8 @@ public class BuildingMesh : DrawableObject
   {
     base.Draw();
 
-    foreach (Base.Face face in faces)
-      foreach (Base.FaceComponent component in face.faceComponents)
+    foreach (Face face in faces)
+      foreach (FaceComponent component in face.faceComponents)
         component.Draw();
 
     gameObject.transform.position = meshOrigin;
@@ -234,5 +233,4 @@ public class BuildingMesh : DrawableObject
   }
 }
 
-} // namespace Base
 } // namespace Thesis
