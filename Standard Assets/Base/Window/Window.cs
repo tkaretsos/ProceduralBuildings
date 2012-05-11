@@ -33,17 +33,17 @@ public class Window : FaceComponent
 
     body = new WindowBody(this);
     body.name = "neo_window_body";
-    body.material = ((Neoclassical) parentBuilding.parent).windowMaterial;
+    body.material = ((Building) parentBuilding.parent).windowMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
 
     rightShutter = new Shutter(this, ShutterSide.Right);
     rightShutter.name = "right_shutter";
-    rightShutter.material = ((Neoclassical) parentBuilding.parent).shutterMaterial;
+    rightShutter.material = ((Building) parentBuilding.parent).shutterMaterial;
     parentBuilding.parent.AddCombinable(rightShutter.material.name, rightShutter);
 
     leftShutter = new Shutter(this, ShutterSide.Left);
     leftShutter.name = "left_shutter";
-    leftShutter.material = ((Neoclassical) parentBuilding.parent).shutterMaterial;
+    leftShutter.material = ((Building) parentBuilding.parent).shutterMaterial;
     parentBuilding.parent.AddCombinable(leftShutter.material.name, leftShutter);
   }
 

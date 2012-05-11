@@ -36,7 +36,7 @@ public class Balcony : FaceComponent
 
     body = new BalconyBody(this);
     body.name = "neo_balcony_body";
-    body.material = ((Neoclassical) parentBuilding.parent).balconyDoorMaterial;
+    body.material = ((Building) parentBuilding.parent).balconyDoorMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
 
     balconyFloor = new BalconyFloor(this);
@@ -51,12 +51,12 @@ public class Balcony : FaceComponent
 
     rightShutter = new Shutter(this, ShutterSide.Right);
     rightShutter.name = "bal_right_shutter";
-    rightShutter.material = ((Neoclassical) parentBuilding.parent).shutterMaterial;
+    rightShutter.material = ((Building) parentBuilding.parent).shutterMaterial;
     parentBuilding.parent.AddCombinable(rightShutter.material.name, rightShutter);
 
     leftShutter = new Shutter(this, ShutterSide.Left);
     leftShutter.name = "bal_left_shutter";
-    leftShutter.material = ((Neoclassical) parentBuilding.parent).shutterMaterial;
+    leftShutter.material = ((Building) parentBuilding.parent).shutterMaterial;
     parentBuilding.parent.AddCombinable(leftShutter.material.name, leftShutter);
   }
 

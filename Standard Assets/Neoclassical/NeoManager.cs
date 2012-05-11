@@ -11,7 +11,7 @@ public sealed class NeoManager
     get { return _instance; }
   }
 
-  public List<Neoclassical> neo = new List<Neoclassical>();
+  public List<Building> neo = new List<Building>();
 
   private List<Color> colorList = new List<Color>();
 
@@ -137,14 +137,14 @@ public sealed class NeoManager
 
   public void DestroyBuildings ()
   {
-    foreach (Neoclassical n in neo)
+    foreach (Building n in neo)
       n.Destroy();
     neo.Clear();
   }
 
   private void Build (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
-    var n = new Neoclassical(p1, p2, p3, p4);
+    var n = new Building(p1, p2, p3, p4);
     n.buildingMesh.FindVertices();
     n.buildingMesh.FindTriangles();
     n.buildingMesh.Draw();

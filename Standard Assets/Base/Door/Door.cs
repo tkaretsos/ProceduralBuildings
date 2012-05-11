@@ -29,7 +29,7 @@ public class Door : FaceComponent
 
     body = new DoorBody(this);
     body.name = "neo_door_body";
-    body.material = ((Neoclassical) parentBuilding.parent).doorMaterial;
+    body.material = ((Building) parentBuilding.parent).doorMaterial;
     parentBuilding.parent.AddCombinable(body.material.name, body);
   }
 
