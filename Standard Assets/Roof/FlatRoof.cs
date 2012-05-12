@@ -10,7 +10,7 @@ public class FlatRoof : Roof
     width = 0.4f;
     height = 0.4f;
 
-    boundaries = new UnityEngine.Vector3[8];
+    boundaries = new Vector3[8];
 
     for (int i = 0; i < 4; ++i)
     {
