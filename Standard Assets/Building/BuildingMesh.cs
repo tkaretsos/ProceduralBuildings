@@ -59,7 +59,9 @@ public class BuildingMesh : DrawableObject
 
   public float balconyFloorDepth;
 
-  public FlatRoof roof;
+  //public FlatRoof roof;
+
+  public SinglePeakRoof roof;
   
   /*************** CONSTRUCTORS ***************/
 
@@ -90,7 +92,7 @@ public class BuildingMesh : DrawableObject
     ConstructFaces();
     ConstructFaceComponents();
 
-    roof = new FlatRoof(this);
+    roof = new SinglePeakRoof(this);
     roof.material = MaterialManager.Instance.Get("Building");
     parent.AddCombinable(roof.material.name, roof);
   }
@@ -151,8 +153,7 @@ public class BuildingMesh : DrawableObject
 
   public override void FindTriangles ()
   {
-    // roof tris
-    int tris_count = 2;
+    int tris_count = 0;
     for (int i = 0; i < 4; ++i)
       if (faces[i].componentsPerFloor == 0)
         tris_count += 2;
@@ -164,15 +165,6 @@ public class BuildingMesh : DrawableObject
     // triangles index
     int trin = 0;
     int offset = 4;
-
-    // roof
-    triangles[trin++] = 0;
-    triangles[trin++] = 1;
-    triangles[trin++] = 3;
-
-    triangles[trin++] = 1;
-    triangles[trin++] = 2;
-    triangles[trin++] = 3;
 
     for (int face = 0; face < 4; ++face)
     {
