@@ -62,6 +62,8 @@ public class BuildingMesh : DrawableObject
   //public FlatRoof roof;
 
   public SinglePeakRoof roof;
+
+  public RoofBase roofBase;
   
   /*************** CONSTRUCTORS ***************/
 
@@ -95,6 +97,10 @@ public class BuildingMesh : DrawableObject
     roof = new SinglePeakRoof(this);
     roof.material = MaterialManager.Instance.Get("Building");
     parent.AddCombinable(roof.material.name, roof);
+
+    roofBase = new RoofBase(this);
+    roofBase.material = MaterialManager.Instance.Get("Building");
+    parent.AddCombinable(roofBase.material.name, roofBase);
   }
 
   /*************** METHODS ***************/
@@ -262,6 +268,10 @@ public class BuildingMesh : DrawableObject
     roof.FindVertices();
     roof.FindTriangles();
     roof.Draw();
+
+    roofBase.FindVertices();
+    roofBase.FindTriangles();
+    roofBase.Draw();
   }
 
   /// <summary>
