@@ -14,7 +14,7 @@ public class FlatRoof : Roof
 
     for (int i = 0; i < 4; ++i)
     {
-      boundaries[i] = parentMesh.boundaries[i + 4] +
+      boundaries[i] = parentMesh.roofBase.boundaries[i + 4] +
                       width * parentMesh.faces[i].normal +
                       width * parentMesh.faces[(i + 3) % 4].normal;
 

@@ -59,9 +59,9 @@ public class BuildingMesh : DrawableObject
 
   public float balconyFloorDepth;
 
-  //public FlatRoof roof;
+  public FlatRoof roof;
 
-  public SinglePeakRoof roof;
+  //public SinglePeakRoof roof;
 
   public RoofBase roofBase;
   
@@ -94,13 +94,13 @@ public class BuildingMesh : DrawableObject
     ConstructFaces();
     ConstructFaceComponents();
 
-    roof = new SinglePeakRoof(this);
-    roof.material = MaterialManager.Instance.Get("Building");
-    parent.AddCombinable(roof.material.name, roof);
-
     roofBase = new RoofBase(this);
     roofBase.material = MaterialManager.Instance.Get("Building");
     parent.AddCombinable(roofBase.material.name, roofBase);
+
+    roof = new FlatRoof(this);
+    roof.material = MaterialManager.Instance.Get("Building");
+    parent.AddCombinable(roof.material.name, roof);
   }
 
   /*************** METHODS ***************/

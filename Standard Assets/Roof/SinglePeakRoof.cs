@@ -12,7 +12,7 @@ public class SinglePeakRoof : Roof
     boundaries = new Vector3[5];
 
     for (int i = 0; i < 4; ++i)
-      boundaries[i] = parentMesh.boundaries[i + 4];
+      boundaries[i] = parentMesh.roofBase.boundaries[i + 4];
 
     FindMeshOrigin(boundaries[0], boundaries[2],
                    boundaries[1], boundaries[3]);
