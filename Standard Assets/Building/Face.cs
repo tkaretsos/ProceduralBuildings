@@ -345,6 +345,9 @@ public class Face : DrawableObject
       default:
         break;
     }
+
+    foreach (int index in balconyIndexes)
+      pattern[index] = typeof(Balcony);
   }
 
   public ComponentCoordinate IndexToCoordinate (int index)
