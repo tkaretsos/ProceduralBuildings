@@ -24,7 +24,7 @@ public class SinglePeakRoof : Roof
 
   public override void FindVertices()
   {
-    vertices = new Vector3[boundaries.Length << 2];
+    vertices = new Vector3[boundaries.Length * 4];
     for (int i = 0; i < 4; ++i)
       System.Array.Copy(boundaries, 0, vertices, i * boundaries.Length, boundaries.Length);
   }
@@ -52,6 +52,41 @@ public class SinglePeakRoof : Roof
     triangles[i++] = 18;
     triangles[i++] = 15;
     triangles[i++] = 19;
+  }
+
+  public override void Draw()
+  {
+    base.Draw();
+
+    var uvs = new Vector2[mesh.vertices.Length];
+
+    float _wdiv = material.mainTexture.width / 128f;
+    float _hdiv = material.mainTexture.height / 128f;
+    float _dist01 = (boundaries[0] - boundaries[1]).magnitude;
+    float _dist12 = (boundaries[1] - boundaries[2]).magnitude;
+    float htimes =  _dist01 / _wdiv;
+    float vtimes = Mathf.Sqrt(Mathf.Pow(_dist12 / 2, 2) +
+                              Mathf.Pow(height, 2)) / _hdiv;
+
+    uvs[1] = new Vector2(0f, 0f);
+    uvs[4] = new Vector2(htimes / 2, vtimes);
+    uvs[0] = new Vector2(htimes, 0f);
+    uvs[13] = new Vector2(0f, 0f);
+    uvs[14] = new Vector2(htimes / 2, vtimes);
+    uvs[12] = new Vector2(htimes, 0f);
+
+    htimes = _dist12 / _wdiv;
+    vtimes = Mathf.Sqrt(Mathf.Pow(_dist01 / 2, 2) +
+                        Mathf.Pow(height, 2)) / _hdiv;
+
+    uvs[7] = new Vector2(0f, 0f);
+    uvs[9] = new Vector2(htimes / 2, vtimes);
+    uvs[6] = new Vector2(htimes, 0f);
+    uvs[15] = new Vector2(0f, 0f);
+    uvs[19] = new Vector2(htimes / 2, vtimes);
+    uvs[18] = new Vector2(htimes, 0f);
+    
+    mesh.uv = uvs;
   }
 }
 
