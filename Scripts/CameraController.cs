@@ -113,15 +113,15 @@ public class CameraController : MonoBehaviour
     GUILayout.Label("M - Change camera mode");
     GUILayout.Label("Shift - Speed boost");
 
-#if UNITY_EDITOR
-    GUILayout.Label("All " + FindObjectsOfType(typeof(UnityEngine.Object)).Length);
-    GUILayout.Label("Textures " + FindObjectsOfType(typeof(Texture)).Length);
-    GUILayout.Label("AudioClips " + FindObjectsOfType(typeof(AudioClip)).Length);
-    GUILayout.Label("Meshes " + FindObjectsOfType(typeof(Mesh)).Length);
-    GUILayout.Label("Materials " + FindObjectsOfType(typeof(Material)).Length);
-    GUILayout.Label("GameObjects " + FindObjectsOfType(typeof(GameObject)).Length);
-    GUILayout.Label("Components " + FindObjectsOfType(typeof(Component)).Length);
-#endif
+//#if UNITY_EDITOR
+//    GUILayout.Label("All " + FindObjectsOfType(typeof(UnityEngine.Object)).Length);
+//    GUILayout.Label("Textures " + FindObjectsOfType(typeof(Texture)).Length);
+//    GUILayout.Label("AudioClips " + FindObjectsOfType(typeof(AudioClip)).Length);
+//    GUILayout.Label("Meshes " + FindObjectsOfType(typeof(Mesh)).Length);
+//    GUILayout.Label("Materials " + FindObjectsOfType(typeof(Material)).Length);
+//    GUILayout.Label("GameObjects " + FindObjectsOfType(typeof(GameObject)).Length);
+//    GUILayout.Label("Components " + FindObjectsOfType(typeof(Component)).Length);
+//#endif
   }
 
   private void ClampCamera (float horizontal = 360f, float vertical = 80f)

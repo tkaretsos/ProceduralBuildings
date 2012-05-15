@@ -42,5 +42,13 @@ public class BuildingController : MonoBehaviour
       BuildingManager.Instance.DestroyBuildings();
       BuildingManager.Instance.CreateNeoclassical(BuildMode.Five);
     }
+
+#if UNITY_EDITOR
+    foreach (Building b in BuildingManager.Instance.neo)
+    {
+      Debug.DrawRay(b.buildingMesh.boundaries[0] + b.buildingMesh.meshOrigin, 
+                    Vector3.up * 20, Color.green);
+    }
+#endif
   }
 }
