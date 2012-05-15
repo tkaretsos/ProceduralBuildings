@@ -19,7 +19,11 @@ public class FlatRoof : Roof
                       width * parentMesh.faces[(i + 3) % 4].normal;
 
       boundaries[i + 4] = boundaries[i] + height * Vector3.up;
-    }    
+    }
+
+    decor = new RoofDecoration(this);
+    decor.material = MaterialManager.Instance.Get("mat_roof_base");
+    parentMesh.parent.AddCombinable(decor.material.name, decor);
   }
 
   public override void FindVertices()
