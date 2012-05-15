@@ -28,6 +28,11 @@ public sealed class MaterialManager
     Object[] mats = Resources.LoadAll("Materials", typeof(Material));
     for (var i = 0; i < mats.Length; ++i)
       _materials.Add(mats[i].name, (Material) mats[i]);
+
+    CreateDoorShutter();
+    CreateWindowBalcony();
+
+    Testing();
   }
 
   public void Add (string name, Material material)
@@ -102,6 +107,57 @@ public sealed class MaterialManager
   public List<Material> GetCollection (string name)
   {
     return _collections.ContainsKey(name) ? _collections[name] : null;
+  }
+
+  private void CreateDoorShutter ()
+  {
+    foreach (Color color in ColorManager.Instance.GetCollection("col_components"))
+    {
+      foreach (ProceduralTexture tex
+                in TextureManager.Instance.GetCollection("tex_neo_door"))
+      {
+        Material mat = new Material(Shader.Find("Diffuse"));
+        mat.color = color;
+        mat.mainTexture = tex.content;
+        MaterialManager.Instance.AddToCollection("mat_neo_door", mat);
+      }
+
+      foreach (ProceduralTexture tex
+                in TextureManager.Instance.GetCollection("tex_neo_shutter"))
+      {
+        Material mat = new Material(Shader.Find("Diffuse"));
+        mat.color = color;
+        mat.mainTexture = tex.content;
+        MaterialManager.Instance.AddToCollection("mat_neo_shutter", mat);
+      }
+    }
+  }
+
+  private void CreateWindowBalcony ()
+  {
+    foreach (ProceduralTexture tex
+              in TextureManager.Instance.GetCollection("tex_neo_window"))
+      MaterialManager.Instance.AddToCollection("mat_neo_window", "Diffuse", tex);
+
+    foreach (ProceduralTexture tex
+              in TextureManager.Instance.GetCollection("tex_neo_balcony_door"))
+      MaterialManager.Instance.AddToCollection("mat_neo_balcony_door",
+                                               "Diffuse", tex);
+
+    MaterialManager.Instance.Add("mat_neo_balcony_rail",
+                                 "Transparent/Cutout/Diffuse",
+                                 TextureManager.Instance.Get("tex_neo_balcony"));
+  }
+
+  private void Testing ()
+  {
+    Material m = new Material(Shader.Find("Diffuse"));
+    m.mainTexture = TextureManager.Instance.Get("tile2").content;
+    MaterialManager.Instance.Add("mat_neo_roof", m);
+
+    Material n = new Material(Shader.Find("Diffuse"));
+    n.mainTexture = TextureManager.Instance.Get("tex_roof_base").content;
+    MaterialManager.Instance.Add("mat_roof_base", n);
   }
 }
 
