@@ -5,6 +5,7 @@ public class BuildingController : MonoBehaviour
 {
   void Awake ()
   {
+    ColorManager.Instance.Init();
     TextureManager.Instance.Init();
     MaterialManager.Instance.Init();
     BuildingManager.Instance.Init();
