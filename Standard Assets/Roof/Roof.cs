@@ -37,7 +37,8 @@ public class Roof : DrawableObject
   {
     base.Destroy();
 
-    decor.Destroy();
+    if (decor != null)
+      decor.Destroy();
   }
 }
 
