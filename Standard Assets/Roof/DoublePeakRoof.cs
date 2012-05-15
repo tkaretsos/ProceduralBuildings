@@ -14,10 +14,13 @@ public class DoublePeakRoof : Roof
   public DoublePeakRoof (BuildingMesh parent)
     : base(parent)
   {
+    width = 0.2f;
     boundaries = new Vector3[6];
 
     for (int i = 0; i < 4; ++i)
-      boundaries[i] = parentMesh.roofBase.boundaries[i + 4];
+      boundaries[i] = parentMesh.roofBase.boundaries[i + 4]+
+                      width * parentMesh.faces[i].normal +
+                      width * parentMesh.faces[(i + 3) % 4].normal;
 
     FindMeshOrigin(boundaries[0], boundaries[2],
                    boundaries[1], boundaries[3]);
@@ -62,14 +65,14 @@ public class DoublePeakRoof : Roof
 
   public override void FindVertices()
   {
-    vertices = new Vector3[boundaries.Length * 3];
-    for (int i = 0; i < 3; ++i)
+    vertices = new Vector3[boundaries.Length * 4];
+    for (int i = 0; i < 4; ++i)
       System.Array.Copy(boundaries, 0, vertices, i * boundaries.Length, boundaries.Length);
   }
 
   public override void FindTriangles()
   {
-    triangles = new int[18];
+    triangles = new int[24];
     int i = 0;
 
     if (_type == _Type.five)
@@ -128,6 +131,15 @@ public class DoublePeakRoof : Roof
       triangles[i++] = 16;
       triangles[i++] = 17;
     }
+
+    // +18
+    triangles[i++] = 18;
+    triangles[i++] = 21;
+    triangles[i++] = 20;
+
+    triangles[i++] = 18;
+    triangles[i++] = 20;
+    triangles[i++] = 19;
   }
 
   public override void Draw()

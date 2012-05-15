@@ -8,11 +8,14 @@ public class SinglePeakRoof : Roof
     : base(parent)
   {
     height = 1f;
+    width = 0.2f;
 
     boundaries = new Vector3[5];
 
     for (int i = 0; i < 4; ++i)
-      boundaries[i] = parentMesh.roofBase.boundaries[i + 4];
+      boundaries[i] = parentMesh.roofBase.boundaries[i + 4] +
+                      width * parentMesh.faces[i].normal +
+                      width * parentMesh.faces[(i + 3) % 4].normal;
 
     FindMeshOrigin(boundaries[0], boundaries[2],
                    boundaries[1], boundaries[3]);
@@ -24,14 +27,14 @@ public class SinglePeakRoof : Roof
 
   public override void FindVertices()
   {
-    vertices = new Vector3[boundaries.Length * 4];
-    for (int i = 0; i < 4; ++i)
+    vertices = new Vector3[boundaries.Length * 5];
+    for (int i = 0; i < 5; ++i)
       System.Array.Copy(boundaries, 0, vertices, i * boundaries.Length, boundaries.Length);
   }
 
   public override void FindTriangles()
   {
-    triangles = new int[12];
+    triangles = new int[18];
     int i = 0;
 
     triangles[i++] = 0;
@@ -52,6 +55,14 @@ public class SinglePeakRoof : Roof
     triangles[i++] = 18;
     triangles[i++] = 15;
     triangles[i++] = 19;
+
+    triangles[i++] = 20;
+    triangles[i++] = 23;
+    triangles[i++] = 22;
+
+    triangles[i++] = 20;
+    triangles[i++] = 22;
+    triangles[i++] = 21;
   }
 
   public override void Draw()
