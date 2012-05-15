@@ -33,7 +33,10 @@ public sealed class MaterialManager
   public void Add (string name, Material material)
   {
     if (!_materials.ContainsKey(name))
+    {
+      material.name = name;
       _materials.Add(name, material);
+    }
   }
 
   public void AddToCollection (string name, Material material)
