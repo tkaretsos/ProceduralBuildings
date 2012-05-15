@@ -13,8 +13,6 @@ public sealed class BuildingManager
 
   public List<Building> neo = new List<Building>();
 
-  private List<Color> colorList = new List<Color>();
-
   private BuildingManager () { }
 
   public void Init ()
@@ -425,20 +423,6 @@ public sealed class BuildingManager
                                     tex.content.width, h,
                                     color, thickness));
     }
-  }
-
-  private void AddColors ()
-  {
-    colorList.Add(new Color32( 245, 245, 220, 255));
-    colorList.Add(new Color32( 210, 180, 140, 255));
-    colorList.Add(new Color32( 151, 105,  79, 255));
-    colorList.Add(new Color32( 139, 105, 105, 255));
-    colorList.Add(new Color32( 139,  90,  51, 255));
-    colorList.Add(new Color32( 139,  69,  19, 255));
-    colorList.Add(new Color32( 133,  99,  99, 255));
-    colorList.Add(new Color32( 107,  66,  38, 255));
-    colorList.Add(new Color32(  92,  64,  51, 255));
-    colorList.Add(new Color32(  92,  51,  23, 255));
   }
 }
 
