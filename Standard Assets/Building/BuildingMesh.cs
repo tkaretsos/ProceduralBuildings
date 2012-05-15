@@ -59,9 +59,7 @@ public class BuildingMesh : DrawableObject
 
   public float balconyFloorDepth;
 
-  //public FlatRoof roof;
-
-  public DoublePeakRoof roof;
+  public Roof roof;
 
   public RoofBase roofBase;
   
@@ -75,7 +73,7 @@ public class BuildingMesh : DrawableObject
 
     parent.AddCombinable(material.name, this);
 
-    floorHeight = Random.Range(4f, 4.25f);
+    floorHeight = Random.Range(3.8f, 4f);
     floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
 
     FindMeshOrigin(p1, p3, p2, p4);
@@ -93,15 +91,10 @@ public class BuildingMesh : DrawableObject
 
     ConstructFaces();
     ConstructFaceComponents();
-
-    roofBase = new RoofBase(this);
-    roofBase.material = MaterialManager.Instance.Get("Building");
-    parent.AddCombinable(roofBase.material.name, roofBase);
-
-    roof = new DoublePeakRoof(this);
-    roof.material = MaterialManager.Instance.Get("Building");
-    parent.AddCombinable(roof.material.name, roof);
+    ConstructRoof();
   }
+
+
 
   /*************** METHODS ***************/
 
@@ -130,6 +123,25 @@ public class BuildingMesh : DrawableObject
 
     foreach (Face face in faces)
       face.ConstructFaceComponents(component_width, inbetween_space);
+  }
+
+  private void ConstructRoof()
+  {
+    roofBase = new RoofBase(this);
+    roofBase.material = MaterialManager.Instance.Get("mat_roof_base");
+    parent.AddCombinable(roofBase.material.name, roofBase);
+
+    int n = Util.RollDice(new float[] { 0.33f, 0.33f, 0.34f });
+
+    if (n == 1)
+      roof = new FlatRoof(this);
+    else if (n == 2)
+      roof = new SinglePeakRoof(this);
+    else
+      roof = new DoublePeakRoof(this);
+
+    roof.material = MaterialManager.Instance.Get("mat_neo_roof");
+    parent.AddCombinable(roof.material.name, roof);
   }
 
   public override void FindVertices ()
