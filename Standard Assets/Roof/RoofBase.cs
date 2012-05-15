@@ -15,7 +15,7 @@ public class RoofBase : DrawableObject
   public RoofBase (BuildingMesh parent)
   {
     parentMesh = parent;
-    height = 0.3f;
+    height = 0.6f;
 
     boundaries = new Vector3[8];
 
