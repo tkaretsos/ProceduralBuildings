@@ -79,6 +79,35 @@ public class RoofBase : DrawableObject
   {
     base.Draw();
 
+    var uvs = new Vector2[mesh.vertices.Length];
+
+    float _wdiv = material.mainTexture.width / 128f;
+    int times = Mathf.CeilToInt((boundaries[0] - boundaries[1]).magnitude / _wdiv);
+
+    uvs[1] = new Vector2(0f, 0f);
+    uvs[0] = new Vector2(times, 0f);
+    uvs[5] = new Vector2(0f, 1f);
+    uvs[4] = new Vector2(times, 1f);
+
+    uvs[3] = new Vector2(0f, 0f);
+    uvs[2] = new Vector2(times, 0f);
+    uvs[7] = new Vector2(0f, 1f);
+    uvs[6] = new Vector2(times, 1f);
+
+    times = Mathf.CeilToInt((boundaries[2] - boundaries[1]).magnitude / _wdiv);
+
+    uvs[10] = new Vector2(0f, 0f);
+    uvs[9]  = new Vector2(times, 0f);
+    uvs[14] = new Vector2(0f, 1f);
+    uvs[13] = new Vector2(times, 1f);
+
+    uvs[8]  = new Vector2(0f, 0f);
+    uvs[11] = new Vector2(times, 0f);
+    uvs[12] = new Vector2(0f, 1f);
+    uvs[15] = new Vector2(times, 1f);
+
+    mesh.uv = uvs;
+
     gameObject.transform.parent = parentMesh.parent.gameObject.transform;
     gameObject.transform.position = parentMesh.meshOrigin;
   }
