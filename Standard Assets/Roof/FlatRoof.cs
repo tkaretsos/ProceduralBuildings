@@ -7,8 +7,8 @@ public class FlatRoof : Roof
   public FlatRoof (BuildingMesh parent)
     : base(parent)
   {
-    width = 0.4f;
-    height = 0.4f;
+    width = 0.3f;
+    height = 0.2f;
 
     boundaries = new Vector3[8];
 
