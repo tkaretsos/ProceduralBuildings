@@ -319,6 +319,7 @@ public class BuildingMesh : DrawableObject
       face.Destroy();
 
     roof.Destroy();
+    roofBase.Destroy();
   }
 }
 
