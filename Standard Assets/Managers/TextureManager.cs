@@ -36,6 +36,12 @@ public sealed class TextureManager
     for (var i = 0; i < texs.Length; ++i)
       AddToCollection("tex_neo_shutter",
                       new ProceduralTexture((Texture2D) texs[i]));
+
+    Object tmp = Resources.Load("Textures/Testing/tile2", typeof(Texture2D));
+    Add(tmp.name, new ProceduralTexture((Texture2D) tmp));
+
+    tmp = Resources.Load("Textures/Testing/tex_roof_base", typeof(Texture2D));
+    Add(tmp.name, new ProceduralTexture((Texture2D) tmp));
   }
 
   public void Add (string name, ProceduralTexture texture)

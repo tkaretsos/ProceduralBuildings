@@ -35,6 +35,14 @@ public sealed class BuildingManager
                                  "Transparent/Cutout/Diffuse",
                                  TextureManager.Instance.Get("tex_neo_balcony"));
 
+    Material m = new Material(Shader.Find("Diffuse"));
+    m.mainTexture = TextureManager.Instance.Get("tile2").content;
+    MaterialManager.Instance.Add("mat_neo_roof", m);
+
+    Material n = new Material(Shader.Find("Diffuse"));
+    n.mainTexture = TextureManager.Instance.Get("tex_roof_base").content;
+    MaterialManager.Instance.Add("mat_roof_base", n);
+
     // door materials
     AddColors();
     foreach (Color color in colorList)
@@ -117,6 +125,11 @@ public sealed class BuildingManager
               new Vector3(11f, 0f, 0f),
               new Vector3(0f, 0f, 0f),
               new Vector3(0f, 0f, 4f));
+
+        Build(new Vector3(20f, 0f, 4f),
+              new Vector3(37f, 0f, 4f),
+              new Vector3(37f, 0f, 0f),
+              new Vector3(20f, 0f, 0f));
         break;
 
       case BuildMode.Four:
