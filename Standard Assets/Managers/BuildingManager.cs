@@ -42,8 +42,7 @@ public sealed class BuildingManager
     MaterialManager.Instance.Add("mat_roof_base", n);
 
     // door materials
-    AddColors();
-    foreach (Color color in colorList)
+    foreach (Color color in ColorManager.Instance.GetCollection("col_components"))
     {
       foreach (ProceduralTexture tex
                 in TextureManager.Instance.GetCollection("tex_neo_door"))
