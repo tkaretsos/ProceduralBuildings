@@ -25,16 +25,34 @@ public sealed class TextureManager
 
   public void Init ()
   {
-    Object[] texs = Resources.LoadAll("Textures/Neoclassical/Door",
+    Object[] texs = Resources.LoadAll("Textures/Door",
                                       typeof(Texture2D));
     for (var i = 0; i < texs.Length; ++i)
       AddToCollection("tex_neo_door",
                       new ProceduralTexture((Texture2D) texs[i]));
 
-    texs = Resources.LoadAll("Textures/Neoclassical/Shutter",
+    texs = Resources.LoadAll("Textures/Shutter",
                              typeof(Texture2D));
     for (var i = 0; i < texs.Length; ++i)
       AddToCollection("tex_neo_shutter",
+                      new ProceduralTexture((Texture2D) texs[i]));
+
+    texs = Resources.LoadAll("Textures/Roof",
+                             typeof(Texture2D));
+    for (var i = 0; i < texs.Length; ++i)
+      AddToCollection("tex_roof",
+                      new ProceduralTexture((Texture2D) texs[i]));
+
+    texs = Resources.LoadAll("Textures/RoofBase",
+                             typeof(Texture2D));
+    for (var i = 0; i < texs.Length; ++i)
+      AddToCollection("tex_roof_base",
+                      new ProceduralTexture((Texture2D) texs[i]));
+
+    texs = Resources.LoadAll("Textures/RoofDecor",
+                             typeof(Texture2D));
+    for (var i = 0; i < texs.Length; ++i)
+      AddToCollection("tex_roof_decor",
                       new ProceduralTexture((Texture2D) texs[i]));
 
     CreateBalconyRailTexture();
@@ -42,10 +60,13 @@ public sealed class TextureManager
     CreateBalconyBodyTextures();
 
     // TEMPORARY STUFF
-    Object tmp = Resources.Load("Textures/Testing/tile2", typeof(Texture2D));
+    Object tmp = Resources.Load("Textures/Testing/tile3", typeof(Texture2D));
     Add(tmp.name, new ProceduralTexture((Texture2D) tmp));
 
     tmp = Resources.Load("Textures/Testing/tex_roof_base", typeof(Texture2D));
+    Add(tmp.name, new ProceduralTexture((Texture2D) tmp));
+
+    tmp = Resources.Load("Textures/Testing/decor", typeof(Texture2D));
     Add(tmp.name, new ProceduralTexture((Texture2D) tmp));
   }
 
