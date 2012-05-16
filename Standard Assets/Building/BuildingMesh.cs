@@ -128,7 +128,7 @@ public class BuildingMesh : DrawableObject
   private void ConstructRoof()
   {
     roofBase = new RoofBase(this);
-    roofBase.material = MaterialManager.Instance.Get("mat_roof_base");
+    roofBase.material = MaterialManager.Instance.GetCollection("mat_roof_base")[0];
     parent.AddCombinable(roofBase.material.name, roofBase);
 
     int n = Util.RollDice(new float[] { 0.33f, 0.33f, 0.34f });
@@ -140,7 +140,7 @@ public class BuildingMesh : DrawableObject
     else
       roof = new DoublePeakRoof(this);
 
-    roof.material = MaterialManager.Instance.Get("mat_neo_roof");
+    roof.material = MaterialManager.Instance.GetCollection("mat_roof")[0];
     parent.AddCombinable(roof.material.name, roof);
   }
 
