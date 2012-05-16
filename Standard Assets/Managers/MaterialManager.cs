@@ -33,7 +33,7 @@ public sealed class MaterialManager
     CreateWindowBalcony();
     CreateRoofRelated();
 
-    Testing();
+    //Testing();
   }
 
   public void Add (string name, Material material)
@@ -171,7 +171,7 @@ public sealed class MaterialManager
       {
         Material mat = new Material(Shader.Find("Transparent/Cutout/Diffuse"));
         mat.mainTexture = tex.content;
-        MaterialManager.Instance.AddToCollection("mat_roof", mat);
+        MaterialManager.Instance.AddToCollection("mat_roof_decor", mat);
       }
   }
 
