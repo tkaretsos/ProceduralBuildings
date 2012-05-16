@@ -11,7 +11,7 @@ public class RoofDecoration : DrawableObject
   public RoofDecoration (Roof parent)
   {
     parentRoof = parent;
-    height = 0.3f;
+    height = 0.25f;
 
     boundaries = new Vector3[8];
 
