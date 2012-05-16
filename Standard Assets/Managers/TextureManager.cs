@@ -58,16 +58,6 @@ public sealed class TextureManager
     CreateBalconyRailTexture();
     CreateWindowTextures();
     CreateBalconyBodyTextures();
-
-    // TEMPORARY STUFF
-    Object tmp = Resources.Load("Textures/Testing/tile3", typeof(Texture2D));
-    Add(tmp.name, new ProceduralTexture((Texture2D) tmp));
-
-    tmp = Resources.Load("Textures/Testing/tex_roof_base", typeof(Texture2D));
-    Add(tmp.name, new ProceduralTexture((Texture2D) tmp));
-
-    tmp = Resources.Load("Textures/Testing/decor", typeof(Texture2D));
-    Add(tmp.name, new ProceduralTexture((Texture2D) tmp));
   }
 
   public void Add (string name, ProceduralTexture texture)
