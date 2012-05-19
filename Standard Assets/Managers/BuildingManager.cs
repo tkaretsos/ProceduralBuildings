@@ -76,10 +76,10 @@ public sealed class BuildingManager
               new Vector3(0f, 0f, 0f),
               new Vector3(0f, 0f, 4f));
 
-        Build(new Vector3(20f, 0f, 4f),
-              new Vector3(37f, 0f, 4f),
-              new Vector3(37f, 0f, 0f),
-              new Vector3(20f, 0f, 0f));
+        //Build(new Vector3(20f, 0f, 4f),
+        //      new Vector3(37f, 0f, 4f),
+        //      new Vector3(37f, 0f, 0f),
+        //      new Vector3(20f, 0f, 0f));
         break;
 
       case BuildMode.Four:

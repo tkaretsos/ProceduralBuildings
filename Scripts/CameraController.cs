@@ -115,12 +115,12 @@ public class CameraController : MonoBehaviour
 
 //#if UNITY_EDITOR
 //    GUILayout.Label("All " + FindObjectsOfType(typeof(UnityEngine.Object)).Length);
-//    GUILayout.Label("Textures " + FindObjectsOfType(typeof(Texture)).Length);
 //    GUILayout.Label("AudioClips " + FindObjectsOfType(typeof(AudioClip)).Length);
-//    GUILayout.Label("Meshes " + FindObjectsOfType(typeof(Mesh)).Length);
 //    GUILayout.Label("Materials " + FindObjectsOfType(typeof(Material)).Length);
-//    GUILayout.Label("GameObjects " + FindObjectsOfType(typeof(GameObject)).Length);
 //    GUILayout.Label("Components " + FindObjectsOfType(typeof(Component)).Length);
+//    GUILayout.Label("Textures " + FindObjectsOfType(typeof(Texture)).Length);
+//    GUILayout.Label("Meshes " + FindObjectsOfType(typeof(Mesh)).Length);
+//    GUILayout.Label("GameObjects " + FindObjectsOfType(typeof(GameObject)).Length);
 //#endif
   }
 
