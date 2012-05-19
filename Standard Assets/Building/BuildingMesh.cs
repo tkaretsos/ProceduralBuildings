@@ -128,7 +128,9 @@ public class BuildingMesh : DrawableObject
   private void ConstructRoof()
   {
     roofBase = new RoofBase(this);
-    roofBase.material = MaterialManager.Instance.GetCollection("mat_roof_base")[0];
+    var list = MaterialManager.Instance.GetCollection("mat_roof_base");
+    roofBase.material = list[Random.Range(0, list.Count - 1)];
+    //roofBase.material = list[list.Count - 1];
     parent.AddCombinable(roofBase.material.name, roofBase);
 
     int n = Util.RollDice(new float[] { 0.33f, 0.33f, 0.34f });
@@ -140,7 +142,11 @@ public class BuildingMesh : DrawableObject
     else
       roof = new DoublePeakRoof(this);
 
-    roof.material = MaterialManager.Instance.GetCollection("mat_roof")[0];
+    list = MaterialManager.Instance.GetCollection("mat_roof");
+    if (roof.GetType().Equals(typeof(FlatRoof)))
+      roof.material = list[Random.Range(0, 2)];
+    else
+      roof.material = list[Random.Range(0, list.Count - 1)];
     parent.AddCombinable(roof.material.name, roof);
   }
 
