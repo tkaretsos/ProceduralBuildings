@@ -10,6 +10,8 @@ public class Window : FaceComponent
 
   public Shutter leftShutter;
 
+  public WindowDecor decor;
+
   /*************** CONSTRUCTORS ***************/
 
   public Window (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position) 
@@ -45,6 +47,11 @@ public class Window : FaceComponent
     leftShutter.name = "left_shutter";
     leftShutter.material = parentBuilding.parent.shutterMaterial;
     parentBuilding.parent.AddCombinable(leftShutter.material.name, leftShutter);
+
+    decor = new WindowDecor(this);
+    decor.name = "window_decor";
+    decor.material = MaterialManager.Instance.Get("WindowDecor");
+    parentBuilding.parent.AddCombinable(decor.material.name, decor);
   }
 
   /*************** METHODS ***************/
@@ -70,6 +77,10 @@ public class Window : FaceComponent
     leftShutter.FindVertices();
     leftShutter.FindTriangles();
     leftShutter.Draw();
+
+    decor.FindVertices();
+    decor.FindTriangles();
+    decor.Draw();
   }
 
   public override void Destroy()
@@ -78,6 +89,7 @@ public class Window : FaceComponent
 
     rightShutter.Destroy();
     leftShutter.Destroy();
+    decor.Destroy();
   }
 }
 
