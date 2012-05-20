@@ -134,10 +134,11 @@ public class BuildingMesh : DrawableObject
     parent.AddCombinable(roofBase.material.name, roofBase);
 
     int n = Util.RollDice(new float[] { 0.33f, 0.33f, 0.34f });
+    int maxcpf = Mathf.Max(faces[0].componentsPerFloor, faces[1].componentsPerFloor);
 
     if (n == 1)
       roof = new FlatRoof(this);
-    else if (n == 2)
+    else if (n == 2 && maxcpf <= 3)
       roof = new SinglePeakRoof(this);
     else
       roof = new DoublePeakRoof(this);
