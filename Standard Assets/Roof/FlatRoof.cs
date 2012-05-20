@@ -7,8 +7,8 @@ public class FlatRoof : Roof
   public FlatRoof (BuildingMesh parent)
     : base(parent)
   {
-    width = 0.3f;
-    height = 0.2f;
+    width = 0.1f;
+    height = 0.05f;
 
     boundaries = new Vector3[8];
 
@@ -92,6 +92,25 @@ public class FlatRoof : Roof
     triangles[i++] = 20;
     triangles[i++] = 22;
     triangles[i++] = 23;
+  }
+
+  public override void Draw()
+  {
+    base.Draw();
+
+    float _wdiv = material.mainTexture.width / 128f;
+    float _hdiv = material.mainTexture.height / 128f;
+    float htimes = (boundaries[0] - boundaries[1]).magnitude / _wdiv;
+    float vtimes = (boundaries[2] - boundaries[1]).magnitude / _hdiv;
+
+    var uvs = new Vector2[mesh.vertices.Length];
+
+    uvs[21] = new Vector2(0f, 0f);
+    uvs[20] = new Vector2(htimes, 0f);
+    uvs[22] = new Vector2(0f, vtimes);
+    uvs[23] = new Vector2(htimes, vtimes);
+
+    mesh.uv = uvs;
   }
 }
 
