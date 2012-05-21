@@ -10,7 +10,7 @@ public class Window : FaceComponent
 
   public Shutter leftShutter;
 
-  public WindowDecor decor;
+  public ComponentDecor decor;
 
   /*************** CONSTRUCTORS ***************/
 
@@ -48,10 +48,13 @@ public class Window : FaceComponent
     leftShutter.material = parentBuilding.parent.shutterMaterial;
     parentBuilding.parent.AddCombinable(leftShutter.material.name, leftShutter);
 
-    decor = new WindowDecor(this);
-    decor.name = "window_decor";
-    decor.material = MaterialManager.Instance.Get("WindowDecor");
-    parentBuilding.parent.AddCombinable(decor.material.name, decor);
+    if (position.floor >= 1)
+    {
+      decor = new ComponentDecor(this);
+      decor.name = "window_decor";
+      decor.material = parentBuilding.parent.compDecorMaterial;
+      parentBuilding.parent.AddCombinable(decor.material.name, decor);
+    }
   }
 
   /*************** METHODS ***************/
@@ -68,7 +71,7 @@ public class Window : FaceComponent
     body.FindTriangles();
     body.Draw();
 
-    Shutter.SetAngles();
+    //Shutter.SetAngles();
 
     rightShutter.FindVertices();
     rightShutter.FindTriangles();
@@ -78,9 +81,12 @@ public class Window : FaceComponent
     leftShutter.FindTriangles();
     leftShutter.Draw();
 
-    decor.FindVertices();
-    decor.FindTriangles();
-    decor.Draw();
+    if (decor != null)
+    {
+      decor.FindVertices();
+      decor.FindTriangles();
+      decor.Draw();
+    }
   }
 
   public override void Destroy()
@@ -89,7 +95,9 @@ public class Window : FaceComponent
 
     rightShutter.Destroy();
     leftShutter.Destroy();
-    decor.Destroy();
+
+    if (decor != null)
+      decor.Destroy();
   }
 }
 
