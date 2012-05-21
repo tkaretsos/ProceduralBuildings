@@ -33,6 +33,15 @@ public sealed class MaterialManager
     CreateWindowBalcony();
     CreateRoofRelated();
 
+    Material mat;
+    foreach (ProceduralTexture tex
+              in TextureManager.Instance.GetCollection("tex_comp_decor"))
+    {
+      mat = new Material(Shader.Find("Transparent/Cutout/Diffuse"));
+      mat.mainTexture = tex.content;
+      MaterialManager.Instance.AddToCollection("mat_comp_decor", mat);
+    }
+
     //Testing();
   }
 
