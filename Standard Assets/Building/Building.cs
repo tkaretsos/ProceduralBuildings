@@ -15,6 +15,8 @@ public class Building
 
   public readonly Material shutterMaterial;
 
+  public readonly Material compDecorMaterial;
+
   public GameObject gameObject;
 
   public BuildingMesh buildingMesh;
@@ -30,7 +32,7 @@ public class Building
 
     // find window material randomly
     var list = MaterialManager.Instance.GetCollection("mat_neo_window");
-    var num = Random.Range(0, list.Count - 1);
+    var num = Random.Range(0, list.Count);
     windowMaterial = list[num];
 
     // balcony door material
@@ -39,8 +41,13 @@ public class Building
 
     // door material
     list = MaterialManager.Instance.GetCollection("mat_neo_door");
-    num = Random.Range(0, list.Count - 1);
+    num = Random.Range(0, list.Count);
     doorMaterial = list[num];
+
+    // component decor material
+    list = MaterialManager.Instance.GetCollection("mat_comp_decor");
+    num = Random.Range(0, list.Count);
+    compDecorMaterial = list[num];
 
     // shutter material
     // not randomly selected, depends on the door material
