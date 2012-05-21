@@ -352,8 +352,8 @@ public class Face : DrawableObject
 
   public ComponentCoordinate IndexToCoordinate (int index)
   {
-    return new ComponentCoordinate(index / parentBuilding.floorCount,
-                                   index % parentBuilding.floorCount);
+    return new ComponentCoordinate(index / componentsPerFloor,
+                                   index % componentsPerFloor);
   }
 
   public override void Destroy()
