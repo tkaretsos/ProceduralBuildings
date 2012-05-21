@@ -14,6 +14,8 @@ public class Balcony : FaceComponent
 
   public Shutter leftShutter;
 
+  public ComponentDecor decor;
+
   /*************** CONSTRUCTORS ***************/
 
   public Balcony (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position) 
@@ -58,6 +60,16 @@ public class Balcony : FaceComponent
     leftShutter.name = "bal_left_shutter";
     leftShutter.material = parentBuilding.parent.shutterMaterial;
     parentBuilding.parent.AddCombinable(leftShutter.material.name, leftShutter);
+
+    if (position.floor >= 1)
+    {
+      decor = new ComponentDecor(this);
+      decor.name = "window_decor";
+      decor.material = parentBuilding.parent.compDecorMaterial;
+      parentBuilding.parent.AddCombinable(decor.material.name, decor);
+    }
+    else
+      decor = null;
   }
 
   /*************** METHODS ***************/
@@ -82,7 +94,7 @@ public class Balcony : FaceComponent
     balconyRail.FindTriangles();
     balconyRail.Draw();
 
-    Shutter.SetAngles();
+    //Shutter.SetAngles();
 
     rightShutter.FindVertices();
     rightShutter.FindTriangles();
@@ -91,6 +103,13 @@ public class Balcony : FaceComponent
     leftShutter.FindVertices();
     leftShutter.FindTriangles();
     leftShutter.Draw();
+
+    if (decor != null)
+    {
+      decor.FindVertices();
+      decor.FindTriangles();
+      decor.Draw();
+    }
   }
 
   public override void Destroy()
@@ -101,6 +120,9 @@ public class Balcony : FaceComponent
     balconyRail.Destroy();
     rightShutter.Destroy();
     leftShutter.Destroy();
+
+    if (decor != null)
+      decor.Destroy();
   }
 }
 
