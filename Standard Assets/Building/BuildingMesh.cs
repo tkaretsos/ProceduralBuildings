@@ -110,10 +110,10 @@ public class BuildingMesh : DrawableObject
 
   public void ConstructFaceComponents ()
   {
-    windowHeight = Random.Range(1.8f, 2f);
+    windowHeight = Random.Range(1.5f, 1.7f);
     doorHeight = Random.Range(2.8f, 3f);
 
-    balconyHeight = windowHeight / 2 + floorHeight / 2.5f;
+    balconyHeight = windowHeight / 2 + floorHeight / 2.25f;
     balconyFloorHeight = 0.2f;
     balconyFloorDepth = 1f;
     balconyFloorWidth = 0.6f;
