@@ -44,11 +44,6 @@ public class Building
     num = Random.Range(0, list.Count);
     doorMaterial = list[num];
 
-    // component decor material
-    list = MaterialManager.Instance.GetCollection("mat_comp_decor");
-    num = Random.Range(0, list.Count);
-    compDecorMaterial = list[num];
-
     // shutter material
     // not randomly selected, depends on the door material
     // count and shutter material count, in order to match
@@ -57,6 +52,12 @@ public class Building
     var doorCount = MaterialManager.Instance.GetCollection("mat_neo_door").Count;
     var shutCount = MaterialManager.Instance.GetCollection("mat_neo_shutter").Count;
     shutterMaterial = list[num * shutCount / doorCount];
+
+    // component decor material
+    list = MaterialManager.Instance.GetCollection("mat_comp_decor");
+    num = Random.Range(0, list.Count);
+    compDecorMaterial = list[num];
+    //compDecorMaterial = list[list.Count - 1];
 
     // must be _after_ the initialization of this object
     buildingMesh = new BuildingMesh(this, p1, p2, p3, p4);
