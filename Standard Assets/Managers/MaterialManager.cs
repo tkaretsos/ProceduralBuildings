@@ -42,6 +42,14 @@ public sealed class MaterialManager
       MaterialManager.Instance.AddToCollection("mat_comp_decor", mat);
     }
 
+    foreach (ProceduralTexture tex
+              in TextureManager.Instance.GetCollection("tex_comp_decor_simple"))
+    {
+      mat = new Material(Shader.Find("Diffuse"));
+      mat.mainTexture = tex.content;
+      MaterialManager.Instance.AddToCollection("mat_comp_decor_simple", mat);
+    }
+
     //Testing();
   }
 

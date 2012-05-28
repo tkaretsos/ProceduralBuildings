@@ -61,6 +61,12 @@ public sealed class TextureManager
       AddToCollection("tex_comp_decor",
                       new ProceduralTexture((Texture2D) texs[i]));
 
+    texs = Resources.LoadAll("Textures/CompDecorSimple",
+                              typeof(Texture2D));
+    for (var i = 0; i < texs.Length; ++i)
+      AddToCollection("tex_comp_decor_simple",
+                      new ProceduralTexture((Texture2D) texs[i]));
+
     CreateBalconyRailTexture();
     CreateWindowTextures();
     CreateBalconyBodyTextures();
