@@ -17,6 +17,8 @@ public class Building
 
   public readonly Material compDecorMaterial;
 
+  public readonly Material simpleCompDecorMaterial;
+
   public GameObject gameObject;
 
   public BuildingMesh buildingMesh;
@@ -58,6 +60,10 @@ public class Building
     num = Random.Range(0, list.Count);
     compDecorMaterial = list[num];
     //compDecorMaterial = list[list.Count - 1];
+
+    list = MaterialManager.Instance.GetCollection("mat_comp_decor_simple");
+    num = Random.Range(0, list.Count);
+    simpleCompDecorMaterial = list[num];
 
     // must be _after_ the initialization of this object
     buildingMesh = new BuildingMesh(this, p1, p2, p3, p4);

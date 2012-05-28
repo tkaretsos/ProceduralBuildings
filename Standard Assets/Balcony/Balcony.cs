@@ -69,7 +69,12 @@ public class Balcony : FaceComponent
       parentBuilding.parent.AddCombinable(decor.material.name, decor);
     }
     else
-      decor = null;
+    {
+      decor = new ComponentDecor(this, true);
+      decor.name = "window_decor";
+      decor.material = parentBuilding.parent.simpleCompDecorMaterial;
+      parentBuilding.parent.AddCombinable(decor.material.name, decor);
+    }
   }
 
   /*************** METHODS ***************/

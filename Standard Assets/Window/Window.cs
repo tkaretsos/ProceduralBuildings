@@ -55,6 +55,13 @@ public class Window : FaceComponent
       decor.material = parentBuilding.parent.compDecorMaterial;
       parentBuilding.parent.AddCombinable(decor.material.name, decor);
     }
+    else
+    {
+      decor = new ComponentDecor(this, true);
+      decor.name = "window_decor";
+      decor.material = parentBuilding.parent.simpleCompDecorMaterial;
+      parentBuilding.parent.AddCombinable(decor.material.name, decor);
+    }
   }
 
   /*************** METHODS ***************/
