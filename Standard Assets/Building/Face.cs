@@ -124,7 +124,6 @@ public class Face : DrawableObject
     {
       edgeVerticesCount = boundaries.Length;
       vertices = boundaries;
-      uvs.AddRange(new int[] { 1, 0, 3, 2 });
       return;
     }
 
