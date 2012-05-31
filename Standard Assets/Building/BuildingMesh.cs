@@ -85,16 +85,12 @@ public class BuildingMesh : DrawableObject
     boundaries[3] = p4 - meshOrigin;
 
     for (int i = 0; i < 4; ++i)
-      boundaries[i + 4] = new Vector3(boundaries[i].x,
-                                      boundaries[i].y + height,
-                                      boundaries[i].z);
+      boundaries[i + 4] = boundaries[i] + height * Vector3.up;
 
     ConstructFaces();
     ConstructFaceComponents();
     ConstructRoof();
   }
-
-
 
   /*************** METHODS ***************/
 
@@ -208,9 +204,9 @@ public class BuildingMesh : DrawableObject
         for (int floor = 0; floor < floorCount; ++floor)
         {
           int fixedOffset = offset + faces[face].edgeVerticesCount + 
-                            (faces[face].componentsPerFloor << 3) * floor;
+                            8 * faces[face].componentsPerFloor * floor;
           int cpfX6 = 6 * faces[face].componentsPerFloor;
-          int floorX2 = floor << 1;
+          int floorX2 = 2 * floor;
 
           triangles[trin++] = offset + floorX2;
           triangles[trin++] = fixedOffset;
@@ -251,18 +247,18 @@ public class BuildingMesh : DrawableObject
             // under
             triangles[trin++] = extOffset;
             triangles[trin++] = extOffset + 1;
-            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 1);
+            triangles[trin++] = extOffset + 2 * faces[face].componentsPerFloor;
 
             triangles[trin++] = extOffset + 1;
-            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 1) + 1;
-            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 1);
+            triangles[trin++] = extOffset + 2 * faces[face].componentsPerFloor + 1;
+            triangles[trin++] = extOffset + 2 * faces[face].componentsPerFloor;
 
             // over
-            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 2);
-            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 2) + 1;
+            triangles[trin++] = extOffset + 4 * faces[face].componentsPerFloor;
+            triangles[trin++] = extOffset + 4 * faces[face].componentsPerFloor + 1;
             triangles[trin++] = extOffset + cpfX6;
 
-            triangles[trin++] = extOffset + (faces[face].componentsPerFloor << 2) + 1;
+            triangles[trin++] = extOffset + 4 * faces[face].componentsPerFloor + 1;
             triangles[trin++] = extOffset + cpfX6 + 1;
             triangles[trin++] = extOffset + cpfX6;
           }

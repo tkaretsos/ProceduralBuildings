@@ -49,7 +49,7 @@ public class Face : DrawableObject
   public List<int> doorIndexes = new List<int>();
 
   public List<int> balconyIndexes = new List<int>();
-  
+
   /*************** CONSTRUCTORS ***************/
   
   /// <summary>
@@ -104,7 +104,7 @@ public class Face : DrawableObject
       for (int component = 0; component < componentsPerFloor; ++component)
       {
         index = floor * componentsPerFloor + component;
-        dr = boundaries[0] - right * offset + (new Vector3(0f, floor * parentBuilding.floorHeight, 0f));
+        dr = boundaries[0] - right * offset + floor * parentBuilding.floorHeight * Vector3.up;
         dl = dr - right * component_width;
         offset += component_width;
         if (!pattern.ContainsKey(index))
@@ -124,6 +124,7 @@ public class Face : DrawableObject
     {
       edgeVerticesCount = boundaries.Length;
       vertices = boundaries;
+      uvs.AddRange(new int[] { 1, 0, 3, 2 });
       return;
     }
 
@@ -132,21 +133,16 @@ public class Face : DrawableObject
 
     for (int i = 0; i < edgeVerticesCount; i += 2)
     {
-      vertices[i] = new Vector3(boundaries[0].x,
-                                boundaries[0].y + (i >> 1) * parentBuilding.floorHeight,
-                                boundaries[0].z);
-
-      vertices[i + 1] = new Vector3(boundaries[1].x,
-                                    boundaries[1].y + (i >> 1) * parentBuilding.floorHeight,
-                                    boundaries[1].z);
+      vertices[i]     = boundaries[0] + (i / 2) * parentBuilding.floorHeight * Vector3.up;
+      vertices[i + 1] = boundaries[1] + (i / 2) * parentBuilding.floorHeight * Vector3.up;
     }
 
-    int double_cpf = componentsPerFloor << 1;
+    int double_cpf = 2 * componentsPerFloor;
     for (var floor = 1; floor <= parentBuilding.floorCount; ++floor)
       for (var cp = 0; cp < componentsPerFloor; ++cp)
       {
         int cpn = cp + componentsPerFloor * (floor - 1);
-        int indexModifier = (floor - 1) * (componentsPerFloor << 3) + (cp << 1) + edgeVerticesCount;
+        int indexModifier = 8 * componentsPerFloor * (floor - 1) + 2 * cp + edgeVerticesCount;
 
         vertices[indexModifier] = new Vector3(
           faceComponents[cpn].boundaries[0].x,
@@ -162,16 +158,16 @@ public class Face : DrawableObject
 
         vertices[indexModifier + double_cpf + 1] = faceComponents[cpn].boundaries[1];
 
-        vertices[indexModifier + (double_cpf << 1)] = faceComponents[cpn].boundaries[3];
+        vertices[indexModifier + 2 * double_cpf] = faceComponents[cpn].boundaries[3];
 
-        vertices[indexModifier + (double_cpf << 1) + 1] = faceComponents[cpn].boundaries[2];
+        vertices[indexModifier + 2 * double_cpf + 1] = faceComponents[cpn].boundaries[2];
 
-        vertices[indexModifier + double_cpf * 3] = new Vector3(
+        vertices[indexModifier + 3 * double_cpf] = new Vector3(
           faceComponents[cpn].boundaries[3].x,
           floor * parentBuilding.floorHeight - parentBuilding.meshOrigin.y,
           faceComponents[cpn].boundaries[3].z);
 
-        vertices[indexModifier + double_cpf * 3 + 1] = new Vector3(
+        vertices[indexModifier + 3 * double_cpf + 1] = new Vector3(
           faceComponents[cpn].boundaries[2].x,
           floor * parentBuilding.floorHeight - parentBuilding.meshOrigin.y,
           faceComponents[cpn].boundaries[2].z);
