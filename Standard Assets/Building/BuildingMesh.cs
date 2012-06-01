@@ -69,7 +69,8 @@ public class BuildingMesh : DrawableObject
   {
     this.parent = parent;
     name = "neo_building_mesh";
-    material = MaterialManager.Instance.Get("Building");
+    var list = MaterialManager.Instance.GetCollection("mat_walls");
+    material = list[Random.Range(0, list.Count)];
 
     parent.AddCombinable(material.name, this);
 

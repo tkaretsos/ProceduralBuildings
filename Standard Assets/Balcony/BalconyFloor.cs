@@ -22,7 +22,6 @@ public class BalconyFloor : DrawableObject
   /*************** CONSTRUCTORS ***************/
 
   public BalconyFloor (Balcony parent)
-    : base("balcony_floor", "Building")
   {
     parentBalcony = parent;
 

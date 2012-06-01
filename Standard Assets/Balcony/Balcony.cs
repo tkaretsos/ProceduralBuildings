@@ -43,7 +43,7 @@ public class Balcony : FaceComponent
 
     balconyFloor = new BalconyFloor(this);
     balconyFloor.name = "neo_balcony_floor";
-    balconyFloor.material = MaterialManager.Instance.Get("Building");
+    balconyFloor.material = parentBuilding.material;
     parentBuilding.parent.AddCombinable(balconyFloor.material.name, balconyFloor);
 
     balconyRail = new BalconyRail(balconyFloor);
