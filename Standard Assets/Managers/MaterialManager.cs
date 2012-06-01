@@ -32,6 +32,7 @@ public sealed class MaterialManager
     CreateDoorShutter();
     CreateWindowBalcony();
     CreateRoofRelated();
+    CreateWalls();
 
     Material mat;
     foreach (ProceduralTexture tex
@@ -190,6 +191,17 @@ public sealed class MaterialManager
         mat.mainTexture = tex.content;
         MaterialManager.Instance.AddToCollection("mat_roof_decor", mat);
       }
+  }
+
+  private void CreateWalls ()
+  {
+    Material mat;
+    foreach (Color color in ColorManager.Instance.GetCollection("col_walls"))
+    {
+      mat = new Material(Shader.Find("Diffuse"));
+      mat.color = color;
+      AddToCollection("mat_walls", mat);
+    }
   }
 
   private void Testing ()

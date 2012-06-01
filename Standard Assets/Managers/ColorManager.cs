@@ -25,6 +25,7 @@ public sealed class ColorManager
   public void Init ()
   {
     AddComponentColors();
+    AddWallColors();
   }
 
   public void Add (string name, Color color)
@@ -71,6 +72,23 @@ public sealed class ColorManager
     AddToCollection(name, new Color32( 107,  66,  38, 255));
     AddToCollection(name, new Color32(  92,  64,  51, 255));
     AddToCollection(name, new Color32(  92,  51,  23, 255));
+  }
+
+  private void AddWallColors ()
+  {
+    var name = "col_walls";
+    AddToCollection(name, new Color32( 166, 159, 141, 255));
+    AddToCollection(name, new Color32( 231, 206, 165, 255));
+    AddToCollection(name, new Color32( 173, 155, 155, 255));
+    AddToCollection(name, new Color32( 135, 125, 115, 255));
+    AddToCollection(name, new Color32( 155, 157, 143, 255));
+    AddToCollection(name, new Color32( 225, 168, 151, 255));
+    AddToCollection(name, new Color32( 224, 174, 125, 255));
+    AddToCollection(name, new Color32( 216, 191, 150, 255));
+    AddToCollection(name, new Color32( 205, 171, 110, 255));
+    AddToCollection(name, new Color32( 165, 133, 118, 255));
+    AddToCollection(name, new Color32( 190, 169, 164, 255));
+    AddToCollection(name, new Color32( 194, 183, 181, 255));
   }
 }
 
