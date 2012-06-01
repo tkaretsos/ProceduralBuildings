@@ -23,7 +23,7 @@ public class FlatRoof : Roof
 
     decor = new RoofDecoration(this);
     var list = MaterialManager.Instance.GetCollection("mat_roof_decor");
-    decor.material = list[(Random.Range(0, list.Count - 1))];
+    decor.material = list[Random.Range(0, list.Count)];
     parentMesh.parent.AddCombinable(decor.material.name, decor);
   }
 
