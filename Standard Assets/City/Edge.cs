@@ -13,7 +13,7 @@ public class Edge
       _start = value;
       _length = Vector3.Distance(_start, _end);
       _middle = (_start + _end) / 2;
-      _direction = _end - _start;
+      _direction = (_end - _start).normalized;
     }
   }
 
@@ -26,7 +26,7 @@ public class Edge
       _end = value;
       _length = Vector3.Distance(_start, _end);
       _middle = (_start + _end) / 2;
-      _direction = _end - _start;
+      _direction = (_end - _start).normalized;
     }
   }
 
@@ -56,7 +56,7 @@ public class Edge
     _end = to;
     _length = Vector3.Distance(from, to);
     _middle = (from + to) / 2;
-    _direction = to - from;
+    _direction = (to - from).normalized;
   }
 }
 
