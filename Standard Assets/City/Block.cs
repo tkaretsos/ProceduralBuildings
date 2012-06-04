@@ -26,6 +26,8 @@ public class Block
 
   private const float _divergence = 0.08f;
 
+  public BuildingLot lot;
+
   /*************** CONSTRUCTORS ***************/
 
   public Block (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
@@ -67,6 +69,7 @@ public class Block
   {
     if (_isFinal)
     {
+      lot = new BuildingLot(this);
       CityMapManager.Instance.Add(this);
       return;
     }
