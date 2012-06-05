@@ -19,6 +19,12 @@ public sealed class CityMapManager
     get { return _blocks.AsReadOnly(); }
   }
 
+  private List<BuildingLot> _lots;
+  public IList<BuildingLot> lots
+  {
+    get { return _lots.AsReadOnly(); }
+  }
+
   private List<Vector3> _nodes;
   public IList<Vector3> nodes
   {
@@ -29,11 +35,17 @@ public sealed class CityMapManager
   {
     _blocks = new List<Block>();
     _nodes = new List<Vector3>();
+    _lots = new List<BuildingLot>();
   }
 
   public void Add (Block block)
   {
     _blocks.Add(block);
+  }
+
+  public void Add (BuildingLot lot)
+  {
+    _lots.Add(lot);
   }
 
   public int Add (Vector3 node)
