@@ -92,19 +92,19 @@ public class Block
   private void isFinal ()
   {
     float min = edges.Min(e => e.length);
-    if (min < 12f)
+    if (min < 20f)
     {
       _isFinal = true;
       return;
     }
 
-    if (min < 22f && Util.RollDice(new float[] { 0.7f, 0.3f }) == 1)
+    if (min < 25f && Util.RollDice(new float[] { 0.7f, 0.3f }) == 1)
     {
       _isFinal = true;
       return;
     }
 
-    if (min < 27f && Util.RollDice(new float[] { 0.3f, 0.7f }) == 1)
+    if (min < 30f && Util.RollDice(new float[] { 0.3f, 0.7f }) == 1)
     {
       _isFinal = true;
       return;
