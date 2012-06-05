@@ -10,8 +10,6 @@ public class Block
 
   public readonly List<Edge> edges;
 
-  public Edge bisector;
-
   private bool _isFinal;
 
   private const float _divergence = 0.08f;
@@ -65,8 +63,6 @@ public class Block
       CityMapManager.Instance.Add(this);
       return;
     }
-
-    bisector = new Edge(edges[0].middle, edges[2].middle);
 
     var big_offset = (Random.Range(0f, _divergence * edges[0].length)) * edges[0].direction;
     if (Util.RollDice(new float[] { 0.5f, 0.5f }) == 1)
