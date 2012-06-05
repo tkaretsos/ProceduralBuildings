@@ -8,8 +8,6 @@ public class Block
 {
   /*************** FIELDS ***************/
 
-  public Block[] children;
-
   public readonly List<Edge> edges;
 
   public readonly Edge biggest;
@@ -75,7 +73,6 @@ public class Block
     }
 
     bisector = new Edge(biggest.middle, opposite.middle);
-    children = new Block[2];
 
     var big_offset = (Random.Range(0f, _divergence * biggest.length)) * biggest.direction;
     if (Util.RollDice(new float[] { 0.5f, 0.5f }) == 1)
@@ -84,13 +81,12 @@ public class Block
     if (Util.RollDice(new float[] { 0.5f, 0.5f }) == 1)
       opp_offset *= -1;
 
-    children[0] = new Block(_left.start, _left.end,
-                            biggest.middle + big_offset, opposite.middle + opp_offset);
-    children[1] = new Block(_right.start, _right.end,
-                            opposite.middle + opp_offset, biggest.middle + big_offset);
-
-    foreach (Block b in children)
-      b.Bisect();
+    Block b1 = new Block(_left.start, _left.end,
+                         biggest.middle + big_offset, opposite.middle + opp_offset);
+    b1.Bisect();
+    Block b2 = new Block(_right.start, _right.end,
+                         opposite.middle + opp_offset, biggest.middle + big_offset);
+    b2.Bisect();
   }
 
   private void isFinal ()
