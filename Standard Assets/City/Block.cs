@@ -10,14 +10,6 @@ public class Block
 
   public readonly List<Edge> edges;
 
-  public readonly Edge biggest;
-
-  public readonly Edge opposite;
-
-  private readonly Edge _left;
-
-  private readonly Edge _right;
-
   public Edge bisector;
 
   private bool _isFinal;
@@ -46,19 +38,21 @@ public class Block
     if (i != -1)
       p4 = CityMapManager.Instance.nodes[i];
     
-    edges = new List<Edge>();
-    edges.Add(new Edge(p1, p2));
-    edges.Add(new Edge(p2, p3));
-    edges.Add(new Edge(p3, p4));
-    edges.Add(new Edge(p4, p1));
+    var edgeList = new List<Edge>();
+    edgeList.Add(new Edge(p1, p2));
+    edgeList.Add(new Edge(p2, p3));
+    edgeList.Add(new Edge(p3, p4));
+    edgeList.Add(new Edge(p4, p1));
 
-    biggest = edges.Find(delegate (Edge edge) {
-      return edge.length == edges.Max(e => e.length);
+    // find index of longest edge
+    i = edgeList.FindIndex(delegate (Edge edge) {
+      return edge.length == edgeList.Max(e => e.length);
     });
-    i = edges.IndexOf(biggest);
-    opposite = edges[(i + 2) % 4];
-    _left    = edges[(i + 3) % 4];
-    _right   = edges[(i + 1) % 4];
+
+    // put the edges in clockwise order starting from the biggest
+    edges = new List<Edge>();
+    for (int j = 0; j < 4; ++j)
+      edges.Add(edgeList[(i + j) % 4]);
 
     isFinal();
   }
@@ -72,20 +66,20 @@ public class Block
       return;
     }
 
-    bisector = new Edge(biggest.middle, opposite.middle);
+    bisector = new Edge(edges[0].middle, edges[2].middle);
 
-    var big_offset = (Random.Range(0f, _divergence * biggest.length)) * biggest.direction;
+    var big_offset = (Random.Range(0f, _divergence * edges[0].length)) * edges[0].direction;
     if (Util.RollDice(new float[] { 0.5f, 0.5f }) == 1)
       big_offset *= -1;
-    var opp_offset = (Random.Range(0f, _divergence * opposite.length)) * opposite.direction;
+    var opp_offset = (Random.Range(0f, _divergence * edges[2].length)) * edges[2].direction;
     if (Util.RollDice(new float[] { 0.5f, 0.5f }) == 1)
       opp_offset *= -1;
 
-    Block b1 = new Block(_left.start, _left.end,
-                         biggest.middle + big_offset, opposite.middle + opp_offset);
+    Block b1 = new Block(edges[3].start, edges[3].end,
+                         edges[0].middle + big_offset, edges[2].middle + opp_offset);
     b1.Bisect();
-    Block b2 = new Block(_right.start, _right.end,
-                         opposite.middle + opp_offset, biggest.middle + big_offset);
+    Block b2 = new Block(edges[1].start, edges[1].end,
+                         edges[2].middle + opp_offset, edges[0].middle + big_offset);
     b2.Bisect();
   }
 
