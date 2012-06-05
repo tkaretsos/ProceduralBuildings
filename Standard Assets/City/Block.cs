@@ -52,7 +52,7 @@ public class Block
     for (int j = 0; j < 4; ++j)
       edges.Add(edgeList[(i + j) % 4]);
 
-    isFinal();
+    FindIfIsFinal();
   }
 
   public void Bisect ()
@@ -79,7 +79,7 @@ public class Block
     b2.Bisect();
   }
 
-  private void isFinal ()
+  private void FindIfIsFinal ()
   {
     float min = edges.Min(e => e.length);
     if (min < 20f)
