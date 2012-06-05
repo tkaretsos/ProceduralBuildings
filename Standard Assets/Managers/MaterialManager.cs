@@ -13,6 +13,8 @@ public sealed class MaterialManager
     get { return _instance; }
   }
 
+  private static bool _isInitialized;
+
   private Dictionary<string, Material> _materials;
 
   private Dictionary<string, List<Material>> _collections;
@@ -21,37 +23,42 @@ public sealed class MaterialManager
   {
     _materials = new Dictionary<string,Material>();
     _collections = new Dictionary<string,List<Material>>();
+    _isInitialized = false;
   }
 
   public void Init ()
   {
-    Object[] mats = Resources.LoadAll("Materials", typeof(Material));
-    for (var i = 0; i < mats.Length; ++i)
-      _materials.Add(mats[i].name, (Material) mats[i]);
-
-    CreateDoorShutter();
-    CreateWindowBalcony();
-    CreateRoofRelated();
-    CreateWalls();
-
-    Material mat;
-    foreach (ProceduralTexture tex
-              in TextureManager.Instance.GetCollection("tex_comp_decor"))
+    if (!_isInitialized)
     {
-      mat = new Material(Shader.Find("Transparent/Cutout/Diffuse"));
-      mat.mainTexture = tex.content;
-      MaterialManager.Instance.AddToCollection("mat_comp_decor", mat);
-    }
+      Object[] mats = Resources.LoadAll("Materials", typeof(Material));
+      for (var i = 0; i < mats.Length; ++i)
+        _materials.Add(mats[i].name, (Material) mats[i]);
 
-    foreach (ProceduralTexture tex
-              in TextureManager.Instance.GetCollection("tex_comp_decor_simple"))
-    {
-      mat = new Material(Shader.Find("Diffuse"));
-      mat.mainTexture = tex.content;
-      MaterialManager.Instance.AddToCollection("mat_comp_decor_simple", mat);
-    }
+      CreateDoorShutter();
+      CreateWindowBalcony();
+      CreateRoofRelated();
+      CreateWalls();
 
-    //Testing();
+      Material mat;
+      foreach (ProceduralTexture tex
+                in TextureManager.Instance.GetCollection("tex_comp_decor"))
+      {
+        mat = new Material(Shader.Find("Transparent/Cutout/Diffuse"));
+        mat.mainTexture = tex.content;
+        MaterialManager.Instance.AddToCollection("mat_comp_decor", mat);
+      }
+
+      foreach (ProceduralTexture tex
+                in TextureManager.Instance.GetCollection("tex_comp_decor_simple"))
+      {
+        mat = new Material(Shader.Find("Diffuse"));
+        mat.mainTexture = tex.content;
+        MaterialManager.Instance.AddToCollection("mat_comp_decor_simple", mat);
+      }
+
+      //Testing();
+      _isInitialized = true;
+    }
   }
 
   public void Add (string name, Material material)

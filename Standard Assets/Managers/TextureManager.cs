@@ -12,6 +12,8 @@ public sealed class TextureManager
   {
     get { return _instance; }
   }
+
+  private static bool _isInitialized;
   
   private Dictionary<string, ProceduralTexture> _textures;
 
@@ -21,55 +23,61 @@ public sealed class TextureManager
   {
     _textures = new Dictionary<string, ProceduralTexture>();
     _collections = new Dictionary<string,List<ProceduralTexture>>();
+    _isInitialized = false;
   }
 
   public void Init ()
   {
-    Object[] texs = Resources.LoadAll("Textures/Door",
-                                      typeof(Texture2D));
-    for (var i = 0; i < texs.Length; ++i)
-      AddToCollection("tex_neo_door",
-                      new ProceduralTexture((Texture2D) texs[i]));
+    if (!_isInitialized)
+    {
+      Object[] texs = Resources.LoadAll("Textures/Door",
+                                        typeof(Texture2D));
+      for (var i = 0; i < texs.Length; ++i)
+        AddToCollection("tex_neo_door",
+                        new ProceduralTexture((Texture2D) texs[i]));
 
-    texs = Resources.LoadAll("Textures/Shutter",
-                             typeof(Texture2D));
-    for (var i = 0; i < texs.Length; ++i)
-      AddToCollection("tex_neo_shutter",
-                      new ProceduralTexture((Texture2D) texs[i]));
+      texs = Resources.LoadAll("Textures/Shutter",
+                                typeof(Texture2D));
+      for (var i = 0; i < texs.Length; ++i)
+        AddToCollection("tex_neo_shutter",
+                        new ProceduralTexture((Texture2D) texs[i]));
 
-    texs = Resources.LoadAll("Textures/Roof",
-                             typeof(Texture2D));
-    for (var i = 0; i < texs.Length; ++i)
-      AddToCollection("tex_roof",
-                      new ProceduralTexture((Texture2D) texs[i]));
+      texs = Resources.LoadAll("Textures/Roof",
+                                typeof(Texture2D));
+      for (var i = 0; i < texs.Length; ++i)
+        AddToCollection("tex_roof",
+                        new ProceduralTexture((Texture2D) texs[i]));
 
-    texs = Resources.LoadAll("Textures/RoofBase",
-                             typeof(Texture2D));
-    for (var i = 0; i < texs.Length; ++i)
-      AddToCollection("tex_roof_base",
-                      new ProceduralTexture((Texture2D) texs[i]));
+      texs = Resources.LoadAll("Textures/RoofBase",
+                                typeof(Texture2D));
+      for (var i = 0; i < texs.Length; ++i)
+        AddToCollection("tex_roof_base",
+                        new ProceduralTexture((Texture2D) texs[i]));
 
-    texs = Resources.LoadAll("Textures/RoofDecor",
-                             typeof(Texture2D));
-    for (var i = 0; i < texs.Length; ++i)
-      AddToCollection("tex_roof_decor",
-                      new ProceduralTexture((Texture2D) texs[i]));
+      texs = Resources.LoadAll("Textures/RoofDecor",
+                                typeof(Texture2D));
+      for (var i = 0; i < texs.Length; ++i)
+        AddToCollection("tex_roof_decor",
+                        new ProceduralTexture((Texture2D) texs[i]));
 
-    texs = Resources.LoadAll("Textures/CompDecor",
-                              typeof(Texture2D));
-    for (var i = 0; i < texs.Length; ++i)
-      AddToCollection("tex_comp_decor",
-                      new ProceduralTexture((Texture2D) texs[i]));
+      texs = Resources.LoadAll("Textures/CompDecor",
+                                typeof(Texture2D));
+      for (var i = 0; i < texs.Length; ++i)
+        AddToCollection("tex_comp_decor",
+                        new ProceduralTexture((Texture2D) texs[i]));
 
-    texs = Resources.LoadAll("Textures/CompDecorSimple",
-                              typeof(Texture2D));
-    for (var i = 0; i < texs.Length; ++i)
-      AddToCollection("tex_comp_decor_simple",
-                      new ProceduralTexture((Texture2D) texs[i]));
+      texs = Resources.LoadAll("Textures/CompDecorSimple",
+                                typeof(Texture2D));
+      for (var i = 0; i < texs.Length; ++i)
+        AddToCollection("tex_comp_decor_simple",
+                        new ProceduralTexture((Texture2D) texs[i]));
 
-    CreateBalconyRailTexture();
-    CreateWindowTextures();
-    CreateBalconyBodyTextures();
+      CreateBalconyRailTexture();
+      CreateWindowTextures();
+      CreateBalconyBodyTextures();
+
+      _isInitialized = true;
+    }
   }
 
   public void Add (string name, ProceduralTexture texture)

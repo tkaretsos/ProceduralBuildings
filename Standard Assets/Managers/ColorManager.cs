@@ -12,6 +12,8 @@ public sealed class ColorManager
     get { return _instance; }
   }
 
+  private static bool _isInitialized;
+
   private Dictionary<string, Color> _colors;
 
   private Dictionary<string, List<Color>> _collections;
@@ -20,12 +22,18 @@ public sealed class ColorManager
   {
     _colors = new Dictionary<string, Color>();
     _collections = new Dictionary<string, List<Color>>();
+    _isInitialized = false;
   }
 
   public void Init ()
   {
-    AddComponentColors();
-    AddWallColors();
+    if (!_isInitialized)
+    {
+      AddComponentColors();
+      AddWallColors();
+
+      _isInitialized = true;
+    }
   }
 
   public void Add (string name, Color color)
