@@ -12,7 +12,7 @@ public class Block
 
   private bool _isFinal;
 
-  private const float _divergence = 0.08f;
+  private const float _divergence = 0.05f;
 
   public BuildingLot lot;
 
@@ -60,6 +60,7 @@ public class Block
     if (_isFinal)
     {
       lot = new BuildingLot(this);
+      lot.Bisect();
       CityMapManager.Instance.Add(this);
       return;
     }
@@ -82,19 +83,19 @@ public class Block
   private void FindIfIsFinal ()
   {
     float min = edges.Min(e => e.length);
-    if (min < 20f)
+    if (min < 25f)
     {
       _isFinal = true;
       return;
     }
 
-    if (min < 25f && Util.RollDice(new float[] { 0.7f, 0.3f }) == 1)
+    if (min < 35f && Util.RollDice(new float[] { 0.7f, 0.3f }) == 1)
     {
       _isFinal = true;
       return;
     }
 
-    if (min < 30f && Util.RollDice(new float[] { 0.3f, 0.7f }) == 1)
+    if (min < 45f && Util.RollDice(new float[] { 0.3f, 0.7f }) == 1)
     {
       _isFinal = true;
       return;
