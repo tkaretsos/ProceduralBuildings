@@ -58,6 +58,12 @@ public class Edge
     _middle = (from + to) / 2;
     _direction = (to - from).normalized;
   }
+
+  public bool Contains (Vector3 point)
+  {
+    var dist = Vector3.Distance(_start, point) + Vector3.Distance(point, _end);
+    return Mathf.Abs(_length - dist) < 0.001f;
+  }
 }
 
 } // namespace Thesis
