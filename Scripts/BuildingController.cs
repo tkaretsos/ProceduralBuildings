@@ -9,7 +9,7 @@ public class BuildingController : MonoBehaviour
     TextureManager.Instance.Init();
     MaterialManager.Instance.Init();
     BuildingManager.Instance.Init();
-    BuildingManager.Instance.CreateNeoclassical(BuildMode.Three);
+    //BuildingManager.Instance.CreateNeoclassical(BuildMode.Three);
   }
 
   void Update ()

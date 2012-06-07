@@ -62,7 +62,7 @@ public class Edge
   public bool Contains (Vector3 point)
   {
     var dist = Vector3.Distance(_start, point) + Vector3.Distance(point, _end);
-    return Mathf.Abs(_length - dist) < 0.001f;
+    return Mathf.Abs(_length - dist) < 0.01f;
   }
 }
 

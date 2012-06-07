@@ -11,9 +11,12 @@ public sealed class BuildingManager
     get { return _instance; }
   }
 
-  public List<Building> neo = new List<Building>();
+  public List<Building> neo;
 
-  private BuildingManager () { }
+  private BuildingManager ()
+  {
+    neo = new List<Building>();
+  }
 
   public void Init () { }
 
