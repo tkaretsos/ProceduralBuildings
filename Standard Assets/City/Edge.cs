@@ -14,6 +14,7 @@ public class Edge
       _length = Vector3.Distance(_start, _end);
       _middle = (_start + _end) / 2;
       _direction = (_end - _start).normalized;
+      _right = Vector3.Cross(Vector3.up, _direction).normalized;
     }
   }
 
@@ -27,6 +28,7 @@ public class Edge
       _length = Vector3.Distance(_start, _end);
       _middle = (_start + _end) / 2;
       _direction = (_end - _start).normalized;
+      _right = Vector3.Cross(Vector3.up, _direction).normalized;
     }
   }
 
@@ -48,6 +50,12 @@ public class Edge
     get { return _direction; }
   }
 
+  private Vector3 _right;
+  public Vector3 right
+  {
+    get { return _right; }
+  }
+
   private Edge () { }
 
   public Edge (Vector3 from, Vector3 to)
@@ -57,6 +65,7 @@ public class Edge
     _length = Vector3.Distance(from, to);
     _middle = (from + to) / 2;
     _direction = (to - from).normalized;
+    _right = Vector3.Cross(Vector3.up, _direction).normalized;
   }
 
   public bool Contains (Vector3 point)
