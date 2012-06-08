@@ -20,19 +20,19 @@ public class CityMapController : MonoBehaviour {
                       new Vector3(500f, 0f, 300f),
                       new Vector3(500f, 0f, 0f));
     block.Bisect();
-
-    //AddBuildings();
   }
 
   void Update ()
   {
-    //foreach (Block b in CityMapManager.Instance.blocks)
-    //  foreach (Edge e in b.lot.edges)
-    //    Debug.DrawLine(e.start, e.end, Color.green);
+    foreach (Block b in CityMapManager.Instance.blocks)
+    {
+      foreach (BuildingLot l in b.finalLots)
+        foreach (Edge e in l.edges)
+          Debug.DrawLine(e.start, e.end, Color.cyan);
 
-    foreach (BuildingLot b in CityMapManager.Instance.lots)
       foreach (Edge e in b.edges)
-        Debug.DrawLine(e.start, e.end, Color.cyan);
+        Debug.DrawLine(e.start, e.end, Color.green);
+    }
 
     if (Input.GetKeyUp(KeyCode.B))
       AddBuildings();
@@ -42,17 +42,18 @@ public class CityMapController : MonoBehaviour {
   {
     Building building;
 
-    foreach (BuildingLot l in CityMapManager.Instance.lots)
-    {
-      building = new Building(l.edges[0].start,
-                              l.edges[1].start,
-                              l.edges[2].start,
-                              l.edges[3].start);
-      building.buildingMesh.FindVertices();
-      building.buildingMesh.FindTriangles();
-      building.buildingMesh.Draw();
-      building.CombineSubmeshes();
-      building.gameObject.SetActiveRecursively(true);
-    }
+    foreach (Block b in CityMapManager.Instance.blocks)
+      foreach (BuildingLot l in b.finalLots)
+      {
+        building = new Building(l.edges[0].start,
+                                l.edges[1].start,
+                                l.edges[2].start,
+                                l.edges[3].start);
+        building.buildingMesh.FindVertices();
+        building.buildingMesh.FindTriangles();
+        building.buildingMesh.Draw();
+        building.CombineSubmeshes();
+        building.gameObject.SetActiveRecursively(true);
+      }
   }
 }
