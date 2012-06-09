@@ -22,7 +22,7 @@ public class Door : FaceComponent
     boundaries[2] = ul;
     boundaries[3] = ur;
 
-    frame = new DoorFrame(this);
+    frame = new ComponentFrame(this);
     frame.name = "neo_door_frame";
     frame.material = MaterialManager.Instance.Get("ComponentFrame");
     parentBuilding.parent.AddCombinable(frame.material.name, frame);
