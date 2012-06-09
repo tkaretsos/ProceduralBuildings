@@ -89,7 +89,7 @@ public class Face : DrawableObject
       fixed_space = (width - componentsPerFloor * component_width) / (componentsPerFloor + 1);
     }
 
-    if (parentBuilding.faces[parentBuilding.sortedFaces[0]] == this)
+    if (parentBuilding.faces[0] == this)
       FindDoorIndexes();
     FindBalconyIndexes();
 
