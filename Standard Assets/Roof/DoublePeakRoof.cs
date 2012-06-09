@@ -27,9 +27,10 @@ public class DoublePeakRoof : Roof
 
     int index = Mathf.Max(parentMesh.sortedFaces[2], parentMesh.sortedFaces[3]);
     Face face = parentMesh.faces[index];
-    var dist = 0.4f * face.width;
-    height = 0.5f * dist;
-    var p = (face.boundaries[0] + face.boundaries[1]) / 2 - dist * face.normal;
+    height = 0.2f * face.width;
+    var bi0 = (parentMesh.faces[(index + 3) % 4].right - face.right).normalized;
+    var bi1 = (face.right - parentMesh.faces[(index + 1) % 4].right).normalized;
+    var p = Util.IntersectionPoint(face.boundaries[0], bi0, face.boundaries[1], bi1);
 
     boundaries[4] = new Vector3(p.x,
                                 boundaries[0].y + height,
@@ -37,7 +38,9 @@ public class DoublePeakRoof : Roof
 
     index = Mathf.Min(parentMesh.sortedFaces[2], parentMesh.sortedFaces[3]);
     face = parentMesh.faces[index];
-    p = (face.boundaries[0] + face.boundaries[1]) / 2 - dist * face.normal;
+    bi0 = (parentMesh.faces[(index + 3) % 4].right - face.right).normalized;
+    bi1 = (face.right - parentMesh.faces[(index + 1) % 4].right).normalized;
+    p = Util.IntersectionPoint(face.boundaries[0], bi0, face.boundaries[1], bi1);
 
     boundaries[5] = new Vector3(p.x,
                                 boundaries[0].y + height,
