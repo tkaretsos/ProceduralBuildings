@@ -35,7 +35,11 @@ public class CityMapController : MonoBehaviour {
     }
 
     if (Input.GetKeyUp(KeyCode.B))
+    {
       AddBuildings();
+      foreach (Block b in CityMapManager.Instance.blocks)
+        b.Draw();
+    }
   }
 
   private void AddBuildings ()

@@ -73,6 +73,13 @@ public class Block
   {
     if (_isFinal)
     {
+      FindSidewalkNLotVerts();
+      road = new Road(this);
+      road.name = "road";
+      road.material = MaterialManager.Instance.Get("mat_road");
+      sidewalk = new Sidewalk(this);
+      sidewalk.name = "sidewalk";
+      sidewalk.material = MaterialManager.Instance.Get("mat_sidewalk");
       initialLot = new BuildingLot(this);
       if (initialLot.isFinal())
         finalLots.Add(initialLot);
@@ -96,6 +103,31 @@ public class Block
     Block b2 = new Block(edges[1].start, edges[1].end,
                          edges[2].middle + opp_offset, edges[0].middle + big_offset);
     b2.Bisect();
+  }
+
+  public void Draw ()
+  {
+    if (_isFinal)
+    {
+      road.FindVertices();
+      road.FindTriangles();
+      road.Draw();
+      road.gameObject.active = true;
+
+      sidewalk.FindVertices();
+      sidewalk.FindTriangles();
+      sidewalk.Draw();
+      sidewalk.gameObject.active = true;
+    }
+  }
+
+  public void Destroy ()
+  {
+    if (_isFinal)
+    {
+      road.Destroy();
+      sidewalk.Destroy();
+    }
   }
 
   private void FindIfIsFinal ()
