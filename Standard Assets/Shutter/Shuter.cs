@@ -125,7 +125,7 @@ public class Shutter : DrawableObject
       gameObject.transform.RotateAround(meshOrigin, Vector3.up,  angles);
 
     gameObject.transform.position = meshOrigin + parent.meshOrigin +
-                                    parentBuilding.meshOrigin;
+                                    parentBuilding.meshOrigin - parent.normal * 0.15f;
     gameObject.transform.parent = parentBuilding.parent.gameObject.transform;
   }
 

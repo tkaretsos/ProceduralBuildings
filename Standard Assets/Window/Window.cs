@@ -18,7 +18,7 @@ public class Window : FaceComponent
     : base(parent, position)
   {
     height = parentBuilding.windowHeight;
-    depth = 0.2f;
+    depth = 0.4f;
     width = (dr - dl).magnitude;
     float height_modifier = parentBuilding.floorHeight / 2.25f - height / 2;
 
