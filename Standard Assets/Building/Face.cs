@@ -227,6 +227,12 @@ public class Face : DrawableObject
       case 2:
         switch (componentsPerFloor)
         {
+          case 1:
+            break;
+
+          case 2:
+            break;
+
           case 3:
             if (doorIndexes.Count > 0)
               balconyIndexes.Add(doorIndexes[0] + componentsPerFloor);
@@ -263,7 +269,35 @@ public class Face : DrawableObject
             }
             break;
 
+          case 6:
+            balconyIndexes.AddRange(new int[] { 8, 9 });
+            if (Util.RollDice(new float[] { 0.3f, 0.7f }) == 1)
+              balconyIndexes.AddRange(new int[] { 6, 11 });
+            break;
+
+          case 7:
+            balconyIndexes.AddRange(new int[] { 9, 10, 11 });
+            if (Util.RollDice(new float[] { 0.3f, 0.7f }) == 1)
+              balconyIndexes.AddRange(new int[] { 7, 13 });
+            break;
+          
           default:
+            if (componentsPerFloor % 2 == 0)
+            {
+              var mid = componentsPerFloor + componentsPerFloor / 2 - 1;
+              balconyIndexes.AddRange(new int[] { mid - 1, mid, mid + 1, mid + 2 });
+              if (Util.RollDice(new float[] { 0.3f, 0.7f }) == 1)
+                balconyIndexes.AddRange(new int[] { 0, componentsPerFloor - 1 });
+            }
+            else
+            {
+              var mid = componentsPerFloor + (componentsPerFloor - 1) / 2;
+              balconyIndexes.AddRange(new int[] { mid - 1, mid, mid + 1 });
+              if (Util.RollDice(new float[] { 0.5f, 0.5f }) == 1)
+                balconyIndexes.AddRange(new int[] { mid - 2, mid + 2 });
+              if (Util.RollDice(new float[] { 0.3f, 0.7f }) == 1)
+                balconyIndexes.AddRange(new int[] { 0, componentsPerFloor - 1 });
+            }
             break;
         }
         break;
@@ -272,6 +306,12 @@ public class Face : DrawableObject
       case 3:
         switch (componentsPerFloor)
         {
+          case 1:
+            break;
+
+          case 2:
+            break;
+
           case 3:
             dice = Util.RollDice(new float[] { 0.5f, 0.25f, 0.25f });
             if (doorIndexes.Count > 0)
@@ -333,6 +373,31 @@ public class Face : DrawableObject
                 balconyIndexes.AddRange(new int[] { 5, 9, 11, 12, 13 });
                 break;
             }
+            break;
+
+          case 6:
+            balconyIndexes.AddRange(new int[] { 8, 9, 14, 15 });
+            dice = Util.RollDice(new float[] { 0.3f, 0.3f, 0.4f });
+            if (dice == 1)
+              balconyIndexes.AddRange(new int[] { 6, 11 });
+            if (dice == 2)
+              balconyIndexes.AddRange(new int[] { 12, 13 });
+            if (dice == 3)
+              balconyIndexes.AddRange(new int[] { 6, 11, 12, 13 });
+            break;
+
+          case 7:
+            balconyIndexes.AddRange(new int[] { 9, 10, 11, 16, 17, 18 });
+            dice = Util.RollDice(new float[] { 0.3f, 0.7f });
+            if (dice == 1)
+              balconyIndexes.AddRange(new int[] { 7, 13 });
+            if (dice == 2)
+              balconyIndexes.AddRange(new int[] { 14, 20 });
+            if (dice == 3)
+              balconyIndexes.AddRange(new int[] { 7, 13, 14, 20 });
+            break;
+
+          default:
             break;
         }
         break;
