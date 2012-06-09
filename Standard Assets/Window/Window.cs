@@ -28,7 +28,7 @@ public class Window : FaceComponent
     boundaries[2] = new Vector3(dl.x, dl.y + height + height_modifier, dl.z);
     boundaries[3] = new Vector3(dr.x, dr.y + height + height_modifier, dr.z);
 
-    frame = new WindowFrame(this);
+    frame = new ComponentFrame(this);
     frame.name = "neo_window_frame";
     frame.material = MaterialManager.Instance.Get("ComponentFrame");
     parentBuilding.parent.AddCombinable(frame.material.name, frame);
