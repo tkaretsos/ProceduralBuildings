@@ -19,16 +19,21 @@ public sealed class BuildingLot
 
   public BuildingLot (Block parent)
   {
-    Vector3 mod, from, to;
-    var edgeList = new List<Edge>();
+    Vector3 dir;
+    float max = 4f, angle, dist;
+    var points = new List<Vector3>();
+
     for (int i = 0; i < 4; ++i)
     {
-      mod = Vector3.ClampMagnitude(10 * (parent.edges[i].direction - parent.edges[(i + 3) % 4].direction), 6f);
-      from = parent.edges[i].start + mod;
-      mod = Vector3.ClampMagnitude(10 * (parent.edges[(i + 1) % 4].direction - parent.edges[i].direction), 6f);
-      to = parent.edges[i].end + mod;
-      edgeList.Add(new Edge(from, to));
+      angle = Vector3.Angle(parent.edges[i].direction, -parent.edges[(i + 3) % 4].direction);
+      dist = max / Mathf.Sin(angle / 2 * Mathf.Deg2Rad);
+      dir = (parent.edges[i].direction - parent.edges[(i + 3) % 4].direction).normalized;
+      points.Add(parent.edges[i].start + dist * dir);
     }
+
+    var edgeList = new List<Edge>();
+    for (int i = 0; i < 4; ++i)
+      edgeList.Add(new Edge(points[i], points[(i + 1) % 4]));
 
     int big = edgeList.FindIndex(delegate (Edge e) {
       return e.length == edgeList.Max(t => t.length);
