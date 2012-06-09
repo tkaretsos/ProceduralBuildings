@@ -18,6 +18,10 @@ public class Block
 
   public List<BuildingLot> finalLots = new List<BuildingLot>();
 
+  public readonly float sidewalkWidth = 1.5f;
+
+  public readonly float roadWidth = 2.5f;
+
   /*************** CONSTRUCTORS ***************/
 
   public Block (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)

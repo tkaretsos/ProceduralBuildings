@@ -20,13 +20,13 @@ public sealed class BuildingLot
   public BuildingLot (Block parent)
   {
     Vector3 dir;
-    float max = 4f, angle, dist;
+    float angle, dist;
     var points = new List<Vector3>();
 
     for (int i = 0; i < 4; ++i)
     {
       angle = Vector3.Angle(parent.edges[i].direction, -parent.edges[(i + 3) % 4].direction);
-      dist = max / Mathf.Sin(angle / 2 * Mathf.Deg2Rad);
+      dist = (parent.sidewalkWidth + parent.roadWidth) / Mathf.Sin(angle / 2 * Mathf.Deg2Rad);
       dir = (parent.edges[i].direction - parent.edges[(i + 3) % 4].direction).normalized;
       points.Add(parent.edges[i].start + dist * dir);
     }
