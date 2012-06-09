@@ -38,6 +38,7 @@ public sealed class MaterialManager
       CreateWindowBalcony();
       CreateRoofRelated();
       CreateWalls();
+      CreateCity();
 
       Material mat;
       foreach (ProceduralTexture tex
@@ -209,6 +210,18 @@ public sealed class MaterialManager
       mat.color = color;
       AddToCollection("mat_walls", mat);
     }
+  }
+
+  private void CreateCity ()
+  {
+    Material mat = new Material(Shader.Find("Diffuse"));
+    mat.color = new Color32(55, 55, 55, 255);
+    //mat.color = Color.black;
+    _instance.Add("mat_road", mat);
+
+    mat = new Material(Shader.Find("Diffuse"));
+    mat.color = Color.gray;
+    _instance.Add("mat_sidewalk", mat);
   }
 
   private void Testing ()
