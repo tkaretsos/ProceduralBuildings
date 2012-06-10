@@ -3,22 +3,18 @@ using UnityEngine;
 
 public class BuildingController : MonoBehaviour
 {
-  void Awake ()
+  void Start ()
   {
     ColorManager.Instance.Init();
     TextureManager.Instance.Init();
     MaterialManager.Instance.Init();
     BuildingManager.Instance.Init();
+
+    BuildingManager.Instance.DestroyBuildings();
   }
 
   void Update ()
   {
-    if (Input.GetKeyUp(KeyCode.Alpha1))
-    {
-      BuildingManager.Instance.DestroyBuildings();
-      BuildingManager.Instance.CreateNeoclassical(BuildMode.Many);
-    }
-
     if (Input.GetKeyUp(KeyCode.Alpha2))
     {
       BuildingManager.Instance.DestroyBuildings();

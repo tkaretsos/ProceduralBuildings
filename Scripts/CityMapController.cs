@@ -6,11 +6,13 @@ public class CityMapController : MonoBehaviour {
 
   Block block;
 
-  void Awake ()
+  void Start ()
   {
     ColorManager.Instance.Init();
     TextureManager.Instance.Init();
     MaterialManager.Instance.Init();
+
+    BuildingManager.Instance.DestroyBuildings();
 
     // the point Vector3.zero must _not_ be used
     // as starting point and all 4 points must be
@@ -44,17 +46,8 @@ public class CityMapController : MonoBehaviour {
 
   private void AddBuildings ()
   {
-    Building building;
-
     foreach (Block b in CityMapManager.Instance.blocks)
       foreach (BuildingLot l in b.finalLots)
-      {
-        building = new Building(l);
-        building.buildingMesh.FindVertices();
-        building.buildingMesh.FindTriangles();
-        building.buildingMesh.Draw();
-        building.CombineSubmeshes();
-        building.gameObject.SetActiveRecursively(true);
-      }
+        BuildingManager.Instance.Build(l);
   }
 }
