@@ -32,6 +32,13 @@ public class Block
 
   /*************** CONSTRUCTORS ***************/
 
+  public Block ()
+    : this(new Vector3(1f, 0f, 0f),
+           new Vector3(0f, 0f, 300f),
+           new Vector3(500f, 0f, 300f),
+           new Vector3(500f, 0f, 0f))
+  { }
+
   public Block (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
     int i = CityMapManager.Instance.Add(p1);
