@@ -50,6 +50,8 @@ public class Face : DrawableObject
 
   public List<int> balconyIndexes = new List<int>();
 
+  private bool _isFree;
+
   /*************** CONSTRUCTORS ***************/
   
   /// <summary>
@@ -57,9 +59,10 @@ public class Face : DrawableObject
   /// in clockwise order. The clockwise order is required so that the normal of this face
   /// is properly calculated.
   /// </summary>
-  public Face (BuildingMesh parent, Vector3 dr, Vector3 dl)
+  public Face (BuildingMesh parent, Vector3 dr, Vector3 dl, bool isFree = true)
   {
     parentBuilding = parent;
+    _isFree = isFree;
 
     boundaries = new Vector3[4];
     boundaries[0] = dr;
@@ -79,8 +82,14 @@ public class Face : DrawableObject
 
   /*************** METHODS ***************/
   
-  public virtual void ConstructFaceComponents (float component_width, float inbetween_space)
+  public void ConstructFaceComponents (float component_width, float inbetween_space)
   {
+    if (!_isFree)
+    {
+      componentsPerFloor = 0;
+      return;
+    }
+
     componentsPerFloor = Mathf.CeilToInt(width / (component_width + inbetween_space));
     float fixed_space = (width - componentsPerFloor * component_width) / (componentsPerFloor + 1);
     while (fixed_space < 1.75f)
@@ -88,6 +97,9 @@ public class Face : DrawableObject
       componentsPerFloor -= 1;
       fixed_space = (width - componentsPerFloor * component_width) / (componentsPerFloor + 1);
     }
+
+    if (componentsPerFloor == 0)
+      return;
 
     if (parentBuilding.faces[0] == this)
       FindDoorIndexes();
