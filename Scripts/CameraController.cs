@@ -1,4 +1,5 @@
 using UnityEngine;
+using Thesis;
 
 public class CameraController : MonoBehaviour {	
 
@@ -26,6 +27,13 @@ public class CameraController : MonoBehaviour {
   private float _mouse_y;
   private bool _follow_mouse = true;
   
+  void Awake ()
+  {
+    ColorManager.Instance.Init();
+    TextureManager.Instance.Init();
+    MaterialManager.Instance.Init();
+    BuildingManager.Instance.Init();
+  }
   
   void Start ()
   {

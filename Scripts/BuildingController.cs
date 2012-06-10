@@ -3,16 +3,6 @@ using UnityEngine;
 
 public class BuildingController : MonoBehaviour
 {
-  void Start ()
-  {
-    ColorManager.Instance.Init();
-    TextureManager.Instance.Init();
-    MaterialManager.Instance.Init();
-    BuildingManager.Instance.Init();
-
-    BuildingManager.Instance.DestroyBuildings();
-  }
-
   void Update ()
   {
     if (Input.GetKeyUp(KeyCode.Alpha2))

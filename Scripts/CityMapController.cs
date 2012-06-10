@@ -4,16 +4,10 @@ using System.Linq;
 
 public class CityMapController : MonoBehaviour {
 
-  Block block;
+  private Block block;
 
   void Start ()
   {
-    ColorManager.Instance.Init();
-    TextureManager.Instance.Init();
-    MaterialManager.Instance.Init();
-
-    BuildingManager.Instance.DestroyBuildings();
-
     // the point Vector3.zero must _not_ be used
     // as starting point and all 4 points must be
     // in the first quadrant
