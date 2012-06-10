@@ -216,7 +216,6 @@ public sealed class MaterialManager
   {
     Material mat = new Material(Shader.Find("Diffuse"));
     mat.color = new Color32(55, 55, 55, 255);
-    //mat.color = Color.black;
     _instance.Add("mat_road", mat);
 
     mat = new Material(Shader.Find("Diffuse"));
