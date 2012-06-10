@@ -9,6 +9,10 @@ public sealed class BuildingLot
   // edges[0] is _always_ adjacent to a street
   public readonly List<Edge> edges = new List<Edge>();
 
+  // contains the indexes of the faces that are not
+  // in contact with other walls or covered.
+  public readonly List<int> freeEdges = new List<int>();
+
   // key -> index of edge
   // value -> percentage of length that is occupied
   public Dictionary<int, float> occupied;

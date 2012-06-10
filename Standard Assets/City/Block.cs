@@ -82,7 +82,10 @@ public class Block
       sidewalk.material = MaterialManager.Instance.Get("mat_sidewalk");
       initialLot = new BuildingLot(this);
       if (initialLot.isFinal())
+      {
+        initialLot.freeEdges.AddRange(new int[] { 0, 1, 2, 3 });
         finalLots.Add(initialLot);
+      }
       else
         CreateBuildingLots();
 
@@ -164,13 +167,17 @@ public class Block
   {
     var es = initialLot.edges;
     var minLength = initialLot.edges.Min(e => e.length);
+    BuildingLot lot;
 
     if (minLength <= 16f)
     {
-      finalLots.Add(new BuildingLot(es[0].start, es[0].middle,
-                                    es[2].middle, es[2].end));
-      finalLots.Add(new BuildingLot(es[0].middle, es[0].end,
-                                    es[2].start, es[2].middle));
+      lot = new BuildingLot(es[0].start, es[0].middle, es[2].middle, es[2].end);
+      lot.freeEdges.AddRange(new int[] { 0, 2, 3 });
+      finalLots.Add(lot);
+
+      lot = new BuildingLot(es[0].middle, es[0].end, es[2].start, es[2].middle);
+      lot.freeEdges.AddRange(new int[] { 0, 1, 2 });
+      finalLots.Add(lot);
       return;
     }
 
@@ -181,15 +188,21 @@ public class Block
       var pointOpp = es[2].start + (3 - r) / 3f * es[2].length * es[2].direction;
       var pointMid = (pointBig + pointOpp) / 2;
 
-      finalLots.Add(new BuildingLot(es[1].start, es[1].middle,
-                                    pointMid, pointBig));
-      finalLots.Add(new BuildingLot(es[1].middle, es[1].end,
-                                    pointOpp, pointMid));
-      finalLots.Add(new BuildingLot(es[0].start, pointBig,
-                                    pointMid, es[3].middle));
-      finalLots.Add(new BuildingLot(pointOpp, es[2].end,
-                                    es[3].middle, pointMid));
-
+      lot = new BuildingLot(es[1].start, es[1].middle, pointMid, pointBig);
+      lot.freeEdges.AddRange(new int[] { 0, 3 });
+      finalLots.Add(lot);
+      
+      lot = new BuildingLot(es[1].middle, es[1].end, pointOpp, pointMid);
+      lot.freeEdges.AddRange(new int[] { 0, 1 });
+      finalLots.Add(lot);
+      
+      lot = new BuildingLot(es[0].start, pointBig, pointMid, es[3].middle);
+      lot.freeEdges.AddRange(new int[] { 0, 3 });
+      finalLots.Add(lot);
+      
+      lot = new BuildingLot(pointOpp, es[2].end, es[3].middle, pointMid);
+      lot.freeEdges.AddRange(new int[] { 0, 1 });
+      finalLots.Add(lot);
       return;
     }
 
@@ -203,18 +216,34 @@ public class Block
       var p1mid = es[3].middle + r / es[0].length * bisector.length * bisector.direction;
       var p2mid = p1mid + Vector3.Distance(p1mid, bisector.end) / 2 * bisector.direction;
 
-      finalLots.Add(new BuildingLot(es[0].start, p1big, p1mid, bisector.start));
-      finalLots.Add(new BuildingLot(p1big, p2big, p2mid, p1mid));
-      finalLots.Add(new BuildingLot(p2big, es[0].end, bisector.end, p2mid));
+      lot = new BuildingLot(es[0].start, p1big, p1mid, bisector.start);
+      lot.freeEdges.AddRange(new int[] { 0, 3 });
+      finalLots.Add(lot);
+
+      lot = new BuildingLot(p1big, p2big, p2mid, p1mid);
+      lot.freeEdges.Add(0);
+      finalLots.Add(lot);
+
+      lot = new BuildingLot(p2big, es[0].end, bisector.end, p2mid);
+      lot.freeEdges.AddRange(new int[] { 0, 1 });
+      finalLots.Add(lot);
 
       var p1opp = es[2].start + r * es[2].direction;
       var p2opp = p1opp + Vector3.Distance(p1opp, es[2].end) / 2 * es[2].direction;
       var p3mid = es[1].middle - r / es[2].length * bisector.length * bisector.direction;
       var p4mid = p3mid - Vector3.Distance(p3mid, bisector.start) / 2 * bisector.direction;
 
-      finalLots.Add(new BuildingLot(es[2].start, p1opp, p3mid, es[1].middle));
-      finalLots.Add(new BuildingLot(p1opp, p2opp, p4mid, p3mid));
-      finalLots.Add(new BuildingLot(p2opp, es[2].end, es[3].middle, p4mid));
+      lot = new BuildingLot(es[2].start, p1opp, p3mid, es[1].middle);
+      lot.freeEdges.AddRange(new int[] { 0, 3 });
+      finalLots.Add(lot);
+
+      lot = new BuildingLot(p1opp, p2opp, p4mid, p3mid);
+      lot.freeEdges.Add(0);
+      finalLots.Add(lot);
+
+      lot = new BuildingLot(p2opp, es[2].end, es[3].middle, p4mid);
+      lot.freeEdges.AddRange(new int[] { 0, 1 });
+      finalLots.Add(lot);
 
       return;
     }
@@ -242,7 +271,10 @@ public class Block
         initialLot.occupied[i] += r1;
         initialLot.pointsInEdge[(i + 3) % 4].Add(p4);
         initialLot.occupied[(i + 3) % 4] += r2;
-        finalLots.Add(new BuildingLot(p1, p2, p3, p4));
+
+        lot = new BuildingLot(p1, p2, p3, p4);
+        lot.freeEdges.AddRange(new int[] { 0, 3 });
+        finalLots.Add(lot);
       }
       else
       {
@@ -259,7 +291,10 @@ public class Block
 
           initialLot.pointsInEdge[i].Add(p2);
           initialLot.occupied[i] += r1;
-          finalLots.Add(new BuildingLot(p1, p2, p3, p4));
+
+          lot = new BuildingLot(p1, p2, p3, p4);
+          lot.freeEdges.Add(0);
+          finalLots.Add(lot);
         }
         else if (25f <= r1 && r1 <= 31f)
         {
@@ -273,7 +308,10 @@ public class Block
 
           initialLot.pointsInEdge[i].Add(p2);
           initialLot.occupied[i] += r1;
-          finalLots.Add(new BuildingLot(p1, p2, p3, p4));
+
+          lot = new BuildingLot(p1, p2, p3, p4);
+          lot.freeEdges.Add(0);
+          finalLots.Add(lot);
         }
         else if (19f <= r1 && r1 <= 25f)
         {
@@ -287,7 +325,10 @@ public class Block
 
           initialLot.pointsInEdge[i].Add(p2);
           initialLot.occupied[i] += r1;
-          finalLots.Add(new BuildingLot(p1, p2, p3, p4));
+
+          lot = new BuildingLot(p1, p2, p3, p4);
+          lot.freeEdges.Add(0);
+          finalLots.Add(lot);
         }
         else if (11f <= r1 && r1 <= 19f)
         {
@@ -301,7 +342,10 @@ public class Block
           initialLot.pointsInEdge[(i + 1) % 4].Add(p3);
           initialLot.occupied[(i + 1) % 4] += r2;
           initialLot.occupied[i] += r1;
-          finalLots.Add(new BuildingLot(p1, p2, p3, p4));
+
+          lot = new BuildingLot(p1, p2, p3, p4);
+          lot.freeEdges.AddRange(new int[] { 0, 1 });
+          finalLots.Add(lot);
         }
         else
           break;
@@ -327,7 +371,9 @@ public class Block
         p3 = p2 + r2 * es[(i + 1) % 4].direction;
         p4 = p1 - r2 * es[(i + 3) % 4].direction;
 
-        finalLots.Add(new BuildingLot(p1, p2, p3, p4));
+        lot = new BuildingLot(p1, p2, p3, p4);
+        lot.freeEdges.Add(0);
+        finalLots.Add(lot);
         continue;
       }
 
@@ -342,7 +388,10 @@ public class Block
           p4 = initialLot.pointsInEdge[(i + 3) % 4].Last();
           p3 = Util.IntersectionPoint(p4, es[i].direction,
                                       p2, es[(i + 1) % 4].direction);
-          finalLots.Add(new BuildingLot(p1, p2, p3, p4));
+
+          lot = new BuildingLot(p1, p2, p3, p4);
+          lot.freeEdges.AddRange(new int[] { 0, 3 });
+          finalLots.Add(lot);
         }
         else
         {
@@ -353,14 +402,20 @@ public class Block
           p4 = initialLot.pointsInEdge[(i + 3) % 4].Last();
           p3 = Util.IntersectionPoint(p4, es[(i + 0) % 4].direction,
                                       p2, es[i].right);
-          finalLots.Add(new BuildingLot(p1, p2, p3, p4));
+
+          lot = new BuildingLot(p1, p2, p3, p4);
+          lot.freeEdges.AddRange(new int[] { 0, 3 });
+          finalLots.Add(lot);
           
           r2 = (3 * r1 + 21) / 9f;
           p1 = p2;
           p2 = initialLot.pointsInEdge[i][0];
           p3 = p2 + r2 * es[(i + 1) % 4].direction;
           p4 = p1 + r2 * es[i].right;
-          finalLots.Add(new BuildingLot(p1, p2, p3, p4));
+
+          lot = new BuildingLot(p1, p2, p3, p4);
+          lot.freeEdges.Add(0);
+          finalLots.Add(lot);
         }
       }
     }
