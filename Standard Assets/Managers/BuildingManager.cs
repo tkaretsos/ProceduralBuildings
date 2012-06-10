@@ -11,11 +11,15 @@ public sealed class BuildingManager
     get { return _instance; }
   }
 
-  public List<Building> neo;
+  private List<Building> _buildings;
+  public IList<Building> buildings
+  {
+    get { return _buildings.AsReadOnly(); }
+  }
 
   private BuildingManager ()
   {
-    neo = new List<Building>();
+    _buildings = new List<Building>();
   }
 
   public void Init () { }
@@ -103,12 +107,12 @@ public sealed class BuildingManager
 
   public void DestroyBuildings ()
   {
-    foreach (Building n in neo)
+    foreach (Building n in _buildings)
       n.Destroy();
-    neo.Clear();
+    _buildings.Clear();
   }
 
-  private void Build (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+  public void Build (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
     var n = new Building(p1, p2, p3, p4);
     n.buildingMesh.FindVertices();
@@ -116,7 +120,18 @@ public sealed class BuildingManager
     n.buildingMesh.Draw();
     n.CombineSubmeshes();
     n.gameObject.SetActiveRecursively(true);
-    neo.Add(n);
+    _buildings.Add(n);
+  }
+
+  public void Build (BuildingLot lot)
+  {
+    var n = new Building(lot);
+    n.buildingMesh.FindVertices();
+    n.buildingMesh.FindTriangles();
+    n.buildingMesh.Draw();
+    n.CombineSubmeshes();
+    n.gameObject.SetActiveRecursively(true);
+    _buildings.Add(n);
   }
 }
 

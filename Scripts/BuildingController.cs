@@ -9,7 +9,6 @@ public class BuildingController : MonoBehaviour
     TextureManager.Instance.Init();
     MaterialManager.Instance.Init();
     BuildingManager.Instance.Init();
-    //BuildingManager.Instance.CreateNeoclassical(BuildMode.Three);
   }
 
   void Update ()
@@ -45,7 +44,7 @@ public class BuildingController : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    foreach (Building b in BuildingManager.Instance.neo)
+    foreach (Building b in BuildingManager.Instance.buildings)
     {
       Debug.DrawRay(b.buildingMesh.boundaries[0] + b.buildingMesh.meshOrigin, 
                     Vector3.up * 20, Color.green);
