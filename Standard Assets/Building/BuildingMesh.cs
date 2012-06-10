@@ -124,12 +124,26 @@ public class BuildingMesh : DrawableObject
 
   /*************** METHODS ***************/
 
-  public virtual void ConstructFaces ()
+  public void ConstructFaces ()
   {
     faces.Add(new Face(this, boundaries[0], boundaries[1]));
     faces.Add(new Face(this, boundaries[1], boundaries[2]));
     faces.Add(new Face(this, boundaries[2], boundaries[3]));
     faces.Add(new Face(this, boundaries[3], boundaries[0]));
+
+    SortFaces();
+  }
+
+  public void ConstructFaces (BuildingLot lot)
+  {
+    faces.Add(new Face(this, boundaries[0], boundaries[1],
+                       lot.freeEdges.Contains(0)));
+    faces.Add(new Face(this, boundaries[1], boundaries[2],
+                       lot.freeEdges.Contains(1)));
+    faces.Add(new Face(this, boundaries[2], boundaries[3],
+                       lot.freeEdges.Contains(2)));
+    faces.Add(new Face(this, boundaries[3], boundaries[0],
+                       lot.freeEdges.Contains(3)));
 
     SortFaces();
   }
