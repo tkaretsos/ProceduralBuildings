@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Thesis {
 
-public sealed class BuildingLot
+public sealed class BuildingLot : DrawableObject
 {
   // edges[0] is _always_ adjacent to a street
   public readonly List<Edge> edges = new List<Edge>();
@@ -65,6 +65,27 @@ public sealed class BuildingLot
       return true;
 
     return false;
+  }
+
+  public override void FindVertices()
+  {
+    vertices = new Vector3[4];
+    for (int i = 0; i < 4; ++i)
+      vertices[i] = edges[i].start;
+  }
+
+  public override void FindTriangles()
+  {
+    triangles = new int[6];
+    int i = 0;
+
+    triangles[i++] = 0;
+    triangles[i++] = 1;
+    triangles[i++] = 2;
+
+    triangles[i++] = 0;
+    triangles[i++] = 2;
+    triangles[i++] = 3;
   }
 }
 
