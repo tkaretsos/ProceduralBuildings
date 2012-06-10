@@ -31,11 +31,25 @@ public sealed class CityMapManager
     get { return _nodes.AsReadOnly(); }
   }
 
+  private List<Road> _roads;
+  public IList<Road> roads
+  {
+    get { return _roads; }
+  }
+
+  private List<Sidewalk> _sidewalks;
+  public IList<Sidewalk> sidewalks
+  {
+    get { return _sidewalks; }
+  }
+
   private CityMapManager ()
   {
     _blocks = new List<Block>();
     _nodes = new List<Vector3>();
     _lots = new List<BuildingLot>();
+    _roads = new List<Road>();
+    _sidewalks = new List<Sidewalk>();
   }
 
   public void Add (Block block)
@@ -59,9 +73,65 @@ public sealed class CityMapManager
     return n;
   }
 
-  public void ClearBlocks ()
+  public void AddRoad (Block block)
+  {
+    Road r = new Road(block);
+    r.name = "road";
+    r.material = MaterialManager.Instance.Get("mat_road");
+    _roads.Add(r);
+  }
+
+  public void DrawRoads ()
+  {
+    foreach (Road r in _roads)
+    {
+      r.FindVertices();
+      r.FindTriangles();
+      r.Draw();
+      r.gameObject.active = true;
+    }
+  }
+
+  public void DestroyRoads ()
+  {
+    foreach (Road r in _roads)
+      r.Destroy();
+  }
+
+  public void AddSidewalk (Block block)
+  {
+    Sidewalk s = new Sidewalk(block);
+    s.name = "sidewalk";
+    s.material = MaterialManager.Instance.Get("mat_sidewalk");
+    _sidewalks.Add(s);
+  }
+
+  public void DrawSidewalks ()
+  {
+    foreach (Sidewalk s in _sidewalks)
+    {
+      s.FindVertices();
+      s.FindTriangles();
+      s.Draw();
+      s.gameObject.active = true;
+    }
+  }
+
+  public void DestroySidewalks ()
+  {
+    foreach (Sidewalk s in _sidewalks)
+      s.Destroy();
+  }
+
+  public void Clear ()
   {
     _blocks.Clear();
+    _lots.Clear();
+    _nodes.Clear();
+    DestroyRoads();
+    _roads.Clear();
+    DestroySidewalks();
+    _sidewalks.Clear();
   }
 }
 

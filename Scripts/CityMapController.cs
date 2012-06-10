@@ -15,9 +15,6 @@ public class CityMapController : MonoBehaviour {
 
   void Start ()
   {
-    // the point Vector3.zero must _not_ be used
-    // as starting point and all 4 points must be
-    // in the first quadrant
     block = new Block();
     block.Bisect();
   }
@@ -27,8 +24,15 @@ public class CityMapController : MonoBehaviour {
     if (Input.GetKeyUp(KeyCode.B))
     {
       AddBuildings();
-      foreach (Block b in CityMapManager.Instance.blocks)
-        b.Draw();
+      CityMapManager.Instance.DrawRoads();
+      CityMapManager.Instance.DrawSidewalks();
+    }
+
+    if (Input.GetKeyUp(KeyCode.R))
+    {
+      BuildingManager.Instance.DestroyBuildings();
+      block = new Block();
+      block.Bisect();
     }
 
     if (Input.GetKeyUp(KeyCode.G))
@@ -61,6 +65,7 @@ public class CityMapController : MonoBehaviour {
 
   private void AddBuildings ()
   {
+    BuildingManager.Instance.DestroyBuildings();
     foreach (Block b in CityMapManager.Instance.blocks)
       foreach (BuildingLot l in b.finalLots)
         BuildingManager.Instance.Build(l);
@@ -99,8 +104,8 @@ public class CityMapController : MonoBehaviour {
       {
         MaterialManager.Instance.Get("line_sidewalk").SetPass(0);
         GL.Begin(GL.LINES);
-        foreach (Block b in CityMapManager.Instance.blocks)
-          foreach (Edge e in b.sidewalk.edges)
+        foreach (Sidewalk s in CityMapManager.Instance.sidewalks)
+          foreach (Edge e in s.edges)
           {
             GL.Vertex(e.start);
             GL.Vertex(e.end);

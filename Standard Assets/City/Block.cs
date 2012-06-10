@@ -32,12 +32,17 @@ public class Block
 
   /*************** CONSTRUCTORS ***************/
 
+  // the point Vector3.zero must _not_ be used
+  // as starting point and all 4 points must be
+  // in the first quadrant
   public Block ()
     : this(new Vector3(1f, 0f, 0f),
            new Vector3(0f, 0f, 300f),
            new Vector3(500f, 0f, 300f),
            new Vector3(500f, 0f, 0f))
-  { }
+  {
+    CityMapManager.Instance.Clear();
+  }
 
   public Block (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
@@ -81,12 +86,8 @@ public class Block
     if (_isFinal)
     {
       FindSidewalkNLotVerts();
-      road = new Road(this);
-      road.name = "road";
-      road.material = MaterialManager.Instance.Get("mat_road");
-      sidewalk = new Sidewalk(this);
-      sidewalk.name = "sidewalk";
-      sidewalk.material = MaterialManager.Instance.Get("mat_sidewalk");
+      CityMapManager.Instance.AddRoad(this);
+      CityMapManager.Instance.AddSidewalk(this);
       initialLot = new BuildingLot(this);
       if (initialLot.isFinal())
       {
@@ -113,31 +114,6 @@ public class Block
     Block b2 = new Block(edges[1].start, edges[1].end,
                          edges[2].middle + opp_offset, edges[0].middle + big_offset);
     b2.Bisect();
-  }
-
-  public void Draw ()
-  {
-    if (_isFinal)
-    {
-      road.FindVertices();
-      road.FindTriangles();
-      road.Draw();
-      road.gameObject.active = true;
-
-      sidewalk.FindVertices();
-      sidewalk.FindTriangles();
-      sidewalk.Draw();
-      sidewalk.gameObject.active = true;
-    }
-  }
-
-  public void Destroy ()
-  {
-    if (_isFinal)
-    {
-      road.Destroy();
-      sidewalk.Destroy();
-    }
   }
 
   private void FindIfIsFinal ()
