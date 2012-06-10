@@ -174,10 +174,15 @@ public class Building
 
     foreach (GameObject go in _combiners.Values)
     {
-      GameObject.Destroy(go.GetComponent<MeshFilter>().mesh);
-      GameObject.Destroy(go);
+      if (go != null)
+      {
+        GameObject.Destroy(go.GetComponent<MeshFilter>().mesh);
+        GameObject.Destroy(go);
+      }
     }
 
+    _combinables.Clear();
+    _combiners.Clear();
     buildingMesh.Destroy();
   }
 }
