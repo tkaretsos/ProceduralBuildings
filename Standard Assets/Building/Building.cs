@@ -7,17 +7,41 @@ namespace Thesis {
 
 public class Building
 {
-  public readonly Material windowMaterial;
+  private Material _windowMaterial;
+  public Material windowMaterial
+  {
+    get { return _windowMaterial; }
+  }
 
-  public readonly Material balconyDoorMaterial;
+  private Material _balconyDoorMaterial;
+  public Material balconyDoorMaterial
+  {
+    get { return _balconyDoorMaterial; }
+  }
 
-  public readonly Material doorMaterial;
+  private Material _doorMaterial;
+  public Material doorMaterial
+  {
+    get { return _doorMaterial; }
+  }
 
-  public readonly Material shutterMaterial;
+  private Material _shutterMaterial;
+  public Material shutterMaterial
+  {
+    get { return _shutterMaterial; }
+  }
 
-  public readonly Material compDecorMaterial;
+  private Material _compDecorMaterial;
+  public Material compDecorMaterial
+  {
+    get { return _compDecorMaterial; }
+  }
 
-  public readonly Material simpleCompDecorMaterial;
+  private Material _simpleCompDecorMaterial;
+  public Material simpleCompDecorMaterial
+  {
+    get { return _simpleCompDecorMaterial; }
+  }
 
   public GameObject gameObject;
 
@@ -29,22 +53,32 @@ public class Building
 
   public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
+    Init();
+
+    // must be _after_ the initialization of this object
+    buildingMesh = new BuildingMesh(this, p1, p2, p3, p4);
+    gameObject = new GameObject("Neoclassical");
+    gameObject.transform.position = buildingMesh.meshOrigin;
+  }
+
+  private void Init()
+  {
     _combinables = new Dictionary<string, CombinablesCollection>();
     _combiners = new Dictionary<string, GameObject>();
 
     // find window material randomly
     var list = MaterialManager.Instance.GetCollection("mat_neo_window");
     var num = Random.Range(0, list.Count);
-    windowMaterial = list[num];
+    _windowMaterial = list[num];
 
     // balcony door material
     list = MaterialManager.Instance.GetCollection("mat_neo_balcony_door");
-    balconyDoorMaterial = list[num];
+    _balconyDoorMaterial = list[num];
 
     // door material
     list = MaterialManager.Instance.GetCollection("mat_neo_door");
     num = Random.Range(0, list.Count);
-    doorMaterial = list[num];
+    _doorMaterial = list[num];
 
     // shutter material
     // not randomly selected, depends on the door material
@@ -53,22 +87,17 @@ public class Building
     list = MaterialManager.Instance.GetCollection("mat_neo_shutter");
     var doorCount = MaterialManager.Instance.GetCollection("mat_neo_door").Count;
     var shutCount = MaterialManager.Instance.GetCollection("mat_neo_shutter").Count;
-    shutterMaterial = list[num * shutCount / doorCount];
+    _shutterMaterial = list[num * shutCount / doorCount];
 
     // component decor material
     list = MaterialManager.Instance.GetCollection("mat_comp_decor");
     num = Random.Range(0, list.Count);
-    compDecorMaterial = list[num];
+    _compDecorMaterial = list[num];
     //compDecorMaterial = list[list.Count - 1];
 
     list = MaterialManager.Instance.GetCollection("mat_comp_decor_simple");
     num = Random.Range(0, list.Count);
-    simpleCompDecorMaterial = list[num];
-
-    // must be _after_ the initialization of this object
-    buildingMesh = new BuildingMesh(this, p1, p2, p3, p4);
-    gameObject = new GameObject("Neoclassical");
-    gameObject.transform.position = buildingMesh.meshOrigin;
+    _simpleCompDecorMaterial = list[num];
   }
 
   public void AddCombinable(string materialName, Interface.ICombinable combinable)
