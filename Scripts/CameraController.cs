@@ -1,7 +1,7 @@
 using UnityEngine;
 
-public class CameraController : MonoBehaviour 
-{	
+public class CameraController : MonoBehaviour {	
+
   private enum CameraMode
   {
     Horizontal,
@@ -31,11 +31,11 @@ public class CameraController : MonoBehaviour
   {
     Screen.showCursor = false;
 
-    _x_rotation = -40f;
-    _y_rotation = 45f;
+    _x_rotation = camera.transform.rotation.eulerAngles.x;
+    _y_rotation = camera.transform.rotation.eulerAngles.y;
   
     _last_mouse_x = Input.GetAxis("Mouse X");
-    _last_mouse_y = Input.GetAxis("Mouse Y");
+    _last_mouse_y = -Input.GetAxis("Mouse Y");
     _mouse_x = _last_mouse_x;
     _mouse_y = _last_mouse_y;
   }
@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour
     if (_follow_mouse)
     {
       _mouse_x = Input.GetAxis("Mouse X");
-      _mouse_y = Input.GetAxis("Mouse Y");
+      _mouse_y = -Input.GetAxis("Mouse Y");
       _y_rotation += Mathf.Lerp(_last_mouse_x * _rotationSpeed, _mouse_x * _rotationSpeed, Time.smoothDeltaTime);
       _x_rotation += Mathf.Lerp(_last_mouse_y * _rotationSpeed, _mouse_y * _rotationSpeed, Time.smoothDeltaTime);
       _last_mouse_x = _mouse_x;
@@ -53,7 +53,7 @@ public class CameraController : MonoBehaviour
     }
 
     ClampCamera();
-    camera.transform.eulerAngles = new Vector3(-_x_rotation, _y_rotation, 0f);
+    camera.transform.eulerAngles = new Vector3(_x_rotation, _y_rotation, 0f);
 
     float moveSpeed = _movementSpeed;
     if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
