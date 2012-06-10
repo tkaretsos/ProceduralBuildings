@@ -58,6 +58,11 @@ public sealed class CityMapManager
       _nodes.Add(node);
     return n;
   }
+
+  public void ClearBlocks ()
+  {
+    _blocks.Clear();
+  }
 }
 
 } // namespace Thesis
