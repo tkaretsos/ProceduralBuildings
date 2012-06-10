@@ -107,6 +107,15 @@ public class CameraController : MonoBehaviour {
         _follow_mouse = true;
         Screen.showCursor = false;
       }
+
+    if (Input.GetKey(KeyCode.Escape))
+      Application.Quit();
+
+    if (Input.GetKey(KeyCode.F1))
+      Application.LoadLevel("main_scene");
+
+    if (Input.GetKey(KeyCode.F2))
+      Application.LoadLevel("city_scene");
   }
 
   public void OnGUI ()
