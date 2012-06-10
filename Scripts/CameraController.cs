@@ -149,4 +149,9 @@ public class CameraController : MonoBehaviour {
     if (_x_rotation >  vertical) _x_rotation =  vertical;
     if (_x_rotation < -vertical) _x_rotation = -vertical;
   }
+
+  void OnDestroy ()
+  {
+    BuildingManager.Instance.DestroyBuildings();
+  }
 }
