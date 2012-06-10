@@ -26,6 +26,7 @@ public class CityMapController : MonoBehaviour {
       AddBuildings();
       CityMapManager.Instance.DrawRoads();
       CityMapManager.Instance.DrawSidewalks();
+      CityMapManager.Instance.DrawLots();
     }
 
     if (Input.GetKeyUp(KeyCode.R))

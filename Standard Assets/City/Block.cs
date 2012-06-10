@@ -232,6 +232,9 @@ public class Block
     }
 
     // for initialLots larger than 40x27
+
+    CityMapManager.Instance.AddDrawableLot(initialLot);
+
     // big face range -> 11 - 20
     // small face range -> 6 - 9
     // therefore small = (3big + 21) / 9
