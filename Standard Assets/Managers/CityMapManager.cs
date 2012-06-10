@@ -43,6 +43,12 @@ public sealed class CityMapManager
     get { return _sidewalks; }
   }
 
+  private List<BuildingLot> _drawableLots;
+  public IList<BuildingLot> drawableLots
+  {
+    get { return _drawableLots; }
+  }
+
   private CityMapManager ()
   {
     _blocks = new List<Block>();
@@ -50,6 +56,7 @@ public sealed class CityMapManager
     _lots = new List<BuildingLot>();
     _roads = new List<Road>();
     _sidewalks = new List<Sidewalk>();
+    _drawableLots = new List<BuildingLot>();
   }
 
   public void Add (Block block)
@@ -123,6 +130,30 @@ public sealed class CityMapManager
       s.Destroy();
   }
 
+  public void AddDrawableLot (BuildingLot lot)
+  {
+    lot.name = "buildinglot";
+    lot.material = MaterialManager.Instance.Get("mat_road");
+    _drawableLots.Add(lot);
+  }
+
+  public void DrawLots ()
+  {
+    foreach (BuildingLot lot in _drawableLots)
+    {
+      lot.FindVertices();
+      lot.FindTriangles();
+      lot.Draw();
+      lot.gameObject.active = true;
+    }
+  }
+
+  public void DestroyLots ()
+  {
+    foreach (BuildingLot lot in _drawableLots)
+      lot.Destroy();
+  }
+
   public void Clear ()
   {
     _blocks.Clear();
@@ -132,6 +163,8 @@ public sealed class CityMapManager
     _roads.Clear();
     DestroySidewalks();
     _sidewalks.Clear();
+    DestroyLots();
+    _drawableLots.Clear();
   }
 }
 
