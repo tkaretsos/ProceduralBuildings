@@ -49,10 +49,7 @@ public class CityMapController : MonoBehaviour {
     foreach (Block b in CityMapManager.Instance.blocks)
       foreach (BuildingLot l in b.finalLots)
       {
-        building = new Building(l.edges[0].start,
-                                l.edges[1].start,
-                                l.edges[2].start,
-                                l.edges[3].start);
+        building = new Building(l);
         building.buildingMesh.FindVertices();
         building.buildingMesh.FindTriangles();
         building.buildingMesh.Draw();
