@@ -93,6 +93,35 @@ public class BuildingMesh : DrawableObject
     ConstructRoof();
   }
 
+  public BuildingMesh (Building parent, BuildingLot lot)
+  {
+    this.parent = parent;
+    name = "neo_building_mesh";
+    var list = MaterialManager.Instance.GetCollection("mat_walls");
+    material = list[Random.Range(0, list.Count)];
+
+    parent.AddCombinable(material.name, this);
+
+    floorHeight = Random.Range(3.8f, 4f);
+    floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
+
+    FindMeshOrigin(lot.edges[0].start, lot.edges[2].start,
+                   lot.edges[1].start, lot.edges[3].start);
+
+    boundaries = new Vector3[8];
+    boundaries[0] = lot.edges[0].start - meshOrigin;
+    boundaries[1] = lot.edges[1].start - meshOrigin;
+    boundaries[2] = lot.edges[2].start - meshOrigin;
+    boundaries[3] = lot.edges[3].start - meshOrigin;
+
+    for (int i = 0; i < 4; ++i)
+      boundaries[i + 4] = boundaries[i] + height * Vector3.up;
+
+    ConstructFaces(lot);
+    ConstructFaceComponents();
+    ConstructRoof();
+  }
+
   /*************** METHODS ***************/
 
   public virtual void ConstructFaces ()

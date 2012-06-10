@@ -61,6 +61,16 @@ public class Building
     gameObject.transform.position = buildingMesh.meshOrigin;
   }
 
+  public Building (BuildingLot lot)
+  {
+    Init();
+
+    // must be _after_ the initialization of this object
+    buildingMesh = new BuildingMesh(this, lot);
+    gameObject = new GameObject("Neoclassical");
+    gameObject.transform.position = buildingMesh.meshOrigin;
+  }
+
   private void Init()
   {
     _combinables = new Dictionary<string, CombinablesCollection>();
