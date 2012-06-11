@@ -30,10 +30,6 @@ public sealed class MaterialManager
   {
     if (!_isInitialized)
     {
-      Object[] mats = Resources.LoadAll("Materials", typeof(Material));
-      for (var i = 0; i < mats.Length; ++i)
-        _materials.Add(mats[i].name, (Material) mats[i]);
-
       CreateDoorShutter();
       CreateWindowBalcony();
       CreateRoofRelated();
@@ -56,6 +52,33 @@ public sealed class MaterialManager
         mat.mainTexture = tex.content;
         MaterialManager.Instance.AddToCollection("mat_comp_decor_simple", mat);
       }
+
+      mat = new Material(Shader.Find("Diffuse"));
+      mat.name = "ComponentFrame";
+      mat.color = new Color32(186, 189, 189, 255);
+      Add(mat.name, mat);
+
+      // lines
+      mat = new Material(Shader.Find("VertexLit"));
+      mat.name = "line_block";
+      mat.SetColor("_Color", Color.green);
+      mat.SetColor("_SpecColor", Color.green);
+      mat.SetColor("_Emission", Color.green);
+      Add(mat.name, mat);
+
+      mat = new Material(Shader.Find("VertexLit"));
+      mat.name = "line_lot";
+      mat.SetColor("_Color", Color.cyan);
+      mat.SetColor("_SpecColor", Color.cyan);
+      mat.SetColor("_Emission", Color.cyan);
+      Add(mat.name, mat);
+
+      mat = new Material(Shader.Find("VertexLit"));
+      mat.name = "line_sidewalk";
+      mat.SetColor("_Color", Color.red);
+      mat.SetColor("_SpecColor", Color.red);
+      mat.SetColor("_Emission", Color.red);
+      Add(mat.name, mat);
 
       //Testing();
       _isInitialized = true;
