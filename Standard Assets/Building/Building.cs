@@ -161,6 +161,14 @@ public class Building
     _combinables.Clear();
   }
 
+  public void Draw ()
+  {
+    buildingMesh.FindVertices();
+    buildingMesh.FindTriangles();
+    buildingMesh.Draw();
+    gameObject.SetActiveRecursively(true);
+  }
+
   public void Destroy ()
   {
     GameObject.Destroy(gameObject);
