@@ -36,6 +36,15 @@ public sealed class ColorManager
     }
   }
 
+  public void Unload ()
+  {
+    _colors.Clear();
+    foreach (List<Color> l in _collections.Values)
+      l.Clear();
+    _collections.Clear();
+    _isInitialized = false;
+  }
+
   public void Add (string name, Color color)
   {
     if (!_colors.ContainsKey(name))

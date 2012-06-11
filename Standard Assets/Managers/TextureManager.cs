@@ -80,6 +80,15 @@ public sealed class TextureManager
     }
   }
 
+  public void Unload ()
+  {
+    _textures.Clear();
+    foreach (List<ProceduralTexture> l in _collections.Values)
+      l.Clear();
+    _collections.Clear();
+    _isInitialized = false;
+  }
+
   public void Add (string name, ProceduralTexture texture)
   {
     if (!_textures.ContainsKey(name))

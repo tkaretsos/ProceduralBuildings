@@ -62,6 +62,21 @@ public sealed class MaterialManager
     }
   }
 
+  public void Unload ()
+  {
+    foreach (Material m in _materials.Values)
+        Object.DestroyImmediate(m, true);
+    _materials.Clear();
+    foreach (List<Material> l in _collections.Values)
+    {
+      foreach (Material m in l)
+        Object.DestroyImmediate(m, true);
+      l.Clear();
+    }
+    _collections.Clear();
+    _isInitialized = false;
+  }
+
   public void Add (string name, Material material)
   {
     if (!_materials.ContainsKey(name))
