@@ -82,7 +82,7 @@ public class DrawableObject : ProceduralObject,
     if (material != null)
       renderer.sharedMaterial = material;
 
-    mesh = meshFilter.mesh;
+    mesh = new Mesh();
     mesh.Clear();
     mesh.vertices = vertices;
     mesh.triangles = triangles;
