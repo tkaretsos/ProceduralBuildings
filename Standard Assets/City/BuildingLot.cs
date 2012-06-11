@@ -71,7 +71,7 @@ public sealed class BuildingLot : DrawableObject
   {
     vertices = new Vector3[4];
     for (int i = 0; i < 4; ++i)
-      vertices[i] = edges[i].start;
+      vertices[i] = edges[i].start - 0.01f * Vector3.up;
   }
 
   public override void FindTriangles()
