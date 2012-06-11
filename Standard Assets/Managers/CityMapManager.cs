@@ -133,7 +133,7 @@ public sealed class CityMapManager
   public void AddDrawableLot (BuildingLot lot)
   {
     lot.name = "buildinglot";
-    lot.material = MaterialManager.Instance.Get("mat_road");
+    lot.material = MaterialManager.Instance.Get("mat_lot");
     _drawableLots.Add(lot);
   }
 

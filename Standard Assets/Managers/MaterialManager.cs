@@ -221,6 +221,10 @@ public sealed class MaterialManager
     mat = new Material(Shader.Find("Diffuse"));
     mat.color = Color.gray;
     _instance.Add("mat_sidewalk", mat);
+
+    mat = new Material(Shader.Find("Diffuse"));
+    mat.color = new Color32(0, 55, 0, 255);
+    _instance.Add("mat_lot", mat);
   }
 
   private void Testing ()
