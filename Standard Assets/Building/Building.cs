@@ -51,6 +51,13 @@ public class Building
 
   private Dictionary<string, GameObject> _combiners;
 
+  public Building ()
+  {
+    _combinables = new Dictionary<string, CombinablesCollection>();
+    _combiners = new Dictionary<string, GameObject>();
+    //Init();
+  }
+
   public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, bool editor = false)
   {
     Init();
