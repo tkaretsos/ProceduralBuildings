@@ -82,7 +82,7 @@ public class BuildingMesh : DrawableObject
     if (parent.floorCount == 0)
       floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
     else
-      floorCount = parent.floorCount
+      floorCount = parent.floorCount;
 
     FindMeshOrigin(p1, p3, p2, p4);
 
