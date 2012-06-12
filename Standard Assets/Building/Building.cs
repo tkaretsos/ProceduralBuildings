@@ -78,54 +78,48 @@ public class Building
 
   public Building ()
   {
-    _combinables = new Dictionary<string, CombinablesCollection>();
-    _combiners = new Dictionary<string, GameObject>();
     //Init();
   }
 
-  public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, bool editor = false)
+  public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
     Init();
 
     // must be _after_ the initialization of this object
-    if (!editor)
-    {
-      buildingMesh = new BuildingMesh(this, p1, p2, p3, p4);
-      gameObject = new GameObject("Neoclassical");
-      gameObject.transform.position = buildingMesh.meshOrigin;
-    }
+    buildingMesh = new BuildingMesh(this, p1, p2, p3, p4);
+    gameObject = new GameObject("Neoclassical");
+    gameObject.transform.position = buildingMesh.meshOrigin;
   }
 
-  public Building (BuildingLot lot, bool editor = false)
+  public Building (BuildingLot lot)
   {
     Init();
 
     // must be _after_ the initialization of this object
-    if (!editor)
-    {
-      buildingMesh = new BuildingMesh(this, lot);
-      gameObject = new GameObject("Neoclassical");
-      gameObject.transform.position = buildingMesh.meshOrigin;
-    }
+    buildingMesh = new BuildingMesh(this, lot);
+    gameObject = new GameObject("Neoclassical");
+    gameObject.transform.position = buildingMesh.meshOrigin;
   }
 
   public void CreateBuilding ()
   {
-    // FIX THIS FOR POINTSSSSSSS
-    Vector3 p1, p2, p3, p4;
-    p1 = p2 = p3 = p4 = new Vector3();
-
-    if (width0 == 0f || width1 == 0f)
+    if (startingPoints == null)
     {
-      p2 = new Vector3(0f, 0f, 11f);
-      p3 = new Vector3(8f, 0f, 11f);
-      p4 = new Vector3(8f, 0f, 0f);
-    }
-    else
-    {
-      p2 = Vector3.forward * width0;
-      p4 = Vector3.right * width1;
-      p3 = p2 + p4;
+      startingPoints = new Vector3[4];
+      if (width0 == 0f || width1 == 0f)
+      {
+        startingPoints[0] = new Vector3();
+        startingPoints[1] = new Vector3(0f, 0f, 11f);
+        startingPoints[2] = new Vector3(8f, 0f, 11f);
+        startingPoints[3] = new Vector3(8f, 0f, 0f);
+      }
+      else
+      {
+        startingPoints[0] = new Vector3();
+        startingPoints[1] = Vector3.forward * width0;
+        startingPoints[3] = Vector3.right * width1;
+        startingPoints[2] = startingPoints[1] + startingPoints[3];
+      }
     }
 
     buildingMesh = new BuildingMesh(this, startingPoints[0],
