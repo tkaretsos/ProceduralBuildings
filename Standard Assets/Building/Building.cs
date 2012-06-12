@@ -84,7 +84,33 @@ public class Building
     }
   }
 
-  private void Init()
+  public void CreateBuilding ()
+  {
+    Vector3 p1, p2, p3, p4;
+    p1 = p2 = p3 = p4 = new Vector3();
+
+    if (width0 == 0f || width1 == 0f)
+    {
+      p2 = new Vector3(0f, 0f, 11f);
+      p3 = new Vector3(8f, 0f, 11f);
+      p4 = new Vector3(8f, 0f, 0f);
+    }
+    else
+    {
+      p2 = Vector3.forward * width0;
+      p4 = Vector3.right * width1;
+      p3 = p2 + p4;
+    }
+
+    buildingMesh = new BuildingMesh(this, startingPoints[0],
+                                          startingPoints[1],
+                                          startingPoints[2],
+                                          startingPoints[3]);
+    gameObject = new GameObject("Neoclassical");
+    gameObject.transform.position = buildingMesh.meshOrigin;
+  }
+
+  public void Init()
   {
     _combinables = new Dictionary<string, CombinablesCollection>();
     _combiners = new Dictionary<string, GameObject>();
