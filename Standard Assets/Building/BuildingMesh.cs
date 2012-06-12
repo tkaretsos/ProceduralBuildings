@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Thesis {
 
@@ -109,8 +110,15 @@ public class BuildingMesh : DrawableObject
 
     parent.AddCombinable(material.name, this);
 
-    floorHeight = Random.Range(3.8f, 4f);
-    floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
+    if (parent.floorHeight == 0f)
+      floorHeight = Random.Range(3.8f, 4f);
+    else
+      floorHeight = parent.floorHeight;
+
+    if (parent.floorCount == 0)
+      floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
+    else
+      floorCount = parent.floorCount;
 
     FindMeshOrigin(lot.edges[0].start, lot.edges[2].start,
                    lot.edges[1].start, lot.edges[3].start);
@@ -157,10 +165,21 @@ public class BuildingMesh : DrawableObject
 
   public void ConstructFaceComponents ()
   {
-    windowHeight = Random.Range(1.5f, 1.7f);
-    doorHeight = Random.Range(2.8f, 3f);
+    if (parent.windowHeight == 0f)
+      windowHeight = Random.Range(1.5f, 1.7f);
+    else
+      windowHeight = parent.windowHeight;
 
-    balconyHeight = windowHeight / 2 + floorHeight / 2.25f;
+    if (parent.doorHeight == 0f)
+      doorHeight = Random.Range(2.8f, 3f);
+    else
+      doorHeight = parent.doorHeight;
+
+    if (parent.balconyHeight == 0f)
+      balconyHeight = windowHeight / 2 + floorHeight / 2.25f;
+    else
+      balconyHeight = parent.balconyHeight;
+
     balconyFloorHeight = 0.2f;
     balconyFloorDepth = 1f;
     balconyFloorWidth = 0.6f;
@@ -175,26 +194,45 @@ public class BuildingMesh : DrawableObject
   private void ConstructRoof()
   {
     roofBase = new RoofBase(this);
-    var list = MaterialManager.Instance.GetCollection("mat_roof_base");
-    roofBase.material = list[Random.Range(0, list.Count - 1)];
-    //roofBase.material = list[list.Count - 1];
+
+    if (parent.roofBaseMaterial == null)
+    {
+      var list = MaterialManager.Instance.GetCollection("mat_roof_base");
+      roofBase.material = list[Random.Range(0, list.Count - 1)];
+    }
+    else
+      roofBase.material = parent.roofBaseMaterial;
     parent.AddCombinable(roofBase.material.name, roofBase);
 
-    int n = Util.RollDice(new float[] { 0.33f, 0.33f, 0.34f });
     int maxcpf = Mathf.Max(faces[0].componentsPerFloor, faces[1].componentsPerFloor);
 
-    if (n == 1)
-      roof = new FlatRoof(this);
-    else if (n == 2 && maxcpf <= 3)
-      roof = new SinglePeakRoof(this);
+    if (parent.roofType == null)
+    {
+      int n = Util.RollDice(new float[] { 0.33f, 0.33f, 0.34f });
+      if (n == 1)
+        roof = new FlatRoof(this);
+      else if (n == 2 && maxcpf <= 3)
+        roof = new SinglePeakRoof(this);
+      else
+        roof = new DoublePeakRoof(this);
+    }
     else
-      roof = new DoublePeakRoof(this);
+    {
+      var ctors = parent.roofType.GetConstructors(BindingFlags.Instance |
+                                                  BindingFlags.Public);
+      roof = (Roof) ctors[0].Invoke(new object[] { this });
+    }
 
-    list = MaterialManager.Instance.GetCollection("mat_roof");
-    if (roof.GetType().Equals(typeof(FlatRoof)))
-      roof.material = list[Random.Range(0, 2)];
+    if (parent.roofMaterial == null)
+    {
+      var list = MaterialManager.Instance.GetCollection("mat_roof");
+      if (roof.GetType().Equals(typeof(FlatRoof)))
+        roof.material = list[Random.Range(0, 2)];
+      else
+        roof.material = list[Random.Range(0, list.Count - 1)];
+    }
     else
-      roof.material = list[Random.Range(0, list.Count - 1)];
+      roof.material = parent.roofMaterial;
     parent.AddCombinable(roof.material.name, roof);
   }
 
