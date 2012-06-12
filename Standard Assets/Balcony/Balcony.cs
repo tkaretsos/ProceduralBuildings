@@ -48,7 +48,7 @@ public class Balcony : FaceComponent
 
     balconyRail = new BalconyRail(balconyFloor);
     balconyRail.name = "neo_balcony_rail";
-    balconyRail.material = MaterialManager.Instance.Get("mat_neo_balcony_rail");
+    balconyRail.material = MaterialManager.Instance.Get("mat_balcony_rail");
     parentBuilding.parent.AddCombinable(balconyRail.material.name, balconyRail);
 
     rightShutter = new Shutter(this, ShutterSide.Right);

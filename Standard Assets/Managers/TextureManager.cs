@@ -33,13 +33,13 @@ public sealed class TextureManager
       Object[] texs = Resources.LoadAll("Textures/Door",
                                         typeof(Texture2D));
       for (var i = 0; i < texs.Length; ++i)
-        AddToCollection("tex_neo_door",
+        AddToCollection("tex_door",
                         new ProceduralTexture((Texture2D) texs[i]));
 
       texs = Resources.LoadAll("Textures/Shutter",
                                 typeof(Texture2D));
       for (var i = 0; i < texs.Length; ++i)
-        AddToCollection("tex_neo_shutter",
+        AddToCollection("tex_shutter",
                         new ProceduralTexture((Texture2D) texs[i]));
 
       texs = Resources.LoadAll("Textures/Roof",
@@ -210,7 +210,7 @@ public sealed class TextureManager
 
     tex.Draw();
 
-    TextureManager.Instance.Add("tex_neo_balcony", tex);
+    TextureManager.Instance.Add("tex_balcony", tex);
   }
 
   private void CreateWindowTextures ()
@@ -231,7 +231,7 @@ public sealed class TextureManager
                                   tex.content.width >> 1, h,
                                   color, th << 1));
     tex.Draw();
-    TextureManager.Instance.AddToCollection("tex_neo_window", tex);
+    TextureManager.Instance.AddToCollection("tex_window", tex);
     // 1st texture
 
     // 2nd texture
@@ -247,7 +247,7 @@ public sealed class TextureManager
     tex.lines.Add(new TextureLine(0, h >> 1, tex.content.width, h >> 1,
                                   color, th));
     tex.Draw();
-    TextureManager.Instance.AddToCollection("tex_neo_window", tex);
+    TextureManager.Instance.AddToCollection("tex_window", tex);
     // 2nd texture
 
     // 3rd texture
@@ -259,7 +259,7 @@ public sealed class TextureManager
                                   tex.content.width >> 1, tex.content.height,
                                   color, th << 1));
     tex.Draw();
-    TextureManager.Instance.AddToCollection("tex_neo_window", tex);
+    TextureManager.Instance.AddToCollection("tex_window", tex);
     // 3rd texture
 
     // 4th texture
@@ -271,7 +271,7 @@ public sealed class TextureManager
                                   tex.content.width >> 1, (tex.content.height * 3) >> 2,
                                   color, th << 1));
     tex.Draw();
-    TextureManager.Instance.AddToCollection("tex_neo_window", tex);
+    TextureManager.Instance.AddToCollection("tex_window", tex);
     // 4th texture
 
     // 5th texture
@@ -283,7 +283,7 @@ public sealed class TextureManager
                                   tex.content.width >> 1, tex.content.height,
                                   color, th << 1));
     tex.Draw();
-    TextureManager.Instance.AddToCollection("tex_neo_window", tex);
+    TextureManager.Instance.AddToCollection("tex_window", tex);
     // 5th texture
   }
 
@@ -305,7 +305,7 @@ public sealed class TextureManager
                                   tex.content.width >> 1, h,
                                   color, th << 1));
     tex.Draw();
-    TextureManager.Instance.AddToCollection("tex_neo_balcony_door", tex);
+    TextureManager.Instance.AddToCollection("tex_balcony_door", tex);
     // 1st texture
 
     // 2nd texture
@@ -321,7 +321,7 @@ public sealed class TextureManager
     tex.lines.Add(new TextureLine(0, h >> 1, tex.content.width, h >> 1,
                                   color, th));
     tex.Draw();
-    TextureManager.Instance.AddToCollection("tex_neo_balcony_door", tex);
+    TextureManager.Instance.AddToCollection("tex_balcony_door", tex);
     // 2nd texture
 
     // 3rd texture
@@ -333,7 +333,7 @@ public sealed class TextureManager
                                   tex.content.width >> 1, tex.content.height,
                                   color, th << 1));
     tex.Draw();
-    TextureManager.Instance.AddToCollection("tex_neo_balcony_door", tex);
+    TextureManager.Instance.AddToCollection("tex_balcony_door", tex);
     // 3rd texture
 
     // 4th texture
@@ -345,7 +345,7 @@ public sealed class TextureManager
                                   tex.content.width >> 1, (tex.content.height << 2) / 5,
                                   color, th << 1));
     tex.Draw();
-    TextureManager.Instance.AddToCollection("tex_neo_balcony_door", tex);
+    TextureManager.Instance.AddToCollection("tex_balcony_door", tex);
     // 4th texture
 
     // 5th texture
@@ -357,7 +357,7 @@ public sealed class TextureManager
                                   tex.content.width >> 1, tex.content.height,
                                   color, th << 1));
     tex.Draw();
-    TextureManager.Instance.AddToCollection("tex_neo_balcony_door", tex);
+    TextureManager.Instance.AddToCollection("tex_balcony_door", tex);
     // 5th texture
   }
 

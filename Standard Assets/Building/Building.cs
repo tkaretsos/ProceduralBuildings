@@ -83,16 +83,16 @@ public class Building
     _combiners = new Dictionary<string, GameObject>();
 
     // find window material randomly
-    var list = MaterialManager.Instance.GetCollection("mat_neo_window");
+    var list = MaterialManager.Instance.GetCollection("mat_window");
     var num = Random.Range(0, list.Count);
     _windowMaterial = list[num];
 
     // balcony door material
-    list = MaterialManager.Instance.GetCollection("mat_neo_balcony_door");
+    list = MaterialManager.Instance.GetCollection("mat_balcony_door");
     _balconyDoorMaterial = list[num];
 
     // door material
-    list = MaterialManager.Instance.GetCollection("mat_neo_door");
+    list = MaterialManager.Instance.GetCollection("mat_door");
     num = Random.Range(0, list.Count);
     _doorMaterial = list[num];
 
@@ -100,9 +100,9 @@ public class Building
     // not randomly selected, depends on the door material
     // count and shutter material count, in order to match
     // colours
-    list = MaterialManager.Instance.GetCollection("mat_neo_shutter");
-    var doorCount = MaterialManager.Instance.GetCollection("mat_neo_door").Count;
-    var shutCount = MaterialManager.Instance.GetCollection("mat_neo_shutter").Count;
+    list = MaterialManager.Instance.GetCollection("mat_shutter");
+    var doorCount = MaterialManager.Instance.GetCollection("mat_door").Count;
+    var shutCount = MaterialManager.Instance.GetCollection("mat_shutter").Count;
     _shutterMaterial = list[num * shutCount / doorCount];
 
     // component decor material
