@@ -30,7 +30,7 @@ public class Builder : EditorWindow
 
   // component stuff
   private bool inputCompCount = false;
-  private int componentCount = 0;
+  private float compDist = 0f;
   private bool windowFoldout = false;
   private float windowHeight = 0f;
   private float windowWidth = 0f;
@@ -50,12 +50,12 @@ public class Builder : EditorWindow
   // roof stuff
   private enum myRType
   {
-    nothing,
+    noChoice,
     Flat,
     SinglePeak,
     DoublePeak
   }
-  private myRType rtype = myRType.nothing;
+  private myRType rtype = myRType.noChoice;
   private bool inputRoofDecor = false;
   private Object roofDecorTexture;
   private bool inputRoof = false;
@@ -63,42 +63,33 @@ public class Builder : EditorWindow
   private bool inputRoofBase = false;
   private Object roofBaseTexture;
 
-  private Building _building;
-  private Object texture;
-  
+  private static Building _building;
+
   [MenuItem ("Window/Builder")]
   static void Init ()
   {
-    //ColorManager.Instance.Init();
-    //TextureManager.Instance.Init();
-    //MaterialManager.Instance.Init();
+    ColorManager.Instance.Init();
+    TextureManager.Instance.Init();
+    MaterialManager.Instance.Init();
+
+    _building = new Building();
 
     EditorWindow.GetWindow(typeof(Builder), false, "Builder");
   }
 
   void OnGUI ()
   {
-    _building = new Building();
-
     GUILayout.Space(20);
     EditorGUILayout.BeginHorizontal();
-      if (GUILayout.Button("Destroy"))
-      {
-        //if (_building != null)
-        //{
-        //  _building.Destroy();
-        //  _building = null;
-        //}
-      }
+    if (GUILayout.Button("Destroy"))
+      _building.Destroy();
 
-      if (GUILayout.Button("Create"))
-      {
-        //if (_building != null)
-        //  _building.Destroy();
-        //_building = new Building();
-        //_building.CreateBuilding();
-        //_building.Draw();
-      }
+    if (GUILayout.Button("Create"))
+    {
+      _building.Destroy();
+      _building.CreateBuilding();
+      _building.Draw();
+    }
     EditorGUILayout.EndHorizontal();
 
     GUILayout.Space(20);
@@ -111,19 +102,12 @@ public class Builder : EditorWindow
 
   void OnDestroy ()
   {
-    //ColorManager.Instance.Unload();
-    //TextureManager.Instance.Unload();
-    //MaterialManager.Instance.Unload();
+    _building.Destroy();
+    ColorManager.Instance.Unload();
+    TextureManager.Instance.Unload();
+    MaterialManager.Instance.Unload();
   }
 
-  void OnInspectorUpdate ()
-  {
-    //ColorManager.Instance.Init();
-    //TextureManager.Instance.Init();
-    //MaterialManager.Instance.Init();
-    //Repaint();
-  }
-  
   private void BuildingDimensions ()
   {
     EditorGUILayout.LabelField("Dimensions", EditorStyles.boldLabel);
@@ -148,11 +132,16 @@ public class Builder : EditorWindow
         _p2 = EditorGUILayout.Vector2Field("point 2", _p2);
         _p3 = EditorGUILayout.Vector2Field("point 3", _p3);
         _p4 = EditorGUILayout.Vector2Field("point 4", _p4);
-        _building.startingPoints = new Vector3[4];
-        _building.startingPoints[0] = new Vector3(_p1.x, 0f, _p1.y);
-        _building.startingPoints[1] = new Vector3(_p2.x, 0f, _p2.y);
-        _building.startingPoints[2] = new Vector3(_p3.x, 0f, _p3.y);
-        _building.startingPoints[3] = new Vector3(_p4.x, 0f, _p4.y);
+
+        if (_p1 != _p2 && _p1 != _p3 && _p1 != _p4 && _p2 != _p3 &&
+            _p2 != _p4 && _p3 != _p4)
+        {
+          _building.startingPoints = new Vector3[4];
+          _building.startingPoints[0] = new Vector3(_p1.x, 0f, _p1.y);
+          _building.startingPoints[1] = new Vector3(_p2.x, 0f, _p2.y);
+          _building.startingPoints[2] = new Vector3(_p3.x, 0f, _p3.y);
+          _building.startingPoints[3] = new Vector3(_p4.x, 0f, _p4.y);
+        }
         break;
 
       default:
@@ -196,17 +185,17 @@ public class Builder : EditorWindow
     EditorGUILayout.LabelField("Components", EditorStyles.boldLabel);
 
     EditorGUILayout.BeginHorizontal();
-    EditorGUILayout.LabelField("Components per floor");
+    EditorGUILayout.LabelField("Component distance");
     inputCompCount = EditorGUILayout.Toggle(inputCompCount);
     if (inputCompCount)
     {
-      componentCount = EditorGUILayout.IntField(componentCount, GUILayout.Width(25));
-      _building.componentsPerFloor = componentCount;
+      compDist = EditorGUILayout.FloatField(compDist, GUILayout.Width(30));
+      _building.componentDistance = compDist;
     }
     else
     {
-      componentCount = 0;
-      _building.componentsPerFloor = 0;
+      compDist = 0;
+      _building.componentDistance = 0;
     }
     EditorGUILayout.EndHorizontal();
 
