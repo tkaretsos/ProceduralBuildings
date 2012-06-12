@@ -74,8 +74,15 @@ public class BuildingMesh : DrawableObject
 
     parent.AddCombinable(material.name, this);
 
-    floorHeight = Random.Range(3.8f, 4f);
-    floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
+    if (parent.floorHeight == 0f)
+      floorHeight = Random.Range(3.8f, 4f);
+    else
+      floorHeight = parent.floorHeight;
+
+    if (parent.floorCount == 0)
+      floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
+    else
+      floorCount = parent.floorCount
 
     FindMeshOrigin(p1, p3, p2, p4);
 
