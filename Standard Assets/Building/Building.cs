@@ -171,21 +171,21 @@ public class Building
 
   public void Destroy ()
   {
-    GameObject.Destroy(gameObject);
+    GameObject.DestroyImmediate(gameObject);
 
     foreach (string key in _combinables.Keys)
       for (var i = 0; i < _combinables[key].Count; ++i)
       {
-        GameObject.Destroy(_combinables[key][i].mesh);
-        GameObject.Destroy(_combinables[key][i].gameObject);
+        GameObject.DestroyImmediate(_combinables[key][i].mesh);
+        GameObject.DestroyImmediate(_combinables[key][i].gameObject);
       }
 
     foreach (GameObject go in _combiners.Values)
     {
       if (go != null)
       {
-        GameObject.Destroy(go.GetComponent<MeshFilter>().mesh);
-        GameObject.Destroy(go);
+        GameObject.DestroyImmediate(go.GetComponent<MeshFilter>().mesh);
+        GameObject.DestroyImmediate(go);
       }
     }
 

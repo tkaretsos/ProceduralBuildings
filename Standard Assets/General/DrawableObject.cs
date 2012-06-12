@@ -94,8 +94,8 @@ public class DrawableObject : ProceduralObject,
 
   public virtual void Destroy ()
   {
-    GameObject.Destroy(mesh);
-    GameObject.Destroy(gameObject);
+    GameObject.DestroyImmediate(mesh);
+    GameObject.DestroyImmediate(gameObject);
   }
 
   /*************** INTERFACE EXPLICIT IMPLEMENTATION ***************/
