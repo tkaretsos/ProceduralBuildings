@@ -63,7 +63,7 @@ public class Builder : EditorWindow
   private bool inputRoofBase = false;
   private Object roofBaseTexture;
 
-  private Building _building = new Building();
+  private Building _building;
   private Object texture;
   
   [MenuItem ("Window/Builder")]
@@ -78,6 +78,8 @@ public class Builder : EditorWindow
 
   void OnGUI ()
   {
+    _building = new Building();
+
     GUILayout.Space(20);
     EditorGUILayout.BeginHorizontal();
       if (GUILayout.Button("Destroy"))
@@ -346,17 +348,21 @@ public class Builder : EditorWindow
         EditorGUILayout.LabelField("Roof decor texture");
         inputRoofDecor = EditorGUILayout.Toggle(inputRoofDecor);
         if (inputRoofDecor)
+        {
           roofDecorTexture = EditorGUILayout.ObjectField(roofDecorTexture,
                                                          typeof(Texture),
                                                          false,
                                                          GUILayout.Height(55));
+          if (roofDecorTexture != null)
+            _building.roofDecorMaterial = MaterialManager.Instance.
+                                          FindByTextureName(roofDecorTexture.name);
+        }
         else
         {
           _building.roofDecorMaterial = null;
           roofDecorTexture = null;
         }
         EditorGUILayout.EndHorizontal();
-        // TODO find zhe material here
         break;
 
       case myRType.SinglePeak:
@@ -383,34 +389,42 @@ public class Builder : EditorWindow
     EditorGUILayout.LabelField("Roof texture");
     inputRoof = EditorGUILayout.Toggle(inputRoof);
     if (inputRoof)
+    {
       roofTexture = EditorGUILayout.ObjectField(roofTexture,
                                                 typeof(Texture),
                                                 false,
                                                 GUILayout.Height(55));
+      if (roofTexture != null)
+        _building.roofMaterial = MaterialManager.Instance.
+                                 FindByTextureName(roofTexture.name);
+    }
     else
     {
       _building.roofMaterial = null;
       roofTexture = null;
     }
     EditorGUILayout.EndHorizontal();
-    // TODO find zhe material here
 
     // roof base texture
     EditorGUILayout.BeginHorizontal();
     EditorGUILayout.LabelField("Roof base texture");
     inputRoofBase = EditorGUILayout.Toggle(inputRoofBase);
     if (inputRoofBase)
+    {
       roofBaseTexture = EditorGUILayout.ObjectField(roofBaseTexture,
                                                     typeof(Texture),
                                                     false,
                                                     GUILayout.Height(55));
+      if (roofBaseTexture != null)
+        _building.roofBaseMaterial = MaterialManager.Instance.
+                                     FindByTextureName(roofBaseTexture.name);
+    }
     else
     {
       _building.roofBaseMaterial = null;
       roofBaseTexture = null;
     }
     EditorGUILayout.EndHorizontal();
-    // TODO find zhe material here
   }
 
   private string GetFullType (myRType t)
