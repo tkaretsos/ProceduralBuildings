@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 using CombinablesCollection = System.Collections.Generic.IList<Thesis.Interface.ICombinable>;
+using Random = UnityEngine.Random;
 
 namespace Thesis {
 
@@ -17,13 +19,18 @@ public class Building
 
   // component stuff
   public int componentsPerFloor = 0;
-  public float distance = 0f;
   public float windowHeight = 0f;
   public float windowWidth = 0f;
-  public float balconyWidth = 0f;
-  public float balconyHeight = 0f;
   public float doorWidth = 0f;
   public float doorHeight = 0f;
+  public float balconyWidth = 0f;
+  public float balconyHeight = 0f;
+
+  // roof stuff
+  public Type roofType;
+  public Material roofDecorMaterial;
+  public Material roofMaterial;
+  public Material roofBaseMaterial;
 
   private Material _windowMaterial;
   public Material windowMaterial
@@ -104,6 +111,7 @@ public class Building
 
   public void CreateBuilding ()
   {
+    // FIX THIS FOR POINTSSSSSSS
     Vector3 p1, p2, p3, p4;
     p1 = p2 = p3 = p4 = new Vector3();
 
