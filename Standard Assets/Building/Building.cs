@@ -7,6 +7,24 @@ namespace Thesis {
 
 public class Building
 {
+  // building dimensions
+  // 0, 1 -> the indexes of faces
+  public float width0 = 0f;
+  public float width1 = 0f;
+  public Vector3[] startingPoints;
+  public float floorHeight = 0f;
+  public int floorCount = 0;
+
+  // component stuff
+  public int componentsPerFloor = 0;
+  public float distance = 0f;
+  public float windowHeight = 0f;
+  public float windowWidth = 0f;
+  public float balconyWidth = 0f;
+  public float balconyHeight = 0f;
+  public float doorWidth = 0f;
+  public float doorHeight = 0f;
+
   private Material _windowMaterial;
   public Material windowMaterial
   {
