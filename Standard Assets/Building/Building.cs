@@ -204,7 +204,8 @@ public class Building
 
     _combinables.Clear();
     _combiners.Clear();
-    buildingMesh.Destroy();
+    if (buildingMesh != null)
+      buildingMesh.Destroy();
   }
 }
 
