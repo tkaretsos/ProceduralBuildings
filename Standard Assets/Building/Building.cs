@@ -51,24 +51,30 @@ public class Building
 
   private Dictionary<string, GameObject> _combiners;
 
-  public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
+  public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4, bool editor = false)
   {
     Init();
 
     // must be _after_ the initialization of this object
-    buildingMesh = new BuildingMesh(this, p1, p2, p3, p4);
-    gameObject = new GameObject("Neoclassical");
-    gameObject.transform.position = buildingMesh.meshOrigin;
+    if (!editor)
+    {
+      buildingMesh = new BuildingMesh(this, p1, p2, p3, p4);
+      gameObject = new GameObject("Neoclassical");
+      gameObject.transform.position = buildingMesh.meshOrigin;
+    }
   }
 
-  public Building (BuildingLot lot)
+  public Building (BuildingLot lot, bool editor = false)
   {
     Init();
 
     // must be _after_ the initialization of this object
-    buildingMesh = new BuildingMesh(this, lot);
-    gameObject = new GameObject("Neoclassical");
-    gameObject.transform.position = buildingMesh.meshOrigin;
+    if (!editor)
+    {
+      buildingMesh = new BuildingMesh(this, lot);
+      gameObject = new GameObject("Neoclassical");
+      gameObject.transform.position = buildingMesh.meshOrigin;
+    }
   }
 
   private void Init()
