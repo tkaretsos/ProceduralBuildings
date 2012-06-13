@@ -52,6 +52,11 @@ public class Face : DrawableObject
 
   private bool _isFree;
 
+  public Building masterParent
+  {
+    get { return parentBuilding.parent; }
+  }
+
   /*************** CONSTRUCTORS ***************/
   
   /// <summary>
@@ -89,10 +94,17 @@ public class Face : DrawableObject
       componentsPerFloor = 0;
       return;
     }
-
-    componentsPerFloor = Mathf.CeilToInt(width / (component_width + inbetween_space));
+    
+    float lim = 1.75f;
+    if (masterParent.componentDistance <= 0f)
+      componentsPerFloor = Mathf.CeilToInt(width / (component_width + inbetween_space));
+    else
+    {
+      componentsPerFloor = Mathf.CeilToInt(width / (component_width + masterParent.componentDistance));
+      lim = masterParent.componentDistance;
+    }
     float fixed_space = (width - componentsPerFloor * component_width) / (componentsPerFloor + 1);
-    while (fixed_space < 1.75f)
+    while (fixed_space < lim)
     {
       componentsPerFloor -= 1;
       fixed_space = (width - componentsPerFloor * component_width) / (componentsPerFloor + 1);
@@ -107,8 +119,7 @@ public class Face : DrawableObject
 
     float offset;
     int index;
-    Vector3 dr;
-    Vector3 dl;
+    Vector3 dr, dl;
     ConstructorInfo[] ctors;
     for (int floor = 0; floor < parentBuilding.floorCount; ++floor)
     {
