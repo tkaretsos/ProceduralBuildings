@@ -310,7 +310,7 @@ public class Face : DrawableObject
               var mid = componentsPerFloor + componentsPerFloor / 2 - 1;
               balconyIndexes.AddRange(new int[] { mid - 1, mid, mid + 1, mid + 2 });
               if (Util.RollDice(new float[] { 0.3f, 0.7f }) == 1)
-                balconyIndexes.AddRange(new int[] { 0, componentsPerFloor - 1 });
+                balconyIndexes.AddRange(new int[] { componentsPerFloor, 2 * componentsPerFloor - 1 });
             }
             else
             {
@@ -319,7 +319,7 @@ public class Face : DrawableObject
               if (Util.RollDice(new float[] { 0.5f, 0.5f }) == 1)
                 balconyIndexes.AddRange(new int[] { mid - 2, mid + 2 });
               if (Util.RollDice(new float[] { 0.3f, 0.7f }) == 1)
-                balconyIndexes.AddRange(new int[] { 0, componentsPerFloor - 1 });
+                balconyIndexes.AddRange(new int[] { componentsPerFloor, 2 * componentsPerFloor - 1 });
             }
             break;
         }
