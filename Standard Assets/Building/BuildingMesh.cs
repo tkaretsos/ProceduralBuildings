@@ -75,12 +75,12 @@ public class BuildingMesh : DrawableObject
 
     parent.AddCombinable(material.name, this);
 
-    if (parent.floorHeight == 0f)
+    if (parent.floorHeight <= 0f)
       floorHeight = Random.Range(3.8f, 4f);
     else
       floorHeight = parent.floorHeight;
 
-    if (parent.floorCount == 0)
+    if (parent.floorCount <= 0)
       floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
     else
       floorCount = parent.floorCount;
@@ -110,12 +110,12 @@ public class BuildingMesh : DrawableObject
 
     parent.AddCombinable(material.name, this);
 
-    if (parent.floorHeight == 0f)
+    if (parent.floorHeight <= 0f)
       floorHeight = Random.Range(3.8f, 4f);
     else
       floorHeight = parent.floorHeight;
 
-    if (parent.floorCount == 0)
+    if (parent.floorCount <= 0)
       floorCount = Util.RollDice(new float[] {0.15f, 0.7f, 0.15f});
     else
       floorCount = parent.floorCount;
@@ -165,18 +165,18 @@ public class BuildingMesh : DrawableObject
 
   public void ConstructFaceComponents ()
   {
-    if (parent.windowHeight == 0f)
+    if (parent.windowHeight <= 0f)
       windowHeight = Random.Range(1.5f, 1.7f);
     else
       windowHeight = parent.windowHeight;
 
-    if (parent.doorHeight == 0f)
+    if (parent.doorHeight <= 0f)
       doorHeight = Random.Range(2.8f, 3f);
     else
       doorHeight = parent.doorHeight;
 
-    if (parent.balconyHeight == 0f)
-      if (parent.windowHeight == 0f)
+    if (parent.balconyHeight <= 0f)
+      if (parent.windowHeight <= 0f)
         balconyHeight = windowHeight / 2 + floorHeight / 2.25f;
       else
         balconyHeight = 0.66f * floorHeight;

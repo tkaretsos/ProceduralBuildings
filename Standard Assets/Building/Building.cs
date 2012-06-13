@@ -18,7 +18,7 @@ public class Building
   public int floorCount = 0;
 
   // component stuff
-  public int componentsPerFloor = 0;
+  public float componentDistance = 0f;
   public float windowHeight = 0f;
   public float windowWidth = 0f;
   public float doorWidth = 0f;
@@ -76,10 +76,7 @@ public class Building
 
   private Dictionary<string, GameObject> _combiners;
 
-  public Building ()
-  {
-    //Init();
-  }
+  public Building () { Init(); }
 
   public Building (Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)
   {
