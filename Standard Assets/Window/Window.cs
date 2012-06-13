@@ -12,6 +12,11 @@ public class Window : FaceComponent
 
   public ComponentDecor decor;
 
+  public Building masterParent
+  {
+    get { return parentBuilding.parent; }
+  }
+
   /*************** CONSTRUCTORS ***************/
 
   public Window (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position) 
@@ -21,6 +26,14 @@ public class Window : FaceComponent
     depth = 0.4f;
     width = (dr - dl).magnitude;
     float height_modifier = parentBuilding.floorHeight / 2.25f - height / 2;
+
+    if (masterParent.windowWidth > 0f)
+    {
+      var mod = (masterParent.windowWidth - width) / 2f;
+      width = masterParent.windowWidth;
+      dr += mod * parentFace.right;
+      dl -= mod * parentFace.right;
+    }
 
     boundaries = new Vector3[4];
     boundaries[0] = new Vector3(dr.x, dr.y + height_modifier, dr.z);

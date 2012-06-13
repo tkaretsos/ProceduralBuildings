@@ -176,7 +176,10 @@ public class BuildingMesh : DrawableObject
       doorHeight = parent.doorHeight;
 
     if (parent.balconyHeight == 0f)
-      balconyHeight = windowHeight / 2 + floorHeight / 2.25f;
+      if (parent.windowHeight == 0f)
+        balconyHeight = windowHeight / 2 + floorHeight / 2.25f;
+      else
+        balconyHeight = 0.66f * floorHeight;
     else
       balconyHeight = parent.balconyHeight;
 

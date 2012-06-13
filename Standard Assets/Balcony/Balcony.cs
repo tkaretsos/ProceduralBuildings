@@ -16,6 +16,11 @@ public class Balcony : FaceComponent
 
   public ComponentDecor decor;
 
+  public Building masterParent
+  {
+    get { return parentBuilding.parent; }
+  }
+
   /*************** CONSTRUCTORS ***************/
 
   public Balcony (Face parent, Vector3 dr, Vector3 dl, ComponentCoordinate position) 
@@ -24,6 +29,14 @@ public class Balcony : FaceComponent
     height = parentBuilding.balconyHeight;
     width = (dr - dl).magnitude;
     depth = 0.2f;
+
+    if (masterParent.balconyWidth > 0f)
+    {
+      var mod = (masterParent.balconyWidth - width) / 2f;
+      width = masterParent.balconyWidth;
+      dr += mod * parentFace.right;
+      dl -= mod * parentFace.right;
+    }
 
     boundaries = new Vector3[4];
     boundaries[0] = dr;
