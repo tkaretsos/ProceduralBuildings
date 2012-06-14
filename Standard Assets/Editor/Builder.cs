@@ -87,6 +87,7 @@ public class Builder : EditorWindow
     if (GUILayout.Button("Create"))
     {
       _building.Destroy();
+      _building.Init();
       _building.CreateBuilding();
       _building.Draw();
     }
