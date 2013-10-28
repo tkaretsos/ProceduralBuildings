@@ -1,8 +1,6 @@
 ﻿## Description
-This is my thesis project, in which I try to reconstruct the city of 
-Athens (Greece) procedurally. So far, there has been progress
-towards the procedural construction of neoclassical type of buildings.
-They have just started to resemble actual neoclassical buildings!
+This is my thesis project, in which I try to reconstruct a part of the city of 
+Athens (Greece) procedurally.
 
 ## Technical stuff
 I use [Unity3D engine](http://unity3d.com/) on Windows 7 OS for the rendering. 
