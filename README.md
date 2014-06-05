@@ -10,7 +10,7 @@ I also use VS2010 as IDE. I don't think there's anything else here ...
 http://youtu.be/dSGm_Tw1GA8
 
 ## Keybindings
-B - create buildings
-R - recreate the map (destroys the buildings as well)
-G - toggle the drawing of gizmos
-1 - 5 - toggle the drawing of different gizmos (different colors)
+B - create buildings <br />
+R - recreate the map (destroys the buildings as well) <br />
+G - toggle the drawing of gizmos <br />
+1 - 5 - toggle the drawing of different gizmos (different colors) <br />
