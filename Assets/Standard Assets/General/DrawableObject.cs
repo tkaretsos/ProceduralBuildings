@@ -77,7 +77,7 @@ public class DrawableObject : ProceduralObject,
     meshFilter = gameObject.AddComponent<MeshFilter>();
     var renderer = gameObject.AddComponent<MeshRenderer>();
 
-    gameObject.active = false;
+    gameObject.SetActive(false);
     gameObject.isStatic = true;
     if (material != null)
       renderer.sharedMaterial = material;

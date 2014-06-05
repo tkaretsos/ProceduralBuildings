@@ -95,7 +95,7 @@ public sealed class CityMapManager
       r.FindVertices();
       r.FindTriangles();
       r.Draw();
-      r.gameObject.active = true;
+      r.gameObject.SetActive(true);
     }
   }
 
@@ -120,7 +120,7 @@ public sealed class CityMapManager
       s.FindVertices();
       s.FindTriangles();
       s.Draw();
-      s.gameObject.active = true;
+      s.gameObject.SetActive(true);
     }
   }
 
@@ -144,7 +144,7 @@ public sealed class CityMapManager
       lot.FindVertices();
       lot.FindTriangles();
       lot.Draw();
-      lot.gameObject.active = true;
+      lot.gameObject.SetActive(true);
     }
   }
 

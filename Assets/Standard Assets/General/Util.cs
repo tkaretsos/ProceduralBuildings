@@ -53,7 +53,7 @@ public class Util
                                           GameObject parent = null)
   {
     var gameObject = new GameObject(name);
-    gameObject.active = false;
+    gameObject.SetActive(false);
     if (parent != null)
       gameObject.transform.parent = parent.transform;
     var meshFilter = gameObject.AddComponent<MeshFilter>();

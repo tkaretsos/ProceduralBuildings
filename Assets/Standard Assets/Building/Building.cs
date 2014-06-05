@@ -185,7 +185,7 @@ public class Building
       if (_combinables[key].Count < 2) continue;
 
       var gobject = new GameObject(key + "_combiner");
-      gobject.active = false;
+      gobject.SetActive(false);
       gobject.transform.parent = gameObject.transform;
       var filter = gobject.AddComponent<MeshFilter>();
       var renderer = gobject.AddComponent<MeshRenderer>();
@@ -222,7 +222,7 @@ public class Building
     buildingMesh.FindVertices();
     buildingMesh.FindTriangles();
     buildingMesh.Draw();
-    gameObject.SetActiveRecursively(true);
+    gameObject.SetActive(true);
   }
 
   public void Destroy ()

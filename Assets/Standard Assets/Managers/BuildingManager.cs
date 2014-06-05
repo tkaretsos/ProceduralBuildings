@@ -119,7 +119,7 @@ public sealed class BuildingManager
     n.buildingMesh.FindTriangles();
     n.buildingMesh.Draw();
     n.CombineSubmeshes();
-    n.gameObject.SetActiveRecursively(true);
+    n.gameObject.SetActive(true);
     _buildings.Add(n);
   }
 
@@ -130,7 +130,7 @@ public sealed class BuildingManager
     n.buildingMesh.FindTriangles();
     n.buildingMesh.Draw();
     n.CombineSubmeshes();
-    n.gameObject.SetActiveRecursively(true);
+    n.gameObject.SetActive(true);
     _buildings.Add(n);
   }
 }

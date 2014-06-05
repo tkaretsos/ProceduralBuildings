@@ -6,12 +6,12 @@ public class CityMapController : MonoBehaviour {
 
   private Block block;
 
-  private bool _drawGizmos = false;
-  private bool _drawFirstBlock = false;
-  private bool _drawBlocks = false;
-  private bool _drawSideWalk = false;
-  private bool _drawFirstLot = false;
-  private bool _drawLots = false;
+  private bool _drawGizmos = true;
+  private bool _drawFirstBlock = true;
+  private bool _drawBlocks = true;
+  private bool _drawSideWalk = true;
+  private bool _drawFirstLot = true;
+  private bool _drawLots = true;
 
   void Start ()
   {

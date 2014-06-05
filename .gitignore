@@ -4,9 +4,10 @@
 
 Library/*
 ProjectSettings/*
-*.meta
-Assets/Scenes/test.unity
 Temp/*
+*.meta
+*.csproj
+*.sln
 
 
 #################
