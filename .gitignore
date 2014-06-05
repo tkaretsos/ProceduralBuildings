@@ -2,8 +2,6 @@
 ## Unity3D
 #################
 
-Library/*
-ProjectSettings/*
 Temp/*
 *.meta
 *.csproj
