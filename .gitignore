@@ -2,10 +2,13 @@
 ## Unity3D
 #################
 
-Temp/*
-*.meta
-*.csproj
 *.sln
+*.csproj
+*.unityproj
+*.suo
+Temp/*
+Library/*
+*.userprefs
 
 
 #################
