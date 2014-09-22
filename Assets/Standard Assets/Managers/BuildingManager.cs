@@ -120,6 +120,9 @@ public sealed class BuildingManager
     n.buildingMesh.Draw();
     n.CombineSubmeshes();
     n.gameObject.SetActive(true);
+	foreach (Transform t in n.gameObject.transform) {
+	  t.gameObject.SetActive(true);
+	}
     _buildings.Add(n);
   }
 
@@ -131,6 +134,9 @@ public sealed class BuildingManager
     n.buildingMesh.Draw();
     n.CombineSubmeshes();
     n.gameObject.SetActive(true);
+	foreach (Transform t in n.gameObject.transform) {
+	  t.gameObject.SetActive(true);
+	}
     _buildings.Add(n);
   }
 }
